@@ -6,6 +6,14 @@
     "moduleResolution": "node",
     "noEmit": true,
     "skipLibCheck": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    // Setup module alias
+    "baseUrl": "./src",
+    "paths": {
+      "@screens": ["./screens"],
+      "@components": ["./components"],
+      "@utils": ["./utils"],
+      "@redux": ["./redux"]
+    },
   }
 }

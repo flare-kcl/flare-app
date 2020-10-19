@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@reduxjs/toolkit": "^1.4.0",
     "expo": "~39.0.0",
     "expo-splash-screen": "~0.6.2",
     "expo-status-bar": "~1.0.2",
@@ -11,7 +12,8 @@
     "react-native-reanimated": "~1.13.0",
     "react-native-screens": "~2.10.1",
     "react-native-unimodules": "~0.11.0",
-    "react-native-web": "0.13.13"
+    "react-native-web": "0.13.13",
+    "react-redux": "^7.2.1"
   },
   "devDependencies": {
     "@babel/core": "7.9.0",
@@ -19,7 +21,10 @@
     "@types/react-dom": "~16.9.8",
     "@types/react-native": "~0.63.20",
     "babel-jest": "~25.2.6",
+    "babel-plugin-module-resolver": "^4.0.0",
+    "husky": "^4.3.0",
     "jest": "~25.2.6",
+    "lint-staged": "^10.4.2",
     "prettier": "2.1.2",
     "react-test-renderer": "~16.13.1",
     "typescript": "~3.8.3"
@@ -30,6 +35,7 @@
     "ios": "react-native run-ios",
     "web": "expo web",
     "eject": "expo eject",
+    "compile": "tsc",
     "lint": "prettier --check src/**/*",
     "format": "prettier --write src/**/*"
   },
@@ -42,6 +48,6 @@
     }
   },
   "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown"
+    "src/*": "prettier --write --ignore-unknown"
   }
 }

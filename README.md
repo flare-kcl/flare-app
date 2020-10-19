@@ -1,35 +1,24 @@
-# [TypeScript Example](https://www.typescriptlang.org/)
+# FLARe Native App
 
-<p>
-  <!-- iOS -->
-  <img alt="Supports Expo iOS" longdesc="Supports Expo iOS" src="https://img.shields.io/badge/iOS-4630EB.svg?style=flat-square&logo=APPLE&labelColor=999999&logoColor=fff" />
-  <!-- Android -->
-  <img alt="Supports Expo Android" longdesc="Supports Expo Android" src="https://img.shields.io/badge/Android-4630EB.svg?style=flat-square&logo=ANDROID&labelColor=A4C639&logoColor=fff" />
-  <!-- Web -->
-  <img alt="Supports Expo Web" longdesc="Supports Expo Web" src="https://img.shields.io/badge/web-4630EB.svg?style=flat-square&logo=GOOGLE-CHROME&labelColor=4285F4&logoColor=fff" />
-</p>
+### What is FLARe?
 
-```sh
-npx create-react-native-app -t with-typescript
-```
+FLARe is a native mobile app that allows researchers to deliver fear conditioning tasks to participants and review the
+experiment data in a custom built web portal.
 
+## 💻 Setup development enviroment
 
-TypeScript is a superset of JavaScript which gives you static types and powerful tooling in Visual Studio Code including autocompletion and useful inline warnings for type errors.
+- Clone the project: `git clone https://github.com/flare-kcl/flare-app`
+- Install NPM deps: `npm i`
+- Check native dependencies: `npx @react-native-community/cli doctor`
+- Install CocoaPods for iOS build: `cd ios && pod install`
 
-## 🚀 How to use
+## 📱 Running app using simulator
 
-#### Creating a new project
-
-- Install the CLI: `npm i -g expo-cli`
-- Create a project: `expo init --template expo-template-blank-typescript`
-- `cd` into the project
-
-### Adding TypeScript to existing projects
-
-- Copy the `tsconfig.json` from this repo, or new typescript template
-- Add typescript dependencies: `yarn add --dev @types/react @types/react-native @types/react-dom typescript`
-- Rename files tpo TypeScript, `.tsx` for React components and `.ts` for plain typescript files
+- For Android: `npm run android`
+- For iOS: `npm run ios`
 
 ## 📝 Notes
 
 - [Expo TypeScript guide](https://docs.expo.io/versions/latest/guides/typescript/)
+- [React Native docs](https://reactnative.dev/docs/getting-started)
+- [Redux Toolkit docs](https://redux-toolkit.js.org/)
