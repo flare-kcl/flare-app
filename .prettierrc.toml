@@ -1,0 +1,7 @@
+semi = false
+printWidth = 80
+singleQuote = true
+quoteProps = 'consistent'
+trailingComma = 'all'
+arrowParens = 'always'
+proseWrap = 'preserve'

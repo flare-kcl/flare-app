@@ -15,12 +15,13 @@
   },
   "devDependencies": {
     "@babel/core": "7.9.0",
-    "babel-jest": "~25.2.6",
-    "jest": "~25.2.6",
-    "react-test-renderer": "~16.13.1",
     "@types/react": "~16.9.49",
     "@types/react-dom": "~16.9.8",
     "@types/react-native": "~0.63.20",
+    "babel-jest": "~25.2.6",
+    "jest": "~25.2.6",
+    "prettier": "2.1.2",
+    "react-test-renderer": "~16.13.1",
     "typescript": "~3.8.3"
   },
   "scripts": {
@@ -28,9 +29,19 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "web": "expo web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "lint": "prettier --check src/**/*",
+    "format": "prettier --write src/**/*"
   },
   "private": true,
   "name": "flare",
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
+  }
 }
