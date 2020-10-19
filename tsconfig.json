@@ -10,10 +10,17 @@
     // Setup module alias
     "baseUrl": "./src",
     "paths": {
-      "@screens": ["./screens"],
+      "@screens": ["./screens",],
+      "@screens/*": ["./screens/*",],
+
       "@components": ["./components"],
+      "@components/*": ["./components/*"],
+
       "@utils": ["./utils"],
-      "@redux": ["./redux"]
+      "@utils/*": ["./utils/*"],
+
+      "@redux": ["./redux"],
+      "@redux/*": ["./redux/*"]
     },
   }
 }

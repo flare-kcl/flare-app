@@ -1,29 +1,28 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
 import { Provider } from 'react-redux'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
+import { ThemeProvider } from '@shopify/restyle';
 
-import store from 'redux/store'
+import {
+  HomeScreen
+} from "@screens"
+import store from '@redux/store'
+import theme from '@utils/theme'
 
-function HomeScreen() {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Home Screen</Text>
-    </View>
-  )
-}
-
+// Create a stack navigator
 const Stack = createStackNavigator()
 
 export default function App() {
   return (
-    <Provider store={store}>
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="Home" component={HomeScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </Provider>
+    <ThemeProvider theme={theme}>
+      <Provider store={store}>
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen name="Home" component={HomeScreen} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </Provider>
+    </ThemeProvider>
   )
 }
