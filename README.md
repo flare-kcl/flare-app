@@ -21,4 +21,5 @@ experiment data in a custom built web portal.
 
 - [Expo TypeScript guide](https://docs.expo.io/versions/latest/guides/typescript/)
 - [React Native docs](https://reactnative.dev/docs/getting-started)
+- [React Navigation docs](https://reactnavigation.org/docs/getting-started)
 - [Redux Toolkit docs](https://redux-toolkit.js.org/)

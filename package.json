@@ -1,5 +1,10 @@
 {
+  "name": "flare",
+  "version": "0.1.0",
   "dependencies": {
+    "@react-native-community/masked-view": "^0.1.10",
+    "@react-navigation/native": "^5.7.6",
+    "@react-navigation/stack": "^5.9.3",
     "@reduxjs/toolkit": "^1.4.0",
     "expo": "~39.0.0",
     "expo-splash-screen": "~0.6.2",
@@ -8,9 +13,10 @@
     "react": "16.13.1",
     "react-dom": "~16.13.0",
     "react-native": "~0.63.3",
-    "react-native-gesture-handler": "~1.7.0",
-    "react-native-reanimated": "~1.13.0",
-    "react-native-screens": "~2.10.1",
+    "react-native-gesture-handler": "^1.7.0",
+    "react-native-reanimated": "^1.13.1",
+    "react-native-safe-area-context": "^3.1.8",
+    "react-native-screens": "^2.10.1",
     "react-native-unimodules": "~0.11.0",
     "react-native-web": "0.13.13",
     "react-redux": "^7.2.1"
@@ -39,9 +45,6 @@
     "lint": "prettier --check src/**/*",
     "format": "prettier --write src/**/*"
   },
-  "private": true,
-  "name": "flare",
-  "version": "1.0.0",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
