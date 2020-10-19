@@ -1,0 +1,22 @@
+{
+  "expo": {
+    "name": "flare",
+    "slug": "flare",
+    "version": "0.1.0",
+    "sdkVersion": "39.0.0",
+    "updates": {
+      "enabled": "false"
+    },
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "android": {
+      "package": "uk.ac.kcl.flare"
+    },
+    "ios": {
+      "bundleIdentifier": "uk.ac.kcl.flare"
+    }
+  }
+}
