@@ -1,4 +1,4 @@
-import { createTheme } from '@shopify/restyle'
+import { ThemeProvider, createTheme } from '@shopify/restyle'
 
 const palette = {
   purpleLight: '#8C6FF7',
@@ -44,6 +44,11 @@ const theme = createTheme({
     },
   },
 })
+
+// Utility HOC for use in App and Tests
+export const FlareThemeProvider = ({ children }) => (
+  <ThemeProvider theme={theme}>{children}</ThemeProvider>
+)
 
 export type Theme = typeof theme
 export default theme
