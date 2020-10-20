@@ -28,7 +28,7 @@ const theme = createTheme({
     5: 20,
     6: 24,
     8: 32,
-    10: 40
+    10: 40,
   },
   breakpoints: {
     phone: 0,

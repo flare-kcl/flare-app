@@ -2,11 +2,9 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import { ThemeProvider } from '@shopify/restyle';
+import { ThemeProvider } from '@shopify/restyle'
 
-import {
-  HomeScreen
-} from "@screens"
+import { HomeScreen } from '@screens'
 import store from '@redux/store'
 import theme from '@utils/theme'
 

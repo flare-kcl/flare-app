@@ -43,8 +43,8 @@
     "web": "expo web",
     "eject": "expo eject",
     "compile": "tsc",
-    "lint": "prettier --check src/**/*",
-    "format": "prettier --write src/**/*"
+    "lint": "prettier --check src/*",
+    "format": "prettier --write src/*"
   },
   "husky": {
     "hooks": {
