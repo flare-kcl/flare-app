@@ -10,8 +10,8 @@ export const HomeScreen = () => (
       phone: 'column',
     }}
     backgroundColor="mainBackground"
-    paddingVertical="xl"
-    paddingHorizontal="m"
+    paddingVertical={10}
+    paddingHorizontal={6}
   >
     <Text variant="heading">Welcome to FLARe App!</Text>
   </Box>

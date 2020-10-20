@@ -20,10 +20,15 @@ const theme = createTheme({
     cardPrimaryBackground: palette.purplePrimary,
   },
   spacing: {
-    s: 8,
-    m: 16,
-    l: 24,
-    xl: 40,
+    0: 0,
+    1: 4,
+    2: 8,
+    3: 12,
+    4: 16,
+    5: 20,
+    6: 24,
+    8: 32,
+    10: 40
   },
   breakpoints: {
     phone: 0,
