@@ -152,7 +152,7 @@
 				LastUpgradeCheck = 1130;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = WLVPA79URR;
+						DevelopmentTeam = TN66SD85X9;
 						LastSwiftMigration = 1120;
 					};
 				};
@@ -298,7 +298,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = flare/flare.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = WLVPA79URR;
+				DEVELOPMENT_TEAM = TN66SD85X9;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -330,7 +330,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = flare/flare.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = WLVPA79URR;
+				DEVELOPMENT_TEAM = TN66SD85X9;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				INFOPLIST_FILE = flare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
