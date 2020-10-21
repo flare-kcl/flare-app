@@ -17,6 +17,13 @@ experiment data in a custom built web portal.
 - For Android: `npm run android`
 - For iOS: `npm run ios`
 
+## 🐍 Testing
+
+We lean heavily on tests in this project to reduce unpredicatble logic and UI bugs. If you would like to contribute
+to the codebase please continue to follow this methodology. Tests are written in [Jest](https://jestjs.io/) and
+[RNTL](https://github.com/callstack/react-native-testing-library). An example snapshot test can be seen here:
+[Text Component Test](https://github.com/flare-kcl/flare-app/tree/main/src/components/__tests__/Text.test.tsx)
+
 ## 📝 Notes
 
 - [Expo TypeScript guide](https://docs.expo.io/versions/latest/guides/typescript/)

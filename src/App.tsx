@@ -1,21 +1,17 @@
-import React from 'react'
 import { Provider } from 'react-redux'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import { ThemeProvider } from '@shopify/restyle';
 
-import {
-  HomeScreen
-} from "@screens"
 import store from '@redux/store'
-import theme from '@utils/theme'
+import { HomeScreen } from '@screens'
+import { FlareThemeProvider } from '@utils/theme'
 
 // Create a stack navigator
 const Stack = createStackNavigator()
 
 export default function App() {
   return (
-    <ThemeProvider theme={theme}>
+    <FlareThemeProvider>
       <Provider store={store}>
         <NavigationContainer>
           <Stack.Navigator>
@@ -23,6 +19,6 @@ export default function App() {
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>
-    </ThemeProvider>
+    </FlareThemeProvider>
   )
 }
