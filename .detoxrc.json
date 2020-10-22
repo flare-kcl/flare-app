@@ -10,6 +10,14 @@
         "type": "iPhone 11 Pro"
       }
     },
+    "ios.release": {
+      "binaryPath": "ios/build/Build/Products/Release-iphonesimulator/flare.app",
+      "build": "xcodebuild -workspace ios/flare.xcworkspace -scheme flare -configuration Release -sdk iphonesimulator -derivedDataPath ios/build EXCLUDED_ARCHS=arm64",
+      "type": "ios.simulator",
+      "device": {
+        "type": "iPhone 11 Pro"
+      }
+    },
     "android": {
       "type": "android.emulator",
       "binaryPath": "android/app/build/outputs/apk/debug/app-debug.apk",
