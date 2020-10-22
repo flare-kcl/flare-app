@@ -49,4 +49,8 @@ describe('Test Asset Cache', () => {
     await navigateToScreen()
     await expect(element(by.id('ImageLoadIndicator'))).not.toBeVisible()
   })
+
+  afterAll(async () => {
+    await detox.cleanup()
+  })
 })

@@ -1,0 +1,52 @@
+name: Android Runtime Tests
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: macos-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+
+      - name: Node
+        uses: actions/setup-node@v1
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Install Detox globally
+        run: npm install -g detox
+
+      - name: Install JDK 8
+        uses: joschi/setup-jdk@v1
+        with:
+          java-version: 'openjdk8'
+          architecture: 'x64'
+
+      - name: Download Android Emulator Image
+        run: |
+          echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install "system-images;android-30;google_apis;x86"
+          echo "no" | $ANDROID_HOME/tools/bin/avdmanager create avd --force --name pixel_xl --device "pixel_xl"  -k 'system-images;android-30;google_apis;x86'
+          $ANDROID_HOME/emulator/emulator -list-avds
+
+      - name: Build App via Detox
+        run: |
+          npm run e2e:build:android
+
+      - name: Start Android Emulator
+        timeout-minutes: 10
+        continue-on-error: true
+        run: |
+          echo "Starting emulator"
+          nohup $ANDROID_HOME/emulator/emulator -avd pixel_xl -no-audio -no-snapshot -no-window &
+          $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
+          $ANDROID_HOME/platform-tools/adb devices
+          echo "Emulator started"
+
+      - name: Test Android Runtime
+        run: npm run e2e:test:android
