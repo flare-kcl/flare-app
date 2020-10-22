@@ -1,8 +1,9 @@
-import { DEBUG } from '@env'
 import { useEffect, useState } from 'react'
 import { Provider } from 'react-redux'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
+import Config from "react-native-config"
+import * as Sentry from "@sentry/react-native"
 
 import store from '@redux/store'
 import { DebugIndex, TestCacheScreen, HomeScreen } from '@screens'
@@ -11,6 +12,11 @@ import { FlareThemeProvider } from '@utils/theme'
 
 // Create a stack navigator
 const Stack = createStackNavigator()
+
+// Link with Sentry
+Sentry.init({
+  dsn: Config.SENTRY_DTN
+})
 
 export default function App() {
   const [loaded, setLoaded] = useState(false)
@@ -27,7 +33,7 @@ export default function App() {
           <NavigationContainer>
             <Stack.Navigator>
               {/* Dedicated Testing Screens - Not shown to the participant */}
-              {DEBUG && (
+              {Config.SHOW_DEBUG_MENU && (
                 <>
                   <Stack.Screen
                     name="Tests.DebugIndex"
