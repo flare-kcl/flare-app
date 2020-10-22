@@ -1,0 +1,42 @@
+name: iOS Runtime Tests
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: macos-latest
+    timeout-minutes: 25
+
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_12.app
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+
+      - name: Node
+        uses: actions/setup-node@v1
+
+      - name: Rebuild detox
+        run: npm run detox clean-framework-cache && npm run detox build-framework-cache
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Cache Pods
+        uses: actions/cache@v1
+        id: podcache
+        with:
+          path: ios/Pods
+          key: pods-${{ hashFiles('**/Podfile.lock') }}
+
+      - name: Update Pods
+        run: |
+          gem update cocoapods xcodeproj
+          cd ios && pod install && cd ..
+      - run: brew tap wix/brew
+      - run: brew install applesimutils
+      - run: npm run detox build e2e --configuration ios
+      - run: npm run detox test e2e --configuration ios --cleanup --debug-synchronization 200

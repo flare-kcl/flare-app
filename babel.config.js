@@ -3,6 +3,7 @@ module.exports = function (api) {
   return {
     presets: ['babel-preset-expo'],
     plugins: [
+      ['module:react-native-dotenv'],
       [
         '@babel/plugin-transform-react-jsx',
         {

@@ -78,7 +78,7 @@ import com.android.build.OutputFile
  */
 
 project.ext.react = [
-    enableHermes: false
+    enableHermes: true
 ]
 
 apply from: '../../node_modules/react-native-unimodules/gradle.groovy'
@@ -146,6 +146,8 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 15
         versionName "0.1.0"
+        testBuildType System.getProperty('testBuildType', 'debug')  // This will later be used to control the test apk build type
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
     splits {
         abi {
@@ -199,6 +201,7 @@ android {
 }
 
 dependencies {
+    androidTestImplementation('com.wix:detox:+')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
