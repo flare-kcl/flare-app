@@ -5,7 +5,7 @@ on: [push]
 jobs:
   build:
     runs-on: macos-latest
-    timeout-minutes: 25
+    timeout-minutes: 30
 
     env:
       DEVELOPER_DIR: /Applications/Xcode_12.app
@@ -19,11 +19,14 @@ jobs:
       - name: Node
         uses: actions/setup-node@v1
 
-      - name: Rebuild detox
-        run: npm run detox clean-framework-cache && npm run detox build-framework-cache
-
       - name: Install Dependencies
         run: npm install
+
+      - name: Install Detox Globally
+        run: npm install -g detox
+
+      - name: Rebuild detox
+        run: detox clean-framework-cache && detox build-framework-cache
 
       - name: Cache Pods
         uses: actions/cache@v1
@@ -38,5 +41,5 @@ jobs:
           cd ios && pod install && cd ..
       - run: brew tap wix/brew
       - run: brew install applesimutils
-      - run: npm run detox build e2e --configuration ios
-      - run: npm run detox test e2e --configuration ios --cleanup --debug-synchronization 200
+      - run: npm run e2e:build:ios
+      - run: npm run e2e:test:ios
