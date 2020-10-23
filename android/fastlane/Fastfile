@@ -1,0 +1,53 @@
+default_platform(:android)
+
+platform :android do
+  desc "Runs all the tests"
+  lane :test do
+    gradle(task: "test")
+  end
+
+  desc "Submit a new build to Play Store (Alpha Track)"
+  lane :alpha do
+    # Check git is safe
+    ensure_git_status_clean
+
+    # Increment VersionCode
+    android_set_version_code
+
+    # Compile release version of code
+    gradle(task: "clean bundleRelease")
+
+    # If compiles then commit build change
+    git_commit(
+      path: "./app/build.gradle",
+      message: "Android Alpha Release"
+    )
+
+    # Upload to Play Store (Alpha Channel)
+    # TODO: UPLOAD!
+  end
+
+  desc "Submit a new build to Play Store (Release Track)"
+  lane :release do |options|
+    # Check git is safe
+    # ensure_git_status_clean
+
+    # Increment VersionCode & VersionName
+    android_set_version_code
+    android_set_version_name(
+      version_name: options[:version]
+    )
+
+    # Compile release version of code
+    gradle(task: "clean bundleRelease")
+
+    # If compiles then commit build change
+    git_commit(
+      path: "./app/build.gradle",
+      message: "Android Production Release"
+    )
+
+    # Upload to Play Store (Release Channel)
+    # TODO: UPLOAD!
+  end
+end
