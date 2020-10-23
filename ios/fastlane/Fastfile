@@ -4,9 +4,6 @@ platform :ios do
 
   desc "Submit a new build to Testflight"
   lane :alpha do
-    # Check git is safe
-    ensure_git_status_clean
-
     # Increment build number
     increment_build_number
 
@@ -23,11 +20,8 @@ platform :ios do
     # TODO: UPLOAD!
   end
 
-  desc "Submit a new build to Play Store (Release Track)"
+  desc "Submit a new build to App Store"
   lane :release do |options|
-    # Check git is safe
-    # ensure_git_status_clean
-
     # Increment VersionCode & VersionName
     increment_build_number
     increment_version_number(
