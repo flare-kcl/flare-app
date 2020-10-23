@@ -1,4 +1,4 @@
-package uk.ac.kcl.flare;
+package uk.ac.kcl.ioppn.flare;
 
 import android.app.Application;
 import android.content.Context;
@@ -11,7 +11,7 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
-import uk.ac.kcl.flare.generated.BasePackageList;
+import uk.ac.kcl.ioppn.flare.generated.BasePackageList;
 
 import org.unimodules.adapters.react.ReactAdapterPackage;
 import org.unimodules.adapters.react.ModuleRegistryAdapter;

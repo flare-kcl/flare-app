@@ -1,4 +1,4 @@
-package uk.ac.kcl.flare.generated;
+package uk.ac.kcl.ioppn.flare.generated;
 
 import java.util.Arrays;
 import java.util.List;

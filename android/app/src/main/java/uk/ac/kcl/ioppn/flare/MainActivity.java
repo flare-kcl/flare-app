@@ -1,4 +1,4 @@
-package uk.ac.kcl.flare;
+package uk.ac.kcl.ioppn.flare;
 
 import android.os.Bundle;
 
