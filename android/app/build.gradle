@@ -131,7 +131,7 @@ android {
     }
 
     defaultConfig {
-        applicationId 'uk.ac.kcl.flare'
+        applicationId 'uk.ac.kcl.ioppn.flare'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
