@@ -8,9 +8,6 @@ platform :android do
 
   desc "Submit a new build to Play Store (Alpha Track)"
   lane :alpha do
-    # Check git is safe
-    ensure_git_status_clean
-
     # Increment VersionCode
     android_set_version_code
 
@@ -29,9 +26,6 @@ platform :android do
 
   desc "Submit a new build to Play Store (Release Track)"
   lane :release do |options|
-    # Check git is safe
-    # ensure_git_status_clean
-
     # Increment VersionCode & VersionName
     android_set_version_code
     android_set_version_name(
