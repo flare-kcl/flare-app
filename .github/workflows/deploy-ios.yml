@@ -33,7 +33,14 @@ jobs:
         run: |
           gem update cocoapods xcodeproj
           cd ios && pod install && cd ..
-      - run: brew install fastlane
+
+      - name: Install Fastlane
+        run: brew install fastlane
+
+      - name: Install Credentials
+        run: fastlane match appstore
+        env:
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
 
       - name: Deploy Alpha
         run: cd ios && fastlane alpha
