@@ -1,8 +1,4 @@
-git_url("https://github.com/flare-kcl/ios-certs.git")
-
 storage_mode("git")
-
 type("appstore")
-
 app_identifier("uk.ac.kcl.ioppn.flare")
 username("flare@torchbox.com")
