@@ -38,9 +38,9 @@ jobs:
         run: brew install fastlane
 
       - name: Install Credentials
-        run: fastlane match appstore
+        run: cd ios && fastlane match appstore --readonly --verbose
         env:
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
 
       - name: Deploy Alpha
-        run: cd ios && fastlane alpha
+        run: fastlane alpha
