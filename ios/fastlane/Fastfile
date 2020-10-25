@@ -2,6 +2,18 @@ default_platform(:ios)
 
 platform :ios do
 
+  desc "Create a new keychain on CI to install certs"
+  lane :keychain do
+    create_keychain(
+      name: "FLAReKeychain",
+      password: "password",
+      default_keychain: true,
+      unlock: true,
+      timeout: 3600,
+      lock_when_sleeps: true
+    )
+  end
+
   desc "Submit a new build to Testflight"
   lane :alpha do
     # Increment build number
