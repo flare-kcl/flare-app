@@ -32,20 +32,16 @@ jobs:
       - name: Update Pods
         run: |
           gem update cocoapods xcodeproj
-          cd ios && pod install && cd ..
+          cd ios && pod install
 
       - name: Install Fastlane
         run: brew install fastlane
 
       - name: Set up keychain
-        run: |
-          security create-keychain -p password build.keychain
-          security default-keychain -s build.keychain
-          security unlock-keychain -p password build.keychain
-          security set-key-partition-list -S apple-tool:,apple: -s -k actions build.keychain
+        run: fastlane keychain --verbose
 
       - name: Install iOS Credentials
-        run: cd ios && fastlane match appstore --readonly --verbose --git_url https://${{ secrets.CERTS_ACCESS_TOKEN }}@github.com/flare-kcl/ios-certs --keychain_password password
+        run: fastlane match appstore --readonly --verbose --git_url https://${{ secrets.CERTS_ACCESS_TOKEN }}@github.com/flare-kcl/ios-certs
         env:
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
 

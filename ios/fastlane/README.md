@@ -16,6 +16,11 @@ or alternatively using `brew install fastlane`
 
 # Available Actions
 ## iOS
+### ios keychain
+```
+fastlane ios keychain
+```
+Create a new keychain on CI to install certs
 ### ios alpha
 ```
 fastlane ios alpha
@@ -25,7 +30,7 @@ Submit a new build to Testflight
 ```
 fastlane ios release
 ```
-Submit a new build to Play Store (Release Track)
+Submit a new build to App Store
 
 ----
 
