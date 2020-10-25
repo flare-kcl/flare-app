@@ -37,8 +37,8 @@ jobs:
       - name: Install Fastlane
         run: brew install fastlane
 
-      - name: Install Credentials
-        run: cd ios && fastlane match appstore --readonly --verbose
+      - name: Install iOS Credentials
+        run: cd ios && fastlane match appstore --readonly --verbose --git_url https://${{ secrets.CERTS_ACCESS_TOKEN }}@github.com/flare-kcl/ios-certs
         env:
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
 
