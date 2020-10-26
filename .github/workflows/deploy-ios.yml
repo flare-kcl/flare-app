@@ -37,13 +37,6 @@ jobs:
         env:
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
 
-      - name: Cache Pods
-        uses: actions/cache@v1
-        id: podcache
-        with:
-          path: ios/Pods
-          key: pods-${{ hashFiles('**/Podfile.lock') }}
-
       - name: Update Pods
         run: cd ios && pod install
 
