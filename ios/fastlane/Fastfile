@@ -4,26 +4,12 @@ platform :ios do
 
   desc "Create a new keychain on CI to install certs"
   lane :keychain do
-    create_keychain(
-      name: "CI",
-      password: ENV["MATCH_PASSWORD"],
-      default_keychain: true,
-      unlock: true,
-      timeout: 3600,
-      lock_when_sleeps: false
-    )
-
+    setup_ci
     match(
       type: "appstore",
       git_url: ENV["git_url"],
-      readonly: true,
-      keychain_name: "CI",
-      keychain_password: ENV["MATCH_PASSWORD"]
+      readonly: true
     )
-
-    sh("security list-keychains -d user")
-    sh("security default-keychain -d user")
-    sh("security find-identity -v -p codesigning CI")
   end
 
   desc "Submit a new build to Testflight"
