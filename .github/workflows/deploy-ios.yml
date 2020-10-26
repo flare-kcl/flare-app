@@ -37,13 +37,11 @@ jobs:
       - name: Install Fastlane
         run: brew install fastlane
 
-      - name: Set up keychain
-        run: fastlane keychain --verbose
-
       - name: Install iOS Credentials
-        run: fastlane match appstore --readonly --verbose --git_url https://${{ secrets.CERTS_ACCESS_TOKEN }}@github.com/flare-kcl/ios-certs
+        run: fastlane keychain  --verbose
         env:
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          git_url: https://${{ secrets.CERTS_ACCESS_TOKEN }}@github.com/flare-kcl/ios-certs
 
       - name: Deploy Alpha
         run: fastlane alpha
