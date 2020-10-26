@@ -47,5 +47,8 @@ jobs:
       - name: Update Pods
         run: cd ios && pod install
 
+      - name: Install Fastlane Plugins
+        run: fastlane install_plugins --verbose
+
       - name: Deploy Alpha
         run: fastlane alpha --verbose
