@@ -33,7 +33,7 @@ jobs:
           security unlock-keychain -p ${{ secrets.MATCH_PASSWORD }} ~/Library/Keychains/build.keychain
 
       - name: Install iOS Credentials
-        run: cd ios && fastlane match appstore --readonly --verbose --git_url https://${{ secrets.CERTS_ACCESS_TOKEN }}@github.com/flare-kcl/ios-certs --keychain_name build.keychain --keychain_password ${{ secrets.MATCH_PASSWORD }}
+        run: cd ios && fastlane match appstore --readonly --verbose --git_url https://${{ secrets.CERTS_ACCESS_TOKEN }}@github.com/flare-kcl/ios-certs --keychain_name build.keychain --keychain_password ${{ secrets.MATCH_PASSWORD }} && cd ..
         env:
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
 
@@ -41,11 +41,11 @@ jobs:
         uses: actions/cache@v1
         id: podcache
         with:
-          path: Pods
+          path: ios/Pods
           key: pods-${{ hashFiles('**/Podfile.lock') }}
 
       - name: Update Pods
         run: cd ios && pod install
 
       - name: Deploy Alpha
-        run: fastlane alpha
+        run: fastlane alpha --verbose
