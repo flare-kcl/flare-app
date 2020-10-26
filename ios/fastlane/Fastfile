@@ -1,17 +1,6 @@
 default_platform(:ios)
 
 platform :ios do
-
-  desc "Create a new keychain on CI to install certs"
-  lane :keychain do
-    setup_ci
-    match(
-      type: "appstore",
-      git_url: ENV["git_url"],
-      readonly: true
-    )
-  end
-
   desc "Submit a new build to Testflight"
   lane :alpha do
     # Increment build number
