@@ -4,7 +4,7 @@ platform :ios do
   desc "Increase version number"
   lane :bump do |options|
     increment_build_number
-    if options[:version].nil?
+    if options[:version]
       increment_version_number(
         version_number: options[:version]
       )
