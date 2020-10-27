@@ -16,21 +16,16 @@ or alternatively using `brew install fastlane`
 
 # Available Actions
 ## Android
-### android test
+### android bump
 ```
-fastlane android test
+fastlane android bump
 ```
-Runs all the tests
-### android alpha
+Increase version number
+### android build
 ```
-fastlane android alpha
+fastlane android build
 ```
 Submit a new build to Play Store (Alpha Track)
-### android release
-```
-fastlane android release
-```
-Submit a new build to Play Store (Release Track)
 
 ----
 

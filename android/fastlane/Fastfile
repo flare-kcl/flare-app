@@ -4,7 +4,7 @@ platform :android do
   desc "Increase version number"
   lane :bump do |options|
     android_set_version_code
-    if options[:version].nil?
+    if options[:version]
       android_set_version_name(
         version_name: options[:version]
       )
