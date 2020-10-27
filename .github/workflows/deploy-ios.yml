@@ -31,7 +31,6 @@ jobs:
           security list-keychains -s ~/Library/Keychains/build.keychain
           security default-keychain -s ~/Library/Keychains/build.keychain
           security unlock-keychain -p ${{ secrets.MATCH_PASSWORD }} ~/Library/Keychains/build.keychain
-          security set-key-partition-list -S apple-tool:,apple: -s -k ${{ secrets.MATCH_PASSWORD }} build.keychain
 
       - name: Install iOS Credentials
         run: cd ios && fastlane match appstore --readonly --verbose --git_url https://${{ secrets.CERTS_ACCESS_TOKEN }}@github.com/flare-kcl/ios-certs --keychain_name build.keychain --keychain_password ${{ secrets.MATCH_PASSWORD }} && cd ..
