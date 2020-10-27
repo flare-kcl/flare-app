@@ -14,6 +14,9 @@ platform :android do
   desc "Submit a new build to Play Store (Alpha Track)"
   lane :build do
     # Compile release version of code
-    gradle(task: "clean bundleRelease")
+    gradle(
+      task: "clean bundleRelease",
+      flags: "-Dorg.gradle.internal.http.socketTimeout=120000 -Dorg.gradle.internal.http.connectionTimeout=120000"
+    )
   end
 end
