@@ -3,17 +3,25 @@ default_platform(:ios)
 platform :ios do
   desc "Submit a new build to Testflight"
   lane :alpha do
-    # Increment build number
-    # increment_build_number
+    # Run to fix CI bugs
+    setup_ci(provider: 'circleci')
+
+    # Unlock keychain to access signing certs
+    unlock_keychain( # Unlock an existing keychain and add it to the keychain search list
+      path: ENV["KEYCHAIN_PATH"],
+      password: ENV["KEYCHAIN_PASS"]
+    )
+
+    increment_build_number
 
     # Compile release version of code
     build_app(scheme: "flare")
 
     # If compiles then commit build change
-    # git_commit(
-    #   path: ".",
-    #   message: "iOS Alpha Release"
-    # )
+    git_commit(
+      path: ".",
+      message: "iOS Alpha Release"
+    )
 
     # Upload to Testflight
     # TODO: UPLOAD!
