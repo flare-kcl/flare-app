@@ -3,7 +3,9 @@ name: Deploy iOS
 on: [push]
 
 jobs:
-  build:
+  # Build script to for iOS apps
+  ios:
+    name: 'Build iOS App'
     runs-on: macos-latest
     timeout-minutes: 90
 
@@ -45,3 +47,30 @@ jobs:
         env:
           KEYCHAIN_PATH: ~/Library/Keychains/build.keychain
           KEYCHAIN_PASS: ${{ secrets.MATCH_PASSWORD }}
+
+  # Build script to for Android apps
+  android:
+    name: 'Build Android App'
+    runs-on: macos-latest
+    timeout-minutes: 90
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Install JDK 8
+        uses: joschi/setup-jdk@v1
+        with:
+          java-version: 'openjdk8'
+          architecture: 'x64'
+
+      - name: Install Fastlane
+        run: brew install fastlane
+
+      - name: Build App
+        run: cd android && fastlane alpha --verbose
