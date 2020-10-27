@@ -1,24 +1,15 @@
 default_platform(:android)
 
 platform :android do
-  desc "Runs all the tests"
-  lane :test do
-    gradle(task: "test")
+  desc "Increase version number"
+  lane :bump do
+    android_set_version_code
   end
 
   desc "Submit a new build to Play Store (Alpha Track)"
   lane :alpha do
-    # Increment VersionCode
-    android_set_version_code
-
     # Compile release version of code
     gradle(task: "clean bundleRelease")
-
-    # If compiles then commit build change
-    git_commit(
-      path: "./app/build.gradle",
-      message: "Android Alpha Release"
-    )
 
     # Upload to Play Store (Alpha Channel)
     # TODO: UPLOAD!
