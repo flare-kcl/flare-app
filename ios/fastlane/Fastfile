@@ -2,12 +2,17 @@ default_platform(:ios)
 
 platform :ios do
   desc "Increase version number"
-  lane :bump do
+  lane :bump do |options|
     increment_build_number
+    if options[:version].nil?
+      increment_version_number(
+        version_number: options[:version]
+      )
+    end
   end
 
   desc "Submit a new build to Testflight"
-  lane :alpha do
+  lane :build do
     # Run to fix CI bugs
     setup_ci(provider: 'circleci')
 
@@ -19,23 +24,5 @@ platform :ios do
 
     # Compile release version of code
     build_app(scheme: "flare")
-
-    # Upload to Testflight
-    # TODO: UPLOAD!
-  end
-
-  desc "Submit a new build to App Store"
-  lane :release do |options|
-    # Increment VersionCode & VersionName
-    increment_build_number
-    increment_version_number(
-      version_number: options[:version]
-    )
-
-    # Compile release version of code
-    build_app(scheme: "flare")
-
-    # Upload to Play Store (Release Channel)
-    # TODO: UPLOAD!
   end
 end

@@ -2,37 +2,18 @@ default_platform(:android)
 
 platform :android do
   desc "Increase version number"
-  lane :bump do
+  lane :bump do |options|
     android_set_version_code
+    if options[:version].nil?
+      android_set_version_name(
+        version_name: options[:version]
+      )
+    end
   end
 
   desc "Submit a new build to Play Store (Alpha Track)"
-  lane :alpha do
+  lane :build do
     # Compile release version of code
     gradle(task: "clean bundleRelease")
-
-    # Upload to Play Store (Alpha Channel)
-    # TODO: UPLOAD!
-  end
-
-  desc "Submit a new build to Play Store (Release Track)"
-  lane :release do |options|
-    # Increment VersionCode & VersionName
-    android_set_version_code
-    android_set_version_name(
-      version_name: options[:version]
-    )
-
-    # Compile release version of code
-    gradle(task: "clean bundleRelease")
-
-    # If compiles then commit build change
-    git_commit(
-      path: "./app/build.gradle",
-      message: "Android Production Release"
-    )
-
-    # Upload to Play Store (Release Channel)
-    # TODO: UPLOAD!
   end
 end
