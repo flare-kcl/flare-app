@@ -1,6 +1,11 @@
 default_platform(:ios)
 
 platform :ios do
+  desc "Increase version number"
+  lane :bump do
+    increment_build_number
+  end
+
   desc "Submit a new build to Testflight"
   lane :alpha do
     # Run to fix CI bugs
@@ -12,16 +17,8 @@ platform :ios do
       password: ENV["KEYCHAIN_PASS"]
     )
 
-    increment_build_number
-
     # Compile release version of code
     build_app(scheme: "flare")
-
-    # If compiles then commit build change
-    git_commit(
-      path: ".",
-      message: "iOS Alpha Release"
-    )
 
     # Upload to Testflight
     # TODO: UPLOAD!
@@ -37,12 +34,6 @@ platform :ios do
 
     # Compile release version of code
     build_app(scheme: "flare")
-
-    # If compiles then commit build change
-    git_commit(
-      path: ".",
-      message: "iOS Production Release"
-    )
 
     # Upload to Play Store (Release Channel)
     # TODO: UPLOAD!

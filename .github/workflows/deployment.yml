@@ -1,11 +1,42 @@
-name: Deploy iOS
+name: Deployment
 
 on: [push]
 
 jobs:
+  # Version Management
+  versions:
+    name: 'Version Management'
+    runs-on: macos-latest
+    timeout-minutes: 15
+
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_12.app
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+
+      - name: Node
+        uses: actions/setup-node@v1
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Install Fastlane
+        run: brew install fastlane
+
+      - name: Increment iOS Version
+        run: cd ios && fastlane bump && cd ..
+
+      - name: Increment Android Version
+        run: cd android && fastlane bump && cd ..
+
   # Build script to for iOS apps
   ios:
     name: 'Build iOS App'
+    needs: versions
     runs-on: macos-latest
     timeout-minutes: 90
 
@@ -51,6 +82,7 @@ jobs:
   # Build script to for Android apps
   android:
     name: 'Build Android App'
+    needs: versions
     runs-on: macos-latest
     timeout-minutes: 90
 
@@ -74,3 +106,24 @@ jobs:
 
       - name: Build App
         run: cd android && fastlane alpha --verbose
+
+  # Script to deploy each platform and package as release
+  packaging:
+    name: 'Packaging'
+    needs:
+      - android
+      - ios
+    runs-on: macos-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+
+      - name: Node
+        uses: actions/setup-node@v1
+
+      - name: 'Commit Changes'
+        run: git add . && gc -m "Alpha Release"
