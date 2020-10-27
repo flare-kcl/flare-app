@@ -9,6 +9,11 @@ platform :android do
         version_name: options[:version]
       )
     end
+
+    # Write version to record file
+    version_num = android_get_version_code
+    version_name = android_get_version_name
+    sh("echo 'Release #{version_name} (#{version_num})' > ../../version.txt")
   end
 
   desc "Submit a new build to Play Store (Alpha Track)"
