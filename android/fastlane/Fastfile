@@ -4,7 +4,7 @@ platform :android do
   desc "Increase version number"
   lane :bump do |options|
     android_set_version_code
-    if options[:version]
+    if options[:version] && options[:version] != ""
       android_set_version_name(
         version_name: options[:version]
       )
@@ -15,7 +15,7 @@ platform :android do
   lane :build do
     # Compile release version of code
     gradle(
-      task: "clean bundleRelease",
+      task: "clean assembleRelease",
       flags: "-Dorg.gradle.internal.http.socketTimeout=120000 -Dorg.gradle.internal.http.connectionTimeout=120000"
     )
   end
