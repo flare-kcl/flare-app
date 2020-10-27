@@ -140,7 +140,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: android-build
-          path: ./android/app/build/outputs/
+          path: ./android/app/build/outputs/apk/release/app-release.apk
 
   # Script to deploy each platform and package as release
   packaging:
@@ -157,6 +157,12 @@ jobs:
         with:
           fetch-depth: 1
 
+      - uses: olegtarasov/get-tag@v2
+        id: tagName
+        with:
+          # Select 1.3.3 from "v1.3.3"
+          tagRegex: 'v(.*)'
+
       - uses: actions/download-artifact@v2
         with:
           name: build-config
@@ -172,8 +178,8 @@ jobs:
       - name: Print version Changes (Debug)
         run: git --no-pager diff
 
-      - name: 'Commit Changes'
-        run: git add . && git commit -m "Release Commit"
+      #- name: 'Commit Changes'
+      #  run: git add . && git commit -m "Release Commit"
 
       - name: Create Release
         id: create_release
@@ -182,7 +188,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          release_name: Release ${{ GIT_TAG_NAME }}
           draft: false
           prerelease: false
 
@@ -193,7 +199,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./ios/flare.ipa
+          asset_path: ./flare.ipa
           asset_name: FLARe.ipa
           asset_content_type: application/zip
 
@@ -204,6 +210,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./android/app/build/outputs/apk/release/app-release.apk
+          asset_path: ./app-release.apk
           asset_name: FLARe.apk
           asset_content_type: application/vnd.android.package-archive
