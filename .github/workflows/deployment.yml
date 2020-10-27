@@ -36,7 +36,7 @@ jobs:
       - name: Increment Android Version
         run: cd android && fastlane bump $GIT_TAG_NAME && cd ..
 
-      - name: Print version Changes (Debug)
+      - name: Print Version Changes (Debug)
         run: git --no-pager diff
 
       # Cache artifacts for future jobs
@@ -134,13 +134,16 @@ jobs:
         run: brew install fastlane
 
       - name: Build App
-        run: cd android && fastlane build --verbose
+        run: cd android && fastlane build --verbose && cd ..
+
+      - name: Print Files
+        run: ls ./android/app/build && ls ./android/app/build/outputs/
 
       - name: Cache APK
         uses: actions/upload-artifact@v2
         with:
           name: android-build
-          path: ./android/app/build/outputs/apk/release/app-release.apk
+          path: ./android/app/build/outputs/
 
   # Script to deploy each platform and package as release
   packaging:
@@ -173,4 +176,4 @@ jobs:
         run: git --no-pager diff
 
       - name: 'Commit Changes'
-        run: git add . && git add -m "Alpha Release"
+        run: git add . && git commit -m "Release Commit"
