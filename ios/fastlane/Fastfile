@@ -9,6 +9,11 @@ platform :ios do
         version_number: options[:version]
       )
     end
+
+    # Write version to record file
+    version_num = get_build_number
+    version_name = get_version_number
+    sh("echo 'Release #{version_name} (#{version_num})' > ../../version.txt")
   end
 
   desc "Submit a new build to Testflight"
