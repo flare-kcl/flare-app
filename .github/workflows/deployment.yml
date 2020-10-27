@@ -136,9 +136,6 @@ jobs:
       - name: Build App
         run: cd android && fastlane build --verbose && cd ..
 
-      - name: Print Files
-        run: ls ./android/app/build && ls ./android/app/build/outputs/
-
       - name: Cache APK
         uses: actions/upload-artifact@v2
         with:
@@ -177,3 +174,36 @@ jobs:
 
       - name: 'Commit Changes'
         run: git add . && git commit -m "Release Commit"
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      - name: Attach iOS App (Github Release)
+        id: upload-ios-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./ios/flare.ipa
+          asset_name: FLARe.ipa
+          asset_content_type: application/zip
+
+      - name: Attach Android App (Github Release)
+        id: upload-android-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./android/app/build/outputs/apk/release/app-release.apk
+          asset_name: FLARe.apk
+          asset_content_type: application/vnd.android.package-archive
