@@ -25,7 +25,12 @@ Increase version number
 ```
 fastlane android build
 ```
-Submit a new build to Play Store (Alpha Track)
+Build release version of app
+### android alpha
+```
+fastlane android alpha
+```
+Submit already built app to Testflight
 
 ----
 

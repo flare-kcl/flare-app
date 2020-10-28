@@ -16,7 +16,7 @@ platform :ios do
     sh("echo 'Release #{version_name} (#{version_num})' > ../../version.txt")
   end
 
-  desc "Submit a new build to Testflight"
+  desc "Build app using release scheme"
   lane :build do
     # Run to fix CI bugs
     setup_ci(provider: 'circleci')
@@ -30,4 +30,18 @@ platform :ios do
     # Compile release version of code
     build_app(scheme: "flare")
   end
+
+  desc "Submit already built app to Testflight"
+  lane :alpha do |options|
+    # Run to fix CI bugs
+    setup_ci(provider: 'circleci')
+
+    # Deploy to test flight
+    pilot(
+      api_key_path: "./api.json",
+      changelog: File.read("../../Changelog.txt"),
+      distribute_external: true
+    )
+  end
 end
+

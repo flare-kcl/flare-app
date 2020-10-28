@@ -99,12 +99,11 @@ jobs:
           KEYCHAIN_PATH: ~/Library/Keychains/build.keychain
           KEYCHAIN_PASS: ${{ secrets.MATCH_PASSWORD }}
 
-      - name: Cache IPA
+      - name: Cache iOS Build
         uses: actions/upload-artifact@v2
         with:
           name: ios-build
-          path: |
-            ./ios/flare.ipa
+          path: ./ios
 
   # Build script to for Android apps
   android:
@@ -135,15 +134,23 @@ jobs:
       - name: Install Fastlane
         run: brew install fastlane
 
+      - name: Install Android Credentials
+        run: |
+          cd android/app
+          echo "${{ secrets.KEY_STORE }}" | base64 --decode > release.keystore
+          echo "${{ secrets.KEY_STORE_CONFIG }}" > keystore.properties
+          cd ..
+          echo "${{ secrets.ANDROID_API_KEY }}" > api.json
+          fastlane supply init
+
       - name: Build App
         run: cd android && fastlane build --verbose && cd ..
 
-      - name: Cache APK
+      - name: Cache Android Build
         uses: actions/upload-artifact@v2
         with:
           name: android-build
-          path: |
-            ./android/app/build/outputs/apk/release/app-release.apk
+          path: ./android/app/build/outputs/apk/release/app-release.apk
 
   # Script to deploy each platform and package as release
   packaging:
@@ -159,6 +166,25 @@ jobs:
         uses: actions/checkout@v1
         with:
           fetch-depth: 1
+
+      - name: Install Fastlane
+        run: brew install fastlane
+
+      - name: Create Keychain
+        run: |
+          security create-keychain -p ${{ secrets.MATCH_PASSWORD }} build.keychain
+          security list-keychains -s ~/Library/Keychains/build.keychain
+          security default-keychain -s ~/Library/Keychains/build.keychain
+          security unlock-keychain -p ${{ secrets.MATCH_PASSWORD }} ~/Library/Keychains/build.keychain
+
+      - name: Install iOS Credentials
+        run: |
+          cd ios
+          fastlane match appstore --readonly --verbose --git_url https://${{ secrets.CERTS_ACCESS_TOKEN }}@github.com/flare-kcl/ios-certs --keychain_name build.keychain --keychain_password ${{ secrets.MATCH_PASSWORD }}
+          echo "${{ secrets.IOS_API_KEY }}" > api.json
+          cd ..
+        env:
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
 
       - uses: olegtarasov/get-tag@v2
         id: tagName
@@ -181,12 +207,19 @@ jobs:
       - name: Print version Changes (Debug)
         run: git --no-pager diff
 
-      #- name: 'Commit Changes'
-      #  run: git add . && git commit -m "Release Commit"
+      - name: Deploy iOS App
+        run: cd ios && fastlane deploy && cd ..
+
+      - name: Deploy Android App
+        run: cd android && fastlane deploy && cd ..
 
       - name: Get Release Version
-        id: vars
+        id: version
         run: echo ::set-output name=version::$(cat ./version.txt)
+
+      - name: Get Latest Changelog
+        id: changelog
+        run: echo ::set-output name=changelog::$(cat ./Changelog.txt)
 
       - name: Create Release
         id: create_release
@@ -194,8 +227,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: ${{ steps.vars.outputs.version }}
+          tag_name: ${{ steps.version.outputs.version }}
+          release_name: ${{ steps.version.outputs.version }}
+          body: ${{ steps.changelog.outputs.changelog }}
           draft: false
           prerelease: false
 
@@ -206,7 +240,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./flare.ipa
+          asset_path: ./ios/flare.ipa
           asset_name: FLARe.ipa
           asset_content_type: application/zip
 
@@ -217,6 +251,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./app-release.apk
+          asset_path: ./android/app/build/outputs/apk/release/app-release.apk
           asset_name: FLARe.apk
           asset_content_type: application/vnd.android.package-archive

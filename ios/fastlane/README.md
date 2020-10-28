@@ -25,7 +25,12 @@ Increase version number
 ```
 fastlane ios build
 ```
-Submit a new build to Testflight
+Build app using release scheme
+### ios alpha
+```
+fastlane ios alpha
+```
+Submit already built app to Testflight
 
 ----
 
