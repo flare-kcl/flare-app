@@ -16,12 +16,25 @@ platform :android do
     sh("echo 'Release #{version_name} (#{version_num})' > ../../version.txt")
   end
 
-  desc "Submit a new build to Play Store (Alpha Track)"
+  desc "Build release version of app"
   lane :build do
     # Compile release version of code
     gradle(
       task: "clean assembleRelease",
       flags: "-Dorg.gradle.internal.http.socketTimeout=120000 -Dorg.gradle.internal.http.connectionTimeout=120000"
+    )
+  end
+
+  desc "Submit already built app to Testflight"
+  lane :alpha do
+    # Copy changelog for upload
+    sh("mkdir -p ./metadata/android/en-GB/changelogs")
+    sh("cp ../../Changelog.txt ./metadata/android/en-GB/changelogs/#{android_get_version_code}.txt")
+
+    upload_to_play_store(
+      track: 'alpha',
+      version_code: android_get_version_code,
+      apk: "app/build/outputs/apk/release/app-release.apk"
     )
   end
 end
