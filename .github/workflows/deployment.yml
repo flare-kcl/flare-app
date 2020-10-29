@@ -141,8 +141,9 @@ jobs:
           echo "${{ secrets.KEY_STORE_CONFIG }}" > keystore.properties
           cd ../fastlane
           echo "${{ secrets.ANDROID_API_KEY }}" | base64 --decode > api.json
-          fastlane supply init --track alpha 2> /dev/null
-          cd ../../
+          cd ../
+          fastlane supply init --track alpha --skip_upload_images --skip_upload_screenshots
+          cd ../
 
       - name: Build App
         run: cd android && fastlane build --verbose && cd ..
