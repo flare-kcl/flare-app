@@ -39,7 +39,7 @@ jobs:
           npm run e2e:build:android
 
       - name: Start Android Emulator
-        timeout-minutes: 10
+        timeout-minutes: 30
         continue-on-error: true
         run: |
           echo "Starting emulator"
