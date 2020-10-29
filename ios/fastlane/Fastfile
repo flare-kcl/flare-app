@@ -39,6 +39,7 @@ platform :ios do
     # Deploy to test flight
     pilot(
       api_key_path: "./api.json",
+      ipa: './flare.ipa',
       changelog: File.read("../../Changelog.txt"),
       distribute_external: true
     )
