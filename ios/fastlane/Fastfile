@@ -13,7 +13,7 @@ platform :ios do
     # Write version to record file
     version_num = get_build_number
     version_name = get_version_number
-    sh("echo 'Release #{version_name} (#{version_num})' > ../../version.txt")
+    sh("echo '#{version_name}(#{version_num})' > ../../version.txt")
   end
 
   desc "Build app using release scheme"
@@ -41,7 +41,11 @@ platform :ios do
       api_key_path: "./api.json",
       ipa: './flare.ipa',
       changelog: File.read("../../Changelog.txt"),
-      distribute_external: true
+      distribute_external: true,
+      groups: ['FLARe Testers'],
+      # reject_build_waiting_for_review: true,
+      # TODO: The next line should be removed ideally... Weird bugs currently
+      skip_waiting_for_build_processing: true
     )
   end
 end

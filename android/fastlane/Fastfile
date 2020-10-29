@@ -13,7 +13,7 @@ platform :android do
     # Write version to record file
     version_num = android_get_version_code
     version_name = android_get_version_name
-    sh("echo 'Release #{version_name} (#{version_num})' > ../../version.txt")
+    sh("echo '#{version_name}(#{version_num})' > ../../version.txt")
   end
 
   desc "Build release version of app"
