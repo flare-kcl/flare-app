@@ -181,7 +181,7 @@ jobs:
         run: |
           cd ios
           fastlane match appstore --readonly --verbose --git_url https://${{ secrets.CERTS_ACCESS_TOKEN }}@github.com/flare-kcl/ios-certs --keychain_name build.keychain --keychain_password ${{ secrets.MATCH_PASSWORD }}
-          echo "${{ secrets.IOS_API_KEY }}" > api.json
+          echo "${{ secrets.IOS_API_KEY }}" | base64 --decode > api.json
           cd ..
         env:
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
