@@ -2,7 +2,7 @@ name: Runtime Tests
 
 on:
   push:
-    branches: [main]
+    branches: [main, feature/11-asset-caching]
   pull_request:
     branches: [main]
 
@@ -30,9 +30,6 @@ jobs:
       - name: Install Detox globally
         run: npm install -g detox
 
-      - name: Rebuild Detox framework
-        run: detox clean-framework-cache && detox build-framework-cache
-
       - name: Cache Pods
         uses: actions/cache@v1
         id: podcache
@@ -46,6 +43,9 @@ jobs:
           cd ios && pod install && cd ..
       - run: brew tap wix/brew
       - run: brew install applesimutils
+
+      - name: Rebuild Detox framework
+        run: detox clean-framework-cache && detox build-framework-cache
 
       - name: Build App via Detox
         run: npm run e2e:build:ios
