@@ -208,10 +208,10 @@ jobs:
         run: git --no-pager diff
 
       - name: Deploy iOS App
-        run: cd ios && fastlane deploy && cd ..
+        run: cd ios && fastlane alpha && cd ..
 
       - name: Deploy Android App
-        run: cd android && fastlane deploy && cd ..
+        run: cd android && fastlane alpha && cd ..
 
       - name: Get Release Version
         id: version
