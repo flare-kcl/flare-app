@@ -150,7 +150,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: android-build
-          path: ./android/app/build/outputs/apk/release/app-release.apk
+          path: ./android
 
   # Script to deploy each platform and package as release
   packaging:
@@ -199,10 +199,12 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: ios-build
+          path: ./ios
 
       - uses: actions/download-artifact@v2
         with:
           name: android-build
+          path: ./android
 
       - name: Print version Changes (Debug)
         run: git --no-pager diff
