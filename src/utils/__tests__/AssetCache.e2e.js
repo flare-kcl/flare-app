@@ -1,10 +1,5 @@
 describe('Test Asset Cache', () => {
-  beforeEach(async () => {
-    await device.reloadReactNative()
-  })
-
   const navigateToScreen = async () => {
-    // Navigate to screen
     await element(by.id('Tests.TestCacheScreen')).tap()
     await expect(element(by.id('TestCacheScreen'))).toBeVisible()
   }
@@ -14,14 +9,10 @@ describe('Test Asset Cache', () => {
     // Test if button exists
     await expect(navigateButton).toBeVisible()
     // Navigate to screen
-    await navigateButton.tap()
-    await expect(element(by.id('TestCacheScreen'))).toBeVisible()
+    await navigateToScreen()
   })
 
   it('Cache Works', async () => {
-    // Go to test screen
-    await navigateToScreen()
-
     // Check image hasn't loaded
     await expect(element(by.id('ImageLoadIndicator'))).not.toBeVisible()
 
@@ -48,9 +39,5 @@ describe('Test Asset Cache', () => {
     await device.reloadReactNative()
     await navigateToScreen()
     await expect(element(by.id('ImageLoadIndicator'))).not.toBeVisible()
-  })
-
-  afterAll(async () => {
-    await detox.cleanup()
   })
 })

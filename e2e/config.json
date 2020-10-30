@@ -1,8 +1,9 @@
 {
-    "testEnvironment": "./environment",
+    "testEnvironment": "../e2e/environment",
     "testRunner": "jest-circus/runner",
     "testTimeout": 240000,
-    "testRegex": "\\.e2e\\.js$",
+    "rootDir": "../src",
+    "testMatch": ["**/__tests__/**/*.e2e.js"],
     "reporters": ["detox/runners/jest/streamlineReporter"],
     "verbose": true
 }
