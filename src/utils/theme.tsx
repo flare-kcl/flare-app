@@ -65,8 +65,7 @@ const theme = createTheme({
       fontFamily: 'Inter-SemiBold',
       fontSize: 20,
       color: 'white',
-      alignSelf: 'center',
-    },
+    }
   },
 })
 
