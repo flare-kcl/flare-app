@@ -7,16 +7,13 @@
     "updates": {
       "enabled": "false"
     },
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
+    "platforms": ["ios", "android", "web"],
     "android": {
       "package": "uk.ac.kcl.flare"
     },
     "ios": {
       "bundleIdentifier": "uk.ac.kcl.flare"
     }
-  }
+  },
+  "assets": ["./src/assets/fonts/Inter/"]
 }
