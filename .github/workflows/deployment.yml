@@ -170,6 +170,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
         with:
+          ref: main
           fetch-depth: 1
 
       - name: Install Fastlane
@@ -269,4 +270,4 @@ jobs:
 
           git add ./ios/flare.xcodeproj ./ios/flare/Info.plist ./android/app/build.gradle
           git commit -m "Version Bump"
-          git push
+          git push origin main
