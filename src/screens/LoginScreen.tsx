@@ -1,28 +1,24 @@
-import React, { useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import {
-  Image,
-  StyleSheet,
   Dimensions,
   ScrollView,
-  TextInput,
 } from 'react-native'
-
 import Spinner from 'react-native-spinkit'
 
-import { Box, Text, Button } from '@components'
+import { Box, Text, Button, Image, TextField } from '@components'
 import { palette } from '@utils/theme'
 
+const dimensions = Dimensions.get('screen')
 enum Stages {
   Welcome = 0,
   Login = 1,
   Loading = 2,
 }
-const dimensions = Dimensions.get('screen')
 
 export const LoginScreen = () => {
   const loginScroll = useRef(null)
   const [stage, setStage] = useState(0)
-  const [value, onChangeText] = React.useState('')
+  const [value, onChangeText] = useState('')
 
   // Don't let user continue until they enter correct value
   const buttonDisabled = stage == Stages.Login && value == ''
@@ -82,8 +78,12 @@ export const LoginScreen = () => {
           justifyContent="flex-start"
         >
           <Image
+            width={dimensions.width}
+            maxWidth={240}
+            height={300}
+            resizeMode='contain'
+            opacity={0.7}
             source={require('../assets/images/fireworks.png')}
-            style={styles.image}
           />
         </Box>
 
@@ -95,18 +95,23 @@ export const LoginScreen = () => {
           paddingTop={10}
         >
           <Box>
-            <Text fontWeight="bold" color='darkGrey' paddingBottom={2}>
+            <Text fontWeight="bold" color="darkGrey" paddingBottom={2}>
               Participant ID
             </Text>
-            <TextInput
+            <TextField
+              variant="login"
               placeholder="Example: ANIXETY-jBSkjbckjb"
-              style={styles.loginField}
               onChangeText={(text) => onChangeText(text)}
               value={value}
             />
           </Box>
 
-          <Text variant="caption2" textAlign="center" paddingTop={10} paddingHorizontal={6}>
+          <Text
+            variant="caption2"
+            textAlign="center"
+            paddingTop={10}
+            paddingHorizontal={6}
+          >
             Please enter your Participant ID into the form above. You should of
             recieved this in your experiment briefing.
           </Text>
@@ -123,9 +128,12 @@ export const LoginScreen = () => {
           <Spinner
             isVisible
             size={100}
-            type={'Bounce'}
+            type='WanderingCubes'
             color={palette.purple}
           />
+          <Text variant="caption2" paddingTop={14}>
+            Downloading Experiment...
+          </Text>
         </Box>
       </ScrollView>
 
@@ -133,14 +141,7 @@ export const LoginScreen = () => {
       <Box flex={1} justifyContent="flex-end" paddingBottom={6}>
         {stage != Stages.Loading && (
           <Button
-            backgroundColor="purple"
-            width={300}
-            height={60}
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            borderRadius='m'
-            alignSelf="flex-end"
+            variant="primary"
             label={stage == Stages.Login ? 'Login' : 'Start Experiment'}
             opacity={buttonDisabled ? 0.6 : 1}
             disabled={buttonDisabled}
@@ -151,32 +152,3 @@ export const LoginScreen = () => {
     </Box>
   )
 }
-
-const styles = StyleSheet.create({
-  image: {
-    width: '100%',
-    maxWidth: 240,
-    height: 300,
-    resizeMode: 'contain',
-    opacity: 0.7,
-  },
-  loginField: {
-    height: 50,
-    width: 320,
-    backgroundColor: 'white',
-    borderColor: palette.purple,
-    borderWidth: 2,
-    borderRadius: 7,
-    paddingLeft: 10,
-  },
-  button: {
-    backgroundColor: palette.purple,
-    width: 300,
-    height: 60,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 8,
-    alignSelf: 'flex-end',
-  },
-})

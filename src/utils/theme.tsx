@@ -28,10 +28,12 @@ const theme = createTheme({
     6: 24,
     8: 32,
     10: 40,
+    12: 48,
+    14: 60
   },
   borderRadii: {
-    's': 4,
-    'm': 8
+    s: 4,
+    m: 8,
   },
   breakpoints: {
     phone: 0,
@@ -60,13 +62,36 @@ const theme = createTheme({
       opacity: 0.7,
       alignSelf: 'center',
     },
-
     buttonLabel: {
       fontFamily: 'Inter-SemiBold',
       fontSize: 20,
       color: 'white',
+    },
+  },
+  buttonVariants: {
+    primary: {
+      backgroundColor: 'purple',
+      width: 300,
+      height: 60,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 'm',
+      alignSelf: 'flex-end',
     }
   },
+
+  inputVariants: {
+    'login': {
+      height: 50,
+      width: 320,
+      backgroundColor: 'white',
+      borderColor: 'purple',
+      borderWidth: 2,
+      borderRadius: 'm',
+      paddingLeft: 10,
+    }
+  }
 })
 
 // Utility HOC for use in App and Tests
