@@ -28,7 +28,15 @@ platform :ios do
     )
 
     # Compile release version of code
-    build_app(scheme: "flare")
+    build_app(
+      scheme: "flare",
+      include_bitcode: false,
+      export_options: {
+        uploadBitcode: false,
+        uploadSymbols: true,
+        compileBitcode: false
+      }
+    )
   end
 
   desc "Submit already built app to Testflight"
@@ -43,8 +51,6 @@ platform :ios do
       changelog: File.read("../../Changelog.txt"),
       distribute_external: true,
       groups: ['FLARe Testers'],
-      # reject_build_waiting_for_review: true,
-      # TODO: The next line should be removed ideally... Weird bugs currently
       skip_waiting_for_build_processing: true
     )
   end

@@ -31,6 +31,7 @@ platform :android do
     sh("mkdir -p ./metadata/android/en-GB/changelogs")
     sh("cp ../../Changelog.txt ./metadata/android/en-GB/changelogs/#{android_get_version_code}.txt")
 
+    # Upload to Alpha
     upload_to_play_store(
       track: 'alpha',
       version_code: android_get_version_code,

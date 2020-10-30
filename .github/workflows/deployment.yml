@@ -93,7 +93,7 @@ jobs:
       - name: Update Pods
         run: cd ios && pod install
 
-      - name: Deploy Alpha
+      - name: Build Release App
         run: cd ios && fastlane build --verbose
         env:
           KEYCHAIN_PATH: ~/Library/Keychains/build.keychain
@@ -103,7 +103,9 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: ios-build
-          path: ./ios
+          path: |
+            ./ios
+            !./ios/Pods
 
   # Build script to for Android apps
   android:
@@ -143,14 +145,17 @@ jobs:
           echo "${{ secrets.ANDROID_API_KEY }}" | base64 --decode > api.json
           cd ../../
 
-      - name: Build App
+      - name: Build Release App
         run: cd android && fastlane build --verbose && cd ..
 
       - name: Cache Android Build
         uses: actions/upload-artifact@v2
         with:
           name: android-build
-          path: ./android
+          path: |
+            ./android
+            !./android/.gradle
+            !./android/app/build/intermediates
 
   # Script to deploy each platform and package as release
   packaging:
@@ -256,3 +261,12 @@ jobs:
           asset_path: ./android/app/build/outputs/apk/release/app-release.apk
           asset_name: FLARe.apk
           asset_content_type: application/vnd.android.package-archive
+
+      - name: Commit Changes
+        run: |
+          git config --global user.name 'Github Actions'
+          git config --global user.email 'flare@torchbox.com'
+
+          git add ./ios/flare.xcodeproj ./ios/flare/Info.plist ./android/app/build.gradle
+          git commit -m "Version Bump"
+          git push
