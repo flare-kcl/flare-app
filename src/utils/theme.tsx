@@ -29,7 +29,7 @@ const theme = createTheme({
     8: 32,
     10: 40,
     12: 48,
-    14: 60
+    14: 60,
   },
   borderRadii: {
     s: 4,
@@ -78,11 +78,11 @@ const theme = createTheme({
       justifyContent: 'center',
       borderRadius: 'm',
       alignSelf: 'flex-end',
-    }
+    },
   },
 
   inputVariants: {
-    'login': {
+    login: {
       height: 50,
       width: 320,
       backgroundColor: 'white',
@@ -90,8 +90,8 @@ const theme = createTheme({
       borderWidth: 2,
       borderRadius: 'm',
       paddingLeft: 10,
-    }
-  }
+    },
+  },
 })
 
 // Utility HOC for use in App and Tests

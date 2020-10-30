@@ -1,7 +1,4 @@
-import {
-  Image as NativeImage,
-  ImageProps,
-} from 'react-native'
+import { Image as NativeImage, ImageProps } from 'react-native'
 import {
   spacing,
   border,
@@ -16,8 +13,7 @@ import {
 
 import { Theme } from '@utils/theme'
 
-type Props =
-  ImageProps &
+type Props = ImageProps &
   SpacingProps<Theme> &
   BackgroundColorProps<Theme> &
   OpacityProps<Theme> &

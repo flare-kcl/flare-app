@@ -20,7 +20,7 @@ const restyleFunctions = [
   border,
   backgroundColor,
   // Create new varient for themed buttons
-  createVariant({ themeKey: 'buttonVariants' })
+  createVariant({ themeKey: 'buttonVariants' }),
 ]
 type Props = SpacingProps<Theme> &
   BorderProps<Theme> &

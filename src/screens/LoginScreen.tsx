@@ -1,8 +1,5 @@
 import { useRef, useState } from 'react'
-import {
-  Dimensions,
-  ScrollView,
-} from 'react-native'
+import { Dimensions, ScrollView } from 'react-native'
 import Spinner from 'react-native-spinkit'
 
 import { Box, Text, Button, Image, TextField } from '@components'
@@ -81,7 +78,7 @@ export const LoginScreen = () => {
             width={dimensions.width}
             maxWidth={240}
             height={300}
-            resizeMode='contain'
+            resizeMode="contain"
             opacity={0.7}
             source={require('../assets/images/fireworks.png')}
           />
@@ -128,7 +125,7 @@ export const LoginScreen = () => {
           <Spinner
             isVisible
             size={100}
-            type='WanderingCubes'
+            type="WanderingCubes"
             color={palette.purple}
           />
           <Text variant="caption2" paddingTop={14}>

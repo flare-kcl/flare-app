@@ -20,7 +20,7 @@ const restyleFunctions = [
   border,
   backgroundColor,
   // Create new varient for themed inputs
-  createVariant({ themeKey: 'inputVariants'})
+  createVariant({ themeKey: 'inputVariants' }),
 ]
 type Props = TextInputProps &
   SpacingProps<Theme> &
@@ -28,4 +28,7 @@ type Props = TextInputProps &
   BackgroundColorProps<Theme> &
   VariantProps<Theme, 'inputVariants'>
 
-export const TextField = createRestyleComponent<Props, Theme>(restyleFunctions, TextInput)
+export const TextField = createRestyleComponent<Props, Theme>(
+  restyleFunctions,
+  TextInput,
+)
