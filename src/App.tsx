@@ -3,19 +3,27 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 
 import store from '@redux/store'
-import { HomeScreen } from '@screens'
+import { LoginScreen } from '@screens'
 import { FlareThemeProvider } from '@utils/theme'
 
 // Create a stack navigator
 const Stack = createStackNavigator()
 
 export default function App() {
+  const sceneProps = {
+    options: { headerShown: false },
+  }
+
   return (
     <FlareThemeProvider>
       <Provider store={store}>
         <NavigationContainer>
           <Stack.Navigator>
-            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen
+              name="Login"
+              component={LoginScreen}
+              {...sceneProps}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>
