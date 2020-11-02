@@ -188,12 +188,13 @@
 				LastUpgradeCheck = 1130;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = TN66SD85X9;
+						DevelopmentTeam = 7WH5NVFZPZ;
 						LastSwiftMigration = 1120;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "flare" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "FLARe" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -342,8 +343,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = flare/flare.entitlements;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = TN66SD85X9;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 15;
+				DEVELOPMENT_TEAM = 7WH5NVFZPZ;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -358,8 +361,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = uk.ac.kcl.flare;
+				PRODUCT_BUNDLE_IDENTIFIER = uk.ac.kcl.ioppn.flare;
 				PRODUCT_NAME = flare;
+				PROVISIONING_PROFILE_SPECIFIER = "FLARe Provision Profile";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -374,8 +378,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = flare/flare.entitlements;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = TN66SD85X9;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 15;
+				DEVELOPMENT_TEAM = 7WH5NVFZPZ;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				INFOPLIST_FILE = flare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -385,8 +391,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = uk.ac.kcl.flare;
+				PRODUCT_BUNDLE_IDENTIFIER = uk.ac.kcl.ioppn.flare;
 				PRODUCT_NAME = flare;
+				PROVISIONING_PROFILE_SPECIFIER = "FLARe Provision Profile";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -520,7 +527,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "flare" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "FLARe" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,

@@ -1,4 +1,4 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="uk.ac.kcl.flare">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="uk.ac.kcl.ioppn.flare">
   <uses-permission android:name="android.permission.INTERNET"/>
   <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
   <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
@@ -21,7 +21,7 @@
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
   <uses-permission android:name="android.permission.WAKE_LOCK"/>
   <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
-  <application android:name=".MainApplication" android:label="@string/app_name" android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher_round" android:allowBackup="true" android:theme="@style/AppTheme">
+  <application android:name=".MainApplication" android:label="@string/app_name" android:icon="@mipmap/ic_launcher" android:allowBackup="true" android:theme="@style/AppTheme">
     <meta-data android:name="expo.modules.updates.EXPO_UPDATE_URL" android:value="https://exp.host/@nathhorrigan/flare"/>
     <meta-data android:name="expo.modules.updates.EXPO_SDK_VERSION" android:value="39.0.0"/>
     <meta-data android:name="expo.modules.updates.ENABLED" android:value="true"/>
@@ -36,7 +36,7 @@
         <action android:name="android.intent.action.VIEW"/>
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
-        <data android:scheme="uk.ac.kcl.flare"/>
+        <data android:scheme="uk.ac.kcl.ioppn.flare"/>
       </intent-filter>
     </activity>
     <activity android:name="com.facebook.react.devsupport.DevSettingsActivity"/>

@@ -9,10 +9,10 @@
     },
     "platforms": ["ios", "android", "web"],
     "android": {
-      "package": "uk.ac.kcl.flare"
+      "package": "uk.ac.kcl.ioppn.flare"
     },
     "ios": {
-      "bundleIdentifier": "uk.ac.kcl.flare"
+      "bundleIdentifier": "uk.ac.kcl.ioppn.flare"
     }
   },
   "assets": ["./src/assets/fonts/Inter/"]

@@ -1,0 +1,41 @@
+default_platform(:android)
+
+platform :android do
+  desc "Increase version number"
+  lane :bump do |options|
+    android_set_version_code
+    if options[:version] && options[:version] != ""
+      android_set_version_name(
+        version_name: options[:version]
+      )
+    end
+
+    # Write version to record file
+    version_num = android_get_version_code
+    version_name = android_get_version_name
+    sh("echo '#{version_name}(#{version_num})' > ../../version.txt")
+  end
+
+  desc "Build release version of app"
+  lane :build do
+    # Compile release version of code
+    gradle(
+      task: "clean assembleRelease",
+      flags: "-Dorg.gradle.internal.http.socketTimeout=120000 -Dorg.gradle.internal.http.connectionTimeout=120000"
+    )
+  end
+
+  desc "Submit already built app to Testflight"
+  lane :alpha do
+    # Copy changelog for upload
+    sh("mkdir -p ./metadata/android/en-GB/changelogs")
+    sh("cp ../../Changelog.txt ./metadata/android/en-GB/changelogs/#{android_get_version_code}.txt")
+
+    # Upload to Alpha
+    upload_to_play_store(
+      track: 'alpha',
+      version_code: android_get_version_code,
+      apk: "app/build/outputs/apk/release/app-release.apk"
+    )
+  end
+end

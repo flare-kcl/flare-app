@@ -1,0 +1,275 @@
+name: Deployment
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  # Version Management
+  versions:
+    name: 'Version Management'
+    runs-on: macos-latest
+    timeout-minutes: 15
+
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_12.app
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+
+      - uses: olegtarasov/get-tag@v2
+        id: tagName
+        with:
+          # Select 1.3.3 from "v1.3.3"
+          tagRegex: 'v(.*)'
+
+      - name: Node
+        uses: actions/setup-node@v1
+
+      - name: Install Fastlane
+        run: brew install fastlane
+
+      - name: Increment iOS Version
+        run: cd ios && fastlane bump version:$GIT_TAG_NAME && cd ..
+
+      - name: Increment Android Version
+        run: cd android && fastlane bump version:$GIT_TAG_NAME && cd ..
+
+      - name: Print Version Changes (Debug)
+        run: git --no-pager diff
+
+      # Cache artifacts for future jobs
+      - uses: actions/upload-artifact@v2
+        with:
+          name: build-config
+          path: |
+            ./android/app/build.gradle
+            ./ios/flare.xcodeproj/project.pbxproj
+            ./ios/flare/Info.plist
+            ./version.txt
+
+  # Build script to for iOS apps
+  ios:
+    name: 'Build iOS App'
+    needs: versions
+    runs-on: macos-latest
+    timeout-minutes: 90
+
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_12.app
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+
+      - name: Node
+        uses: actions/setup-node@v1
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: build-config
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Install Fastlane
+        run: brew install fastlane
+
+      - name: Create Keychain
+        run: |
+          security create-keychain -p ${{ secrets.MATCH_PASSWORD }} build.keychain
+          security list-keychains -s ~/Library/Keychains/build.keychain
+          security default-keychain -s ~/Library/Keychains/build.keychain
+          security unlock-keychain -p ${{ secrets.MATCH_PASSWORD }} ~/Library/Keychains/build.keychain
+
+      - name: Install iOS Credentials
+        run: cd ios && fastlane match appstore --readonly --verbose --git_url https://${{ secrets.CERTS_ACCESS_TOKEN }}@github.com/flare-kcl/ios-certs --keychain_name build.keychain --keychain_password ${{ secrets.MATCH_PASSWORD }} && cd ..
+        env:
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+
+      - name: Update Pods
+        run: cd ios && pod install
+
+      - name: Build Release App
+        run: cd ios && fastlane build --verbose
+        env:
+          KEYCHAIN_PATH: ~/Library/Keychains/build.keychain
+          KEYCHAIN_PASS: ${{ secrets.MATCH_PASSWORD }}
+
+      - name: Cache iOS Build
+        uses: actions/upload-artifact@v2
+        with:
+          name: ios-build
+          path: |
+            ./ios
+            !./ios/Pods
+
+  # Build script to for Android apps
+  android:
+    name: 'Build Android App'
+    needs: versions
+    runs-on: macos-latest
+    timeout-minutes: 90
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: build-config
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Install JDK 8
+        uses: joschi/setup-jdk@v1
+        with:
+          java-version: 'openjdk8'
+          architecture: 'x64'
+
+      - name: Install Fastlane
+        run: brew install fastlane
+
+      - name: Install Android Credentials
+        run: |
+          cd android/app
+          echo "${{ secrets.KEY_STORE }}" | base64 --decode > release.keystore
+          echo "${{ secrets.KEY_STORE_CONFIG }}" > keystore.properties
+          cd ../fastlane
+          echo "${{ secrets.ANDROID_API_KEY }}" | base64 --decode > api.json
+          cd ../../
+
+      - name: Build Release App
+        run: cd android && fastlane build --verbose && cd ..
+
+      - name: Cache Android Build
+        uses: actions/upload-artifact@v2
+        with:
+          name: android-build
+          path: |
+            ./android
+            !./android/.gradle
+            !./android/app/build/intermediates
+
+  # Script to deploy each platform and package as release
+  packaging:
+    name: 'Packaging'
+    needs:
+      - android
+      - ios
+    runs-on: macos-latest
+    timeout-minutes: 90
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - name: Install Fastlane
+        run: brew install fastlane
+
+      - name: Create Keychain
+        run: |
+          security create-keychain -p ${{ secrets.MATCH_PASSWORD }} build.keychain
+          security list-keychains -s ~/Library/Keychains/build.keychain
+          security default-keychain -s ~/Library/Keychains/build.keychain
+          security unlock-keychain -p ${{ secrets.MATCH_PASSWORD }} ~/Library/Keychains/build.keychain
+
+      - name: Install iOS Credentials
+        run: |
+          cd ios
+          fastlane match appstore --readonly --verbose --git_url https://${{ secrets.CERTS_ACCESS_TOKEN }}@github.com/flare-kcl/ios-certs --keychain_name build.keychain --keychain_password ${{ secrets.MATCH_PASSWORD }}
+          echo "${{ secrets.IOS_API_KEY }}" | base64 --decode > api.json
+          cd ..
+        env:
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+
+      - uses: olegtarasov/get-tag@v2
+        id: tagName
+        with:
+          # Select 1.3.3 from "v1.3.3"
+          tagRegex: 'v(.*)'
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: build-config
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: ios-build
+          path: ./ios
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: android-build
+          path: ./android
+
+      - name: Print version Changes (Debug)
+        run: git --no-pager diff
+
+      - name: Deploy iOS App
+        run: cd ios && fastlane alpha && cd ..
+
+      - name: Deploy Android App
+        run: cd android && fastlane alpha && cd ..
+
+      - name: Get Release Version
+        id: version
+        run: echo ::set-output name=version::$(cat ./version.txt)
+
+      - name: Get Latest Changelog
+        id: changelog
+        run: echo ::set-output name=changelog::$(cat ./Changelog.txt)
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.version.outputs.version }}
+          release_name: Release ${{ steps.version.outputs.version }}
+          body: ${{ steps.changelog.outputs.changelog }}
+          draft: false
+          prerelease: false
+
+      - name: Attach iOS App (Github Release)
+        id: upload-ios-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./ios/flare.ipa
+          asset_name: FLARe.ipa
+          asset_content_type: application/zip
+
+      - name: Attach Android App (Github Release)
+        id: upload-android-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./android/app/build/outputs/apk/release/app-release.apk
+          asset_name: FLARe.apk
+          asset_content_type: application/vnd.android.package-archive
+
+      - name: Commit Changes
+        run: |
+          git config --global user.name 'Github Actions'
+          git config --global user.email 'flare@torchbox.com'
+
+          git add ./ios/flare.xcodeproj ./ios/flare/Info.plist ./android/app/build.gradle
+          git commit -m "Version Bump"
+          git push origin main
