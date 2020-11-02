@@ -2,10 +2,13 @@ import { ThemeProvider, createTheme } from '@shopify/restyle'
 
 export const palette = {
   purple: '#726DA8',
+  purpleLight: "#a537fd",
   greenLight: '#B2DBBF',
   greenPrimary: '#70C1B3',
   greenDark: '#0A906E',
+  greenCorrect: '#2ed573',
   coral: '#F07167',
+  red: '#ff4757',
   yellow: '#FFBF46',
   darkGrey: '#212529',
   black: '#0B0B0B',
@@ -34,6 +37,7 @@ const theme = createTheme({
   borderRadii: {
     s: 4,
     m: 8,
+    round: 1000000,
   },
   breakpoints: {
     phone: 0,
