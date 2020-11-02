@@ -246,7 +246,7 @@ jobs:
 
           git add ./ios/flare.xcodeproj ./ios/flare/Info.plist ./android/app/build.gradle
           git commit -m "Version Bump"
-          git tag -l ${{ steps.version.outputs.version }}
+          git tag -l "${{ steps.version.outputs.version }}"
           git push origin main
 
       - name: Create Release

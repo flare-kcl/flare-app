@@ -33,7 +33,7 @@ platform :android do
 
     # Upload to Alpha
     upload_to_play_store(
-      track: 'alpha',
+      track: 'internal',
       version_code: android_get_version_code,
       apk: "app/build/outputs/apk/release/app-release.apk"
     )
