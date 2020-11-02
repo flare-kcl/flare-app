@@ -271,10 +271,10 @@ PODS:
     - React-cxxreact (= 0.63.3)
     - React-jsi (= 0.63.3)
   - React-jsinspector (0.63.3)
-  - react-native-config (1.3.3):
-    - react-native-config/App (= 1.3.3)
-  - react-native-config/App (1.3.3):
-    - React
+  - react-native-config (1.4.0):
+    - react-native-config/App (= 1.4.0)
+  - react-native-config/App (1.4.0):
+    - React-Core
   - react-native-safe-area-context (3.1.8):
     - React-Core
   - react-native-spinkit (1.4.1):
@@ -349,12 +349,12 @@ PODS:
     - React
   - RNScreens (2.10.1):
     - React
-  - RNSentry (1.9.0):
+  - RNSentry (2.0.0):
     - React-Core
-    - Sentry (~> 5.2.0)
-  - Sentry (5.2.2):
-    - Sentry/Core (= 5.2.2)
-  - Sentry/Core (5.2.2)
+    - Sentry (~> 6.0.3)
+  - Sentry (6.0.5):
+    - Sentry/Core (= 6.0.5)
+  - Sentry/Core (6.0.5)
   - UMAppLoader (1.3.0)
   - UMBarCodeScannerInterface (5.3.0)
   - UMCameraInterface (5.3.0)
@@ -636,7 +636,7 @@ SPEC CHECKSUMS:
   React-jsi: df07aa95b39c5be3e41199921509bfa929ed2b9d
   React-jsiexecutor: b56c03e61c0dd5f5801255f2160a815f4a53d451
   React-jsinspector: 8e68ffbfe23880d3ee9bafa8be2777f60b25cbe2
-  react-native-config: 9a061347e0136fdb32d43a34d60999297d672361
+  react-native-config: f309b9ac19456dea12325699af51e0fa0217ce6a
   react-native-safe-area-context: 01158a92c300895d79dee447e980672dc3fb85a6
   react-native-spinkit: da294fd828216ad211fe36a5c14c1e09f09e62db
   React-RCTActionSheet: 53ea72699698b0b47a6421cb1c8b4ab215a774aa
@@ -654,8 +654,8 @@ SPEC CHECKSUMS:
   RNGestureHandler: b6b359bb800ae399a9c8b27032bdbf7c18f08a08
   RNReanimated: dd8c286ab5dd4ba36d3a7fef8bff7e08711b5476
   RNScreens: b748efec66e095134c7166ca333b628cd7e6f3e2
-  RNSentry: 1adaa43b01c6a3ab5091d4d1add66b7c58558898
-  Sentry: 8fa58a051237554f22507fb483b9a1de0171a2dc
+  RNSentry: cb4ef23400fb6690f6ac8f6acef0c023a8a4f37d
+  Sentry: 62edd9e14aaa75e0478e5b11c1287b284b05fc19
   UMAppLoader: 939854a42e69527ee11dd17b39ebafcbfbefd05c
   UMBarCodeScannerInterface: 198ced513a0cf8143d822620f1620bce467d02be
   UMCameraInterface: dbcaade8d0364ba5518ae4519c63c59bf010aa89
