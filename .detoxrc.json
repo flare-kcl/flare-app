@@ -1,0 +1,22 @@
+{
+  "testRunner": "jest",
+  "runnerConfig": "e2e/config.json",
+  "configurations": {
+    "ios": {
+      "binaryPath": "ios/build/Build/Products/Release-iphonesimulator/flare.app",
+      "build": "xcodebuild -workspace ios/flare.xcworkspace -scheme flare-testing -configuration Release -sdk iphonesimulator -derivedDataPath ios/build EXCLUDED_ARCHS=arm64",
+      "type": "ios.simulator",
+      "device": {
+        "type": "iPhone 11 Pro"
+      }
+    },
+    "android": {
+      "type": "android.emulator",
+      "binaryPath": "android/app/build/outputs/apk/release/app-release.apk",
+      "build": "cd android && ENVFILE=.env.testing ./gradlew assembleRelease assembleAndroidTest -DtestBuildType=release && cd ..",
+      "device": {
+        "avdName": "pixel_xl"
+      }
+    }
+  }
+}

@@ -5,12 +5,15 @@
     "node": ">=12.0.0 <14.14.0"
   },
   "dependencies": {
+    "@react-native-community/async-storage": "^1.12.1",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-navigation/native": "^5.7.6",
     "@react-navigation/stack": "^5.9.3",
     "@reduxjs/toolkit": "^1.4.0",
+    "@sentry/react-native": "^2.0.0",
     "@shopify/restyle": "^1.3.0",
     "@types/jest": "^26.0.15",
+    "detox": "^17.10.3",
     "expo": "~39.0.0",
     "expo-splash-screen": "~0.6.2",
     "expo-status-bar": "~1.0.2",
@@ -18,6 +21,8 @@
     "react": "^16.14.0",
     "react-dom": "~16.13.0",
     "react-native": "~0.63.3",
+    "react-native-config": "^1.4.0",
+    "react-native-dotenv": "^2.4.1",
     "react-native-gesture-handler": "^1.7.0",
     "react-native-reanimated": "^1.13.1",
     "react-native-safe-area-context": "^3.1.8",
@@ -40,7 +45,8 @@
     "babel-jest": "~25.2.6",
     "babel-plugin-module-resolver": "^4.0.0",
     "husky": "^4.3.0",
-    "jest": "~25.2.6",
+    "jest": "^25.2.7",
+    "jest-circus": "^26.6.0",
     "lint-staged": "^10.4.2",
     "prettier": "2.1.2",
     "react-test-renderer": "^16.13.1",
@@ -55,7 +61,11 @@
     "compile": "tsc",
     "lint": "prettier --check . --ignore-path ./.prettierignore",
     "format": "prettier --write . --ignore-path ./.prettierignore",
-    "test": "jest"
+    "test": "jest",
+    "e2e:build:ios": "detox build --configuration ios.release",
+    "e2e:build:android": "detox build --configuration android",
+    "e2e:test:ios": "detox test --configuration ios.release --cleanup",
+    "e2e:test:android": "detox test --configuration android --cleanup --debug-synchronization 200"
   },
   "husky": {
     "hooks": {
