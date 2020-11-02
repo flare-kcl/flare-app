@@ -1,5 +1,6 @@
 import * as FileSystem from 'expo-file-system'
 import AsyncStorage from '@react-native-community/async-storage'
+import { hashCode } from './hash'
 
 // Base directory where all cached files are kept
 const CACHE_KEY = 'FLARE-ASSETS-CACHE'
@@ -33,7 +34,7 @@ export default class AssetCache {
   }
 
   /**
-   * Update the internal cache maping remote to local files
+   * Update the internal cache mapping remote to local files
    */
   private static async syncCache() {
     // Convert JSON to string
@@ -49,17 +50,6 @@ export default class AssetCache {
    * @param url The url of the remote file
    */
   private static generateFileName(url: string): string {
-    // Utility method used to generate unqique strings
-    // https://lowrey.me/implementing-javas-string-hashcode-in-javascript/
-    const hashCode = function (str: string) {
-      let hash = 0
-      for (let i = 0; i < str.length; i++) {
-        hash += Math.pow(str.charCodeAt(i) * 31, str.length - i)
-        hash = hash & hash // Convert to 32bit integer
-      }
-      return hash
-    }
-
     return BASE_DIR + hashCode(url)
   }
 
@@ -86,8 +76,7 @@ export default class AssetCache {
       // Return the new local file
       return uri
     } catch (e) {
-      console.error(e)
-      return null
+      return Promise.reject(e)
     }
   }
 
