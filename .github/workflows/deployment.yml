@@ -239,15 +239,19 @@ jobs:
         id: changelog
         run: echo ::set-output name=changelog::$(cat ./Changelog.txt)
 
-      - name: Commit Changes
+      - name: Setup Git
         run: |
           git config --global user.name 'Github Actions'
           git config --global user.email 'flare@torchbox.com'
 
+      - name: Commit Changes
+        run: |
           git add ./ios/flare.xcodeproj ./ios/flare/Info.plist ./android/app/build.gradle
           git commit -m "Version Bump"
-          git tag -l "${{ steps.version.outputs.version }}"
-          git push origin main
+          git tag -a "${{ steps.version.outputs.version }}" -m "${{ steps.version.outputs.version }}"
+
+      - name: Push Changes
+        run: git --no-pager push -u origin main
 
       - name: Create Release
         id: create_release
