@@ -15,9 +15,6 @@ type TermsScreenProps = {
 }
 
 export const TermsScreen: React.FunctionComponent<TermsScreenProps> = ({ onAccept, onExit }) => {
-  const scrollRef = useRef<ScrollView>(null)
-  const [showZoomButton, setShowZoomButton] = useState(true)
-
   // Custom link handler
   const onLinkPress = (url) => {
     if (url) {
@@ -37,17 +34,6 @@ export const TermsScreen: React.FunctionComponent<TermsScreenProps> = ({ onAccep
   return (
     <>
       <ScrollView
-        ref={scrollRef}
-        onScroll={(event) => {
-          const scrollBottom =
-            event.nativeEvent.contentOffset.y +
-            event.nativeEvent.layoutMeasurement.height
-          if (scrollBottom > event.nativeEvent.contentSize.height - 70) {
-            setShowZoomButton(false)
-          } else {
-            setShowZoomButton(true)
-          }
-        }}
         scrollEventThrottle={16}
         contentInsetAdjustmentBehavior="automatic"
         style={{
@@ -115,23 +101,6 @@ export const TermsScreen: React.FunctionComponent<TermsScreenProps> = ({ onAccep
           />
         </Box>
       </ScrollView>
-
-      {/* The scroll indicator button */}
-      {showZoomButton && (
-        <Button
-          testID="ScrollButton"
-          icon={<FontAwesome name="chevron-down" size={25} color="white" />}
-          backgroundColor="greenDark"
-          position="absolute"
-          right={20}
-          top={dimensions.height - 190}
-          borderRadius="round"
-          height={60}
-          width={60}
-          activeOpacity={0.8}
-          onPress={() => scrollRef.current?.scrollToEnd()}
-        />
-      )}
     </>
   )
 }

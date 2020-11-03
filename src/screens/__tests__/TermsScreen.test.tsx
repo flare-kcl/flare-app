@@ -26,12 +26,8 @@ test('Calls Props on button press', () => {
   )
 
   // Capture all elements
-  const scrollButton = queryByTestId("ScrollButton")
   const acceptButton = queryByTestId("AcceptButton")
   const exitButton = queryByTestId("ExitButton")
-
-  // Scroll to bottom of page
-  fireEvent.press(scrollButton)
 
   // Check functions
   fireEvent.press(acceptButton)
