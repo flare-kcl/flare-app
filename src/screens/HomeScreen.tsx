@@ -1,6 +1,3 @@
-import React from 'react'
-import { View } from 'react-native'
-
 import { Box, Text } from '@components'
 
 export const HomeScreen = () => (

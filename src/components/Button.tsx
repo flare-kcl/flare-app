@@ -1,8 +1,9 @@
-import { TouchableOpacity, View, TouchableOpacityProps } from 'react-native'
+import { TouchableOpacity, Animated, TouchableOpacityProps } from 'react-native'
 import {
   useRestyle,
   spacing,
   border,
+  TextProps,
   VariantProps,
   backgroundColor,
   SpacingProps,
@@ -14,6 +15,7 @@ import {
 
 import { Text } from './Text'
 import { Theme } from '@utils/theme'
+import { Box } from './Box'
 
 const restyleFunctions = [
   spacing,
@@ -29,17 +31,39 @@ type Props = SpacingProps<Theme> &
   VariantProps<Theme, 'buttonVariants'> &
   AllProps<Theme> & {
     // Custom Props...
-    label: string
+    testID?: string
+    label?: string
+    icon?: any
+    textProps?: TextProps<Theme>
   }
 
-export const Button = ({ onPress, label, disabled, ...rest }: Props) => {
+export const Button = ({
+  testID,
+  onPress,
+  label,
+  icon: Icon,
+  activeOpacity,
+  textProps,
+  disabled,
+  ...rest
+}: Props) => {
   const props = useRestyle(restyleFunctions, rest)
 
   return (
-    <TouchableOpacity onPress={onPress} disabled={disabled}>
-      <View {...props}>
-        <Text variant="buttonLabel">{label}</Text>
-      </View>
+    <TouchableOpacity
+      testID={testID}
+      onPress={onPress}
+      disabled={disabled}
+      activeOpacity={activeOpacity}
+    >
+      <Box alignItems="center" justifyContent="center" {...props}>
+        {Icon}
+        {label && (
+          <Text variant="buttonLabel" {...textProps}>
+            {label}
+          </Text>
+        )}
+      </Box>
     </TouchableOpacity>
   )
 }
