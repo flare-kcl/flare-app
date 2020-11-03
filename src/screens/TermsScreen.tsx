@@ -2,7 +2,7 @@ import { useRef, useState } from 'react'
 import { Dimensions } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { FontAwesome } from '@expo/vector-icons'
-import * as WebBrowser from 'expo-web-browser';
+import * as WebBrowser from 'expo-web-browser'
 import Markdown from 'react-native-markdown-display'
 
 import { Box, Button } from '@components'
@@ -10,20 +10,23 @@ import { palette } from '@utils/theme'
 const dimensions = Dimensions.get('screen')
 
 type TermsScreenProps = {
-  onAccept?: Function,
+  onAccept?: Function
   onExit?: Function
 }
 
-export const TermsScreen: React.FunctionComponent<TermsScreenProps> = ({ onAccept, onExit }) => {
+export const TermsScreen: React.FunctionComponent<TermsScreenProps> = ({
+  onAccept,
+  onExit,
+}) => {
   // Custom link handler
   const onLinkPress = (url) => {
     if (url) {
       // Open in a browser modal
       WebBrowser.openBrowserAsync(url, {
         toolbarColor: palette.purple,
-        controlsColor: palette.darkGrey
+        controlsColor: palette.darkGrey,
       })
-      return false;
+      return false
     }
 
     // return true to open with `Linking.openURL

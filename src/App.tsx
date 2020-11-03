@@ -59,19 +59,18 @@ export default function App() {
                   />
                 </>
               )}
-
-              <Stack.Screen
-                name="Login"
-                component={LoginScreen}
-                {...hiddenHeaderProps}
-              />
               <Stack.Screen
                 name="Terms"
                 component={TermsScreen}
                 options={{
                   headerTitle: 'Terms & Conditions',
-                  ...headerProps
+                  ...headerProps,
                 }}
+              />
+              <Stack.Screen
+                name="Login"
+                component={LoginScreen}
+                {...hiddenHeaderProps}
               />
             </Stack.Navigator>
           </NavigationContainer>

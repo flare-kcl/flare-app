@@ -26,8 +26,8 @@ test('Calls Props on button press', () => {
   )
 
   // Capture all elements
-  const acceptButton = queryByTestId("AcceptButton")
-  const exitButton = queryByTestId("ExitButton")
+  const acceptButton = queryByTestId('AcceptButton')
+  const exitButton = queryByTestId('ExitButton')
 
   // Check functions
   fireEvent.press(acceptButton)
