@@ -251,7 +251,10 @@ jobs:
           git tag -a "${{ steps.version.outputs.version }}" -m "${{ steps.version.outputs.version }}"
 
       - name: Push Changes
-        run: git --no-pager push -u origin main
+        id: commitPush
+        run: |
+          git --no-pager push -u origin main
+          echo ::set-output name=commit::$(git rev-parse HEAD)
 
       - name: Create Release
         id: create_release
@@ -261,6 +264,7 @@ jobs:
         with:
           tag_name: ${{ steps.version.outputs.version }}
           release_name: Release ${{ steps.version.outputs.version }}
+          commitish: ${{ steps.commitPush.outputs.commit }}
           body: ${{ steps.changelog.outputs.changelog }}
           draft: false
           prerelease: false
