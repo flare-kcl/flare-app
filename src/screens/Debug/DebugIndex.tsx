@@ -9,6 +9,11 @@ export const DebugIndex = ({ navigation }) => {
         title="Test Asset Cache"
         onPress={() => navigation.navigate('Tests.TestCacheScreen')}
       />
+      <Button
+        testID="Tests.TestTermsScreen"
+        title="Test Terms Screen"
+        onPress={() => navigation.navigate('Terms')}
+      />
       <Button title="Exit" onPress={() => navigation.navigate('HomeScreen')} />
     </Box>
   )
