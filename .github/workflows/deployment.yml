@@ -11,6 +11,9 @@ jobs:
     runs-on: macos-latest
     timeout-minutes: 15
 
+    # Support [skip-ci] in commit message
+    if: "! contains(toJSON(github.event.commits.*.msg), '[skip-ci]')"
+
     env:
       DEVELOPER_DIR: /Applications/Xcode_12.app
 
@@ -247,7 +250,7 @@ jobs:
       - name: Commit Changes
         run: |
           git add ./ios/flare.xcodeproj ./ios/flare/Info.plist ./android/app/build.gradle
-          git commit -m "Version Bump"
+          git commit -m "Version Bump [skip-ci]"
           git tag -a "${{ steps.version.outputs.version }}" -m "${{ steps.version.outputs.version }}"
 
       - name: Push Changes
