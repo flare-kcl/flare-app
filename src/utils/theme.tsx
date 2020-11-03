@@ -2,7 +2,7 @@ import { ThemeProvider, createTheme } from '@shopify/restyle'
 
 export const palette = {
   purple: '#726DA8',
-  purpleLight: "#a537fd",
+  purpleLight: '#a537fd',
   greenLight: '#B2DBBF',
   greenPrimary: '#70C1B3',
   greenDark: '#0A906E',
