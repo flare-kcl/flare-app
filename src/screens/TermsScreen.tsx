@@ -1,13 +1,5 @@
-import { useRef, useState } from 'react'
-import { Dimensions } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
-import { FontAwesome } from '@expo/vector-icons'
-import * as WebBrowser from 'expo-web-browser'
-import Markdown from 'react-native-markdown-display'
-
-import { Box, Button } from '@components'
-import { palette } from '@utils/theme'
-const dimensions = Dimensions.get('screen')
+import { Box, Button, Markdown } from '@components'
 
 type TermsScreenProps = {
   onAccept?: Function
@@ -18,22 +10,6 @@ export const TermsScreen: React.FunctionComponent<TermsScreenProps> = ({
   onAccept,
   onExit,
 }) => {
-  // Custom link handler
-  const onLinkPress = (url) => {
-    if (url) {
-      // Open in a browser modal
-      WebBrowser.openBrowserAsync(url, {
-        toolbarColor: palette.purple,
-        controlsColor: palette.darkGrey,
-      })
-      return false
-    }
-
-    // return true to open with `Linking.openURL
-    // return false to handle it yourself
-    return true
-  }
-
   return (
     <>
       <ScrollView
@@ -46,40 +22,7 @@ export const TermsScreen: React.FunctionComponent<TermsScreenProps> = ({
       >
         {/* Terms and Condition Text */}
         <Box paddingHorizontal={4} paddingTop={10} paddingBottom={10}>
-          <Markdown
-            onLinkPress={onLinkPress}
-            style={{
-              body: {
-                fontFamily: 'Inter',
-                fontWeight: '500',
-                color: palette.darkGrey,
-              },
-              paragraph: {
-                marginBottom: 20,
-              },
-              list_item: {
-                marginBottom: 20,
-              },
-              link: {
-                color: palette.greenDark,
-              },
-              heading1: {
-                fontSize: 45,
-                color: palette.darkGrey,
-                alignSelf: 'center',
-                fontWeight: 'bold',
-                width: '100%',
-                marginBottom: 10,
-              },
-              heading2: {
-                fontWeight: 'bold',
-                width: '100%',
-              },
-              heading3: {
-                fontWeight: '600',
-              },
-            }}
-          >
+          <Markdown>
             {/* TODO: Will be swapped out for prop when we have example experiment! */}
             {terms}
           </Markdown>
@@ -97,10 +40,13 @@ export const TermsScreen: React.FunctionComponent<TermsScreenProps> = ({
 
           <Button
             testID="ExitButton"
-            label="Exit Experiment"
-            marginTop={6}
-            textProps={{ color: 'black', fontSize: 18, opacity: 0.8 }}
+            label="Decline and Exit"
+            marginTop={2}
+            textProps={{ color: 'white' }}
             onPress={() => onExit?.()}
+            borderRadius="m"
+            backgroundColor="red"
+            paddingVertical={4}
           />
         </Box>
       </ScrollView>

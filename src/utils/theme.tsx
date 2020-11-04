@@ -4,6 +4,7 @@ export const palette = {
   purple: '#726DA8',
   purpleLight: '#a537fd',
   greenLight: '#B2DBBF',
+
   greenPrimary: '#70C1B3',
   greenDark: '#0A906E',
   greenCorrect: '#2ed573',
@@ -11,11 +12,12 @@ export const palette = {
   red: '#ff4757',
   yellow: '#FFBF46',
   darkGrey: '#212529',
+  lightGrey: '#bdc3c7',
   black: '#0B0B0B',
   white: '#F0F2F3',
 }
 
-const theme = createTheme({
+export const theme = createTheme({
   colors: {
     ...palette,
     mainBackground: palette.white,
@@ -51,6 +53,11 @@ const theme = createTheme({
       color: 'black',
       opacity: 0.7,
       alignSelf: 'center',
+    },
+    heading3: {
+      fontFamily: 'Inter',
+      fontSize: 20,
+      fontWeight: '700',
     },
     caption: {
       fontFamily: 'Inter-SemiBold',
