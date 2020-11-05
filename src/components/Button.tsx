@@ -42,7 +42,8 @@ export const Button = ({
   onPress,
   label,
   icon: Icon,
-  activeOpacity,
+  flex = 0,
+  activeOpacity = 0.8,
   textProps,
   disabled,
   ...rest
@@ -54,9 +55,15 @@ export const Button = ({
       testID={testID}
       onPress={onPress}
       disabled={disabled}
+      delayPressIn={0}
       activeOpacity={activeOpacity}
+      style={{
+        flex,
+        flexDirection: 'row',
+        width: '100%',
+      }}
     >
-      <Box alignItems="center" justifyContent="center" {...props}>
+      <Box width="100%" alignItems="center" justifyContent="center" {...props}>
         {Icon}
         {label && (
           <Text variant="buttonLabel" {...textProps}>

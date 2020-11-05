@@ -43,18 +43,13 @@ export const LoginScreen = () => {
       alignItems="center"
       justifyContent="flex-start"
       backgroundColor="greenPrimary"
-      paddingVertical={10}
+      py={10}
     >
-      <Text variant="heading" paddingTop={8} paddingBottom={2}>
+      <Text variant="heading" pt={8} pb={2}>
         FLARe
       </Text>
 
-      <Text
-        variant="caption"
-        paddingBottom={4}
-        textAlign="center"
-        paddingHorizontal={6}
-      >
+      <Text variant="caption" pb={4} textAlign="center" px={6}>
         Fear Learning and Anxiety Response
       </Text>
 
@@ -89,10 +84,10 @@ export const LoginScreen = () => {
           width={dimensions.width}
           alignItems="center"
           justifyContent="flex-start"
-          paddingTop={10}
+          pt={10}
         >
           <Box>
-            <Text fontWeight="bold" color="darkGrey" paddingBottom={2}>
+            <Text fontWeight="bold" color="darkGrey" pb={2}>
               Participant ID
             </Text>
             <TextField
@@ -103,12 +98,7 @@ export const LoginScreen = () => {
             />
           </Box>
 
-          <Text
-            variant="caption2"
-            textAlign="center"
-            paddingTop={10}
-            paddingHorizontal={6}
-          >
+          <Text variant="caption2" textAlign="center" pt={10} px={6}>
             Please enter your Participant ID into the form above. You should of
             recieved this in your experiment briefing.
           </Text>
@@ -120,7 +110,7 @@ export const LoginScreen = () => {
           alignItems="center"
           justifyContent="center"
           alignContent="center"
-          paddingTop={10}
+          pt={10}
         >
           <Spinner
             isVisible
@@ -128,14 +118,14 @@ export const LoginScreen = () => {
             type="WanderingCubes"
             color={palette.purple}
           />
-          <Text variant="caption2" paddingTop={14}>
+          <Text variant="caption2" pt={14}>
             Downloading Experiment...
           </Text>
         </Box>
       </ScrollView>
 
       {/* Push button to bottom of screen */}
-      <Box flex={1} justifyContent="flex-end" paddingBottom={6}>
+      <Box flex={1} justifyContent="flex-end" pb={6} px={4}>
         {stage != Stages.Loading && (
           <Button
             variant="primary"

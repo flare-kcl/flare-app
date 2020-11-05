@@ -8,7 +8,14 @@ import * as Sentry from '@sentry/react-native'
 
 import { FlareThemeProvider, palette } from '@utils/theme'
 import store from '@redux/store'
-import { DebugIndex, TestCacheScreen, LoginScreen, TermsScreen } from '@screens'
+import {
+  DebugIndex,
+  TestCacheScreen,
+  LoginScreen,
+  TermsScreen,
+  CriteriaScreen,
+  RejectionScreen,
+} from '@screens'
 import AssetCache from '@utils/AssetCache'
 
 // Create a stack navigator
@@ -43,6 +50,7 @@ export default function App() {
   return (
     loaded && (
       <FlareThemeProvider>
+        <StatusBar barStyle="dark-content" />
         <Provider store={store}>
           <NavigationContainer>
             <Stack.Navigator>
@@ -59,6 +67,21 @@ export default function App() {
                   />
                 </>
               )}
+
+              <Stack.Screen
+                name="Consent"
+                component={CriteriaScreen}
+                options={{
+                  headerTitle: 'Experiment Consent',
+                  ...headerProps,
+                }}
+              />
+              <Stack.Screen
+                name="Reject"
+                component={RejectionScreen}
+                {...hiddenHeaderProps}
+              />
+
               <Stack.Screen
                 name="Terms"
                 component={TermsScreen}

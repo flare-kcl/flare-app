@@ -4,6 +4,7 @@ export const palette = {
   purple: '#726DA8',
   purpleLight: '#a537fd',
   greenLight: '#B2DBBF',
+
   greenPrimary: '#70C1B3',
   greenDark: '#0A906E',
   greenCorrect: '#2ed573',
@@ -11,11 +12,12 @@ export const palette = {
   red: '#ff4757',
   yellow: '#FFBF46',
   darkGrey: '#212529',
+  lightGrey: '#e4e9ed',
   black: '#0B0B0B',
   white: '#F0F2F3',
 }
 
-const theme = createTheme({
+export const theme = createTheme({
   colors: {
     ...palette,
     mainBackground: palette.white,
@@ -33,6 +35,7 @@ const theme = createTheme({
     10: 40,
     12: 48,
     14: 60,
+    20: 200,
   },
   borderRadii: {
     s: 4,
@@ -51,6 +54,11 @@ const theme = createTheme({
       color: 'black',
       opacity: 0.7,
       alignSelf: 'center',
+    },
+    heading3: {
+      fontFamily: 'Inter',
+      fontSize: 20,
+      fontWeight: '700',
     },
     caption: {
       fontFamily: 'Inter-SemiBold',
@@ -75,13 +83,22 @@ const theme = createTheme({
   buttonVariants: {
     primary: {
       backgroundColor: 'purple',
-      width: 300,
+      mt: 2,
+      py: 4,
       height: 60,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
       borderRadius: 'm',
-      alignSelf: 'flex-end',
+      textProps: {
+        color: 'white',
+      },
+    },
+    exit: {
+      mt: 2,
+      py: 4,
+      backgroundColor: 'red',
+      borderRadius: 'm',
+      textProps: {
+        color: 'white',
+      },
     },
   },
 
