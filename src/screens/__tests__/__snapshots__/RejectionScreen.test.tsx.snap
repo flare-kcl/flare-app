@@ -61,8 +61,10 @@ exports[`Text Renders Correctly 1`] = `
       <View
         style={
           Object {
+            "alignSelf": "center",
             "flexDirection": "row",
             "marginBottom": 10,
+            "width": "100%",
           }
         }
       >
