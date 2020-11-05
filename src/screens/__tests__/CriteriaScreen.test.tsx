@@ -22,7 +22,7 @@ test('Calls Props on button press', () => {
   const { queryByTestId, queryAllByA11yLabel } = render(
     <FlareThemeProvider>
       <CriteriaScreen
-        onPassCritera={onPass}
+        onPassCriteria={onPass}
         onFailCriteria={onFail}
         onExit={onExit}
       />
@@ -32,6 +32,7 @@ test('Calls Props on button press', () => {
   // Capture all elements
   const continueButton = queryByTestId('ContinueButton')
   const exitButton = queryByTestId('ExitButton')
+  const noToggleButtons = queryAllByA11yLabel('No')
   const yesToggleButtons = queryAllByA11yLabel('Yes')
 
   // Check Exit button
@@ -39,6 +40,9 @@ test('Calls Props on button press', () => {
   expect(onExit).toBeCalledTimes(1)
 
   // Check Criteria Validation when no flags
+  noToggleButtons.forEach((button) => {
+    fireEvent.press(button)
+  })
   fireEvent.press(continueButton)
   expect(onPass).toBeCalledTimes(1)
 

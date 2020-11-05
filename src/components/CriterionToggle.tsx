@@ -30,6 +30,7 @@ export const CriterionToggle: React.FunctionComponent<CriterionToggleProps> = ({
       {...props}
     >
       <Button
+        flex={1}
         label="No"
         textProps={{
           color: value == false ? 'darkGrey' : 'white',
@@ -40,19 +41,24 @@ export const CriterionToggle: React.FunctionComponent<CriterionToggleProps> = ({
         accessibilityLabel="No"
         borderTopLeftRadius="m"
         borderBottomLeftRadius="m"
+        borderColor="white"
+        borderWidth={2}
         onPress={() => updateChoice(false)}
       />
       <Button
+        flex={1}
         label="Yes"
         textProps={{
           color: value == true ? 'darkGrey' : 'white',
         }}
-        backgroundColor={value == true ? 'greenCorrect' : 'darkGrey'}
+        backgroundColor={value == true ? 'yellow' : 'darkGrey'}
         width="100%"
         height={60}
         accessibilityLabel="Yes"
         borderTopRightRadius="m"
         borderBottomRightRadius="m"
+        borderColor="white"
+        borderWidth={2}
         onPress={() => updateChoice(true)}
       />
     </Box>

@@ -14,6 +14,7 @@ import {
   LoginScreen,
   TermsScreen,
   CriteriaScreen,
+  RejectionScreen,
 } from '@screens'
 import AssetCache from '@utils/AssetCache'
 
@@ -49,6 +50,7 @@ export default function App() {
   return (
     loaded && (
       <FlareThemeProvider>
+        <StatusBar barStyle="dark-content" />
         <Provider store={store}>
           <NavigationContainer>
             <Stack.Navigator>
@@ -74,6 +76,12 @@ export default function App() {
                   ...headerProps,
                 }}
               />
+              <Stack.Screen
+                name="Reject"
+                component={RejectionScreen}
+                {...hiddenHeaderProps}
+              />
+
               <Stack.Screen
                 name="Terms"
                 component={TermsScreen}

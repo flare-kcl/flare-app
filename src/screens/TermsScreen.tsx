@@ -30,23 +30,14 @@ export const TermsScreen: React.FunctionComponent<TermsScreenProps> = ({
           <Button
             testID="AcceptButton"
             label="I Accept T&C's"
-            backgroundColor="purple"
-            paddingVertical={4}
-            borderRadius="m"
-            marginTop={4}
-            activeOpacity={0.6}
+            variant="primary"
             onPress={() => onAccept?.()}
           />
-
           <Button
             testID="ExitButton"
             label="Decline and Exit"
-            marginTop={2}
-            textProps={{ color: 'white' }}
+            variant="exit"
             onPress={() => onExit?.()}
-            borderRadius="m"
-            backgroundColor="red"
-            paddingVertical={4}
           />
         </Box>
       </ScrollView>

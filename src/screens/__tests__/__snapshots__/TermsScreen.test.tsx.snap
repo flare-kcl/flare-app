@@ -42,10 +42,8 @@ exports[`Text Renders Correctly 1`] = `
           <View
             style={
               Object {
-                "alignSelf": "center",
                 "flexDirection": "row",
                 "marginBottom": 10,
-                "width": "100%",
               }
             }
           >
@@ -1022,7 +1020,8 @@ exports[`Text Renders Correctly 1`] = `
         onStartShouldSetResponder={[Function]}
         style={
           Object {
-            "flex": 1,
+            "flex": 0,
+            "flexDirection": "row",
             "opacity": 1,
             "width": "100%",
           }
@@ -1036,12 +1035,14 @@ exports[`Text Renders Correctly 1`] = `
                 "alignItems": "center",
                 "display": "flex",
                 "justifyContent": "center",
+                "width": "100%",
               },
               Array [
                 Object {
                   "backgroundColor": "#726DA8",
                   "borderRadius": 8,
-                  "marginTop": 16,
+                  "height": 60,
+                  "marginTop": 8,
                   "paddingVertical": 16,
                 },
               ],
@@ -1076,7 +1077,8 @@ exports[`Text Renders Correctly 1`] = `
         onStartShouldSetResponder={[Function]}
         style={
           Object {
-            "flex": 1,
+            "flex": 0,
+            "flexDirection": "row",
             "opacity": 1,
             "width": "100%",
           }
@@ -1090,6 +1092,7 @@ exports[`Text Renders Correctly 1`] = `
                 "alignItems": "center",
                 "display": "flex",
                 "justifyContent": "center",
+                "width": "100%",
               },
               Array [
                 Object {

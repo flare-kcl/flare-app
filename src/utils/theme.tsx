@@ -12,7 +12,7 @@ export const palette = {
   red: '#ff4757',
   yellow: '#FFBF46',
   darkGrey: '#212529',
-  lightGrey: '#bdc3c7',
+  lightGrey: '#e4e9ed',
   black: '#0B0B0B',
   white: '#F0F2F3',
 }
@@ -35,6 +35,7 @@ export const theme = createTheme({
     10: 40,
     12: 48,
     14: 60,
+    20: 200,
   },
   borderRadii: {
     s: 4,
@@ -82,13 +83,22 @@ export const theme = createTheme({
   buttonVariants: {
     primary: {
       backgroundColor: 'purple',
-      width: 300,
+      mt: 2,
+      py: 4,
       height: 60,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
       borderRadius: 'm',
-      alignSelf: 'flex-end',
+      textProps: {
+        color: 'white',
+      },
+    },
+    exit: {
+      mt: 2,
+      py: 4,
+      backgroundColor: 'red',
+      borderRadius: 'm',
+      textProps: {
+        color: 'white',
+      },
     },
   },
 

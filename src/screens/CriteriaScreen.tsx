@@ -1,28 +1,31 @@
 import { useState } from 'react'
-import { Alert } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
+import { useNavigation } from '@react-navigation/native'
+
 import { Box, Button, Markdown, CriterionToggle, Text } from '@components'
 
 type ExperimentCriterion = {
   name: string
   description: string
-  value: boolean
+  value?: boolean
   requiredValue?: boolean
 }
 
 type ExperimentCriteria = ExperimentCriterion[]
 
 type CriteriaScreenProps = {
-  onPassCritera?: Function
+  onPassCriteria?: Function
   onFailCriteria?: Function
   onExit?: Function
 }
 
 export const CriteriaScreen: React.FunctionComponent<CriteriaScreenProps> = ({
-  onPassCritera,
+  onPassCriteria,
   onFailCriteria,
   onExit,
 }) => {
+  const navigation = useNavigation()
+
   // TODO: Swap out for prop
   const experimentDescription = `
   # What is this experiment?
@@ -42,19 +45,19 @@ export const CriteriaScreen: React.FunctionComponent<CriteriaScreenProps> = ({
     {
       name: 'heart-criteria',
       description: `### 1. Do you have a pre-existing heart condition?`,
-      value: false,
+      value: null,
+      requiredValue: false,
     },
     {
       name: 'ptsd-criteria',
       description: `### 2. Do you suffer from PTSD?`,
-      value: false,
+      value: null,
       requiredValue: false,
     },
     {
       name: 'anxiety-criteria',
       description: `### 3. Do you have a diagnosed anxiety condtion?  \n Mauris ut urna nunc. Proin luctus, odio cursus ornare sodales, sapien metus ultrices nisl, at pulvinar dui ipsum et lacus. Cras sodales faucibus est vel volutpat. Pellentesque lacinia suscipit mi ut euismod. Donec ut viverra ante. Morbi bibendum vulputate neque vitae viverra. Mauris egestas vehicula tortor. Aenean ornare euismod massa, at cursus urna sodales nec.`,
-      value: false,
-      requiredValue: false,
+      value: null,
     },
   ]
 
@@ -88,14 +91,11 @@ export const CriteriaScreen: React.FunctionComponent<CriteriaScreenProps> = ({
     )
     // Proceed or redirect
     if (invalidCriterion) {
-      // TODO: Switch to redirect to ScreenOut Screen
-      Alert.alert(
-        'Thank you!',
-        'Unfortunatly you are not an ideal participant for our study, Thank you for time!',
-      )
+      // In future will be handled by ViewController
       onFailCriteria?.()
+      navigation.navigate('Reject')
     } else {
-      onPassCritera?.()
+      onPassCriteria?.()
     }
   }
 
@@ -109,45 +109,37 @@ export const CriteriaScreen: React.FunctionComponent<CriteriaScreenProps> = ({
           height: '100%',
         }}
       >
-        <Box flex={1} paddingHorizontal={6} paddingTop={10} paddingBottom={10}>
+        <Box flex={1} px={6} pt={10} pb={10}>
           {/* Experiment Description */}
-          <Markdown marginBottom={4}>{experimentDescription}</Markdown>
+          <Markdown mb={4}>{experimentDescription}</Markdown>
 
           {/* Loop over each consent criteria */}
           {consentCriteria.map((criterion) => (
-            <Box key={criterion.name} paddingTop={2} paddingBottom={8}>
+            <Box key={criterion.name} pt={2} pb={8}>
               <Markdown>{criterion.description}</Markdown>
               <CriterionToggle
                 name={criterion.name}
                 value={criterion.value}
                 onChange={updateCriteria}
-                marginTop={4}
+                mt={4}
               />
             </Box>
           ))}
 
-          <Box borderTopColor="lightGrey" borderTopWidth={2} paddingTop={6}>
+          <Box borderTopColor="lightGrey" borderTopWidth={2} pt={6}>
             {/* Small feature text to remined them to check answers */}
-            <Markdown>{postCriteriaText}</Markdown>
+            <Markdown pb={4}>{postCriteriaText}</Markdown>
             <Button
               testID="ContinueButton"
               label="Continue"
-              backgroundColor="purple"
-              paddingVertical={4}
-              borderRadius="m"
-              marginTop={4}
-              activeOpacity={0.6}
+              variant="primary"
               onPress={() => onContinue()}
             />
             <Button
               testID="ExitButton"
               label="Exit Experiment"
-              marginTop={2}
-              textProps={{ color: 'white' }}
+              variant="exit"
               onPress={() => onExit?.()}
-              borderRadius="m"
-              backgroundColor="red"
-              paddingVertical={4}
             />
           </Box>
         </Box>

@@ -44,10 +44,8 @@ exports[`Text Renders Correctly 1`] = `
           <View
             style={
               Object {
-                "alignSelf": "center",
                 "flexDirection": "row",
                 "marginBottom": 10,
-                "width": "100%",
               }
             }
           >
@@ -185,6 +183,7 @@ exports[`Text Renders Correctly 1`] = `
             style={
               Object {
                 "flex": 1,
+                "flexDirection": "row",
                 "opacity": 1,
                 "width": "100%",
               }
@@ -203,9 +202,11 @@ exports[`Text Renders Correctly 1`] = `
                   },
                   Array [
                     Object {
-                      "backgroundColor": "#FFBF46",
+                      "backgroundColor": "#212529",
                       "borderBottomLeftRadius": 8,
+                      "borderColor": "#F0F2F3",
                       "borderTopLeftRadius": 8,
+                      "borderWidth": 2,
                     },
                   ],
                 ]
@@ -215,7 +216,7 @@ exports[`Text Renders Correctly 1`] = `
                 style={
                   Array [
                     Object {
-                      "color": "#212529",
+                      "color": "#F0F2F3",
                       "display": "flex",
                       "fontFamily": "Inter-SemiBold",
                       "fontSize": 20,
@@ -240,6 +241,7 @@ exports[`Text Renders Correctly 1`] = `
             style={
               Object {
                 "flex": 1,
+                "flexDirection": "row",
                 "opacity": 1,
                 "width": "100%",
               }
@@ -260,7 +262,9 @@ exports[`Text Renders Correctly 1`] = `
                     Object {
                       "backgroundColor": "#212529",
                       "borderBottomRightRadius": 8,
+                      "borderColor": "#F0F2F3",
                       "borderTopRightRadius": 8,
+                      "borderWidth": 2,
                     },
                   ],
                 ]
@@ -364,6 +368,7 @@ exports[`Text Renders Correctly 1`] = `
             style={
               Object {
                 "flex": 1,
+                "flexDirection": "row",
                 "opacity": 1,
                 "width": "100%",
               }
@@ -382,9 +387,11 @@ exports[`Text Renders Correctly 1`] = `
                   },
                   Array [
                     Object {
-                      "backgroundColor": "#FFBF46",
+                      "backgroundColor": "#212529",
                       "borderBottomLeftRadius": 8,
+                      "borderColor": "#F0F2F3",
                       "borderTopLeftRadius": 8,
+                      "borderWidth": 2,
                     },
                   ],
                 ]
@@ -394,7 +401,7 @@ exports[`Text Renders Correctly 1`] = `
                 style={
                   Array [
                     Object {
-                      "color": "#212529",
+                      "color": "#F0F2F3",
                       "display": "flex",
                       "fontFamily": "Inter-SemiBold",
                       "fontSize": 20,
@@ -419,6 +426,7 @@ exports[`Text Renders Correctly 1`] = `
             style={
               Object {
                 "flex": 1,
+                "flexDirection": "row",
                 "opacity": 1,
                 "width": "100%",
               }
@@ -439,7 +447,9 @@ exports[`Text Renders Correctly 1`] = `
                     Object {
                       "backgroundColor": "#212529",
                       "borderBottomRightRadius": 8,
+                      "borderColor": "#F0F2F3",
                       "borderTopRightRadius": 8,
+                      "borderWidth": 2,
                     },
                   ],
                 ]
@@ -575,6 +585,7 @@ exports[`Text Renders Correctly 1`] = `
             style={
               Object {
                 "flex": 1,
+                "flexDirection": "row",
                 "opacity": 1,
                 "width": "100%",
               }
@@ -593,9 +604,11 @@ exports[`Text Renders Correctly 1`] = `
                   },
                   Array [
                     Object {
-                      "backgroundColor": "#FFBF46",
+                      "backgroundColor": "#212529",
                       "borderBottomLeftRadius": 8,
+                      "borderColor": "#F0F2F3",
                       "borderTopLeftRadius": 8,
+                      "borderWidth": 2,
                     },
                   ],
                 ]
@@ -605,7 +618,7 @@ exports[`Text Renders Correctly 1`] = `
                 style={
                   Array [
                     Object {
-                      "color": "#212529",
+                      "color": "#F0F2F3",
                       "display": "flex",
                       "fontFamily": "Inter-SemiBold",
                       "fontSize": 20,
@@ -630,6 +643,7 @@ exports[`Text Renders Correctly 1`] = `
             style={
               Object {
                 "flex": 1,
+                "flexDirection": "row",
                 "opacity": 1,
                 "width": "100%",
               }
@@ -650,7 +664,9 @@ exports[`Text Renders Correctly 1`] = `
                     Object {
                       "backgroundColor": "#212529",
                       "borderBottomRightRadius": 8,
+                      "borderColor": "#F0F2F3",
                       "borderTopRightRadius": 8,
+                      "borderWidth": 2,
                     },
                   ],
                 ]
@@ -678,7 +694,7 @@ exports[`Text Renders Correctly 1`] = `
         style={
           Array [
             Object {
-              "borderTopColor": "#bdc3c7",
+              "borderTopColor": "#e4e9ed",
               "borderTopWidth": 2,
               "display": "flex",
               "paddingTop": 24,
@@ -691,6 +707,7 @@ exports[`Text Renders Correctly 1`] = `
             Array [
               Object {
                 "display": "flex",
+                "paddingBottom": 16,
               },
             ]
           }
@@ -771,7 +788,8 @@ exports[`Text Renders Correctly 1`] = `
           onStartShouldSetResponder={[Function]}
           style={
             Object {
-              "flex": 1,
+              "flex": 0,
+              "flexDirection": "row",
               "opacity": 1,
               "width": "100%",
             }
@@ -785,12 +803,14 @@ exports[`Text Renders Correctly 1`] = `
                   "alignItems": "center",
                   "display": "flex",
                   "justifyContent": "center",
+                  "width": "100%",
                 },
                 Array [
                   Object {
                     "backgroundColor": "#726DA8",
                     "borderRadius": 8,
-                    "marginTop": 16,
+                    "height": 60,
+                    "marginTop": 8,
                     "paddingVertical": 16,
                   },
                 ],
@@ -825,7 +845,8 @@ exports[`Text Renders Correctly 1`] = `
           onStartShouldSetResponder={[Function]}
           style={
             Object {
-              "flex": 1,
+              "flex": 0,
+              "flexDirection": "row",
               "opacity": 1,
               "width": "100%",
             }
@@ -839,6 +860,7 @@ exports[`Text Renders Correctly 1`] = `
                   "alignItems": "center",
                   "display": "flex",
                   "justifyContent": "center",
+                  "width": "100%",
                 },
                 Array [
                   Object {
