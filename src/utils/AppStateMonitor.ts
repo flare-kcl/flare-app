@@ -11,7 +11,7 @@ import {
 
 export default class AppStateMonitor {
   /**
-   * Monitor any changes in App Cache and create any nessacery events
+   * Monitor any changes in App Cache and create any necessary events
    *
    * @param url The remote url that has been cached locally.
    */
@@ -25,7 +25,7 @@ export default class AppStateMonitor {
 
   private static onStateChange(nextStateType: RNAppStateType) {
     const currentTime = Date.now()
-    const previousState = AppStateMonitor.getPreviousState()
+    const previousState = AppStateMonitor.getLatestState()
 
     // If we left app and came back
     if (
@@ -62,7 +62,7 @@ export default class AppStateMonitor {
   /**
    * Return the latest recorded 'AppState', Which defines if the app is in the foreground or background.
    */
-  private static getPreviousState(): RNAppState {
+  private static getLatestState(): RNAppState {
     // Get the current redux state
     const state = store.getState()
 
