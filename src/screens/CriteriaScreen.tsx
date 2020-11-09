@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Alert } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native'
 
@@ -61,7 +62,7 @@ export const CriteriaScreen: React.FunctionComponent<CriteriaScreenProps> = ({
     },
   ]
 
-  let [consentCriteria, setConsentCriteria] = useState<ExperimentCriteria>(
+  const [consentCriteria, setConsentCriteria] = useState<ExperimentCriteria>(
     consentCriteriaExample,
   )
 
@@ -83,12 +84,22 @@ export const CriteriaScreen: React.FunctionComponent<CriteriaScreenProps> = ({
 
   // Utility function to check the validity of consent data
   const onContinue = () => {
+    // Check if any questions are unanswered
+    if (consentCriteria.find((criterion) => criterion.value == null)) {
+      Alert.alert(
+        'Check your answers!',
+        "It looks like you haven't answered all the questions.",
+      )
+      return null
+    }
+
     // Check if any of the answers make participant incompatible
     const invalidCriterion = consentCriteria.find(
       (criterion) =>
         criterion.requiredValue !== undefined &&
         criterion.value != criterion.requiredValue,
     )
+
     // Proceed or redirect
     if (invalidCriterion) {
       // In future will be handled by ViewController
