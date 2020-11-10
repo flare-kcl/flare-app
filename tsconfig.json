@@ -20,7 +20,10 @@
       "@utils/*": ["./utils/*"],
 
       "@redux": ["./redux"],
-      "@redux/*": ["./redux/*"]
+      "@redux/*": ["./redux/*"],
+
+      "@controllers": ["./controllers"],
+      "@controllers/*": ["./controllers/*"]
     }
   }
 }

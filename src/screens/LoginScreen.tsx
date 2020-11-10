@@ -2,7 +2,10 @@ import { useRef, useState } from 'react'
 import { Dimensions, ScrollView } from 'react-native'
 import Spinner from 'react-native-spinkit'
 
+import { ModuleScreen } from '@screens'
 import { Box, Text, Button, Image, TextField } from '@components'
+import { ExperimentViewController } from '@controllers'
+import { exampleExperimentData } from '@utils/exampleExperiment'
 import { palette } from '@utils/theme'
 
 const dimensions = Dimensions.get('screen')
@@ -12,7 +15,7 @@ enum Stages {
   Loading = 2,
 }
 
-export const LoginScreen = () => {
+export const LoginScreen: ModuleScreen = () => {
   const loginScroll = useRef(null)
   const [stage, setStage] = useState(0)
   const [value, onChangeText] = useState('')
@@ -30,6 +33,15 @@ export const LoginScreen = () => {
       y: 0,
       animated: true,
     })
+
+    // If at loading stage then show experiment
+    // TODO: Remove when implmenting login code...
+    if (nextStage == Stages.Loading) {
+      const exampleExperiment = new ExperimentViewController(
+        exampleExperimentData,
+      )
+      exampleExperiment.present()
+    }
   }
 
   return (
@@ -139,3 +151,6 @@ export const LoginScreen = () => {
     </Box>
   )
 }
+
+// Set the screen ID
+LoginScreen.screenID = 'login'

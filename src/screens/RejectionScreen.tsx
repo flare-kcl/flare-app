@@ -1,17 +1,18 @@
 import { Linking } from 'react-native'
-
+import { ModuleScreen } from '@screens'
 import { Image, Box, Button, Markdown } from '@components'
 
-type RejectionScreenProps = {
+type RejectionScreenParams = {
   // Ideally a mailto: link
   contactLink?: string
   onExit?: Function
 }
 
-export const RejectionScreen: React.FunctionComponent<RejectionScreenProps> = ({
-  contactLink,
-  onExit,
+export const RejectionScreen: ModuleScreen<RejectionScreenParams> = ({
+  route,
 }) => {
+  const { contactLink, onExit } = route?.params
+
   // TODO: Swap to prop
   const copy = `
   # Thank you for your time!
@@ -74,3 +75,5 @@ export const RejectionScreen: React.FunctionComponent<RejectionScreenProps> = ({
     </Box>
   )
 }
+
+RejectionScreen.screenID = 'reject'

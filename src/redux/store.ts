@@ -5,11 +5,18 @@ import AsyncStorage from '@react-native-community/async-storage'
 import logger from 'redux-logger'
 import thunk from 'redux-thunk'
 
-import { eventReducer, rnAppStateReducer } from './reducers'
+import {
+  eventReducer,
+  rnAppStateReducer,
+  experimentReducer,
+  moduleReducer,
+} from './reducers'
 
 const reducers = combineReducers({
   events: eventReducer,
   appState: rnAppStateReducer,
+  modules: moduleReducer,
+  experiment: experimentReducer,
 })
 
 const persistConfig = {

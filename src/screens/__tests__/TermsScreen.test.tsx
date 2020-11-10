@@ -6,7 +6,7 @@ import { acc } from 'react-native-reanimated'
 test('Text Renders Correctly', () => {
   const tree = render(
     <FlareThemeProvider>
-      <TermsScreen />
+      <TermsScreen route={{ params: {} }} />
     </FlareThemeProvider>,
   ).toJSON()
 
@@ -21,7 +21,14 @@ test('Calls Props on button press', () => {
   // Render screen
   const { queryByTestId } = render(
     <FlareThemeProvider>
-      <TermsScreen onAccept={onAccept} onExit={onExit} />
+      <TermsScreen
+        route={{
+          params: {
+            onAccept,
+            onExit,
+          },
+        }}
+      />
     </FlareThemeProvider>,
   )
 
