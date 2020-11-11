@@ -55,9 +55,8 @@ export const LoginScreen: ModuleScreen = () => {
       alignItems="center"
       justifyContent="flex-start"
       backgroundColor="greenPrimary"
-      py={10}
     >
-      <Text variant="heading" pt={8} pb={2}>
+      <Text variant="heading" pt={10} pb={2}>
         FLARe
       </Text>
 
@@ -72,21 +71,24 @@ export const LoginScreen: ModuleScreen = () => {
         horizontal
         scrollEnabled={false}
         decelerationRate="fast"
-        contentContainerStyle={{ width: `300%` }}
+        contentContainerStyle={{ width: `300%`, flex: 0 }}
         showsHorizontalScrollIndicator={false}
+        style={{ maxHeight: '50%' }}
       >
         {/* Placeholder Image Block */}
         <Box
           width={dimensions.width}
           alignItems="center"
           justifyContent="flex-start"
+          pt={6}
         >
           <Image
-            width={dimensions.width}
-            maxWidth={240}
-            height={300}
+            style={{
+              width: '70%',
+              height: '65%',
+            }}
             resizeMode="contain"
-            opacity={0.7}
+            opacity={0.8}
             source={require('../assets/images/fireworks.png')}
           />
         </Box>
@@ -98,7 +100,7 @@ export const LoginScreen: ModuleScreen = () => {
           justifyContent="flex-start"
           pt={10}
         >
-          <Box>
+          <Box width="100%" px={4}>
             <Text fontWeight="bold" color="darkGrey" pb={2}>
               Participant ID
             </Text>
@@ -110,7 +112,7 @@ export const LoginScreen: ModuleScreen = () => {
             />
           </Box>
 
-          <Text variant="caption2" textAlign="center" pt={10} px={6}>
+          <Text variant="caption2" textAlign="center" pt={10} px={3}>
             Please enter your Participant ID into the form above. You should of
             recieved this in your experiment briefing.
           </Text>
