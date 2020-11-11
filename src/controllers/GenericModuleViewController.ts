@@ -1,7 +1,8 @@
 import { store } from '@redux/store'
 import { updateModule } from '@redux/reducers'
+import { ExperimentViewController } from './ExperimentViewController'
 
-export abstract class GenericModuleViewController<StateType> {
+export abstract class GenericModuleViewController<StateType=Object> {
   moduleId: string
   moduleType: string
   moduleState: StateType
@@ -11,6 +12,9 @@ export abstract class GenericModuleViewController<StateType> {
     this.moduleType = moduleType
     this.moduleState = moduleState
   }
+
+
+  abstract render(experiment: ExperimentViewController)
 
   /**
    * Save the modules state to redux

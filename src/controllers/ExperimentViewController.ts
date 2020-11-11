@@ -5,6 +5,7 @@ import { navigate } from '@utils/navigation'
 import { store } from '@redux/store'
 import { experimentSelector, moduleSelector } from '@redux/selectors'
 import { updateExperiment } from '@redux/reducers'
+import { GenericModuleViewController } from './GenericModuleViewController'
 
 export enum ExperimentModuleType {
   TermsAndConditions = 'terms',
@@ -14,10 +15,6 @@ export enum ExperimentModuleType {
 const ModuleViewControllers = {
   terms: TermsModuleViewController,
   criteria: CriteriaModuleViewController,
-}
-
-type ExperimentModule = {
-  render: (experiment: ExperimentViewController) => void
 }
 
 type ExperimentModuleConfig = {
@@ -37,7 +34,7 @@ export type Experiment = {
 export class ExperimentViewController {
   private experiment: Experiment
   private currentModuleIndex: number = 0
-  private experimentModules: ExperimentModule[]
+  private experimentModules: GenericModuleViewController[]
 
   constructor(experiment: Experiment) {
     // Store experiment description
@@ -145,7 +142,7 @@ export class ExperimentViewController {
   /**
    * Use the internal module index to retrive the current module
    */
-  private getCurrentModule(): ExperimentModule {
+  private getCurrentModule(): GenericModuleViewController {
     return this.experimentModules[this.currentModuleIndex]
   }
 }
