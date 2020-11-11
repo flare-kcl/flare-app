@@ -105,7 +105,7 @@ export const theme = createTheme({
   inputVariants: {
     login: {
       height: 50,
-      width: 320,
+      width: '100%',
       backgroundColor: 'white',
       borderColor: 'purple',
       borderWidth: 2,
