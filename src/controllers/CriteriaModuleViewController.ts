@@ -5,7 +5,7 @@ import {
   CriteriaScreenParams,
   ExperimentCriteria,
 } from '@screens'
-import { navigateToModuleScreen } from '@utils/navigation'
+import { navigateToScreen } from '@utils/navigation'
 
 interface CriteriaModuleState {
   criteria: ExperimentCriteria
@@ -20,7 +20,7 @@ export class CriteriaModuleViewController extends GenericModuleViewController<
    * Hosts the single terms screen
    */
   render(experimentVC: ExperimentViewController) {
-    navigateToModuleScreen<CriteriaScreenParams>(CriteriaScreen.screenID, {
+    navigateToScreen<CriteriaScreenParams>(CriteriaScreen.screenID, {
       criteria: this.moduleState.criteria,
       continueMessage: this.moduleState.continueMessage,
       description: this.moduleState.description,

@@ -14,6 +14,7 @@ export function navigate(name, params) {
   navigationRef.current?.navigate(name, params)
 }
 
-export function navigateToModuleScreen<Params>(name: string, params: Params) {
+// Utility function for the above but with type support
+export function navigateToScreen<Params>(name: string, params: Params) {
   navigate(name, params)
 }
