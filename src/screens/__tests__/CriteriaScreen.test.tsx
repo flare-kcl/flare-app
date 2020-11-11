@@ -1,11 +1,12 @@
 import { render, fireEvent } from '@testing-library/react-native'
 import { FlareThemeProvider } from '@utils/theme'
+import { exampleCriteriaDefinition } from '@utils/exampleExperiment'
 import { CriteriaScreen } from '@screens'
 
 test('Text Renders Correctly', () => {
   const tree = render(
     <FlareThemeProvider>
-      <CriteriaScreen />
+      <CriteriaScreen route={{ params: exampleCriteriaDefinition }} />
     </FlareThemeProvider>,
   ).toJSON()
 
@@ -22,9 +23,14 @@ test('Calls Props on button press', () => {
   const { queryByTestId, queryAllByA11yLabel } = render(
     <FlareThemeProvider>
       <CriteriaScreen
-        onPassCriteria={onPass}
-        onFailCriteria={onFail}
-        onExit={onExit}
+        route={{
+          params: {
+            ...exampleCriteriaDefinition,
+            onPassCriteria: onPass,
+            onFailCriteria: onFail,
+            onExit: onExit,
+          },
+        }}
       />
     </FlareThemeProvider>,
   )

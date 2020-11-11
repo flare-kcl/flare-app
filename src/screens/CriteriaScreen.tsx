@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { Alert } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
-import { useNavigation } from '@react-navigation/native'
 
+import { ModuleScreen } from '@screens'
 import { Box, Button, Markdown, CriterionToggle, Text } from '@components'
 
 type ExperimentCriterion = {
@@ -12,58 +12,30 @@ type ExperimentCriterion = {
   requiredValue?: boolean
 }
 
-type ExperimentCriteria = ExperimentCriterion[]
+export type ExperimentCriteria = ExperimentCriterion[]
 
-type CriteriaScreenProps = {
-  onPassCriteria?: Function
-  onFailCriteria?: Function
-  onExit?: Function
+export type CriteriaScreenParams = {
+  criteria: ExperimentCriteria
+  description: string
+  continueMessage: string
+  onPassCriteria?: (criteria: ExperimentCriteria) => void
+  onFailCriteria?: () => void
+  onExit?: () => void
 }
 
-export const CriteriaScreen: React.FunctionComponent<CriteriaScreenProps> = ({
-  onPassCriteria,
-  onFailCriteria,
-  onExit,
+export const CriteriaScreen: ModuleScreen<CriteriaScreenParams> = ({
+  route,
 }) => {
-  const navigation = useNavigation()
-
-  // TODO: Swap out for prop
-  const experimentDescription = `
-  # What is this experiment?
-
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ac magna ut neque auctor varius et eu lectus. Proin eget fringilla lectus. Donec feugiat, turpis sed blandit lacinia, dolor nulla pretium quam, quis cursus neque lorem et ipsum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus aliquam tortor at rhoncus condimentum. Maecenas gravida nibh et gravida pretium. Morbi quam nisl, tempor et auctor sit amet, convallis et dui. Duis luctus mollis dolor vitae rutrum. Cras dapibus congue neque sed sodales.
-  `
-
-  // TODO: Swap out for prop
-  const postCriteriaText = `
-  ### Ready to continue?
-
-  Please make sure all of the above criteria are answered correctly. This is essential to the integreity of the your data.
-  `
-
-  // TODO: Swap out for prop
-  const consentCriteriaExample = [
-    {
-      name: 'heart-criteria',
-      description: `### 1. Do you have a pre-existing heart condition?`,
-      value: null,
-      requiredValue: false,
-    },
-    {
-      name: 'ptsd-criteria',
-      description: `### 2. Do you suffer from PTSD?`,
-      value: null,
-      requiredValue: false,
-    },
-    {
-      name: 'anxiety-criteria',
-      description: `### 3. Do you have a diagnosed anxiety condtion?  \n Mauris ut urna nunc. Proin luctus, odio cursus ornare sodales, sapien metus ultrices nisl, at pulvinar dui ipsum et lacus. Cras sodales faucibus est vel volutpat. Pellentesque lacinia suscipit mi ut euismod. Donec ut viverra ante. Morbi bibendum vulputate neque vitae viverra. Mauris egestas vehicula tortor. Aenean ornare euismod massa, at cursus urna sodales nec.`,
-      value: null,
-    },
-  ]
-
-  const [consentCriteria, setConsentCriteria] = useState<ExperimentCriteria>(
-    consentCriteriaExample,
+  const {
+    criteria,
+    description,
+    continueMessage,
+    onPassCriteria,
+    onFailCriteria,
+    onExit,
+  } = route.params
+  let [consentCriteria, setConsentCriteria] = useState<ExperimentCriteria>(
+    criteria,
   )
 
   // Utility function to update the criteria object
@@ -103,10 +75,9 @@ export const CriteriaScreen: React.FunctionComponent<CriteriaScreenProps> = ({
     // Proceed or redirect
     if (invalidCriterion) {
       // In future will be handled by ViewController
-      onFailCriteria?.()
-      navigation.navigate('Reject')
+      onFailCriteria()
     } else {
-      onPassCriteria?.()
+      onPassCriteria(consentCriteria)
     }
   }
 
@@ -122,7 +93,7 @@ export const CriteriaScreen: React.FunctionComponent<CriteriaScreenProps> = ({
       >
         <Box flex={1} px={6} pt={10} pb={10}>
           {/* Experiment Description */}
-          <Markdown mb={4}>{experimentDescription}</Markdown>
+          <Markdown mb={4}>{description}</Markdown>
 
           {/* Loop over each consent criteria */}
           {consentCriteria.map((criterion) => (
@@ -139,7 +110,7 @@ export const CriteriaScreen: React.FunctionComponent<CriteriaScreenProps> = ({
 
           <Box borderTopColor="lightGrey" borderTopWidth={2} pt={6}>
             {/* Small feature text to remined them to check answers */}
-            <Markdown pb={4}>{postCriteriaText}</Markdown>
+            <Markdown pb={4}>{continueMessage}</Markdown>
             <Button
               testID="ContinueButton"
               label="Continue"
@@ -150,7 +121,7 @@ export const CriteriaScreen: React.FunctionComponent<CriteriaScreenProps> = ({
               testID="ExitButton"
               label="Exit Experiment"
               variant="exit"
-              onPress={() => onExit?.()}
+              onPress={() => onExit()}
             />
           </Box>
         </Box>
@@ -158,3 +129,6 @@ export const CriteriaScreen: React.FunctionComponent<CriteriaScreenProps> = ({
     </>
   )
 }
+
+// Set the Screen ID
+CriteriaScreen.screenID = 'criteria'

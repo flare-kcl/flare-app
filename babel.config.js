@@ -17,6 +17,7 @@ module.exports = function (api) {
           alias: {
             '@screens': './src/screens',
             '@components': './src/components',
+            '@controllers': './src/controllers',
             '@utils': './src/utils',
             '@redux': './src/redux',
           },

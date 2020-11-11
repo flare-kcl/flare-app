@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { StatusBar } from 'react-native'
+import { StatusBar, LogBox } from 'react-native'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import { NavigationContainer } from '@react-navigation/native'
@@ -7,7 +7,6 @@ import { createStackNavigator } from '@react-navigation/stack'
 import Config from 'react-native-config'
 import * as Sentry from '@sentry/react-native'
 
-import { FlareThemeProvider, palette } from '@utils/theme'
 import { store, peristor } from '@redux/store'
 import { onStateHydrated } from '@redux/persist'
 
@@ -18,9 +17,13 @@ import {
   TermsScreen,
   CriteriaScreen,
   RejectionScreen,
+  renderModuleScreen,
+  LoadingScreen,
 } from '@screens'
 import AssetCache from '@utils/AssetCache'
 import AppStateMonitor from '@utils/AppStateMonitor'
+import { FlareThemeProvider } from '@utils/theme'
+import { navigationRef, navigatorReadyRef } from '@utils/navigation'
 
 // Create a stack navigator
 const Stack = createStackNavigator()
@@ -30,20 +33,8 @@ Sentry.init({
   dsn: Config.SENTRY_DTN,
 })
 
+// Base container for all screens
 export default function App() {
-  const headerProps = {
-    headerTintColor: palette.darkGrey,
-    headerTitleStyle: {
-      fontSize: 18,
-    },
-    headerStyle: {
-      backgroundColor: palette.greenLight,
-    },
-  }
-  const hiddenHeaderProps = {
-    options: { headerShown: false },
-  }
-
   const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
@@ -56,13 +47,22 @@ export default function App() {
     AssetCache.construct().then(() => setLoaded(true))
   })
 
+  const hiddenHeaderProps = {
+    headerShown: false,
+  }
+
   return (
     loaded && (
       <FlareThemeProvider>
         <StatusBar barStyle="dark-content" />
         <Provider store={store}>
           <PersistGate persistor={peristor}>
-            <NavigationContainer>
+            <NavigationContainer
+              ref={navigationRef}
+              onReady={() => {
+                navigatorReadyRef.current = true
+              }}
+            >
               <Stack.Navigator>
                 {/* Dedicated Testing Screens - Not shown to the participant */}
                 {Config.SHOW_DEBUG_MENU && (
@@ -78,32 +78,34 @@ export default function App() {
                   </>
                 )}
 
+                {/* WARNING - Loading must stay at the top! */}
                 <Stack.Screen
-                  name="Consent"
-                  component={CriteriaScreen}
-                  options={{
-                    headerTitle: 'Experiment Consent',
-                    ...headerProps,
-                  }}
-                />
-                <Stack.Screen
-                  name="Reject"
-                  component={RejectionScreen}
-                  {...hiddenHeaderProps}
+                  name={LoadingScreen.screenID}
+                  component={LoadingScreen}
+                  options={hiddenHeaderProps}
                 />
 
                 <Stack.Screen
-                  name="Terms"
-                  component={TermsScreen}
-                  options={{
-                    headerTitle: 'Terms & Conditions',
-                    ...headerProps,
-                  }}
+                  {...renderModuleScreen(
+                    LoginScreen,
+                    'Login',
+                    hiddenHeaderProps,
+                  )}
+                />
+
+                <Stack.Screen
+                  {...renderModuleScreen(CriteriaScreen, 'Experiment Consent')}
                 />
                 <Stack.Screen
-                  name="Login"
-                  component={LoginScreen}
-                  {...hiddenHeaderProps}
+                  {...renderModuleScreen(
+                    RejectionScreen,
+                    'Rejection',
+                    hiddenHeaderProps,
+                  )}
+                />
+
+                <Stack.Screen
+                  {...renderModuleScreen(TermsScreen, 'Terms & Conditions')}
                 />
               </Stack.Navigator>
             </NavigationContainer>
@@ -113,3 +115,8 @@ export default function App() {
     )
   )
 }
+
+// We don't need to worry about this becase we manually handle rehydaration!
+LogBox.ignoreLogs([
+  'Non-serializable values were found in the navigation state',
+])
