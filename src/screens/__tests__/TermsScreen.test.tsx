@@ -1,12 +1,12 @@
 import { render, fireEvent } from '@testing-library/react-native'
 import { FlareThemeProvider } from '@utils/theme'
 import { TermsScreen } from '@screens'
-import { acc } from 'react-native-reanimated'
+import { exampleTermsDefinition } from '@utils/exampleExperiment'
 
 test('Text Renders Correctly', () => {
   const tree = render(
     <FlareThemeProvider>
-      <TermsScreen route={{ params: {} }} />
+      <TermsScreen route={{ params: exampleTermsDefinition }} />
     </FlareThemeProvider>,
   ).toJSON()
 
@@ -24,6 +24,7 @@ test('Calls Props on button press', () => {
       <TermsScreen
         route={{
           params: {
+            ...exampleTermsDefinition,
             onAccept,
             onExit,
           },

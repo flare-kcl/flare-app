@@ -2,7 +2,7 @@ import { store } from '@redux/store'
 import { updateModule } from '@redux/reducers'
 import { ExperimentViewController } from './ExperimentViewController'
 
-export abstract class GenericModuleViewController<StateType=Object> {
+export abstract class GenericModuleViewController<StateType = Object> {
   moduleId: string
   moduleType: string
   moduleState: StateType
@@ -13,7 +13,11 @@ export abstract class GenericModuleViewController<StateType=Object> {
     this.moduleState = moduleState
   }
 
-
+  /**
+   * Triggers the module to present the screen that the user should be interacting with
+   *
+   * @param experiment
+   */
   abstract render(experiment: ExperimentViewController)
 
   /**
