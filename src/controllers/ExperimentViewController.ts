@@ -4,9 +4,12 @@ import { LoginScreen, RejectionScreen } from '@screens'
 import { navigate } from '@utils/navigation'
 import { store } from '@redux/store'
 import { experimentSelector, moduleSelector } from '@redux/selectors'
-import { updateExperiment } from '@redux/reducers'
+import {
+  updateExperiment,
+  clearExperiment,
+  clearAllModules,
+} from '@redux/reducers'
 import { GenericModuleViewController } from './GenericModuleViewController'
-
 
 export type ExperimentModuleType = 'TERMS' | 'CRITERIA'
 
@@ -78,10 +81,30 @@ export class ExperimentViewController {
   }
 
   /**
-   * Stops the experiment instantly and shows user rejection screen
+   * Stops the experiment instantly and shows participant rejection screen
    */
-  terminateExperiment() {
-    navigate(RejectionScreen.screenID, {})
+  screenOutParticipant() {
+    // Delete the experiment cache
+    this.terminateExperiment(false)
+
+    // Show them rejection screen
+    navigate(RejectionScreen.screenID, {
+      onExit: () => this.terminateExperiment(),
+    })
+  }
+
+  /**
+   * Deletes the experiment cache and shows the user the login screen
+   */
+  terminateExperiment(redirect = true) {
+    // Delete the experiment cache
+    store.dispatch(clearExperiment())
+    // Delete all the module cache
+    store.dispatch(clearAllModules())
+    // Show the login screen
+    if (redirect) {
+      ExperimentViewController.presentLogin()
+    }
   }
 
   /**
@@ -125,7 +148,13 @@ export class ExperimentViewController {
    * Presents the current module.
    */
   private render() {
-    this.getCurrentModule().render(this)
+    const currentModule = this.getCurrentModule()
+    // TODO: Swap out for reimbursment screen evetually
+    if (currentModule !== undefined) {
+      currentModule.render(this)
+    } else {
+      this.terminateExperiment()
+    }
   }
 
   /**

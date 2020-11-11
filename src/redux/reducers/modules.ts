@@ -6,8 +6,11 @@ type ModuleCacheUpdate = {
   moduleState: any
 }
 
-// Create an events reducer that stores all events
 export const updateModule = createAction<ModuleCacheUpdate>('module/update')
+export const clearAllModules = createAction<ModuleCacheUpdate>(
+  'module/clear_all',
+)
+
 export const moduleReducer = createReducer({}, (builder) => {
   builder.addCase(updateModule, (state, action) => {
     // See if existing state exists
@@ -19,5 +22,10 @@ export const moduleReducer = createReducer({}, (builder) => {
     }
     // Return new state
     return state
+  })
+
+  // Just reset the state...
+  builder.addCase(clearAllModules, () => {
+    return {}
   })
 })

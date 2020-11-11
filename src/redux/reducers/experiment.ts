@@ -11,10 +11,14 @@ type ExperimentCacheUpdate = {
   currentModuleIndex: number
 }
 
-// Create an events reducer that stores all events
 export const updateExperiment = createAction<ExperimentCacheUpdate>(
   'experiment/update',
 )
+
+export const clearExperiment = createAction<ExperimentCacheUpdate>(
+  'experiment/clear',
+)
+
 export const experimentReducer = createReducer<ExperimentCache>(
   {},
   (builder) => {
@@ -23,6 +27,11 @@ export const experimentReducer = createReducer<ExperimentCache>(
         ...state,
         ...action.payload,
       }
+    })
+
+    // Just reset the state...
+    builder.addCase(clearExperiment, () => {
+      return {}
     })
   },
 )

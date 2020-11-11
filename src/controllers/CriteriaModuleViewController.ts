@@ -25,8 +25,8 @@ export class CriteriaModuleViewController extends GenericModuleViewController<
       continueMessage: this.moduleState.continueMessage,
       description: this.moduleState.description,
       onPassCriteria: (critera) => this.onSubmit(critera, experimentVC),
+      onFailCriteria: () => experimentVC.screenOutParticipant(),
       onExit: () => experimentVC.terminateExperiment(),
-      onFailCriteria: () => experimentVC.terminateExperiment(),
     })
   }
 
