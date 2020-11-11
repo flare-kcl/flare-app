@@ -7,7 +7,9 @@ interface TermsModuleState {
   terms: string
 }
 
-export class TermsModuleViewController extends GenericModuleViewController<TermsModuleState> {
+export class TermsModuleViewController extends GenericModuleViewController<
+  TermsModuleState
+> {
   /**
    * Hosts the single terms screen
    */
