@@ -1,7 +1,10 @@
 import { NavigationProp } from '@react-navigation/native'
 import { palette } from '@utils/theme'
 
-// Generic utility type used for extract screenID to screen componennt
+/*
+  The 2 below types allows us to staticly type the ID of a screen (used by the navigator) and the paramaters that
+  should be passed to screen using .navigate method (See react-navigation).
+ */
 type ModuleScreenProps<Params, Props> = Props & {
   route?: {
     key?: string

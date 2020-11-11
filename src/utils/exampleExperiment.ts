@@ -87,20 +87,13 @@ export const exampleExperimentData: Experiment = {
   modules: [
     {
       id: '0',
-      moduleType: ExperimentModuleType.TermsAndConditions,
+      moduleType: 'TERMS',
       definition: exampleTermsDefinition,
     },
     {
       id: '1',
-      moduleType: ExperimentModuleType.Criteria,
+      moduleType: 'CRITERIA',
       definition: exampleCriteriaDefinition,
-    },
-    {
-      id: '2',
-      moduleType: ExperimentModuleType.TermsAndConditions,
-      definition: {
-        terms: '# Experiment Over!',
-      },
     },
   ],
 }

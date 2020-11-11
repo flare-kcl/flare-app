@@ -7,14 +7,12 @@ import { experimentSelector, moduleSelector } from '@redux/selectors'
 import { updateExperiment } from '@redux/reducers'
 import { GenericModuleViewController } from './GenericModuleViewController'
 
-export enum ExperimentModuleType {
-  TermsAndConditions = 'terms',
-  Criteria = 'criteria',
-}
+
+export type ExperimentModuleType = 'TERMS' | 'CRITERIA'
 
 const ModuleViewControllers = {
-  terms: TermsModuleViewController,
-  criteria: CriteriaModuleViewController,
+  TERMS: TermsModuleViewController,
+  CRITERIA: CriteriaModuleViewController,
 }
 
 type ExperimentModuleConfig = {
@@ -73,7 +71,7 @@ export class ExperimentViewController {
   }
 
   /**
-   * Called by a module once it's tasks are finished.
+   * Called by a module once its tasks are finished.
    */
   onModuleComplete() {
     this.renderNextModule()
@@ -94,7 +92,7 @@ export class ExperimentViewController {
   }
 
   /**
-   * Allows you to recover the experiment if app has been quite mid-experiment
+   * Allows you to recover the experiment if app has been quit mid-experiment
    */
   static recoverExperiment(): ExperimentViewController {
     const experimentState = experimentSelector(store.getState())
