@@ -165,7 +165,7 @@ exports[`Text Renders Correctly 1`] = `
               "flex": 1,
               "flexDirection": "column",
               "justifyContent": "flex-end",
-              "paddingBottom": 48,
+              "paddingBottom": 44,
             },
           ]
         }

@@ -19,7 +19,7 @@ const restyleFunctions = [
   spacing,
   border,
   backgroundColor,
-  // Create new varient for themed inputs
+  // Create new variant for themed inputs
   createVariant({ themeKey: 'inputVariants' }),
 ]
 type Props = TextInputProps &
