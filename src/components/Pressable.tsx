@@ -18,7 +18,7 @@ const restyleFunctions = [
   spacing,
   border,
   backgroundColor,
-  // Create new varient for themed buttons
+  // Create new variant for themed buttons
   createVariant({ themeKey: 'buttonVariants' }),
 ]
 type Props = SpacingProps<Theme> &
