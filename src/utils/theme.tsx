@@ -35,6 +35,11 @@ export const theme = createTheme({
     10: 40,
     12: 48,
     14: 60,
+    15: 80,
+    16: 100,
+    17: 120,
+    18: 140,
+    19: 160,
     20: 200,
   },
   borderRadii: {
