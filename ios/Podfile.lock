@@ -3,6 +3,10 @@ PODS:
   - CocoaAsyncSocket (7.6.4)
   - CocoaLibEvent (1.0.0)
   - DoubleConversion (1.1.6)
+  - EXAV (8.6.0):
+    - UMCore
+    - UMFileSystemInterface
+    - UMPermissionsInterface
   - EXConstants (9.2.0):
     - UMConstantsInterface
     - UMCore
@@ -380,6 +384,7 @@ PODS:
 
 DEPENDENCIES:
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
+  - EXAV (from `../node_modules/expo-av/ios`)
   - EXConstants (from `../node_modules/expo-constants/ios`)
   - EXErrorRecovery (from `../node_modules/expo-error-recovery/ios`)
   - EXFileSystem (from `../node_modules/expo-file-system/ios`)
@@ -481,6 +486,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   DoubleConversion:
     :podspec: "../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec"
+  EXAV:
+    :path: "../node_modules/expo-av/ios"
   EXConstants:
     :path: "../node_modules/expo-constants/ios"
   EXErrorRecovery:
@@ -607,6 +614,7 @@ SPEC CHECKSUMS:
   CocoaAsyncSocket: 694058e7c0ed05a9e217d1b3c7ded962f4180845
   CocoaLibEvent: 2fab71b8bd46dd33ddb959f7928ec5909f838e3f
   DoubleConversion: cde416483dac037923206447da6e1454df403714
+  EXAV: afbd489420a6b21221d00a6b9f36dcf1a962d1d8
   EXConstants: 6ec1ea4a13ec734c7e2274bc9e5b7408d73007a1
   EXErrorRecovery: cfb65ec51567cf57a00b2720a2367ac009298319
   EXFileSystem: efd6c0225f90c8b2c85131d578a09e13197e8b70
