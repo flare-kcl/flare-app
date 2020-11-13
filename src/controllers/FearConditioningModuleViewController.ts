@@ -105,10 +105,6 @@ export class FearConditioningModuleViewController extends GenericModuleViewContr
     let trials = [positiveStimuli.shift(), negativeStimuli.shift()]
     shuffleArray(trials)
 
-    // Merge positive and negative stimuli and shuffle...
-    let mergedTail = [].concat(positiveStimuli, negativeStimuli)
-    shuffleArray(mergedTail)
-
     // Rule 3: Merge positive and negative stimuli with a maxiumum of 2 stimuli in consectutive order
     for (var i = 0; i < positiveStimuli.length; i++) {
       // Get one of each stimuli
