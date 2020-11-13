@@ -6,16 +6,21 @@ type TrialImageStackProps = {
   stimulusImage: ImageSourcePropType
 }
 
+// A base context image is sused to scale the stimulus
+const BASE_IMAGE_SIZE = 800
+
 export const TrialImageStack: React.FunctionComponent<TrialImageStackProps> = ({
   contextImage,
   stimulusImage,
 }) => {
   const screenWidth = Dimensions.get('window').width
-  const imageSizing = {
+  const imageSize = screenWidth * 0.8
+  const imageToScreenRatio = (imageSize / BASE_IMAGE_SIZE) * 100
+  const imageSizingProps = {
     width: '100%',
     height: '100%',
-    maxWidth: screenWidth * 0.8,
-    maxHeight: screenWidth * 0.8,
+    maxWidth: imageSize,
+    maxHeight: imageSize,
     resizeMode: 'center',
   }
 
@@ -27,10 +32,17 @@ export const TrialImageStack: React.FunctionComponent<TrialImageStackProps> = ({
       justifyContent="center"
     >
       {/* Context Image */}
-      <Image {...imageSizing} source={contextImage} />
+      <Image {...imageSizingProps} source={contextImage} />
 
       {/* Stimulus Image */}
-      <Image {...imageSizing} position="absolute" source={stimulusImage} />
+      <Image
+        position="absolute"
+        height="100%"
+        width="100%"
+        maxWidth={`${imageToScreenRatio}%`}
+        maxHeight={`${imageToScreenRatio}%`}
+        source={stimulusImage}
+      />
     </Box>
   )
 }
