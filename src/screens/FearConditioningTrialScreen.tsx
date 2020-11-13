@@ -4,16 +4,6 @@ import { ImageSourcePropType } from 'react-native'
 import { Box, TrialImageStack, TrialRatingScale, Text } from '@components'
 import { ModuleScreen } from './BaseScreen'
 
-type FearConditioningTrialScreenParams = {
-  contextImage: ImageSourcePropType
-  stimulusImage: ImageSourcePropType
-  trialLength: number
-  ratingDelay: number
-  trialDelay: number
-  reinforced: boolean
-  onTrialEnd: (rating: number) => void
-}
-
 Audio.setAudioModeAsync({
   allowsRecordingIOS: false,
   staysActiveInBackground: false,
@@ -23,6 +13,21 @@ Audio.setAudioModeAsync({
   interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
   playThroughEarpieceAndroid: false,
 })
+
+type FearConditioningTrialScreenParams = {
+  contextImage: ImageSourcePropType
+  stimulusImage: ImageSourcePropType
+  trialLength: number
+  ratingDelay: number
+  reinforced: boolean
+  onTrialEnd: (response: FearConditioningTrialResponse) => void
+}
+
+export type FearConditioningTrialResponse = {
+  decisionTime: number
+  rating: number
+  skipped: boolean
+}
 
 export const FearConditioningTrialScreen: ModuleScreen<FearConditioningTrialScreenParams> = ({
   route,
@@ -37,11 +42,13 @@ export const FearConditioningTrialScreen: ModuleScreen<FearConditioningTrialScre
     trialDelay,
   } = route.params
   const [showTrial, setShowTrial] = useState<boolean>(false)
-  const [rating, setRating] = useState<number>(null)
+  const [rating, setRating] = useState<number>()
   const [showScale, setShowScale] = useState(false)
 
   // Keep reference of timers
   const soundRef = useRef<Audio.Sound>()
+  const startTimeRef = useRef<number>()
+  const reactionTimeRef = useRef<number>()
   const endTimerRef = useRef<any>()
   const soundTimerRef = useRef<any>()
   const scaleTimerRef = useRef<any>()
@@ -76,10 +83,13 @@ export const FearConditioningTrialScreen: ModuleScreen<FearConditioningTrialScre
       setupSound()
 
       // Set timer for end of trial
-      endTimerRef.current = setTimeout(
-        () => onTrialEnd(rating),
-        trialLength * 1000,
-      )
+      endTimerRef.current = setTimeout(() => {
+        onTrialEnd({
+          rating: rating,
+          skipped: rating === undefined,
+          decisionTime: reactionTimeRef.current ?? 0,
+        })
+      }, trialLength * 1000)
 
       // Set timer for sound, 500ms before end
       if (reinforced) {
@@ -90,13 +100,12 @@ export const FearConditioningTrialScreen: ModuleScreen<FearConditioningTrialScre
       }
 
       // Set timer for scale reveal
-      scaleTimerRef.current = setTimeout(
-        () => setShowScale(true),
-        ratingDelay * 1000,
-      )
-
-      // Render the trial
-      setShowTrial(true)
+      scaleTimerRef.current = setTimeout(() => {
+        // Show scale
+        setShowScale(true)
+        // Record what time we made scale available
+        startTimeRef.current = Date.now()
+      }, ratingDelay * 1000)
     }, trialDelay ?? 0)
 
     return () => {
