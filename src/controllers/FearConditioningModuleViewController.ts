@@ -61,6 +61,7 @@ export class FearConditioningModuleViewController extends GenericModuleViewContr
       ...currentTrial,
       ratingDelay: this.moduleState.ratingDelay,
       trialLength: this.moduleState.trialLength,
+      trialDelay: experimentVC.generateRandomInterval(),
       contextImage: this.moduleState.contextImage,
       onTrialEnd: (value) => this.onSubmit(value, experimentVC),
     })

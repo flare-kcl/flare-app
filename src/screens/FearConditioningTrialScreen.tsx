@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { Audio } from 'expo-av'
 import { ImageSourcePropType } from 'react-native'
-import { Box, TrialImageStack, TrialRatingScale } from '@components'
+import { Box, TrialImageStack, TrialRatingScale, Text } from '@components'
 import { ModuleScreen } from './BaseScreen'
 
 type FearConditioningTrialScreenParams = {
@@ -9,6 +9,7 @@ type FearConditioningTrialScreenParams = {
   stimulusImage: ImageSourcePropType
   trialLength: number
   ratingDelay: number
+  trialDelay: number
   reinforced: boolean
   onTrialEnd: (rating: number) => void
 }
@@ -33,7 +34,9 @@ export const FearConditioningTrialScreen: ModuleScreen<FearConditioningTrialScre
     reinforced,
     ratingDelay,
     onTrialEnd,
+    trialDelay,
   } = route.params
+  const [showTrial, setShowTrial] = useState<boolean>(false)
   const [rating, setRating] = useState<number>(null)
   const [showScale, setShowScale] = useState(false)
 
@@ -68,28 +71,33 @@ export const FearConditioningTrialScreen: ModuleScreen<FearConditioningTrialScre
   }
 
   useEffect(() => {
-    // Setup sound object before setting timers
-    setupSound()
+    setTimeout(() => {
+      // Setup sound object before setting timers
+      setupSound()
 
-    // Set timer for end of trial
-    endTimerRef.current = setTimeout(
-      () => onTrialEnd(rating),
-      trialLength * 1000,
-    )
-
-    // Set timer for sound, 500ms before end
-    if (reinforced) {
-      soundTimerRef.current = setTimeout(
-        async () => playSound(),
-        trialLength * 1000 - 500,
+      // Set timer for end of trial
+      endTimerRef.current = setTimeout(
+        () => onTrialEnd(rating),
+        trialLength * 1000,
       )
-    }
 
-    // Set timer for scale reveal
-    scaleTimerRef.current = setTimeout(
-      () => setShowScale(true),
-      ratingDelay * 1000,
-    )
+      // Set timer for sound, 500ms before end
+      if (reinforced) {
+        soundTimerRef.current = setTimeout(
+          async () => playSound(),
+          trialLength * 1000 - 500,
+        )
+      }
+
+      // Set timer for scale reveal
+      scaleTimerRef.current = setTimeout(
+        () => setShowScale(true),
+        ratingDelay * 1000,
+      )
+
+      // Render the trial
+      setShowTrial(true)
+    }, trialDelay ?? 0)
 
     return () => {
       // Delete sound object
@@ -100,20 +108,39 @@ export const FearConditioningTrialScreen: ModuleScreen<FearConditioningTrialScre
       clearTimeout(soundTimerRef.current)
       clearTimeout(scaleTimerRef.current)
     }
-  })
+  }, [])
 
   return (
-    <Box flex={1}>
-      <Box height="70%">
-        <TrialImageStack
-          contextImage={contextImage}
-          stimulusImage={stimulusImage}
-        />
-      </Box>
-      {showScale && (
-        <TrialRatingScale onChange={(rating) => setRating(rating)} />
+    <>
+      {/* Show marker when delaying trial */}
+      {showTrial === false && (
+        <Box
+          flex={1}
+          width="100%"
+          position="absolute"
+          top={0}
+          pt={24}
+          alignItems="center"
+        >
+          <Text fontWeight="bold" fontSize={120}>
+            +
+          </Text>
+        </Box>
       )}
-    </Box>
+
+      {/* Set opacity to zero during inter-trial delay to enable loading of images */}
+      <Box flex={1} opacity={showTrial ? 1 : 0}>
+        <Box height="70%">
+          <TrialImageStack
+            contextImage={contextImage}
+            stimulusImage={stimulusImage}
+          />
+        </Box>
+        {showScale && (
+          <TrialRatingScale onChange={(rating) => setRating(rating)} />
+        )}
+      </Box>
+    </>
   )
 }
 

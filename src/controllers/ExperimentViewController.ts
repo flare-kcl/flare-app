@@ -32,6 +32,10 @@ export type Experiment = {
   code: string
   contactEmail?: string
   modules: ExperimentModuleConfig[]
+  intervalTimeBounds: {
+    min: number
+    max: number
+  }
 }
 
 export class ExperimentViewController {
@@ -107,6 +111,14 @@ export class ExperimentViewController {
     if (redirect) {
       ExperimentViewController.presentLogin()
     }
+  }
+
+  /**
+   * Generates a random interval time between two bounds set in state.
+   */
+  generateRandomInterval(): number {
+    const bounds = this.experiment.intervalTimeBounds
+    return (Math.floor(Math.random() * bounds.max) + bounds.min) * 1000
   }
 
   /**
