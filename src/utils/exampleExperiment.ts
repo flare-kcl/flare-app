@@ -100,8 +100,8 @@ export const exampleExperimentData: Experiment = {
       moduleType: 'FEAR_CONDITIONING',
       definition: {
         phase: 'acquisition',
-        trialsPerStimulus: 2,
-        reinforcementRate: 1,
+        trialsPerStimulus: 4,
+        reinforcementRate: 4,
         ratingDelay: 2,
         trialLength: 6,
         generalisationStimuliEnabled: true,

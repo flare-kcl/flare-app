@@ -21,6 +21,7 @@
     "expo-updates": "~0.3.2",
     "expo-web-browser": "~8.5.0",
     "jest-expo": "^39.0.0",
+    "lodash": "^4.17.20",
     "react": "^16.14.0",
     "react-dom": "~16.13.0",
     "react-native": "~0.63.3",

@@ -1,8 +1,8 @@
 import { ExperimentViewController } from './ExperimentViewController'
 import { GenericModuleViewController } from './GenericModuleViewController'
-import { ExperimentCriteria, FearConditioningTrialScreen } from '@screens'
+import { FearConditioningTrialScreen } from '@screens'
 import { navigateToScreen } from '@utils/navigation'
-import shuffleArray from '@utils/shuffle'
+import { shuffle } from 'lodash'
 
 interface FearConditioningModuleState {
   phase: string
@@ -76,8 +76,8 @@ export class FearConditioningModuleViewController extends GenericModuleViewContr
     reinforcementRate: number,
   ): Trial[] {
     // Determine which image matches what stimulus
-    let images = this.moduleState.stimuliImages
-    shuffleArray(images)
+    let images = shuffle(this.moduleState.stimuliImages)
+
     const positiveStimuliImage = images[0]
     const negativeStimuliImage = images[1]
 
@@ -102,15 +102,12 @@ export class FearConditioningModuleViewController extends GenericModuleViewContr
 
     // Rule 1: First two trials must be one of each (in random order)
     // Rule 2: The first positive stimuli must be reinforced (hence the shift instead of pop)
-    let trials = [positiveStimuli.shift(), negativeStimuli.shift()]
-    shuffleArray(trials)
+    let trials = shuffle([positiveStimuli.shift(), negativeStimuli.shift()])
 
     // Rule 3: Merge positive and negative stimuli with a maxiumum of 2 stimuli in consectutive order
     for (var i = 0; i < positiveStimuli.length; i++) {
-      // Get one of each stimuli
-      let tail = [positiveStimuli.shift(), negativeStimuli.shift()]
-      // Shuffle order
-      shuffleArray(tail)
+      // Get one of each stimuli & shuffle
+      let tail = shuffle([positiveStimuli.shift(), negativeStimuli.shift()])
       // Append to end of our existing trials
       trials = trials.concat(tail)
     }

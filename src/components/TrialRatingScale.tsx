@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react'
 import { Box, Text } from '@components'
 import { Dimensions } from 'react-native'
 import { Pressable } from '@components'
-import debounce from '@utils/debounce'
+import { debounce } from 'lodash'
 
 import {
   PanGestureHandler,
