@@ -1,23 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Text Renders Correctly 1`] = `
-<RCTScrollView>
-  <View>
-    <View
-      style={
-        Array [
-          Object {
-            "alignItems": "center",
-            "backgroundColor": "#B2DBBF",
-            "display": "flex",
-            "flex": 1,
-            "flexDirection": "column",
-            "paddingHorizontal": 16,
-            "paddingTop": 40,
-          },
-        ]
-      }
-    >
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#B2DBBF",
+        "display": "flex",
+        "flexDirection": "column",
+        "height": "100%",
+        "paddingHorizontal": 16,
+        "paddingTop": 40,
+        "width": "100%",
+      },
+    ]
+  }
+>
+  <RCTScrollView
+    height="100%"
+    horizontal={false}
+    width="100%"
+  >
+    <View>
       <View
         style={
           Array [
@@ -165,7 +170,6 @@ exports[`Text Renders Correctly 1`] = `
               "flex": 1,
               "flexDirection": "column",
               "justifyContent": "flex-end",
-              "paddingBottom": 44,
             },
           ]
         }
@@ -229,6 +233,6 @@ exports[`Text Renders Correctly 1`] = `
         </View>
       </View>
     </View>
-  </View>
-</RCTScrollView>
+  </RCTScrollView>
+</View>
 `;
