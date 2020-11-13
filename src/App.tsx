@@ -19,6 +19,7 @@ import {
   RejectionScreen,
   renderModuleScreen,
   LoadingScreen,
+  FearConditioningTrialScreen,
 } from '@screens'
 import AssetCache from '@utils/AssetCache'
 import AppStateMonitor from '@utils/AppStateMonitor'
@@ -83,6 +84,14 @@ export default function App() {
                   name={LoadingScreen.screenID}
                   component={LoadingScreen}
                   options={hiddenHeaderProps}
+                />
+
+                <Stack.Screen
+                  {...renderModuleScreen(
+                    FearConditioningTrialScreen,
+                    'Trial',
+                    hiddenHeaderProps,
+                  )}
                 />
 
                 <Stack.Screen

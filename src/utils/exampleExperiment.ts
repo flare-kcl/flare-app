@@ -95,5 +95,22 @@ export const exampleExperimentData: Experiment = {
       moduleType: 'CRITERIA',
       definition: exampleCriteriaDefinition,
     },
+    {
+      id: '2',
+      moduleType: 'FEAR_CONDITIONING',
+      definition: {
+        phase: 'acquisition',
+        trialsPerStimulus: 4,
+        reinforcementRate: 4,
+        ratingDelay: 2,
+        trialLength: 6,
+        generalisationStimuliEnabled: true,
+        contextImage: require('../assets/images/example-context.jpg'),
+        stimuliImages: [
+          require('../assets/images/small.png'),
+          require('../assets/images/large.png'),
+        ],
+      },
+    },
   ],
 }

@@ -23,15 +23,16 @@ export const RejectionScreen: ModuleScreen<RejectionScreenParams> = ({
   `
 
   return (
-    <ScrollView>
-      <Box
-        flex={1}
-        flexDirection="column"
-        alignItems="center"
-        paddingTop={10}
-        paddingHorizontal={4}
-        backgroundColor="greenLight"
-      >
+    <Box
+      height="100%"
+      width="100%"
+      flexDirection="column"
+      alignItems="center"
+      paddingTop={10}
+      paddingHorizontal={4}
+      backgroundColor="greenLight"
+    >
+      <ScrollView horizontal={false} width="100%" height="100%">
         <Box
           flexDirection="row"
           justifyContent="center"
@@ -53,12 +54,7 @@ export const RejectionScreen: ModuleScreen<RejectionScreenParams> = ({
         <Markdown paddingTop={10} paddingBottom={6}>
           {copy}
         </Markdown>
-        <Box
-          flex={1}
-          paddingBottom={12}
-          flexDirection="column"
-          justifyContent="flex-end"
-        >
+        <Box flex={1} flexDirection="column" justifyContent="flex-end">
           {contactLink && (
             <Button
               testID="ContinueButton"
@@ -75,8 +71,8 @@ export const RejectionScreen: ModuleScreen<RejectionScreenParams> = ({
             onPress={() => onExit?.()}
           />
         </Box>
-      </Box>
-    </ScrollView>
+      </ScrollView>
+    </Box>
   )
 }
 

@@ -56,7 +56,7 @@ export const LoginScreen: ModuleScreen = () => {
       justifyContent="flex-start"
       backgroundColor="greenPrimary"
     >
-      <Text variant="heading" pt={10} pb={2}>
+      <Text variant="heading" pt={24} pb={2}>
         FLARe
       </Text>
 
@@ -139,7 +139,7 @@ export const LoginScreen: ModuleScreen = () => {
       </ScrollView>
 
       {/* Push button to bottom of screen */}
-      <Box flex={1} justifyContent="flex-end" pb={6} px={4}>
+      <Box flex={1} justifyContent="flex-end" pb={14} px={4}>
         {stage != Stages.Loading && (
           <Button
             variant="primary"

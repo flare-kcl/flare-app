@@ -10,12 +10,14 @@ import {
   clearAllModules,
 } from '@redux/reducers'
 import { GenericModuleViewController } from './GenericModuleViewController'
+import { FearConditioningModuleViewController } from './FearConditioningModuleViewController'
 
 export type ExperimentModuleType = 'TERMS' | 'CRITERIA'
 
 const ModuleViewControllers = {
   TERMS: TermsModuleViewController,
   CRITERIA: CriteriaModuleViewController,
+  FEAR_CONDITIONING: FearConditioningModuleViewController,
 }
 
 type ExperimentModuleConfig = {
