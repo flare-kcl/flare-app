@@ -48,8 +48,6 @@ platform :ios do
     pilot(
       api_key_path: "./api.json",
       ipa: './flare.ipa',
-      changelog: File.read("../../Changelog.txt"),
-      distribute_external: true,
       groups: ['FLARe Testers'],
       skip_waiting_for_build_processing: true
     )
