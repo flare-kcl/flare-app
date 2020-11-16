@@ -30,7 +30,7 @@ export const TrialRatingScale: React.FunctionComponent<TrialRatingScale> = ({
     setCurrentButton(value)
     // If we are swiping we only want to lock when we stop swiping
     if (debounceLock) {
-      debouncedLock()
+      debouncedLock(value)
     } else {
       setLocked(true)
       onChange(value)
@@ -39,9 +39,9 @@ export const TrialRatingScale: React.FunctionComponent<TrialRatingScale> = ({
 
   // Debounce locking for 100ms
   const debouncedLock = useCallback(
-    debounce(() => {
+    debounce((value: number) => {
       setLocked(true)
-      onChange(currentButton)
+      onChange(value)
     }, 300),
     [],
   )

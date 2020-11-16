@@ -1,6 +1,10 @@
+import { Alert } from 'react-native'
 import { ExperimentViewController } from './ExperimentViewController'
 import { GenericModuleViewController } from './GenericModuleViewController'
-import { FearConditioningTrialScreen } from '@screens'
+import {
+  FearConditioningTrialScreen,
+  FearConditioningTrialResponse,
+} from '@screens'
 import { navigateToScreen } from '@utils/navigation'
 import { shuffle } from 'lodash'
 
@@ -20,7 +24,7 @@ interface Trial {
   label: string
   stimulusImage: any
   reinforced: boolean
-  rating?: number
+  response?: FearConditioningTrialResponse
 }
 
 export class FearConditioningModuleViewController extends GenericModuleViewController<
@@ -28,6 +32,8 @@ export class FearConditioningModuleViewController extends GenericModuleViewContr
 > {
   // Record what trial we are currently viewing
   currentTrialIndex = 0
+  // Record if the last trial resulted in a skip
+  lastTrialSkipped = false
 
   /**
    * Custom constructor to build out trials before render
@@ -58,19 +64,21 @@ export class FearConditioningModuleViewController extends GenericModuleViewContr
 
     // Get the interval bounds of the experiment
     const intervalBounds = experimentVC.experiment.intervalTimeBounds
+    const trialDelay =
+      Math.min(
+        intervalBounds.max,
+        Math.max(intervalBounds.min, Math.random()),
+      ) * 1000
 
     // Render the trial
     navigateToScreen<any>(FearConditioningTrialScreen.screenID, {
       ...currentTrial,
+      trialDelay,
       ratingDelay: this.moduleState.ratingDelay,
       trialLength: this.moduleState.trialLength,
-      trialDelay:
-        Math.min(
-          intervalBounds.max,
-          Math.max(intervalBounds.min, Math.random()),
-        ) * 1000,
       contextImage: this.moduleState.contextImage,
-      onTrialEnd: (value) => this.onSubmit(value, experimentVC),
+      onTrialEnd: (response: FearConditioningTrialResponse) =>
+        this.onSubmit(response, experimentVC),
     })
   }
 
@@ -125,11 +133,41 @@ export class FearConditioningModuleViewController extends GenericModuleViewContr
   }
 
   /**
-   * Called when the user submits their response.
+   * Called when the user skips two consecutive trials
+   *
+   * @param experimentVC
    */
-  onSubmit(value: number, experimentVC: ExperimentViewController) {
+  onSkip(experimentVC: ExperimentViewController) {
+    Alert.alert(
+      'Attention Required',
+      'You have not been rating trials in the designated time, Please try to answer them as fast as you can.',
+      [
+        {
+          text: 'Exit Experiment',
+          onPress: () => experimentVC.screenOutParticipant(),
+          style: 'cancel',
+        },
+        {
+          text: 'Continue to next trial',
+          onPress: () => this.render(experimentVC),
+        },
+      ],
+      { cancelable: false },
+    )
+  }
+
+  /**
+   * Called when the user submits their response.
+   *
+   * @param response
+   * @param experimentVC
+   */
+  onSubmit(
+    response: FearConditioningTrialResponse,
+    experimentVC: ExperimentViewController,
+  ) {
     // Set the users rating
-    this.moduleState.trials[this.currentTrialIndex].rating = value
+    this.moduleState.trials[this.currentTrialIndex].response = response
     // Move to next trial
     this.currentTrialIndex = this.currentTrialIndex + 1
     // Save changes
@@ -137,7 +175,13 @@ export class FearConditioningModuleViewController extends GenericModuleViewContr
     // If we have run out of trials then call next module
     if (this.currentTrialIndex === this.moduleState.trials.length) {
       experimentVC.onModuleComplete()
+    }
+    // If they skipped too consecutuive times then we need to alert them
+    else if (this.lastTrialSkipped && response.skipped) {
+      this.onSkip(experimentVC)
     } else {
+      // Record if this trial was skipped
+      this.lastTrialSkipped = response.skipped
       // Render the new trial
       this.render(experimentVC)
     }
