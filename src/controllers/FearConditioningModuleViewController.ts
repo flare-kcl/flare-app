@@ -56,12 +56,19 @@ export class FearConditioningModuleViewController extends GenericModuleViewContr
     // Get the trial we need to render
     const currentTrial = this.moduleState.trials[this.currentTrialIndex]
 
+    // Get the interval bounds of the experiment
+    const intervalBounds = experimentVC.experiment.intervalTimeBounds
+
     // Render the trial
     navigateToScreen<any>(FearConditioningTrialScreen.screenID, {
       ...currentTrial,
       ratingDelay: this.moduleState.ratingDelay,
       trialLength: this.moduleState.trialLength,
-      trialDelay: experimentVC.generateRandomInterval(),
+      trialDelay:
+        Math.min(
+          intervalBounds.max,
+          Math.max(intervalBounds.min, Math.random()),
+        ) * 1000,
       contextImage: this.moduleState.contextImage,
       onTrialEnd: (value) => this.onSubmit(value, experimentVC),
     })

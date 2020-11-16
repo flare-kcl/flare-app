@@ -39,7 +39,7 @@ export type Experiment = {
 }
 
 export class ExperimentViewController {
-  private experiment: Experiment
+  experiment: Experiment
   private currentModuleIndex: number = 0
   private experimentModules: GenericModuleViewController[]
 
@@ -111,14 +111,6 @@ export class ExperimentViewController {
     if (redirect) {
       ExperimentViewController.presentLogin()
     }
-  }
-
-  /**
-   * Generates a random interval time between two bounds set in state.
-   */
-  generateRandomInterval(): number {
-    const bounds = this.experiment.intervalTimeBounds
-    return (Math.floor(Math.random() * bounds.max) + bounds.min) * 1000
   }
 
   /**
