@@ -107,6 +107,12 @@ export const FearConditioningTrialScreen: ModuleScreen<FearConditioningTrialScre
         // Show scale
         setShowScale(true)
       }, ratingDelay * 1000)
+
+      // Show the trial
+      setShowTrial(true)
+
+      // Mark the start time
+      startTimeRef.current = Date.now()
     }, trialDelay ?? 0)
 
     return () => {
@@ -118,7 +124,7 @@ export const FearConditioningTrialScreen: ModuleScreen<FearConditioningTrialScre
       clearTimeout(soundTimerRef.current)
       clearTimeout(scaleTimerRef.current)
     }
-  }, [])
+  })
 
   return (
     <>
@@ -148,11 +154,11 @@ export const FearConditioningTrialScreen: ModuleScreen<FearConditioningTrialScre
         </Box>
         {showScale && (
           <TrialRatingScale
-            onChange={(rating) => {
-              // Update state
-              setRating(rating)
+            onChange={(value) => {
               // Record time to rate
               reactionTimeRef.current = Date.now()
+              // Update state
+              setRating(value)
             }}
           />
         )}

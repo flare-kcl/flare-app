@@ -64,17 +64,18 @@ export class FearConditioningModuleViewController extends GenericModuleViewContr
 
     // Get the interval bounds of the experiment
     const intervalBounds = experimentVC.experiment.intervalTimeBounds
+    const trialDelay =
+      Math.min(
+        intervalBounds.max,
+        Math.max(intervalBounds.min, Math.random()),
+      ) * 1000
 
     // Render the trial
     navigateToScreen<any>(FearConditioningTrialScreen.screenID, {
       ...currentTrial,
+      trialDelay,
       ratingDelay: this.moduleState.ratingDelay,
       trialLength: this.moduleState.trialLength,
-      trialDelay:
-        Math.min(
-          intervalBounds.max,
-          Math.max(intervalBounds.min, Math.random()),
-        ) * 1000,
       contextImage: this.moduleState.contextImage,
       onTrialEnd: (response: FearConditioningTrialResponse) =>
         this.onSubmit(response, experimentVC),
