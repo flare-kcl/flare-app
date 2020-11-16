@@ -84,6 +84,10 @@ export const exampleExperimentData: Experiment = {
   `,
   code: 'Example',
   contactEmail: 'flare@torchbox.com',
+  intervalTimeBounds: {
+    min: 0.5,
+    max: 1.5,
+  },
   modules: [
     {
       id: '0',

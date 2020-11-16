@@ -32,10 +32,14 @@ export type Experiment = {
   code: string
   contactEmail?: string
   modules: ExperimentModuleConfig[]
+  intervalTimeBounds: {
+    min: number
+    max: number
+  }
 }
 
 export class ExperimentViewController {
-  private experiment: Experiment
+  experiment: Experiment
   private currentModuleIndex: number = 0
   private experimentModules: GenericModuleViewController[]
 
