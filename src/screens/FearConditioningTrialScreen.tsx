@@ -20,13 +20,15 @@ type FearConditioningTrialScreenParams = {
   trialLength: number
   ratingDelay: number
   reinforced: boolean
+  trialDelay: number
   onTrialEnd: (response: FearConditioningTrialResponse) => void
 }
 
 export type FearConditioningTrialResponse = {
-  decisionTime: number
   rating: number
   skipped: boolean
+  startTime: number
+  decisionTime: number
 }
 
 export const FearConditioningTrialScreen: ModuleScreen<FearConditioningTrialScreenParams> = ({
@@ -87,7 +89,8 @@ export const FearConditioningTrialScreen: ModuleScreen<FearConditioningTrialScre
         onTrialEnd({
           rating: rating,
           skipped: rating === undefined,
-          decisionTime: reactionTimeRef.current ?? 0,
+          startTime: startTimeRef.current,
+          decisionTime: reactionTimeRef.current,
         })
       }, trialLength * 1000)
 
@@ -103,8 +106,6 @@ export const FearConditioningTrialScreen: ModuleScreen<FearConditioningTrialScre
       scaleTimerRef.current = setTimeout(() => {
         // Show scale
         setShowScale(true)
-        // Record what time we made scale available
-        startTimeRef.current = Date.now()
       }, ratingDelay * 1000)
     }, trialDelay ?? 0)
 
@@ -146,7 +147,14 @@ export const FearConditioningTrialScreen: ModuleScreen<FearConditioningTrialScre
           />
         </Box>
         {showScale && (
-          <TrialRatingScale onChange={(rating) => setRating(rating)} />
+          <TrialRatingScale
+            onChange={(rating) => {
+              // Update state
+              setRating(rating)
+              // Record time to rate
+              reactionTimeRef.current = Date.now()
+            }}
+          />
         )}
       </Box>
     </>

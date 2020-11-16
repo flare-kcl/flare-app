@@ -173,10 +173,10 @@ export class FearConditioningModuleViewController extends GenericModuleViewContr
     this.saveState()
     // If we have run out of trials then call next module
     if (this.currentTrialIndex === this.moduleState.trials.length) {
-      return experimentVC.onModuleComplete()
+      experimentVC.onModuleComplete()
     }
     // If they skipped too consecutuive times then we need to alert them
-    if (this.lastTrialSkipped && response.skipped) {
+    else if (this.lastTrialSkipped && response.skipped) {
       this.onSkip(experimentVC)
     } else {
       // Record if this trial was skipped
