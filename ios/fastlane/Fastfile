@@ -48,8 +48,7 @@ platform :ios do
     pilot(
       api_key_path: "./api.json",
       ipa: './flare.ipa',
-      groups: ['FLARe Testers'],
-      skip_waiting_for_build_processing: true
+      groups: ['FLARe Testers']
     )
   end
 end
