@@ -6,7 +6,6 @@ import {
   RNAppStateType,
   updateRNAppState,
   recordEvent,
-  EventTypes,
 } from '@redux/reducers'
 
 export default class AppStateMonitor {
@@ -27,26 +26,22 @@ export default class AppStateMonitor {
     const currentTime = Date.now()
     const previousState = AppStateMonitor.getLatestState()
 
-    // If we left app and came back
+    // Calculate suspened time in seconds
+    const suspendedTime = (currentTime - previousState.lastUpdated) / 1000
+
+    // If we left app and came back in a time exceeding 3 seconds
     if (
       (previousState.type === RNAppStateType.Background ||
         previousState.type === RNAppStateType.Inactive) &&
       nextStateType == RNAppStateType.Active
     ) {
       // Record an event detailing how long the app was suspended
-      const suspendedTime = currentTime - previousState.lastUpdated
       store.dispatch(
         recordEvent({
-          eventType: EventTypes.SuspensionPeriod,
+          eventType: 'SuspensionPeriod',
           recorded: currentTime,
           value: String(suspendedTime),
         }),
-      )
-
-      // TODO: Remove once experiment structure set up (for review use only)
-      Alert.alert(
-        'Welcome Back',
-        `You were gone for ${suspendedTime / 1000} seconds!`,
       )
     }
 
