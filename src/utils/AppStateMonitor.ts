@@ -26,15 +26,14 @@ export default class AppStateMonitor {
     const currentTime = Date.now()
     const previousState = AppStateMonitor.getLatestState()
 
-    // Calculate suspened time in seconds
-    const suspendedTime = (currentTime - previousState.lastUpdated) / 1000
-
-    // If we left app and came back in a time exceeding 3 seconds
+    // If we left app and came back
     if (
       (previousState.type === RNAppStateType.Background ||
         previousState.type === RNAppStateType.Inactive) &&
       nextStateType == RNAppStateType.Active
     ) {
+      // Calculate suspened time in seconds
+      const suspendedTime = (currentTime - previousState.lastUpdated) / 1000
       // Record an event detailing how long the app was suspended
       store.dispatch(
         recordEvent({
