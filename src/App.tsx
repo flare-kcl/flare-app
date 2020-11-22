@@ -1,14 +1,12 @@
 import { useEffect, useState } from 'react'
-import { StatusBar, LogBox } from 'react-native'
+import { StatusBar, LogBox, Alert } from 'react-native'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import Config from 'react-native-config'
 import * as Sentry from '@sentry/react-native'
-
-import { store, peristor } from '@redux/store'
-import { onStateHydrated } from '@redux/persist'
+import AudioSensor from '@utils/AudioSensor'
 
 import {
   DebugIndex,
@@ -25,6 +23,8 @@ import AssetCache from '@utils/AssetCache'
 import AppStateMonitor from '@utils/AppStateMonitor'
 import { FlareThemeProvider } from '@utils/theme'
 import { navigationRef, navigatorReadyRef } from '@utils/navigation'
+import { store, peristor } from '@redux/store'
+import { onStateHydrated } from '@redux/persist'
 
 // Create a stack navigator
 const Stack = createStackNavigator()
@@ -38,7 +38,31 @@ Sentry.init({
 export default function App() {
   const [loaded, setLoaded] = useState(false)
 
+  const notifyUserRegardingHeadphones = (connected: boolean) => {
+    if (connected == false) {
+      Alert.alert(
+        'Headphones Required',
+        'Please connect headphones to continue with the experiment',
+        [
+          {
+            text: 'Dismiss',
+            onPress: async () => {
+              notifyUserRegardingHeadphones(
+                await AudioSensor.isHeadphonesConnected(),
+              )
+            },
+          },
+        ],
+        { cancelable: false },
+      )
+    }
+  }
+
   useEffect(() => {
+    // TODO: Ensure user has headphones connected - Will be moved to future module
+    AudioSensor.isHeadphonesConnected().then(notifyUserRegardingHeadphones)
+    AudioSensor.addHeadphonesListener(notifyUserRegardingHeadphones)
+
     // Start AppState listening...
     onStateHydrated().then(() => {
       AppStateMonitor.startMonitoring()
