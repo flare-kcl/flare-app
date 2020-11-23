@@ -33,7 +33,7 @@ export default class AppStateMonitor {
       nextStateType == RNAppStateType.Active
     ) {
       // Calculate suspened time in seconds
-      const suspendedTime = (currentTime - previousState.lastUpdated) / 1000
+      const suspendedTime = currentTime - previousState.lastUpdated
       // Record an event detailing how long the app was suspended
       store.dispatch(
         recordEvent({

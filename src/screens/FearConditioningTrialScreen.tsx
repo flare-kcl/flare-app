@@ -112,13 +112,13 @@ export const FearConditioningTrialScreen: ModuleScreen<FearConditioningTrialScre
           decisionTime: reactionTimeRef.current,
           volume: await AudioSensor.getCurrentVolume(),
         })
-      }, trialLength * 1000)
+      }, trialLength)
 
       // Set timer for sound, 500ms before end
       if (reinforced) {
         soundTimerRef.current = setTimeout(
           async () => playSound(),
-          trialLength * 1000 - 500,
+          trialLength - 500,
         )
       }
 
@@ -126,7 +126,7 @@ export const FearConditioningTrialScreen: ModuleScreen<FearConditioningTrialScre
       scaleTimerRef.current = setTimeout(() => {
         // Show scale
         setShowScale(true)
-      }, ratingDelay * 1000)
+      }, ratingDelay)
 
       // Show the trial
       setShowTrial(true)

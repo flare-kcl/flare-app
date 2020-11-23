@@ -85,8 +85,8 @@ export const exampleExperimentData: Experiment = {
   code: 'Example',
   contactEmail: 'flare@torchbox.com',
   intervalTimeBounds: {
-    min: 0.5,
-    max: 1.5,
+    min: 500,
+    max: 1500,
   },
   modules: [
     {
@@ -104,10 +104,10 @@ export const exampleExperimentData: Experiment = {
       moduleType: 'FEAR_CONDITIONING',
       definition: {
         phase: 'acquisition',
-        trialsPerStimulus: 4,
-        reinforcementRate: 4,
-        ratingDelay: 2,
-        trialLength: 6,
+        trialsPerStimulus: 4000,
+        reinforcementRate: 4000,
+        ratingDelay: 2000,
+        trialLength: 6000,
         generalisationStimuliEnabled: true,
         contextImage: require('../assets/images/example-context.jpg'),
         stimuliImages: [

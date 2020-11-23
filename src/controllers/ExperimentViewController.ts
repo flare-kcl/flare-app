@@ -143,8 +143,8 @@ export class ExperimentViewController {
       const latestEvent = latestEventSelector(state)
 
       // TODO: Change this back to 1 hour
-      const SUSPENDED_TIMEOUT = 60
-      const STRICT_SUSPENED_TIMEOUT = 30
+      const SUSPENDED_TIMEOUT = 60000
+      const STRICT_SUSPENED_TIMEOUT = 30000
 
       // Check if user has suspened app in crucial stage
       if (latestEvent?.eventType == 'SuspensionPeriod') {
