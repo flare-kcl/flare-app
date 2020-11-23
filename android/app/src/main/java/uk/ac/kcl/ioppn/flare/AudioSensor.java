@@ -122,7 +122,6 @@ public class AudioSensor extends ReactContextBaseJavaModule implements ActivityE
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals("android.media.VOLUME_CHANGED_ACTION")) {
                 AudioSensor.this.onVolumeChange();
-                Log.d("Volume", "Volume Changed!");
             }
         }
     }
