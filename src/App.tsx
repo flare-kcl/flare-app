@@ -39,7 +39,7 @@ export default function App() {
   const [loaded, setLoaded] = useState(false)
 
   const notifyUserRegardingHeadphones = (connected: boolean) => {
-    if (connected == false) {
+    if (connected === false) {
       Alert.alert(
         'Headphones Required',
         'Please connect headphones to continue with the experiment',

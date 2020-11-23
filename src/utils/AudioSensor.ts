@@ -38,7 +38,7 @@ export default class AudioSensor {
     cb: (connected: boolean) => void,
   ): EmitterSubscription {
     return AudioSensorEmitter.addListener('OutputChange', (connected) => {
-      if (connected != this.headphoneConnected) {
+      if (connected !== this.headphoneConnected) {
         cb(connected)
 
         // Update internal state

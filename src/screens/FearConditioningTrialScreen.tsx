@@ -89,7 +89,6 @@ export const FearConditioningTrialScreen: ModuleScreen<FearConditioningTrialScre
     // Setup Volume Listening
     soundSensorListener.current = AudioSensor.addVolumeListener(
       (volume: number) => {
-        console.log('Volume Change!', volume)
         dispatch(
           recordEvent({
             eventType: 'VolumeChange',
