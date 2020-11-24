@@ -21,3 +21,19 @@ jest.mock('redux-persist', () => {
       .mockImplementation((config, reducers) => reducers),
   }
 })
+
+// Mock any Native Modules
+const NativeModules = {
+  AudioSensor: {
+    getCurrentVolume: jest.fn(),
+    isHeadphonesConnected: jest.fn(),
+    addVolumeListener: jest.fn(),
+    addHeadphonesListener: jest.fn(),
+  },
+}
+
+Object.keys(NativeModules).forEach((name) => {
+  const shape = NativeModules[name]
+  jest.doMock(name, () => shape, { virtual: true })
+  require('react-native').NativeModules[name] = shape
+})

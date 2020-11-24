@@ -1,8 +1,11 @@
 import { useState, useEffect, useRef } from 'react'
 import { Audio } from 'expo-av'
-import { ImageSourcePropType } from 'react-native'
+import { EmitterSubscription, ImageSourcePropType } from 'react-native'
+import { useDispatch } from 'react-redux'
+import { recordEvent } from '@redux/reducers'
 import { Box, TrialImageStack, TrialRatingScale, Text } from '@components'
 import { ModuleScreen } from './BaseScreen'
+import AudioSensor from '@utils/AudioSensor'
 
 Audio.setAudioModeAsync({
   allowsRecordingIOS: false,
@@ -29,6 +32,7 @@ export type FearConditioningTrialResponse = {
   skipped: boolean
   startTime: number
   decisionTime: number
+  volume: number
 }
 
 export const FearConditioningTrialScreen: ModuleScreen<FearConditioningTrialScreenParams> = ({
@@ -43,6 +47,7 @@ export const FearConditioningTrialScreen: ModuleScreen<FearConditioningTrialScre
     onTrialEnd,
     trialDelay,
   } = route.params
+  const dispatch = useDispatch()
   const [showTrial, setShowTrial] = useState<boolean>(false)
   const [rating, setRating] = useState<number>()
   const [showScale, setShowScale] = useState(false)
@@ -54,6 +59,7 @@ export const FearConditioningTrialScreen: ModuleScreen<FearConditioningTrialScre
   const endTimerRef = useRef<any>()
   const soundTimerRef = useRef<any>()
   const scaleTimerRef = useRef<any>()
+  const soundSensorListener = useRef<EmitterSubscription>()
 
   const setupSound = async () => {
     try {
@@ -80,17 +86,31 @@ export const FearConditioningTrialScreen: ModuleScreen<FearConditioningTrialScre
   }
 
   useEffect(() => {
+    // Setup Volume Listening
+    soundSensorListener.current = AudioSensor.addVolumeListener(
+      (volume: number) => {
+        dispatch(
+          recordEvent({
+            eventType: 'VolumeChange',
+            value: String(volume),
+            recorded: Date.now(),
+          }),
+        )
+      },
+    )
+
     setTimeout(() => {
       // Setup sound object before setting timers
       setupSound()
 
       // Set timer for end of trial
-      endTimerRef.current = setTimeout(() => {
+      endTimerRef.current = setTimeout(async () => {
         onTrialEnd({
           rating: rating,
           skipped: rating === undefined,
           startTime: startTimeRef.current,
           decisionTime: reactionTimeRef.current,
+          volume: await AudioSensor.getCurrentVolume(),
         })
       }, trialLength * 1000)
 
@@ -118,6 +138,9 @@ export const FearConditioningTrialScreen: ModuleScreen<FearConditioningTrialScre
     return () => {
       // Delete sound object
       soundRef.current?.unloadAsync()
+
+      // Disconnect volume listener
+      soundSensorListener.current.remove()
 
       // Delete timers
       clearTimeout(endTimerRef.current)

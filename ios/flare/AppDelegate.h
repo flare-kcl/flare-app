@@ -6,5 +6,5 @@
 #import <UMCore/UMAppDelegateWrapper.h>
 
 @interface AppDelegate : UMAppDelegateWrapper <RCTBridgeDelegate, EXUpdatesAppControllerDelegate>
-
+  
 @end
