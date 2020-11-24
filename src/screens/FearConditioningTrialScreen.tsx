@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { memo, useState, useEffect, useRef } from 'react'
 import { Audio } from 'expo-av'
 import { EmitterSubscription, ImageSourcePropType } from 'react-native'
 import { useDispatch } from 'react-redux'
@@ -35,7 +35,7 @@ export type FearConditioningTrialResponse = {
   volume: number
 }
 
-export const FearConditioningTrialScreen: ModuleScreen<FearConditioningTrialScreenParams> = ({
+export const FearConditioningTrialScreen: ModuleScreen<FearConditioningTrialScreenParams> = memo(({
   route,
 }) => {
   const {
@@ -79,13 +79,16 @@ export const FearConditioningTrialScreen: ModuleScreen<FearConditioningTrialScre
 
   const playSound = async () => {
     try {
-      await soundRef.current.playAsync()
+      await soundRef.current?.playAsync()
     } catch (error) {
       console.error(error)
     }
   }
 
   useEffect(() => {
+    // Setup sound object before setting timers
+    setupSound()
+
     // Setup Volume Listening
     soundSensorListener.current = AudioSensor.addVolumeListener(
       (volume: number) => {
@@ -100,9 +103,6 @@ export const FearConditioningTrialScreen: ModuleScreen<FearConditioningTrialScre
     )
 
     setTimeout(() => {
-      // Setup sound object before setting timers
-      setupSound()
-
       // Set timer for end of trial
       endTimerRef.current = setTimeout(async () => {
         onTrialEnd({
@@ -133,6 +133,7 @@ export const FearConditioningTrialScreen: ModuleScreen<FearConditioningTrialScre
 
       // Mark the start time
       startTimeRef.current = Date.now()
+
     }, trialDelay ?? 0)
 
     return () => {
@@ -188,7 +189,7 @@ export const FearConditioningTrialScreen: ModuleScreen<FearConditioningTrialScre
       </Box>
     </>
   )
-}
+})
 
 // Set the screen ID for navigator
 FearConditioningTrialScreen.screenID = 'trial'
