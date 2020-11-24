@@ -7,6 +7,7 @@ import {
 } from '@screens'
 import { navigateToScreen } from '@utils/navigation'
 import { shuffle } from 'lodash'
+import AppStateMonitor from '@utils/AppStateMonitor'
 
 interface FearConditioningModuleState {
   phase: string
@@ -73,10 +74,7 @@ export class FearConditioningModuleViewController extends GenericModuleViewContr
 
     // Get the interval bounds of the experiment
     const intervalBounds = experimentVC.experiment.intervalTimeBounds
-    const trialDelay = Math.min(
-      intervalBounds.max,
-      Math.max(intervalBounds.min, Math.random()),
-    )
+    const trialDelay = (Math.floor(Math.random() * intervalBounds.max) + intervalBounds.min)
 
     // Render the trial
     navigateToScreen<any>(FearConditioningTrialScreen.screenID, {
@@ -145,27 +143,30 @@ export class FearConditioningModuleViewController extends GenericModuleViewContr
    *
    * @param experimentVC
    */
-  onSkip(experimentVC: ExperimentViewController) {
-    Alert.alert(
-      'Attention Required',
-      'You have not been rating trials in the designated time, Please try to answer them as fast as you can.',
-      [
-        {
-          text: 'Exit Experiment',
-          onPress: () => experimentVC.screenOutParticipant(),
-          style: 'cancel',
-        },
-        {
-          text: 'Continue',
-          onPress: () => {
-            if (experimentVC.particpantRejected == false) {
-              this.render(experimentVC)
-            }
+  async onSkip(experimentVC: ExperimentViewController) {
+    const latestAppState = await AppStateMonitor.getLatestState()
+    if (experimentVC.particpantRejected == false && latestAppState.type == 'active') {
+      Alert.alert(
+        'Attention Required',
+        'You have not been rating trials in the designated time, Please try to answer them as fast as you can.',
+        [
+          {
+            text: 'Exit Experiment',
+            onPress: () => experimentVC.screenOutParticipant(),
+            style: 'cancel',
           },
-        },
-      ],
-      { cancelable: false },
-    )
+          {
+            text: 'Continue',
+            onPress: () => {
+              if (experimentVC.particpantRejected == false) {
+                this.render(experimentVC)
+              }
+            },
+          },
+        ],
+        { cancelable: false },
+      )
+    }
   }
 
   /**

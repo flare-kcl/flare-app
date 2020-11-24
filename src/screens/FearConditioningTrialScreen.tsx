@@ -48,7 +48,6 @@ export const FearConditioningTrialScreen: ModuleScreen<FearConditioningTrialScre
     } = route.params
     const dispatch = useDispatch()
     const [showTrial, setShowTrial] = useState<boolean>(false)
-    const [rating, setRating] = useState<number>()
     const [showScale, setShowScale] = useState(false)
 
     // Keep reference of timers
@@ -58,6 +57,7 @@ export const FearConditioningTrialScreen: ModuleScreen<FearConditioningTrialScre
     const endTimerRef = useRef<any>()
     const soundTimerRef = useRef<any>()
     const scaleTimerRef = useRef<any>()
+    const ratingValueRef = useRef<any>()
     const soundSensorListener = useRef<EmitterSubscription>()
 
     const setupSound = async () => {
@@ -105,8 +105,8 @@ export const FearConditioningTrialScreen: ModuleScreen<FearConditioningTrialScre
         // Set timer for end of trial
         endTimerRef.current = setTimeout(async () => {
           onTrialEnd({
-            rating: rating,
-            skipped: rating === undefined,
+            rating: ratingValueRef.current,
+            skipped: ratingValueRef.current === undefined,
             startTime: startTimeRef.current,
             decisionTime: reactionTimeRef.current,
             volume: await AudioSensor.getCurrentVolume(),
@@ -146,7 +146,7 @@ export const FearConditioningTrialScreen: ModuleScreen<FearConditioningTrialScre
         clearTimeout(soundTimerRef.current)
         clearTimeout(scaleTimerRef.current)
       }
-    })
+    }, [])
 
     return (
       <>
@@ -180,7 +180,7 @@ export const FearConditioningTrialScreen: ModuleScreen<FearConditioningTrialScre
                 // Record time to rate
                 reactionTimeRef.current = Date.now()
                 // Update state
-                setRating(value)
+                ratingValueRef.current = value
               }}
             />
           )}

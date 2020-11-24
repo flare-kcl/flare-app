@@ -28,9 +28,9 @@ export default class AppStateMonitor {
 
     // If we left app and came back
     if (
-      (previousState.type === RNAppStateType.Background ||
-        previousState.type === RNAppStateType.Inactive) &&
-      nextStateType == RNAppStateType.Active
+      (previousState.type === 'background' ||
+        previousState.type === 'inactive') &&
+      nextStateType == 'active'
     ) {
       // Calculate suspened time in seconds
       const suspendedTime = currentTime - previousState.lastUpdated
@@ -56,7 +56,7 @@ export default class AppStateMonitor {
   /**
    * Return the latest recorded 'AppState', Which defines if the app is in the foreground or background.
    */
-  private static getLatestState(): RNAppState {
+  static getLatestState(): RNAppState {
     // Get the current redux state
     const state = store.getState()
 
