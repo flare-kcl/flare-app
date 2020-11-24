@@ -102,24 +102,51 @@ export const FearConditioningTrialScreen: ModuleScreen<FearConditioningTrialScre
       },
     )
 
-    setTimeout(() => {
-      // Set timer for end of trial
-      endTimerRef.current = setTimeout(async () => {
-        onTrialEnd({
-          rating: rating,
-          skipped: rating === undefined,
-          startTime: startTimeRef.current,
-          decisionTime: reactionTimeRef.current,
-          volume: await AudioSensor.getCurrentVolume(),
-        })
-      }, trialLength)
+    useEffect(() => {
+      // Setup sound object before setting timers
+      setupSound()
 
-      // Set timer for sound, 500ms before end
-      if (reinforced) {
-        soundTimerRef.current = setTimeout(
-          async () => playSound(),
-          trialLength - 500,
-        )
+      setTimeout(() => {
+        // Set timer for end of trial
+        endTimerRef.current = setTimeout(async () => {
+          onTrialEnd({
+            rating: rating,
+            skipped: rating === undefined,
+            startTime: startTimeRef.current,
+            decisionTime: reactionTimeRef.current,
+            volume: await AudioSensor.getCurrentVolume(),
+          })
+        }, trialLength)
+
+        // Set timer for sound, 500ms before end
+        if (reinforced) {
+          soundTimerRef.current = setTimeout(
+            async () => playSound(),
+            trialLength - 500,
+          )
+        }
+
+        // Set timer for scale reveal
+        scaleTimerRef.current = setTimeout(() => {
+          // Show scale
+          setShowScale(true)
+        }, ratingDelay)
+
+        // Show the trial
+        setShowTrial(true)
+
+        // Mark the start time
+        startTimeRef.current = Date.now()
+      }, trialDelay ?? 0)
+
+      return () => {
+        // Delete sound object
+        soundRef.current?.unloadAsync()
+
+        // Delete timers
+        clearTimeout(endTimerRef.current)
+        clearTimeout(soundTimerRef.current)
+        clearTimeout(scaleTimerRef.current)
       }
 
       // Set timer for scale reveal
