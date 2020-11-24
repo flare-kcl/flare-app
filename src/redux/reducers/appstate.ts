@@ -11,7 +11,7 @@ export type RNAppState = {
 
 const initialState: RNAppState = {
   lastUpdated: Date.now(),
-  type: 'active'
+  type: 'active',
 }
 
 // Create an events reducer that stores all events
