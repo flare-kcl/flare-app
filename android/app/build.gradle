@@ -222,6 +222,8 @@ dependencies {
     }
     addUnimodulesDependencies()
 
+    implementation project(':react-native-config')
+
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";
         debugImplementation files(hermesPath + "hermes-debug.aar")

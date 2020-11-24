@@ -1,11 +1,7 @@
 import { createAction, createReducer } from '@reduxjs/toolkit'
 
 // Events are described by EventType
-export enum RNAppStateType {
-  Active = 'active',
-  Inactive = 'inactive',
-  Background = 'background',
-}
+export type RNAppStateType = 'active' | 'inactive' | 'background'
 
 // Each event has a set 'shape'
 export type RNAppState = {
@@ -15,7 +11,7 @@ export type RNAppState = {
 
 const initialState: RNAppState = {
   lastUpdated: Date.now(),
-  type: RNAppStateType.Active,
+  type: 'active',
 }
 
 // Create an events reducer that stores all events
