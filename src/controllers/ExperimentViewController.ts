@@ -3,11 +3,16 @@ import { CriteriaModuleViewController } from './CriteriaModuleViewController'
 import { LoginScreen, RejectionScreen } from '@screens'
 import { navigate } from '@utils/navigation'
 import { store } from '@redux/store'
-import { experimentSelector, moduleSelector } from '@redux/selectors'
+import {
+  experimentSelector,
+  moduleSelector,
+  latestEventSelector,
+} from '@redux/selectors'
 import {
   updateExperiment,
   clearExperiment,
   clearAllModules,
+  clearAllEvents,
 } from '@redux/reducers'
 import { GenericModuleViewController } from './GenericModuleViewController'
 import { FearConditioningModuleViewController } from './FearConditioningModuleViewController'
@@ -40,12 +45,18 @@ export type Experiment = {
 
 export class ExperimentViewController {
   experiment: Experiment
+  particpantRejected = false
   private currentModuleIndex: number = 0
   private experimentModules: GenericModuleViewController[]
+  private focusModeEnabled?: boolean
+  private unsubscribeEventListener?: Function
 
   constructor(experiment: Experiment) {
     // Store experiment description
     this.experiment = experiment
+
+    // Listen to any app state chanyes (i.e Events)
+    this.unsubscribeEventListener = this.eventListener()
 
     // Initialize modules and skip any unknown ones
     const currentState = store.getState()
@@ -90,12 +101,15 @@ export class ExperimentViewController {
    * Stops the experiment instantly and shows participant rejection screen
    */
   screenOutParticipant() {
+    // Record that we have screened out the participant
+    this.particpantRejected = true
+
     // Delete the experiment cache
     this.terminateExperiment(false)
 
     // Show them rejection screen
     navigate(RejectionScreen.screenID, {
-      onExit: () => this.terminateExperiment(),
+      onExit: () => ExperimentViewController.presentLogin(),
     })
   }
 
@@ -103,14 +117,55 @@ export class ExperimentViewController {
    * Deletes the experiment cache and shows the user the login screen
    */
   terminateExperiment(redirect = true) {
+    // Disconnect from store
+    this.unsubscribeEventListener()
     // Delete the experiment cache
     store.dispatch(clearExperiment())
+    // Delete all event data
+    store.dispatch(clearAllEvents())
     // Delete all the module cache
     store.dispatch(clearAllModules())
     // Show the login screen
     if (redirect) {
       ExperimentViewController.presentLogin()
     }
+  }
+
+  /**
+   * React to any state changes
+   */
+  private eventListener(): () => void {
+    return store.subscribe(() => {
+      // Get the latest state
+      const state = store.getState()
+
+      // Get the latest entry from our event queue
+      const latestEvent = latestEventSelector(state)
+
+      // TODO: Change this back to 1 hour
+      const SUSPENDED_TIMEOUT = 60000
+      const STRICT_SUSPENED_TIMEOUT = 30000
+
+      // Check if user has suspened app in crucial stage
+      if (latestEvent?.eventType == 'SuspensionPeriod') {
+        // If app was suspened longer than timeout threshold...
+        const suspenedTime = Number(latestEvent.value)
+        if (
+          suspenedTime > SUSPENDED_TIMEOUT ||
+          (this.focusModeEnabled && suspenedTime > STRICT_SUSPENED_TIMEOUT)
+        ) {
+          this.screenOutParticipant()
+        }
+      }
+    })
+  }
+
+  /**
+   * Focus mode allows the experiment to determine whether a user suspending the app is detrimental
+   * to the data intergrity.
+   */
+  setFocusMode(value: boolean) {
+    this.focusModeEnabled = value
   }
 
   /**

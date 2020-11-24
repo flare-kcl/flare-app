@@ -59,16 +59,24 @@ export class FearConditioningModuleViewController extends GenericModuleViewContr
    * Renders a trial screen or continues to next module
    */
   render(experimentVC: ExperimentViewController) {
+    // If we have run out of trials then call next module
+    if (this.currentTrialIndex === this.moduleState.trials.length) {
+      experimentVC.onModuleComplete()
+      return
+    }
+
     // Get the trial we need to render
     const currentTrial = this.moduleState.trials[this.currentTrialIndex]
 
+    // Make sure that suspened the app for long periods timeouts the participant
+    experimentVC.setFocusMode(true)
+
     // Get the interval bounds of the experiment
     const intervalBounds = experimentVC.experiment.intervalTimeBounds
-    const trialDelay =
-      Math.min(
-        intervalBounds.max,
-        Math.max(intervalBounds.min, Math.random()),
-      ) * 1000
+    const trialDelay = Math.min(
+      intervalBounds.max,
+      Math.max(intervalBounds.min, Math.random()),
+    )
 
     // Render the trial
     navigateToScreen<any>(FearConditioningTrialScreen.screenID, {
@@ -148,8 +156,12 @@ export class FearConditioningModuleViewController extends GenericModuleViewContr
           style: 'cancel',
         },
         {
-          text: 'Continue to next trial',
-          onPress: () => this.render(experimentVC),
+          text: 'Continue',
+          onPress: () => {
+            if (experimentVC.particpantRejected == false) {
+              this.render(experimentVC)
+            }
+          },
         },
       ],
       { cancelable: false },
@@ -172,12 +184,8 @@ export class FearConditioningModuleViewController extends GenericModuleViewContr
     this.currentTrialIndex = this.currentTrialIndex + 1
     // Save changes
     this.saveState()
-    // If we have run out of trials then call next module
-    if (this.currentTrialIndex === this.moduleState.trials.length) {
-      experimentVC.onModuleComplete()
-    }
     // If they skipped too consecutuive times then we need to alert them
-    else if (this.lastTrialSkipped && response.skipped) {
+    if (this.lastTrialSkipped && response.skipped) {
       this.onSkip(experimentVC)
     } else {
       // Record if this trial was skipped
