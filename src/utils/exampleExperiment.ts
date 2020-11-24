@@ -104,10 +104,10 @@ export const exampleExperimentData: Experiment = {
       moduleType: 'FEAR_CONDITIONING',
       definition: {
         phase: 'acquisition',
-        trialsPerStimulus: 4000,
-        reinforcementRate: 4000,
+        trialsPerStimulus: 3,
+        reinforcementRate: 3,
         ratingDelay: 2000,
-        trialLength: 6000,
+        trialLength: 8000,
         generalisationStimuliEnabled: true,
         contextImage: require('../assets/images/example-context.jpg'),
         stimuliImages: [
