@@ -168,7 +168,10 @@ jobs:
           path: |
             ./android
             !./android/.gradle
+            !./android/fastlane/api.json
             !./android/app/build/intermediates
+            !./android/app/keystore.properties
+            !./android/app/release.keystore
 
   # Script to deploy each platform and package as release
   packaging:
@@ -204,6 +207,15 @@ jobs:
           cd ..
         env:
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+
+      - name: Install Android Credentials
+        run: |
+          cd android/app
+          echo "${{ secrets.KEY_STORE }}" | base64 --decode > release.keystore
+          echo "${{ secrets.KEY_STORE_CONFIG }}" > keystore.properties
+          cd ../fastlane
+          echo "${{ secrets.ANDROID_API_KEY }}" | base64 --decode > api.json
+          cd ../../
 
       - uses: olegtarasov/get-tag@v2
         id: tagName
