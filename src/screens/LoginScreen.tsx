@@ -1,12 +1,16 @@
 import { useRef, useState } from 'react'
-import { Dimensions, ScrollView } from 'react-native'
+import { Alert, Dimensions, ScrollView } from 'react-native'
 import Spinner from 'react-native-spinkit'
+import Config from 'react-native-config'
 
 import { ModuleScreen } from '@screens'
 import { Box, Text, Button, Image, TextField } from '@components'
-import { ExperimentViewController } from '@controllers'
-import { exampleExperimentData } from '@utils/exampleExperiment'
+import { ExperimentViewController, Experiment } from '@controllers'
 import { palette } from '@utils/theme'
+import {
+  exampleExperimentData,
+  exampleTermsDefinition,
+} from '@utils/exampleExperiment'
 
 const dimensions = Dimensions.get('screen')
 enum Stages {
@@ -24,9 +28,10 @@ export const LoginScreen: ModuleScreen = () => {
   const buttonDisabled = stage == Stages.Login && value == ''
 
   // Increment through each stage
-  const nextStage = () => {
-    let nextStage = stage + 1
+  const setScrollStage = (nextStage: Stages) => {
+    // Updare internal state
     setStage(nextStage)
+
     // Update scorller
     loginScroll.current?.scrollTo({
       x: nextStage * dimensions.width,
@@ -34,13 +39,18 @@ export const LoginScreen: ModuleScreen = () => {
       animated: true,
     })
 
-    // If at loading stage then show experiment
-    // TODO: Remove when implmenting login code...
+    // If at loading stage then attempt login
     if (nextStage == Stages.Loading) {
-      const exampleExperiment = new ExperimentViewController(
-        exampleExperimentData,
-      )
-      exampleExperiment.present()
+      // Check if user is using demo login
+      if (value == 'local.demo') {
+        return demoLogin()
+      }
+
+      // Attempt Login & reset UI state if fails
+      loginWithID(value).catch((err) => {
+        setScrollStage(Stages.Login)
+        Alert.alert('Something Happened...', err)
+      })
     }
   }
 
@@ -113,8 +123,8 @@ export const LoginScreen: ModuleScreen = () => {
           </Box>
 
           <Text variant="caption2" textAlign="center" pt={10} px={3}>
-            Please enter your Participant ID into the form above. You should of
-            recieved this in your experiment briefing.
+            Please enter your Participant ID into the form above. You should
+            have recieved this in your experiment briefing.
           </Text>
         </Box>
 
@@ -146,7 +156,7 @@ export const LoginScreen: ModuleScreen = () => {
             label={stage == Stages.Login ? 'Login' : 'Start Experiment'}
             opacity={buttonDisabled ? 0.6 : 1}
             disabled={buttonDisabled}
-            onPress={() => nextStage()}
+            onPress={() => setScrollStage(stage + 1)}
           />
         )}
       </Box>
@@ -156,3 +166,67 @@ export const LoginScreen: ModuleScreen = () => {
 
 // Set the screen ID
 LoginScreen.screenID = 'login'
+
+// Login Logic
+async function loginWithID(participantID: string) {
+  try {
+    console.log(Config.BASE_API_URL)
+    // Create login request and get the corresponding experiment object
+    const experimentRawData = await fetch(
+      `${Config.BASE_API_URL}/configuration/`,
+      {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': Config.API_AUTH_TOKEN,
+        },
+        body: JSON.stringify({ participant: participantID }),
+      },
+    )
+
+    // Parse the experiment data to typed structure
+    const experimentApiData = await experimentRawData.json()
+
+    // Covert API data to experiment type
+    const experiment: Experiment = {
+      id: experimentApiData.experiment.id,
+      name: experimentApiData.experiment.name,
+      trialLength: experimentApiData.experiment.trial_length,
+      ratingDelay: experimentApiData.experiment.rating_delay,
+      // TODO: Hardcoded as backend doesn't support yet...
+      generalisationStimuliEnabled: false,
+      description: '',
+      intervalTimeBounds: {
+        min: 500,
+        max: 1500,
+      },
+      modules: [
+        {
+          id: '0',
+          moduleType: 'TERMS',
+          definition: exampleTermsDefinition,
+        },
+      ],
+    }
+
+    // Creare a experiment view controller
+    const experimentVC = new ExperimentViewController(experiment)
+
+    // Cache the experiment
+    experimentVC.saveExperiment()
+
+    // Present the experiment
+    experimentVC.present()
+  } catch (err) {
+    return Promise.reject(
+      'This participant identifier is not correct, please try again.',
+    )
+  }
+}
+
+// Demo Mode Activation
+function demoLogin() {
+  const exampleExperiment = new ExperimentViewController(exampleExperimentData)
+  exampleExperiment.present()
+}

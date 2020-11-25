@@ -32,11 +32,14 @@ type ExperimentModuleConfig = {
 }
 
 export type Experiment = {
+  id: number
   name: string
   description: string
-  code: string
   contactEmail?: string
   modules: ExperimentModuleConfig[]
+  ratingDelay: number
+  trialLength: number
+  generalisationStimuliEnabled: boolean
   intervalTimeBounds: {
     min: number
     max: number
@@ -196,7 +199,7 @@ export class ExperimentViewController {
   /**
    * Saves the experiment state to aid in recovery
    */
-  private saveExperiment() {
+  saveExperiment() {
     store.dispatch(
       updateExperiment({
         definition: this.experiment,
