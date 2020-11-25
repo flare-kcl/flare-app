@@ -19,7 +19,7 @@ experiment data in a custom built web portal.
 
 ## 🔑 Authentication
 
-To login and thefore start an experiment you will also need to have the [FLARe Portal running](https://github.com/flare-kcl/flare-portal). To avoid this you can also use the Participant ID `local.demo` to load the hardcoded example experiment.
+To login and thefore start an experiment you will also need to have the [FLARe Portal](https://github.com/flare-kcl/flare-portal) running on port 8000. To avoid this you can also use the Participant ID `local.demo` to load the hardcoded example experiment.
 
 ## 🐍 Testing
 
