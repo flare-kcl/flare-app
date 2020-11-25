@@ -61,7 +61,6 @@ jobs:
             ./ios/flare.xcodeproj/project.pbxproj
             ./ios/flare/Info.plist
             ./version.txt
-            ./env
 
   # Build script to for iOS apps
   ios:
@@ -87,12 +86,7 @@ jobs:
           name: build-config
 
       - name: Make envfile
-        uses: SpicyPizza/create-envfile@v1
-        with:
-          file_name: .env
-          envkey_BASE_API_URL: ${{ secrets.BASE_API_URL }}
-          envkey_API_AUTH_TOKEN: ${{ secrets.API_AUTH_TOKEN }}
-          envkey_SENTRY_DTN: ${{ secrets.SENTRY_DTN }}
+        run: echo "BASE_API_URL=${{ secrets.BASE_API_URL }}\nAPI_AUTH_TOKEN=${{ secrets.API_AUTH_TOKEN }}\nSENTRY_DTN=${{ secrets.SENTRY_DTN }}" > .env
 
       - name: Install Dependencies
         run: npm install
@@ -147,12 +141,7 @@ jobs:
           name: build-config
 
       - name: Make envfile
-        uses: SpicyPizza/create-envfile@v1
-        with:
-          file_name: .env
-          envkey_BASE_API_URL: ${{ secrets.BASE_API_URL }}
-          envkey_API_AUTH_TOKEN: ${{ secrets.API_AUTH_TOKEN }}
-          envkey_SENTRY_DTN: ${{ secrets.SENTRY_DTN }}
+        run: echo "BASE_API_URL=${{ secrets.BASE_API_URL }}\nAPI_AUTH_TOKEN=${{ secrets.API_AUTH_TOKEN }}\nSENTRY_DTN=${{ secrets.SENTRY_DTN }}" > .env
 
       - name: Install Dependencies
         run: npm install
