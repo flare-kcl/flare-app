@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { StatusBar, LogBox, Alert } from 'react-native'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
@@ -37,6 +37,7 @@ Sentry.init({
 // Base container for all screens
 export default function App() {
   const [loaded, setLoaded] = useState(false)
+  const volumeAlertShown = useRef(false)
 
   const notifyUserRegardingHeadphones = (connected: boolean) => {
     if (connected === false) {
@@ -58,10 +59,36 @@ export default function App() {
     }
   }
 
+  const notifyUserRegardingVolume = (volume: number) => {
+    if (volume < 1 && volumeAlertShown.current == false) {
+      volumeAlertShown.current = true
+      Alert.alert(
+        'Max Volume Required',
+        'Please set your volume at 100%',
+        [
+          {
+            text: 'Dismiss',
+            onPress: async () => {
+              volumeAlertShown.current = false
+              notifyUserRegardingVolume(
+                await AudioSensor.getCurrentVolume()
+              )
+            },
+          },
+        ],
+        { cancelable: false },
+      )
+    }
+  }
+
   useEffect(() => {
     // TODO: Ensure user has headphones connected - Will be moved to future module
     AudioSensor.isHeadphonesConnected().then(notifyUserRegardingHeadphones)
     AudioSensor.addHeadphonesListener(notifyUserRegardingHeadphones)
+
+    // TODO: Ensure user has max volume set - Will be moved to future module
+    AudioSensor.getCurrentVolume().then(notifyUserRegardingVolume)
+    AudioSensor.addVolumeListener(notifyUserRegardingVolume)
 
     // Start AppState listening...
     onStateHydrated().then(() => {
