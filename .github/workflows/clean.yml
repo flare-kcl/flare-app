@@ -20,4 +20,3 @@ jobs:
 
       - name: Delete All Artifacts
         uses: jimschubert/delete-artifacts-action@v1
-

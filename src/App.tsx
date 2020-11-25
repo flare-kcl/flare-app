@@ -70,9 +70,7 @@ export default function App() {
             text: 'Dismiss',
             onPress: async () => {
               volumeAlertShown.current = false
-              notifyUserRegardingVolume(
-                await AudioSensor.getCurrentVolume()
-              )
+              notifyUserRegardingVolume(await AudioSensor.getCurrentVolume())
             },
           },
         ],
