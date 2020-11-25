@@ -17,7 +17,7 @@ experiment data in a custom built web portal.
 - For Android: `npm run android`
 - For iOS: `npm run ios`
 
-## Authentication
+## 🔑 Authentication
 
 To login and thefore start an experiment you will also need to have the [FLARe Portal running](https://github.com/flare-kcl/flare-portal). To avoid this you can also use the Participant ID `local.demo` to load the hardcoded example experiment.
 
