@@ -50,7 +50,7 @@ jobs:
         run: cd android && fastlane bump version:${{ steps.tagName.outputs.version }} && cd ..
 
       - name: Create ENV File
-        run: echo "BASE_API_URL=${{ secrets.BASE_API_URL }}\nSENTRY_DTN=${{ secrets.SENTRY_DTN }}" > .env
+        run: echo "BASE_API_URL=${{ secrets.BASE_API_URL }}\nAPI_AUTH_TOKEN=${{ secrets.API_AUTH_TOKEN }}\nSENTRY_DTN=${{ secrets.SENTRY_DTN }}" > .env
 
       - name: Print Version Changes (Debug)
         run: git --no-pager diff

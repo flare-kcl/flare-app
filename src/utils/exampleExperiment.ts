@@ -75,6 +75,7 @@ export const exampleCriteriaDefinition = {
 
 // Example data that mocks what portal will return
 export const exampleExperimentData: Experiment = {
+  id: 0,
   name: 'Example Experiment',
   description: `
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc in dui quis odio volutpat pulvinar eu id eros. In ut ipsum ac ipsum varius scelerisque.
@@ -82,8 +83,10 @@ export const exampleExperimentData: Experiment = {
     In elit est, aliquet et aliquet eu, blandit vitae erat. Curabitur finibus dapibus tellus, et scelerisque sem dictum quis.
     Praesent pellentesque rutrum libero, a ultrices ante molestie id. Etiam semper hendrerit feugiat.
   `,
-  code: 'Example',
   contactEmail: 'flare@torchbox.com',
+  ratingDelay: 2000,
+  trialLength: 8000,
+  generalisationStimuliEnabled: true,
   intervalTimeBounds: {
     min: 500,
     max: 1500,
@@ -106,9 +109,6 @@ export const exampleExperimentData: Experiment = {
         phase: 'acquisition',
         trialsPerStimulus: 3,
         reinforcementRate: 3,
-        ratingDelay: 2000,
-        trialLength: 8000,
-        generalisationStimuliEnabled: true,
         contextImage: require('../assets/images/example-context.jpg'),
         stimuliImages: [
           require('../assets/images/small.png'),

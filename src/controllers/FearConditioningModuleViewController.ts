@@ -13,9 +13,6 @@ interface FearConditioningModuleState {
   phase: string
   trialsPerStimulus: number
   reinforcementRate: number
-  ratingDelay: number
-  trialLength: number
-  generalisationStimuliEnabled: boolean
   stimuliImages: any[]
   contextImage: any
   trials?: Trial[]
@@ -81,8 +78,8 @@ export class FearConditioningModuleViewController extends GenericModuleViewContr
     navigateToScreen<any>(FearConditioningTrialScreen.screenID, {
       ...currentTrial,
       trialDelay,
-      ratingDelay: this.moduleState.ratingDelay,
-      trialLength: this.moduleState.trialLength,
+      ratingDelay: experimentVC.experiment.ratingDelay,
+      trialLength: experimentVC.experiment.trialLength,
       contextImage: this.moduleState.contextImage,
       onTrialEnd: (response: FearConditioningTrialResponse) =>
         this.onSubmit(response, experimentVC),
