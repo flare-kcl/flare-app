@@ -49,9 +49,6 @@ jobs:
       - name: Increment Android Version
         run: cd android && fastlane bump version:${{ steps.tagName.outputs.version }} && cd ..
 
-      - name: Create ENV File
-        run: echo "BASE_API_URL=${{ secrets.BASE_API_URL }}\nAPI_AUTH_TOKEN=${{ secrets.API_AUTH_TOKEN }}\nSENTRY_DTN=${{ secrets.SENTRY_DTN }}" > .env
-
       - name: Print Version Changes (Debug)
         run: git --no-pager diff
 
@@ -88,6 +85,14 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: build-config
+
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v1
+        with:
+          file_name: .env
+          envkey_BASE_API_URL: ${{ secrets.BASE_API_URL }}
+          envkey_API_AUTH_TOKEN: ${{ secrets.API_AUTH_TOKEN }}
+          envkey_SENTRY_DTN: ${{ secrets.SENTRY_DTN }}
 
       - name: Install Dependencies
         run: npm install
@@ -140,6 +145,14 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: build-config
+
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v1
+        with:
+          file_name: .env
+          envkey_BASE_API_URL: ${{ secrets.BASE_API_URL }}
+          envkey_API_AUTH_TOKEN: ${{ secrets.API_AUTH_TOKEN }}
+          envkey_SENTRY_DTN: ${{ secrets.SENTRY_DTN }}
 
       - name: Install Dependencies
         run: npm install
