@@ -49,6 +49,9 @@ jobs:
       - name: Increment Android Version
         run: cd android && fastlane bump version:${{ steps.tagName.outputs.version }} && cd ..
 
+      - name: Create ENV File
+        run: echo "BASE_API_URL=${{ secrets.BASE_API_URL }}\nSENTRY_DTN=${{ secrets.SENTRY_DTN }}" > .env
+
       - name: Print Version Changes (Debug)
         run: git --no-pager diff
 
@@ -61,6 +64,7 @@ jobs:
             ./ios/flare.xcodeproj/project.pbxproj
             ./ios/flare/Info.plist
             ./version.txt
+            ./env
 
   # Build script to for iOS apps
   ios:
