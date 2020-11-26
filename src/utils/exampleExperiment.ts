@@ -86,7 +86,6 @@ export const exampleExperimentData: Experiment = {
   contactEmail: 'flare@torchbox.com',
   ratingDelay: 2000,
   trialLength: 8000,
-  generalisationStimuliEnabled: true,
   intervalTimeBounds: {
     min: 500,
     max: 1500,

@@ -39,7 +39,6 @@ export type Experiment = {
   modules: ExperimentModuleConfig[]
   ratingDelay: number
   trialLength: number
-  generalisationStimuliEnabled: boolean
   intervalTimeBounds: {
     min: number
     max: number

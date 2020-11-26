@@ -13,6 +13,7 @@ interface FearConditioningModuleState {
   phase: string
   trialsPerStimulus: number
   reinforcementRate: number
+  generalisationStimuliEnabled: boolean
   stimuliImages: any[]
   contextImage: any
   trials?: Trial[]
@@ -45,6 +46,12 @@ export class FearConditioningModuleViewController extends GenericModuleViewContr
     super(moduleId, moduleType, moduleState)
     // Generate trial order if non provided
     if (!this.moduleState.trials) {
+      // TODO: Hardcode images as portal doesn't support them yet...
+      this.moduleState.contextImage = require('../assets/images/example-context.jpg')
+      this.moduleState.stimuliImages = [
+        require('../assets/images/small.png'),
+        require('../assets/images/large.png'),
+      ]
       this.currentTrialIndex = 0
       this.moduleState.trials = this.generateTrials(
         this.moduleState.trialsPerStimulus,
