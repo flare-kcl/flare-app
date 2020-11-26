@@ -2,6 +2,7 @@ import { useRef, useState } from 'react'
 import { Alert, Dimensions, ScrollView } from 'react-native'
 import Spinner from 'react-native-spinkit'
 import Config from 'react-native-config'
+import camelcaseKeys from 'camelcase-keys'
 
 import { ModuleScreen } from '@screens'
 import { Box, Text, Button, Image, TextField } from '@components'
@@ -192,22 +193,20 @@ async function loginWithID(participantID: string) {
     const experiment: Experiment = {
       id: experimentApiData.experiment.id,
       name: experimentApiData.experiment.name,
-      trialLength: experimentApiData.experiment.trial_length,
-      ratingDelay: experimentApiData.experiment.rating_delay,
+      trialLength: experimentApiData.experiment.trial_length * 1000,
+      ratingDelay: experimentApiData.experiment.rating_delay * 1000,
+      modules: experimentApiData.modules.map(({ id, type, config }) => ({
+        id,
+        moduleType: type,
+        definition: camelcaseKeys(config),
+        moduleCompleted: false,
+      })),
       // TODO: Hardcoded as backend doesn't support yet...
-      generalisationStimuliEnabled: false,
       description: '',
       intervalTimeBounds: {
         min: 500,
         max: 1500,
       },
-      modules: [
-        {
-          id: '0',
-          moduleType: 'TERMS',
-          definition: exampleTermsDefinition,
-        },
-      ],
     }
 
     // Creare a experiment view controller
