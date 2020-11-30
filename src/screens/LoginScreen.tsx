@@ -5,7 +5,10 @@ import Config from 'react-native-config'
 import camelcaseKeys from 'camelcase-keys'
 
 import { Box, Text, Button, Image, TextField } from '@components'
-import { ExperimentViewController, Experiment } from '@containers/ExperimentContainer'
+import {
+  ExperimentViewController,
+  Experiment,
+} from '@containers/ExperimentContainer'
 import { palette } from '@utils/theme'
 import {
   exampleExperimentData,

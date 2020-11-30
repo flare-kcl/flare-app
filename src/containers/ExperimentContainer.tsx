@@ -39,7 +39,6 @@ export type Experiment = {
   }
 }
 
-
 export const ExperimentContainer = () => {
   // Get the experiment object and the index of the current module.
   const dispatch = useDispatch()

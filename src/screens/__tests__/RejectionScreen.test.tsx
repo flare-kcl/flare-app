@@ -19,10 +19,7 @@ test('Calls Props on button press', () => {
   // Render screen
   const { queryByTestId } = render(
     <FlareThemeProvider>
-      <RejectionScreen
-        contactLink='mailt:flare@internet.com'
-        onExit={onExit}
-      />
+      <RejectionScreen contactLink="mailt:flare@internet.com" onExit={onExit} />
     </FlareThemeProvider>,
   )
 
