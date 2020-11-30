@@ -30,11 +30,9 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>64</string>
+	<string>65</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Allow $(PRODUCT_NAME) to access your microphone</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
