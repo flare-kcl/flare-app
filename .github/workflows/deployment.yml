@@ -52,8 +52,10 @@ jobs:
       - name: Print Version Changes (Debug)
         run: git --no-pager diff
 
-      - name: Make envfile
-        run: echo 'BASE_API_URL="${{ secrets.BASE_API_URL }}"\nAPI_AUTH_TOKEN="${{ secrets.API_AUTH_TOKEN }}"\nSENTRY_DTN="${{ secrets.SENTRY_DTN }}"' > .env
+      - name: Make .env file
+        run: |
+          pip install dump-env
+          dump-env  --template=./.env.template > .env
 
       # Cache artifacts for future jobs
       - uses: actions/upload-artifact@v2
@@ -89,8 +91,10 @@ jobs:
         with:
           name: build-config
 
-      - name: Make envfile
-        run: echo 'BASE_API_URL="${{ secrets.BASE_API_URL }}"\nAPI_AUTH_TOKEN="${{ secrets.API_AUTH_TOKEN }}"\nSENTRY_DTN="${{ secrets.SENTRY_DTN }}"' > .env
+      - name: Make .env file
+        run: |
+          pip install dump-env
+          dump-env  --template=./.env.template > .env
 
       - name: Install Dependencies
         run: npm install
@@ -144,8 +148,10 @@ jobs:
         with:
           name: build-config
 
-      - name: Make envfile
-        run: echo 'BASE_API_URL="${{ secrets.BASE_API_URL }}"\nAPI_AUTH_TOKEN="${{ secrets.API_AUTH_TOKEN }}"\nSENTRY_DTN="${{ secrets.SENTRY_DTN }}"' > .env
+      - name: Make .env file
+        run: |
+          pip install dump-env
+          dump-env  --template=./.env.template > .env
 
       - name: Install Dependencies
         run: npm install
