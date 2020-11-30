@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { Alert } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 
-import { ModuleScreen } from '@screens'
 import { Box, Button, Markdown, CriterionToggle, Text } from '@components'
 
 type ExperimentCriterion = {
@@ -23,17 +22,14 @@ export type CriteriaScreenParams = {
   onExit?: () => void
 }
 
-export const CriteriaScreen: ModuleScreen<CriteriaScreenParams> = ({
-  route,
+export const CriteriaScreen: React.FunctionComponent<CriteriaScreenParams> = ({
+  criteria,
+  description,
+  continueMessage,
+  onPassCriteria,
+  onFailCriteria,
+  onExit,
 }) => {
-  const {
-    criteria,
-    description,
-    continueMessage,
-    onPassCriteria,
-    onFailCriteria,
-    onExit,
-  } = route.params
   let [consentCriteria, setConsentCriteria] = useState<ExperimentCriteria>(
     criteria,
   )
@@ -129,6 +125,3 @@ export const CriteriaScreen: ModuleScreen<CriteriaScreenParams> = ({
     </>
   )
 }
-
-// Set the Screen ID
-CriteriaScreen.screenID = 'criteria'

@@ -6,7 +6,7 @@ import { exampleTermsDefinition } from '@utils/exampleExperiment'
 test('Text Renders Correctly', () => {
   const tree = render(
     <FlareThemeProvider>
-      <TermsScreen route={{ params: exampleTermsDefinition }} />
+      <TermsScreen {...exampleTermsDefinition} />
     </FlareThemeProvider>,
   ).toJSON()
 
@@ -22,13 +22,9 @@ test('Calls Props on button press', () => {
   const { queryByTestId } = render(
     <FlareThemeProvider>
       <TermsScreen
-        route={{
-          params: {
-            ...exampleTermsDefinition,
-            onAccept,
-            onExit,
-          },
-        }}
+        {...exampleTermsDefinition}
+        onAccept={onAccept}
+        onExit={onExit}
       />
     </FlareThemeProvider>,
   )

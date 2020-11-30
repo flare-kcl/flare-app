@@ -4,14 +4,15 @@ import Spinner from 'react-native-spinkit'
 import Config from 'react-native-config'
 import camelcaseKeys from 'camelcase-keys'
 
-import { ModuleScreen } from '@screens'
 import { Box, Text, Button, Image, TextField } from '@components'
-import { ExperimentViewController, Experiment } from '@controllers'
+import { ExperimentViewController, Experiment } from '@containers/ExperimentContainer'
 import { palette } from '@utils/theme'
 import {
   exampleExperimentData,
   exampleTermsDefinition,
 } from '@utils/exampleExperiment'
+import { updateExperiment, updateModule } from '@redux/reducers'
+import { useDispatch } from 'react-redux'
 
 const dimensions = Dimensions.get('screen')
 enum Stages {
@@ -20,7 +21,8 @@ enum Stages {
   Loading = 2,
 }
 
-export const LoginScreen: ModuleScreen = () => {
+export const LoginScreen = () => {
+  const dispatch = useDispatch()
   const loginScroll = useRef(null)
   const [stage, setStage] = useState(0)
   const [value, onChangeText] = useState('')
@@ -44,11 +46,11 @@ export const LoginScreen: ModuleScreen = () => {
     if (nextStage == Stages.Loading) {
       // Check if user is using demo login
       if (value == 'local.demo') {
-        return demoLogin()
+        return demoLogin(dispatch)
       }
 
       // Attempt Login & reset UI state if fails
-      loginWithID(value).catch((err) => {
+      loginWithID(value, dispatch).catch((err) => {
         setScrollStage(Stages.Login)
         Alert.alert('Something Happened...', err)
       })
@@ -117,6 +119,9 @@ export const LoginScreen: ModuleScreen = () => {
             </Text>
             <TextField
               variant="login"
+              autoCapitalize="none"
+              autoCorrect={false}
+              autoCompleteType="username"
               placeholder="Example: ANIXETY-jBSkjbckjb"
               onChangeText={(text) => onChangeText(text)}
               value={value}
@@ -165,13 +170,9 @@ export const LoginScreen: ModuleScreen = () => {
   )
 }
 
-// Set the screen ID
-LoginScreen.screenID = 'login'
-
 // Login Logic
-async function loginWithID(participantID: string) {
+async function loginWithID(participantID: string, dispatch) {
   try {
-    console.log(Config.BASE_API_URL)
     // Create login request and get the corresponding experiment object
     const experimentRawData = await fetch(
       `${Config.BASE_API_URL}/configuration/`,
@@ -209,14 +210,24 @@ async function loginWithID(participantID: string) {
       },
     }
 
-    // Creare a experiment view controller
-    const experimentVC = new ExperimentViewController(experiment)
+    // Save modules to redux
+    experiment.modules.map((mod) => {
+      dispatch(
+        updateModule({
+          moduleId: mod.id,
+          moduleType: mod.moduleType,
+          moduleState: mod.definition,
+        }),
+      )
+    })
 
-    // Cache the experiment
-    experimentVC.saveExperiment()
-
-    // Present the experiment
-    experimentVC.present()
+    // Save experiment to redux
+    dispatch(
+      updateExperiment({
+        definition: experiment,
+        currentModuleIndex: 0,
+      }),
+    )
   } catch (err) {
     return Promise.reject(
       'This participant identifier is not correct, please try again.',
@@ -225,7 +236,23 @@ async function loginWithID(participantID: string) {
 }
 
 // Demo Mode Activation
-function demoLogin() {
-  const exampleExperiment = new ExperimentViewController(exampleExperimentData)
-  exampleExperiment.present()
+function demoLogin(dispatch) {
+  // Save modules to redux
+  exampleExperimentData.modules.map((mod) => {
+    dispatch(
+      updateModule({
+        moduleId: mod.id,
+        moduleType: mod.moduleType,
+        moduleState: mod.definition,
+      }),
+    )
+  })
+
+  // Save experiment to redux
+  dispatch(
+    updateExperiment({
+      definition: exampleExperimentData,
+      currentModuleIndex: 0,
+    }),
+  )
 }

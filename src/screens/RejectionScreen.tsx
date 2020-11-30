@@ -1,5 +1,4 @@
 import { Linking, ScrollView } from 'react-native'
-import { ModuleScreen } from '@screens'
 import { Image, Box, Button, Markdown } from '@components'
 
 type RejectionScreenParams = {
@@ -8,11 +7,10 @@ type RejectionScreenParams = {
   onExit?: Function
 }
 
-export const RejectionScreen: ModuleScreen<RejectionScreenParams> = ({
-  route,
+export const RejectionScreen: React.FunctionComponent<RejectionScreenParams> = ({
+  contactLink,
+  onExit,
 }) => {
-  const { contactLink, onExit } = route?.params
-
   // TODO: Swap to prop
   const copy = `
   # Thank you for your time!
@@ -75,5 +73,3 @@ export const RejectionScreen: ModuleScreen<RejectionScreenParams> = ({
     </Box>
   )
 }
-
-RejectionScreen.screenID = 'reject'

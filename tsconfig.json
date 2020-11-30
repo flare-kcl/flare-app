@@ -22,8 +22,8 @@
       "@redux": ["./redux"],
       "@redux/*": ["./redux/*"],
 
-      "@controllers": ["./controllers"],
-      "@controllers/*": ["./controllers/*"]
+      "@containers": ["./containers"],
+      "@containers/*": ["./containers/*"]
     }
   }
 }

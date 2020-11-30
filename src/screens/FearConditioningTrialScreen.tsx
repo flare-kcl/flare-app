@@ -35,17 +35,16 @@ export type FearConditioningTrialResponse = {
   volume: number
 }
 
-export const FearConditioningTrialScreen: ModuleScreen<FearConditioningTrialScreenParams> = memo(
-  ({ route }) => {
-    const {
-      stimulusImage,
-      contextImage,
-      trialLength,
-      reinforced,
-      ratingDelay,
-      onTrialEnd,
-      trialDelay,
-    } = route.params
+export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioningTrialScreenParams> = memo(
+  ({
+    stimulusImage,
+    contextImage,
+    trialLength,
+    reinforced,
+    ratingDelay,
+    onTrialEnd,
+    trialDelay,
+  }) => {
     const dispatch = useDispatch()
     const [showTrial, setShowTrial] = useState<boolean>(false)
     const [showScale, setShowScale] = useState(false)
@@ -58,6 +57,7 @@ export const FearConditioningTrialScreen: ModuleScreen<FearConditioningTrialScre
     const soundTimerRef = useRef<any>()
     const scaleTimerRef = useRef<any>()
     const ratingValueRef = useRef<any>()
+    const mountedTimerRef = useRef<any>(false)
     const soundSensorListener = useRef<EmitterSubscription>()
 
     const setupSound = async () => {
@@ -101,7 +101,7 @@ export const FearConditioningTrialScreen: ModuleScreen<FearConditioningTrialScre
         },
       )
 
-      setTimeout(() => {
+      mountedTimerRef.current = setTimeout(() => {
         // Set timer for end of trial
         endTimerRef.current = setTimeout(async () => {
           onTrialEnd({
@@ -135,16 +135,17 @@ export const FearConditioningTrialScreen: ModuleScreen<FearConditioningTrialScre
       }, trialDelay ?? 0)
 
       return () => {
+        // Delete timers
+        clearTimeout(mountedTimerRef.current)
+        clearTimeout(soundTimerRef.current)
+        clearTimeout(endTimerRef.current)
+        clearTimeout(scaleTimerRef.current)
+
         // Delete sound object
         soundRef.current?.unloadAsync()
 
         // Disconnect volume listener
         soundSensorListener.current.remove()
-
-        // Delete timers
-        clearTimeout(endTimerRef.current)
-        clearTimeout(soundTimerRef.current)
-        clearTimeout(scaleTimerRef.current)
       }
     }, [])
 
@@ -189,6 +190,3 @@ export const FearConditioningTrialScreen: ModuleScreen<FearConditioningTrialScre
     )
   },
 )
-
-// Set the screen ID for navigator
-FearConditioningTrialScreen.screenID = 'trial'
