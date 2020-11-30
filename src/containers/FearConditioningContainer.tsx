@@ -1,7 +1,7 @@
 import { useEffect, useCallback, useState } from 'react'
 import { Alert } from 'react-native'
 import { shuffle } from 'lodash'
-import { ExperimentModule } from '@containers/ExperimentContainer'
+import { ExperimentModule } from './ExperimentContainer'
 import {
   FearConditioningTrialScreen,
   FearConditioningTrialResponse,
