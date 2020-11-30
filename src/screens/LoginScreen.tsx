@@ -5,7 +5,7 @@ import Spinner from 'react-native-spinkit'
 import Config from 'react-native-config'
 import camelcaseKeys from 'camelcase-keys'
 
-import { Experiment } from './ExperimentContainer'
+import { Experiment } from '@containers/ExperimentContainer'
 import { Box, Text, Button, Image, TextField } from '@components'
 import { palette } from '@utils/theme'
 import { exampleExperimentData } from '@utils/exampleExperiment'
