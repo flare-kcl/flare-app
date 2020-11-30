@@ -24,6 +24,7 @@ type FearConditioningTrialScreenParams = {
   ratingDelay: number
   reinforced: boolean
   trialDelay: number
+  volume: number
   onTrialEnd: (response: FearConditioningTrialResponse) => void
 }
 
@@ -44,6 +45,7 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
     ratingDelay,
     onTrialEnd,
     trialDelay,
+    volume,
   }) => {
     const dispatch = useDispatch()
     const [showTrial, setShowTrial] = useState<boolean>(false)
@@ -66,6 +68,7 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
           require('../assets/sounds/ding.wav'),
           {
             shouldPlay: false,
+            volume: volume,
           },
         )
 

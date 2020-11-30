@@ -126,6 +126,7 @@ jobs:
         with:
           name: ios-build
           path: |
+            ./env
             ./ios
             !./ios/Pods
 

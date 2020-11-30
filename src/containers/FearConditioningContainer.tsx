@@ -6,7 +6,6 @@ import {
   FearConditioningTrialScreen,
   FearConditioningTrialResponse,
 } from '@screens'
-import { ExperimentCache } from '@redux/reducers'
 
 type FearConditioningModuleState = {
   phase: string
@@ -124,7 +123,7 @@ export const FearConditioningContainer: ExperimentModule<FearConditioningModuleS
   )
 
   // Calculate a random trial interval length
-  const intervalBounds = experiment.intervalTimeBounds
+  const intervalBounds = experiment.definition.intervalTimeBounds
   const trialDelay =
     Math.floor(Math.random() * intervalBounds.max) + intervalBounds.min
 
@@ -137,8 +136,9 @@ export const FearConditioningContainer: ExperimentModule<FearConditioningModuleS
         stimulusImage={currentTrial.stimulusImage}
         contextImage={require('../assets/images/example-context.jpg')}
         trialDelay={trialDelay}
-        trialLength={experiment.trialLength}
-        ratingDelay={experiment.ratingDelay}
+        volume={experiment.volume}
+        trialLength={experiment.definition.trialLength}
+        ratingDelay={experiment.definition.ratingDelay}
         reinforced={currentTrial.reinforced}
         onTrialEnd={onTrialEnd}
       />

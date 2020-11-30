@@ -65,12 +65,12 @@ export default function App() {
 
   useEffect(() => {
     // TODO: Ensure user has headphones connected - Will be moved to future module
-    AudioSensor.isHeadphonesConnected().then(notifyUserRegardingHeadphones)
-    AudioSensor.addHeadphonesListener(notifyUserRegardingHeadphones)
+    // AudioSensor.isHeadphonesConnected().then(notifyUserRegardingHeadphones)
+    // AudioSensor.addHeadphonesListener(notifyUserRegardingHeadphones)
 
     // TODO: Ensure user has max volume set - Will be moved to future module
-    AudioSensor.getCurrentVolume().then(notifyUserRegardingVolume)
-    AudioSensor.addVolumeListener(notifyUserRegardingVolume)
+    // AudioSensor.getCurrentVolume().then(notifyUserRegardingVolume)
+    // AudioSensor.addVolumeListener(notifyUserRegardingVolume)
 
     // Start AppState listening...
     onStateHydrated().then(() => {

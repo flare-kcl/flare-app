@@ -103,6 +103,10 @@ export const exampleExperimentData: Experiment = {
     },
     {
       id: '2',
+      moduleType: 'VOLUME_CALIBRATION',
+    },
+    {
+      id: '3',
       moduleType: 'FEAR_CONDITIONING',
       definition: {
         phase: 'acquisition',

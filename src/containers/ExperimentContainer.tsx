@@ -6,6 +6,7 @@ import {
   clearAllEvents,
   clearAllModules,
   clearExperiment,
+  updateExperiment,
   rejectParticipant,
   ExperimentCache,
 } from '@redux/reducers'
@@ -13,10 +14,12 @@ import { LoginScreen, RejectionScreen } from '@screens'
 import { TermsContainer } from './TermsContainer'
 import { CriterionContainer } from './CriterionContainer'
 import { FearConditioningContainer } from './FearConditioningContainer'
+import { VolumeCalibrationContainer } from './VolumeCalibrationContainer'
 
 const ExperimentModuleTypes = {
   TERMS: TermsContainer,
   CRITERIA: CriterionContainer,
+  VOLUME_CALIBRATION: VolumeCalibrationContainer,
   FEAR_CONDITIONING: FearConditioningContainer,
 }
 
@@ -118,12 +121,18 @@ export const ExperimentContainer = () => {
     )
   }
 
+  // Function used to update the global defenition of the experiment
+  function updateExperimentState(updatedExperimentState) {
+    dispatch(updateExperiment(updatedExperimentState))
+  }
+
   // Return the current module
   return (
     <ModuleComponent
       module={currentModule.moduleState}
       updateModule={updateModuleState}
-      experiment={experiment.definition}
+      experiment={experiment}
+      updateExperiment={updateExperimentState}
       onModuleComplete={onModuleComplete}
       terminateExperiment={terminateExperiment}
       exitExperiment={exitExperiment}
