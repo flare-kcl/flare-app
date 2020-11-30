@@ -56,6 +56,10 @@ jobs:
         run: |
           pip install dump-env
           dump-env  --template=./.env.template > .env
+        env:
+          BASE_API_UR: ${{ secrets.BASE_API_URL }}
+          API_AUTH_TOKEN: ${{ secrets.API_AUTH_TOKEN }}
+          SENTRY_DTN: ${{ secrets.SENTRY_DTN }}
 
       # Cache artifacts for future jobs
       - uses: actions/upload-artifact@v2
@@ -95,6 +99,10 @@ jobs:
         run: |
           pip install dump-env
           dump-env  --template=./.env.template > .env
+        env:
+          BASE_API_UR: ${{ secrets.BASE_API_URL }}
+          API_AUTH_TOKEN: ${{ secrets.API_AUTH_TOKEN }}
+          SENTRY_DTN: ${{ secrets.SENTRY_DTN }}
 
       - name: Install Dependencies
         run: npm install
@@ -152,6 +160,10 @@ jobs:
         run: |
           pip install dump-env
           dump-env  --template=./.env.template > .env
+        env:
+          BASE_API_UR: ${{ secrets.BASE_API_URL }}
+          API_AUTH_TOKEN: ${{ secrets.API_AUTH_TOKEN }}
+          SENTRY_DTN: ${{ secrets.SENTRY_DTN }}
 
       - name: Install Dependencies
         run: npm install
