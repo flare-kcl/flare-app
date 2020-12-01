@@ -1,10 +1,12 @@
-import { useEffect } from 'react'
+import { useEffect, useCallback, useState } from 'react'
+import { Alert } from 'react-native'
 import { shuffle, update } from 'lodash'
 import { Experiment } from '@containers/ExperimentContainer'
 import {
   FearConditioningTrialScreen,
   FearConditioningTrialResponse,
 } from '@screens'
+import { ExperimentCache } from '@redux/reducers'
 
 type FearConditioningModuleState = {
   phase: string
@@ -19,10 +21,10 @@ type FearConditioningModuleState = {
 
 type ModuleContainerProps = {
   module: FearConditioningModuleState
-  experiment: Experiment
+  experiment: ExperimentCache
   updateModule: (FearConditioningModuleState) => void
   onModuleComplete: () => void
-  terminateExperiment: () => void
+  exitExperiment: () => void
 }
 
 type Trial = {
@@ -36,8 +38,11 @@ export const FearConditioningContainer: React.FunctionComponent<ModuleContainerP
   experiment,
   module: mod,
   updateModule,
+  exitExperiment,
   onModuleComplete,
 }) => {
+  const [lastTrialSkipped, setLastTrialSkipped] = useState(false)
+
   // Build the trials sequence on first render
   useEffect(() => {
     if (mod.trials === undefined) {
@@ -46,46 +51,85 @@ export const FearConditioningContainer: React.FunctionComponent<ModuleContainerP
         trials: generateTrials(
           mod.trialsPerStimulus,
           mod.reinforcementRate,
-          mod.stimuliImages,
+          // TODO: Remove Hardcoded Stimuli
+          [
+            require('../assets/images/small.png'),
+            require('../assets/images/large.png'),
+          ],
         ),
       })
     }
   }, [])
 
-  // Don't render until trials generated...
-  if (mod.trials === undefined) {
-    return null
-  }
-
-  function onTrialEnd(trialResponse) {
-    // Update trials array with response
-    const updatedTrials = mod.trials.map((trial, index) => {
-      if (index === mod.currentTrialIndex) {
-        return {
-          ...trial,
-          response: trialResponse,
+  const onTrialEnd = useCallback(
+    (trialResponse: FearConditioningTrialResponse, checkIfSkipped = true) => {
+      // Record if the response was skipped
+      if (trialResponse.skipped && checkIfSkipped) {
+        // Warn user...
+        if (lastTrialSkipped) {
+          Alert.alert(
+            'Attention Required',
+            'You have not been rating trials in the designated time, Please try to answer them as fast as you can.',
+            [
+              {
+                text: 'Exit Experiment',
+                onPress: () => exitExperiment(),
+                style: 'cancel',
+              },
+              {
+                text: 'Continue',
+                onPress: () => {
+                  // Continue with trials
+                  if (experiment.participantRejected === false) {
+                    onTrialEnd(trialResponse, false)
+                  }
+                },
+              },
+            ],
+            { cancelable: false },
+          )
+          return
+        } else {
+          // Set flag
+          setLastTrialSkipped(true)
         }
       }
 
-      return trial
-    })
+      // Don't render until trials generated...
+      if (mod.trials === undefined) {
+        return null
+      }
 
-    // Iterate to next trial if ready, otherwise finish module
-    if (mod.currentTrialIndex === mod.trials.length - 1) {
-      // Update state with responses
-      updateModule({
-        trials: updatedTrials,
+      // Update trials array with response
+      const updatedTrials = mod.trials.map((trial, index) => {
+        if (index === mod.currentTrialIndex) {
+          return {
+            ...trial,
+            response: trialResponse,
+          }
+        }
+
+        return trial
       })
 
-      // Iterate to next module
-      onModuleComplete()
-    } else {
-      updateModule({
-        currentTrialIndex: mod.currentTrialIndex + 1,
-        trials: updatedTrials,
-      })
-    }
-  }
+      // Iterate to next trial if ready, otherwise finish module
+      if (mod.currentTrialIndex === mod.trials.length - 1) {
+        // Update state with responses
+        updateModule({
+          trials: updatedTrials,
+        })
+
+        // Iterate to next module
+        onModuleComplete()
+      } else {
+        updateModule({
+          currentTrialIndex: mod.currentTrialIndex + 1,
+          trials: updatedTrials,
+        })
+      }
+    },
+    [lastTrialSkipped],
+  )
 
   // Calculate a random trial interval length
   const intervalBounds = experiment.intervalTimeBounds
