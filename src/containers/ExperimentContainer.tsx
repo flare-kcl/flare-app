@@ -37,6 +37,9 @@ export type Experiment = {
   modules: ExperimentModuleConfig[]
   ratingDelay: number
   trialLength: number
+  ratingScaleAnchorLabelLeft: string
+  ratingScaleAnchorLabelCenter: string
+  ratingScaleAnchorLabelRight: string
   intervalTimeBounds: {
     min: number
     max: number

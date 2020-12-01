@@ -1,4 +1,4 @@
-import { Experiment } from '@containers/ExperimentContainer'
+import { Experiment } from '../containers/ExperimentContainer'
 
 // Example Terms and Conditions, Well be swapped out eventually!
 const exampleTerms = `
@@ -86,6 +86,9 @@ export const exampleExperimentData: Experiment = {
   contactEmail: 'flare@torchbox.com',
   ratingDelay: 2000,
   trialLength: 8000,
+  ratingScaleAnchorLabelLeft: "Certain no scream",
+  ratingScaleAnchorLabelCenter: "Uncertain",
+  ratingScaleAnchorLabelRight: "Certain scream",
   intervalTimeBounds: {
     min: 500,
     max: 1500,

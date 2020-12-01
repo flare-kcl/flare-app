@@ -141,6 +141,9 @@ export const FearConditioningContainer: ExperimentModule<FearConditioningModuleS
         ratingDelay={experiment.definition.ratingDelay}
         reinforced={currentTrial.reinforced}
         onTrialEnd={onTrialEnd}
+        anchorLabelLeft={experiment.definition.ratingScaleAnchorLabelLeft}
+        anchorLabelCenter={experiment.definition.ratingScaleAnchorLabelCenter}
+        anchorLabelRight={experiment.definition.ratingScaleAnchorLabelRight}
       />
     )
   )

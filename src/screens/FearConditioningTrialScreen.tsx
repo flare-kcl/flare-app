@@ -25,6 +25,9 @@ type FearConditioningTrialScreenParams = {
   reinforced: boolean
   trialDelay: number
   volume: number
+  anchorLabelLeft: string
+  anchorLabelCenter: string
+  anchorLabelRight: string
   onTrialEnd: (response: FearConditioningTrialResponse) => void
 }
 
@@ -46,6 +49,9 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
     onTrialEnd,
     trialDelay,
     volume,
+    anchorLabelLeft,
+    anchorLabelCenter,
+    anchorLabelRight
   }) => {
     const dispatch = useDispatch()
     const [showTrial, setShowTrial] = useState<boolean>(false)
@@ -180,6 +186,10 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
           </Box>
           {showScale && (
             <TrialRatingScale
+              lockFirstRating
+              anchorLabelLeft={anchorLabelLeft}
+              anchorLabelCenter={anchorLabelCenter}
+              anchorLabelRight={anchorLabelRight}
               onChange={(value) => {
                 // Record time to rate
                 reactionTimeRef.current = Date.now()
