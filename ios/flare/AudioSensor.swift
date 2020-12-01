@@ -27,7 +27,7 @@ class AudioSensor: RCTEventEmitter {
           self.sendEvent(withName: "VolumeChange", body: av.outputVolume)
         }
       }
-      
+
       // Subscribe to audio route changes
       NotificationCenter.default.addObserver(self, selector: #selector(onAudioOutputChange), name: AVAudioSession.routeChangeNotification, object: nil)
     } catch {
@@ -41,7 +41,7 @@ class AudioSensor: RCTEventEmitter {
       self.sendEvent(withName: "OutputChange", body: self.isHeadphonesConnected())
     }
   }
-  
+
   /// Get the current volume and return it (Exposed to JS using Promises)
   @objc func getCurrentVolume(
     _ resolve: RCTPromiseResolveBlock,
@@ -57,7 +57,7 @@ class AudioSensor: RCTEventEmitter {
   ) -> Void  {
     resolve(self.isHeadphonesConnected())
   }
-  
+
   /// Check if headphones are the primary audio output (Internal Only)
   private func isHeadphonesConnected() -> Bool {
     return self.audioSession.currentRoute.outputs[0].portType != .builtInSpeaker
@@ -67,14 +67,18 @@ class AudioSensor: RCTEventEmitter {
   override func supportedEvents() -> [String]! {
     return ["onSessionConnect", "VolumeChange", "OutputChange"]
   }
-  
+
   /// Detect if a listener has attached and we should send them events
   override func startObserving() {
     self.hasListeners = true
   }
-  
+
   /// Detect if all listeners has dettached  and we stop sending any events
   override func stopObserving() {
     self.hasListeners = false
+  }
+
+  override static func requiresMainQueueSetup() -> Bool {
+    return true
   }
 }

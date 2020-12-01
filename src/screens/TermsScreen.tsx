@@ -1,5 +1,5 @@
 import { ScrollView } from 'react-native-gesture-handler'
-import { ModuleScreen } from '@screens'
+
 import { Box, Button, Markdown } from '@components'
 
 export type TermsScreenParams = {
@@ -8,9 +8,11 @@ export type TermsScreenParams = {
   onExit?: Function
 }
 
-export const TermsScreen: ModuleScreen<TermsScreenParams> = ({ route }) => {
-  const { terms, onAccept, onExit } = route?.params
-
+export const TermsScreen: React.FunctionComponent<TermsScreenParams> = ({
+  terms,
+  onAccept,
+  onExit,
+}) => {
   return (
     <>
       <ScrollView
@@ -45,6 +47,3 @@ export const TermsScreen: ModuleScreen<TermsScreenParams> = ({ route }) => {
     </>
   )
 }
-
-// Set the screen ID
-TermsScreen.screenID = 'screen'

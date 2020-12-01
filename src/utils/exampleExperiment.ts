@@ -1,4 +1,4 @@
-import { Experiment, ExperimentModuleType } from '@controllers'
+import { Experiment } from '@containers/ExperimentContainer'
 
 // Example Terms and Conditions, Well be swapped out eventually!
 const exampleTerms = `
