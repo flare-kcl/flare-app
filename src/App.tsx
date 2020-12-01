@@ -11,7 +11,7 @@ import AppStateMonitor from '@utils/AppStateMonitor'
 import { FlareThemeProvider } from '@utils/theme'
 import { store, peristor } from '@redux/store'
 import { onStateHydrated } from '@redux/persist'
-import { ExperimentContainer } from 'containers/ExperimentContainers'
+import { ExperimentContainer } from 'containers/ExperimentContainer'
 
 // Link with Sentry
 Sentry.init({

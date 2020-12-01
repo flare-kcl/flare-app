@@ -7,8 +7,11 @@ export const experimentSelector = (state: AppState): ExperimentCache =>
 export const moduleSelector = (state: AppState, moduleId) =>
   state.modules[moduleId]
 
-export const currentModuleSelector = (state: AppState) =>
-  moduleSelector(state, state.experiment.currentModuleIndex)
+export const currentModuleSelector = (state: AppState) => {
+  const currentIndex = state.experiment.currentModuleIndex
+  const currentModule = state.experiment.definition?.modules[currentIndex]
+  return currentModule && moduleSelector(state, currentModule.id)
+}
 
 export const latestEventSelector = (state: AppState): EventRecord | undefined =>
   state.events[state.events.length - 1]
