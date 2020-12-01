@@ -79,6 +79,7 @@ export const TrialRatingScale: React.FunctionComponent<TrialRatingScale> = ({
         >
           {ratingOptions.map((value) => (
             <Pressable
+              key={`rating-button-${value}`}
               width={value == currentButton ? 1.3 * boxSize : boxSize}
               height={value == currentButton ? 1.3 * boxSize : boxSize}
               backgroundColor={value == currentButton ? 'purple' : 'darkGrey'}

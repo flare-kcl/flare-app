@@ -6,7 +6,12 @@ import {
   RNAppStateType,
   updateRNAppState,
   recordEvent,
+  rejectParticipant,
 } from '@redux/reducers'
+import { currentModuleSelector } from '@redux/selectors'
+
+const SUSPENDED_TIMEOUT = 60000
+const STRICT_SUSPENED_TIMEOUT = 30000
 
 export default class AppStateMonitor {
   /**
@@ -34,6 +39,7 @@ export default class AppStateMonitor {
     ) {
       // Calculate suspened time in seconds
       const suspendedTime = currentTime - previousState.lastUpdated
+
       // Record an event detailing how long the app was suspended
       store.dispatch(
         recordEvent({
@@ -42,6 +48,19 @@ export default class AppStateMonitor {
           value: String(suspendedTime),
         }),
       )
+
+      // Determine timeout mode
+      const currentModule = currentModuleSelector(store.getState())
+      const applyStrictTimeout =
+        currentModule.moduleType === 'FEAR_CONDITIONING'
+
+      // Trigger flag if the user had the app suspended for too long.
+      if (
+        suspendedTime > SUSPENDED_TIMEOUT ||
+        (applyStrictTimeout && suspendedTime > STRICT_SUSPENED_TIMEOUT)
+      ) {
+        store.dispatch(rejectParticipant())
+      }
     }
 
     // Update internal recording of 'AppState'

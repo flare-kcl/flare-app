@@ -5,7 +5,7 @@ import { RejectionScreen } from '@screens'
 test('Text Renders Correctly', () => {
   const tree = render(
     <FlareThemeProvider>
-      <RejectionScreen route={{ params: {} }} />
+      <RejectionScreen />
     </FlareThemeProvider>,
   ).toJSON()
 
@@ -19,14 +19,7 @@ test('Calls Props on button press', () => {
   // Render screen
   const { queryByTestId } = render(
     <FlareThemeProvider>
-      <RejectionScreen
-        route={{
-          params: {
-            contactLink: 'mailt:flare@internet.com',
-            onExit,
-          },
-        }}
-      />
+      <RejectionScreen contactLink="mailt:flare@internet.com" onExit={onExit} />
     </FlareThemeProvider>,
   )
 

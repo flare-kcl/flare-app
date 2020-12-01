@@ -6,7 +6,7 @@ import { CriteriaScreen } from '@screens'
 test('Text Renders Correctly', () => {
   const tree = render(
     <FlareThemeProvider>
-      <CriteriaScreen route={{ params: exampleCriteriaDefinition }} />
+      <CriteriaScreen {...exampleCriteriaDefinition} />
     </FlareThemeProvider>,
   ).toJSON()
 
@@ -23,14 +23,10 @@ test('Calls Props on button press', () => {
   const { queryByTestId, queryAllByA11yLabel } = render(
     <FlareThemeProvider>
       <CriteriaScreen
-        route={{
-          params: {
-            ...exampleCriteriaDefinition,
-            onPassCriteria: onPass,
-            onFailCriteria: onFail,
-            onExit: onExit,
-          },
-        }}
+        {...exampleCriteriaDefinition}
+        onPassCriteria={onPass}
+        onFailCriteria={onFail}
+        onExit={onExit}
       />
     </FlareThemeProvider>,
   )
