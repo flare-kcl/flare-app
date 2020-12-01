@@ -1,4 +1,4 @@
-import { Experiment } from '@containers/ExperimentContainer'
+import { Experiment, ExperimentModule } from '@containers/ExperimentContainer'
 import { CriteriaScreen, ExperimentCriteria } from '@screens'
 
 type CriteriaModuleState = {
@@ -7,15 +7,7 @@ type CriteriaModuleState = {
   continueMessage: string
 }
 
-type ModuleContainerProps = {
-  module: CriteriaModuleState
-  experiment: Experiment
-  updateModule: (CriteriaModuleState) => void
-  onModuleComplete: () => void
-  exitExperiment: () => void
-}
-
-export const CriterionContainer: React.FunctionComponent<ModuleContainerProps> = ({
+export const CriterionContainer: ExperimentModule<CriteriaModuleState> = ({
   module: mod,
   updateModule,
   onModuleComplete,

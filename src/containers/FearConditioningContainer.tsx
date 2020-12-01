@@ -1,7 +1,7 @@
 import { useEffect, useCallback, useState } from 'react'
 import { Alert } from 'react-native'
-import { shuffle, update } from 'lodash'
-import { Experiment } from '@containers/ExperimentContainer'
+import { shuffle } from 'lodash'
+import { ExperimentModule } from '@containers/ExperimentContainer'
 import {
   FearConditioningTrialScreen,
   FearConditioningTrialResponse,
@@ -19,14 +19,6 @@ type FearConditioningModuleState = {
   currentTrialIndex: number
 }
 
-type ModuleContainerProps = {
-  module: FearConditioningModuleState
-  experiment: ExperimentCache
-  updateModule: (FearConditioningModuleState) => void
-  onModuleComplete: () => void
-  exitExperiment: () => void
-}
-
 type Trial = {
   label: string
   stimulusImage: any
@@ -34,7 +26,7 @@ type Trial = {
   response?: FearConditioningTrialResponse
 }
 
-export const FearConditioningContainer: React.FunctionComponent<ModuleContainerProps> = ({
+export const FearConditioningContainer: ExperimentModule<FearConditioningModuleState> = ({
   experiment,
   module: mod,
   updateModule,

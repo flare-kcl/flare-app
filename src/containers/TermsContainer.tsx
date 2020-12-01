@@ -1,18 +1,11 @@
-import { Experiment } from '@containers/ExperimentContainer'
+import { ExperimentModule } from './ExperimentContainer'
 import { TermsScreen } from '@screens'
 
 type TermsModuleState = {
   terms: string
 }
 
-type ModuleContainerProps = {
-  module: TermsModuleState
-  experiment: Experiment
-  onModuleComplete: () => void
-  exitExperiment: () => void
-}
-
-export const TermsContainer: React.FunctionComponent<ModuleContainerProps> = ({
+export const TermsContainer: ExperimentModule<TermsModuleState> = ({
   module: mod,
   onModuleComplete,
   exitExperiment,

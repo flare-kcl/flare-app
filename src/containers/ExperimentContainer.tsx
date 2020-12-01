@@ -1,12 +1,13 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { experimentSelector, currentModuleSelector } from '@redux/selectors'
 import {
-  incrementExperimentModule,
+  nextModule,
   updateModule,
   clearAllEvents,
   clearAllModules,
   clearExperiment,
   rejectParticipant,
+  ExperimentCache,
 } from '@redux/reducers'
 import { LoginScreen, RejectionScreen } from '@screens'
 import { TermsContainer } from './TermsContainer'
@@ -39,6 +40,20 @@ export type Experiment = {
   }
 }
 
+export type ExperimentModule<
+  ModuleState = any,
+  ExtraProps = any
+> = React.FunctionComponent<
+  {
+    module: ModuleState
+    updateModule: (ModuleState) => void
+    experiment: ExperimentCache
+    onModuleComplete: () => void
+    terminateExperiment: () => void
+    exitExperiment: () => void
+  } & ExtraProps
+>
+
 export const ExperimentContainer = () => {
   // Get the experiment object and the index of the current module.
   const dispatch = useDispatch()
@@ -62,11 +77,12 @@ export const ExperimentContainer = () => {
   }
 
   // Get the current module data and it's respective component.
-  const ModuleComponent = ExperimentModuleTypes[currentModule?.moduleType]
+  const ModuleComponent: ExperimentModule =
+    ExperimentModuleTypes[currentModule?.moduleType]
 
   // This function is called when the experiment should transition to next module.
   function onModuleComplete() {
-    dispatch(incrementExperimentModule())
+    dispatch(nextModule())
   }
 
   // Function used to reset experiment state

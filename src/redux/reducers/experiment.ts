@@ -22,7 +22,7 @@ export const clearExperiment = createAction<ExperimentCacheUpdate>(
 
 export const rejectParticipant = createAction('experiment/reject')
 
-export const incrementExperimentModule = createAction('experiment/increment')
+export const nextModule = createAction('experiment/increment')
 
 const initialState: ExperimentCache = {
   currentModuleIndex: 0,
@@ -40,7 +40,7 @@ export const experimentReducer = createReducer<ExperimentCache>(
     })
 
     // Increase the module index
-    builder.addCase(incrementExperimentModule, (state) => {
+    builder.addCase(nextModule, (state) => {
       return {
         ...state,
         currentModuleIndex: state.currentModuleIndex + 1,

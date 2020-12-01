@@ -5,15 +5,9 @@ import Config from 'react-native-config'
 import camelcaseKeys from 'camelcase-keys'
 
 import { Box, Text, Button, Image, TextField } from '@components'
-import {
-  ExperimentViewController,
-  Experiment,
-} from '@containers/ExperimentContainer'
+import { Experiment } from '@containers/ExperimentContainer'
 import { palette } from '@utils/theme'
-import {
-  exampleExperimentData,
-  exampleTermsDefinition,
-} from '@utils/exampleExperiment'
+import { exampleExperimentData } from '@utils/exampleExperiment'
 import { updateExperiment, updateModule } from '@redux/reducers'
 import { useDispatch } from 'react-redux'
 
