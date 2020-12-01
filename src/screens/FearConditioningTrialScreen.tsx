@@ -51,7 +51,7 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
     volume,
     anchorLabelLeft,
     anchorLabelCenter,
-    anchorLabelRight
+    anchorLabelRight,
   }) => {
     const dispatch = useDispatch()
     const [showTrial, setShowTrial] = useState<boolean>(false)
