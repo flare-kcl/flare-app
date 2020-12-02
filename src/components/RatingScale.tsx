@@ -9,12 +9,20 @@ import {
   PanGestureHandlerGestureEvent,
 } from 'react-native-gesture-handler'
 
-type TrialRatingScale = {
+type RatingScaleProps = {
+  anchorLabelLeft: string
+  anchorLabelCenter: string
+  anchorLabelRight: string
+  lockFirstRating: boolean
   onChange: (value: number) => void
 }
 
-export const TrialRatingScale: React.FunctionComponent<TrialRatingScale> = ({
+export const RatingScale: React.FunctionComponent<RatingScaleProps> = ({
+  anchorLabelLeft = 'Certain no scream',
+  anchorLabelCenter = 'Uncertain',
+  anchorLabelRight = 'Certain scream',
   onChange,
+  lockFirstRating = true,
 }) => {
   // Keep track of selected value
   const ratingOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -25,6 +33,13 @@ export const TrialRatingScale: React.FunctionComponent<TrialRatingScale> = ({
   const screenWidth = Dimensions.get('screen').width
   const boxSize = 0.1 * screenWidth
 
+  // Only lock if specified via props
+  const setRatingLocked = (locked: boolean) => {
+    if (lockFirstRating) {
+      setLocked(locked)
+    }
+  }
+
   // Update internal state + parent
   const setSelectionOption = (value: number, debounceLock = false) => {
     setCurrentButton(value)
@@ -32,7 +47,7 @@ export const TrialRatingScale: React.FunctionComponent<TrialRatingScale> = ({
     if (debounceLock) {
       debouncedLock(value)
     } else {
-      setLocked(true)
+      setRatingLocked(true)
       onChange(value)
     }
   }
@@ -40,7 +55,7 @@ export const TrialRatingScale: React.FunctionComponent<TrialRatingScale> = ({
   // Debounce locking for 100ms
   const debouncedLock = useCallback(
     debounce((value: number) => {
-      setLocked(true)
+      setRatingLocked(true)
       onChange(value)
     }, 300),
     [],
@@ -99,23 +114,22 @@ export const TrialRatingScale: React.FunctionComponent<TrialRatingScale> = ({
           flexDirection="row"
           justifyContent="space-between"
           alignItems="flex-start"
-          width="100%"
-          px={2}
+          px={1}
           pt={4}
         >
           <Box width="25%">
             <Text textAlign="left" fontWeight="600">
-              Certain no scream
+              {anchorLabelLeft}
             </Text>
           </Box>
-          <Box width="25%">
+          <Box width="33%">
             <Text textAlign="center" fontWeight="600">
-              Uncertain
+              {anchorLabelCenter}
             </Text>
           </Box>
           <Box width="25%">
             <Text textAlign="right" fontWeight="600">
-              Certain scream
+              {anchorLabelRight}
             </Text>
           </Box>
         </Box>

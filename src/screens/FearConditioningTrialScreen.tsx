@@ -3,7 +3,7 @@ import { Audio } from 'expo-av'
 import { EmitterSubscription, ImageSourcePropType } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { recordEvent } from '@redux/reducers'
-import { Box, TrialImageStack, TrialRatingScale, Text } from '@components'
+import { Box, TrialImageStack, RatingScale, Text } from '@components'
 import { ModuleScreen } from './BaseScreen'
 import AudioSensor from '@utils/AudioSensor'
 
@@ -24,6 +24,10 @@ type FearConditioningTrialScreenParams = {
   ratingDelay: number
   reinforced: boolean
   trialDelay: number
+  volume: number
+  anchorLabelLeft: string
+  anchorLabelCenter: string
+  anchorLabelRight: string
   onTrialEnd: (response: FearConditioningTrialResponse) => void
 }
 
@@ -44,6 +48,10 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
     ratingDelay,
     onTrialEnd,
     trialDelay,
+    volume,
+    anchorLabelLeft,
+    anchorLabelCenter,
+    anchorLabelRight,
   }) => {
     const dispatch = useDispatch()
     const [showTrial, setShowTrial] = useState<boolean>(false)
@@ -66,6 +74,7 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
           require('../assets/sounds/ding.wav'),
           {
             shouldPlay: false,
+            volume: volume,
           },
         )
 
@@ -176,7 +185,11 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
             />
           </Box>
           {showScale && (
-            <TrialRatingScale
+            <RatingScale
+              lockFirstRating
+              anchorLabelLeft={anchorLabelLeft}
+              anchorLabelCenter={anchorLabelCenter}
+              anchorLabelRight={anchorLabelRight}
               onChange={(value) => {
                 // Record time to rate
                 reactionTimeRef.current = Date.now()
