@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState, useRef } from 'react'
 import { Alert } from 'react-native'
 import { Audio } from 'expo-av'
 import { Entypo } from '@expo/vector-icons'
-import { Text, Box, Button, TrialRatingScale } from '@components'
+import { Text, Box, Button, RatingScale } from '@components'
 import { palette } from '@utils/theme'
 
 type VolumeCalibrationScreenParams = {
@@ -192,7 +192,7 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
           justifyContent="flex-end"
           alignItems="center"
         >
-          <TrialRatingScale
+          <RatingScale
             anchorLabelLeft="Quiet"
             anchorLabelCenter="Loud"
             anchorLabelRight="Painful"

@@ -9,7 +9,7 @@ import {
   PanGestureHandlerGestureEvent,
 } from 'react-native-gesture-handler'
 
-type TrialRatingScale = {
+type RatingScaleProps = {
   anchorLabelLeft: string
   anchorLabelCenter: string
   anchorLabelRight: string
@@ -17,7 +17,7 @@ type TrialRatingScale = {
   onChange: (value: number) => void
 }
 
-export const TrialRatingScale: React.FunctionComponent<TrialRatingScale> = ({
+export const RatingScale: React.FunctionComponent<RatingScaleProps> = ({
   anchorLabelLeft = 'Certain no scream',
   anchorLabelCenter = 'Uncertain',
   anchorLabelRight = 'Certain scream',

@@ -3,7 +3,7 @@ import { Audio } from 'expo-av'
 import { EmitterSubscription, ImageSourcePropType } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { recordEvent } from '@redux/reducers'
-import { Box, TrialImageStack, TrialRatingScale, Text } from '@components'
+import { Box, TrialImageStack, RatingScale, Text } from '@components'
 import { ModuleScreen } from './BaseScreen'
 import AudioSensor from '@utils/AudioSensor'
 
@@ -185,7 +185,7 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
             />
           </Box>
           {showScale && (
-            <TrialRatingScale
+            <RatingScale
               lockFirstRating
               anchorLabelLeft={anchorLabelLeft}
               anchorLabelCenter={anchorLabelCenter}
