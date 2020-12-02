@@ -55,9 +55,9 @@ export const FearConditioningContainer: ExperimentModule<FearConditioningModuleS
   const onTrialEnd = useCallback(
     (trialResponse: FearConditioningTrialResponse, checkIfSkipped = true) => {
       // Record if the response was skipped
-      if (trialResponse.skipped && checkIfSkipped) {
+      if (trialResponse.skipped) {
         // Warn user...
-        if (lastTrialSkipped) {
+        if (lastTrialSkipped && checkIfSkipped) {
           Alert.alert(
             'Attention Required',
             'You have not been rating trials in the designated time, Please try to answer them as fast as you can.',
@@ -84,11 +84,6 @@ export const FearConditioningContainer: ExperimentModule<FearConditioningModuleS
           // Set flag
           setLastTrialSkipped(true)
         }
-      }
-
-      // Don't render until trials generated...
-      if (mod.trials === undefined) {
-        return null
       }
 
       // Update trials array with response
@@ -119,8 +114,13 @@ export const FearConditioningContainer: ExperimentModule<FearConditioningModuleS
         })
       }
     },
-    [lastTrialSkipped],
+    [mod, lastTrialSkipped],
   )
+
+  // Don't render until trials generated...
+  if (mod.trials === undefined) {
+    return null
+  }
 
   // Calculate a random trial interval length
   const intervalBounds = experiment.definition.intervalTimeBounds
