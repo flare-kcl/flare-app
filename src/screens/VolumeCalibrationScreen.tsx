@@ -53,14 +53,14 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
     }, 1000)
   }
 
-  const startCalibration = async () => {
+  const startCalibration = () => {
     // Show countdown timer
     setStage(VolumeCalibrationStages.Countdown)
 
     // Trigger Countdown
     const testCurrentVolume = () => {
       setCountdown(3)
-      decreaseCountdown(countdown, async () => {
+      decreaseCountdown(3, async () => {
         // Play Sound
         await playStimuli()
 
