@@ -1,12 +1,11 @@
 import { useEffect, useCallback, useState } from 'react'
 import { Alert } from 'react-native'
 import { shuffle } from 'lodash'
-import { ExperimentModule } from '@containers/ExperimentContainer'
+import { ExperimentModule } from './ExperimentContainer'
 import {
   FearConditioningTrialScreen,
   FearConditioningTrialResponse,
 } from '@screens'
-import { ExperimentCache } from '@redux/reducers'
 
 type FearConditioningModuleState = {
   phase: string
@@ -56,9 +55,9 @@ export const FearConditioningContainer: ExperimentModule<FearConditioningModuleS
   const onTrialEnd = useCallback(
     (trialResponse: FearConditioningTrialResponse, checkIfSkipped = true) => {
       // Record if the response was skipped
-      if (trialResponse.skipped && checkIfSkipped) {
+      if (trialResponse.skipped) {
         // Warn user...
-        if (lastTrialSkipped) {
+        if (lastTrialSkipped && checkIfSkipped) {
           Alert.alert(
             'Attention Required',
             'You have not been rating trials in the designated time, Please try to answer them as fast as you can.',
@@ -85,11 +84,6 @@ export const FearConditioningContainer: ExperimentModule<FearConditioningModuleS
           // Set flag
           setLastTrialSkipped(true)
         }
-      }
-
-      // Don't render until trials generated...
-      if (mod.trials === undefined) {
-        return null
       }
 
       // Update trials array with response
@@ -120,11 +114,16 @@ export const FearConditioningContainer: ExperimentModule<FearConditioningModuleS
         })
       }
     },
-    [lastTrialSkipped],
+    [mod, lastTrialSkipped],
   )
 
+  // Don't render until trials generated...
+  if (mod.trials === undefined) {
+    return null
+  }
+
   // Calculate a random trial interval length
-  const intervalBounds = experiment.intervalTimeBounds
+  const intervalBounds = experiment.definition.intervalTimeBounds
   const trialDelay =
     Math.floor(Math.random() * intervalBounds.max) + intervalBounds.min
 
@@ -137,10 +136,14 @@ export const FearConditioningContainer: ExperimentModule<FearConditioningModuleS
         stimulusImage={currentTrial.stimulusImage}
         contextImage={require('../assets/images/example-context.jpg')}
         trialDelay={trialDelay}
-        trialLength={experiment.trialLength}
-        ratingDelay={experiment.ratingDelay}
+        volume={experiment.volume}
+        trialLength={experiment.definition.trialLength}
+        ratingDelay={experiment.definition.ratingDelay}
         reinforced={currentTrial.reinforced}
         onTrialEnd={onTrialEnd}
+        anchorLabelLeft={experiment.definition.ratingScaleAnchorLabelLeft}
+        anchorLabelCenter={experiment.definition.ratingScaleAnchorLabelCenter}
+        anchorLabelRight={experiment.definition.ratingScaleAnchorLabelRight}
       />
     )
   )

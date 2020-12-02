@@ -1,4 +1,4 @@
-import { Experiment, ExperimentModule } from '@containers/ExperimentContainer'
+import { ExperimentModule } from '@containers/ExperimentContainer'
 import { CriteriaScreen, ExperimentCriteria } from '@screens'
 
 type CriteriaModuleState = {

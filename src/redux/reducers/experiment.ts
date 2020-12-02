@@ -5,6 +5,7 @@ export type ExperimentCache = {
   definition?: Experiment
   currentModuleIndex?: number
   participantRejected: boolean
+  volume: number
 }
 
 type ExperimentCacheUpdate = {
@@ -25,6 +26,7 @@ export const rejectParticipant = createAction('experiment/reject')
 export const nextModule = createAction('experiment/increment')
 
 const initialState: ExperimentCache = {
+  volume: 1,
   currentModuleIndex: 0,
   participantRejected: false,
 }
@@ -50,7 +52,7 @@ export const experimentReducer = createReducer<ExperimentCache>(
     // Lock out the participant
     builder.addCase(rejectParticipant, (state) => {
       return {
-        ...rejectParticipant,
+        ...state,
         participantRejected: true,
       }
     })
