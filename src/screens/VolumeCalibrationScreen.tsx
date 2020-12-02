@@ -9,12 +9,19 @@ type VolumeCalibrationScreenParams = {
   onFinishCalibration: (volume: number) => void
 }
 
+enum VolumeCalibrationStages {
+  Intro = 0,
+  Countdown = 1,
+  Rating = 2,
+  Error = 3
+}
+
 export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationScreenParams> = ({
   onFinishCalibration,
 }) => {
   const volume = useRef(0.5)
   const soundRef = useRef<Audio.Sound>()
-  const [stage, setStage] = useState(0)
+  const [stage, setStage] = useState(VolumeCalibrationStages.Intro)
   const [countdown, setCountdown] = useState(3)
   const [volumeRating, setVolumeRating] = useState(undefined)
 
@@ -48,7 +55,7 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
 
   const startCalibration = async () => {
     // Show countdown timer
-    setStage(1)
+    setStage(VolumeCalibrationStages.Countdown)
 
     // Trigger Countdown
     const testCurrentVolume = () => {
@@ -66,7 +73,7 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
               text: 'Yes',
               onPress: () => {
                 // Switch to volume rating
-                setStage(2)
+                setStage(VolumeCalibrationStages.Rating)
               },
             },
             {
@@ -74,7 +81,7 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
               onPress: () => {
                 // If reached max volume
                 if (volume.current >= 1.0) {
-                  setStage(2)
+                  setStage(VolumeCalibrationStages.Rating)
                 } else {
                   // Increase volume and play again
                   volume.current = +(volume.current + 0.1).toFixed(2)
@@ -120,7 +127,7 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
           },
           {
             text: 'No',
-            onPress: () => setStage(3),
+            onPress: () => setStage(VolumeCalibrationStages.Error),
           },
         ],
         { cancelable: false },
@@ -155,7 +162,7 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
       </Text>
 
       {/* Instruction Stage */}
-      {stage == 0 && (
+      {stage == VolumeCalibrationStages.Intro && (
         <Box
           flex={1}
           mt={15}
@@ -177,14 +184,14 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
       )}
 
       {/* Stimuli Countdown */}
-      {stage == 1 && countdown > 0 && (
+      {stage == VolumeCalibrationStages.Countdown && countdown > 0 && (
         <Text variant="heading" fontSize={100} mt={24}>
           {countdown}
         </Text>
       )}
 
       {/* Volume Rating Scale */}
-      {stage == 2 && (
+      {stage == VolumeCalibrationStages.Rating && (
         <Box
           flex={1}
           mt={15}
@@ -204,7 +211,7 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
       )}
 
       {/* Incorrect Reading Block */}
-      {stage == 3 && (
+      {stage == VolumeCalibrationStages.Error && (
         <Box
           flex={1}
           mt={15}
@@ -227,5 +234,3 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
     </Box>
   )
 }
-
-VolumeCalibrationScreen.screenID = 'VolumeCalibration'
