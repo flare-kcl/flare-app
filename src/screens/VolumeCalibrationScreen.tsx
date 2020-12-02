@@ -13,7 +13,7 @@ enum VolumeCalibrationStages {
   Intro = 0,
   Countdown = 1,
   Rating = 2,
-  Error = 3
+  Error = 3,
 }
 
 export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationScreenParams> = ({
