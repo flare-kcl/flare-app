@@ -13,10 +13,6 @@ type ExperimentCacheUpdate = {
   currentModuleIndex: number
 }
 
-type ExperimentVolumeUpdate = {
-  volume: number
-}
-
 export const updateExperiment = createAction<ExperimentCacheUpdate>(
   'experiment/update',
 )
