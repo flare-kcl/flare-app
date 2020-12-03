@@ -26,7 +26,7 @@ const ExperimentModuleTypes = {
 type ExperimentModuleConfig = {
   id: string
   moduleType: string
-  definition: Object
+  definition?: Object
 }
 
 export type Experiment = {
@@ -132,6 +132,7 @@ export const ExperimentContainer = () => {
   // Return the current module
   return (
     <ModuleComponent
+      key={`module-screen-${currentModule.moduleId}`}
       module={currentModule.moduleState}
       updateModule={updateModuleState}
       experiment={experiment}

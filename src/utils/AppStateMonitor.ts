@@ -52,7 +52,7 @@ export default class AppStateMonitor {
       // Determine timeout mode
       const currentModule = currentModuleSelector(store.getState())
       const applyStrictTimeout =
-        currentModule.moduleType === 'FEAR_CONDITIONING'
+        currentModule?.moduleType === 'FEAR_CONDITIONING'
 
       // Trigger flag if the user had the app suspended for too long.
       if (
