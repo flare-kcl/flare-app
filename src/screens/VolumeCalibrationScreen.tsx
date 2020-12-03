@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { Alert } from 'react-native'
 import { Audio } from 'expo-av'
 import { Entypo } from '@expo/vector-icons'
@@ -147,13 +147,7 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
   }
 
   return (
-    <Box
-      flex={1}
-      alignItems="center"
-      pt={24}
-      px={8}
-      backgroundColor="greenPrimary"
-    >
+    <Box flex={1} alignItems="center" pt={24} px={8}>
       <Entypo name="sound" size={100} color={palette.darkGrey} />
 
       <Text mt={8} variant="caption" textAlign="center">

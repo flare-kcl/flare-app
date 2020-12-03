@@ -95,21 +95,30 @@ export const exampleExperimentData: Experiment = {
   },
   modules: [
     {
-      id: '0',
+      id: '387484',
+      moduleType: 'INSTRUCTIONS',
+      definition: {
+        renderIntroTask: true,
+        renderTrialTask: true,
+        advancedVolumeCalibration: true,
+      },
+    },
+    {
+      id: '154654',
       moduleType: 'TERMS',
       definition: exampleTermsDefinition,
     },
     {
-      id: '1',
+      id: '548944',
       moduleType: 'CRITERIA',
       definition: exampleCriteriaDefinition,
     },
     {
-      id: '2',
+      id: '998498',
       moduleType: 'VOLUME_CALIBRATION',
     },
     {
-      id: '3',
+      id: '848948',
       moduleType: 'FEAR_CONDITIONING',
       definition: {
         phase: 'acquisition',
