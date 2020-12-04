@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ExperimentModule } from './ExperimentContainer'
 import { Stepper } from '@components'
 import { TextInstructionScreen } from '@screens'
@@ -82,7 +82,7 @@ export const InstructionsContainer: ExperimentModule<InstructionsModuleState> = 
     ))
   }
 
-  // All slides for trual setup
+  // All slides for trial setup
   const onNextTrialInstruction = () =>
     setCurrentTrialInstruction(currentTrialInstruction + 1)
   let trialScreens = mod.renderTrialTask
@@ -136,9 +136,11 @@ export const InstructionsContainer: ExperimentModule<InstructionsModuleState> = 
   const inRatingPhase = IntroScreen === undefined && TrialScreen !== undefined
 
   // If no screens left then finish module
-  if (IntroScreen === undefined && TrialScreen === undefined) {
-    onModuleComplete()
-  }
+  useEffect(() => {
+    if (IntroScreen === undefined && TrialScreen === undefined) {
+      onModuleComplete()
+    }
+  })
 
   return (
     <>

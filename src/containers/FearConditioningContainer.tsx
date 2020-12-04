@@ -188,6 +188,10 @@ function generateTrials(
   // Rule 2: The first positive stimuli must be reinforced (hence the shift instead of pop)
   let trials = shuffle([positiveStimuli.shift(), negativeStimuli.shift()])
 
+  // Shuffle sets to mix reinforced trials
+  positiveStimuli = shuffle(positiveStimuli)
+  negativeStimuli = shuffle(negativeStimuli)
+
   // Rule 3: Merge positive and negative stimuli with a maxiumum of 2 stimuli in consectutive order
   for (var i = 0; i < positiveStimuli.length; i++) {
     // Get one of each stimuli & shuffle
