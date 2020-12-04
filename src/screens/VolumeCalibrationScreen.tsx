@@ -138,6 +138,11 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
     else if (volumeRating > 5) {
       onFinishCalibration(volume.current)
     }
+
+    // If is below threshold
+    else {
+      setStage(VolumeCalibrationStages.Error)
+    }
   }
 
   const resetCalibration = () => {
