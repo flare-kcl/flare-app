@@ -90,7 +90,7 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
               },
             },
             {
-              text: 'Not Sure',
+              text: 'Listen Again',
               onPress: () => {
                 // Restart countdown
                 testCurrentVolume()
