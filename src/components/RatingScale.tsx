@@ -10,11 +10,12 @@ import {
 } from 'react-native-gesture-handler'
 
 type RatingScaleProps = {
-  anchorLabelLeft: string
-  anchorLabelCenter: string
-  anchorLabelRight: string
-  lockFirstRating: boolean
-  onChange: (value: number) => void
+  anchorLabelLeft?: string
+  anchorLabelCenter?: string
+  anchorLabelRight?: string
+  lockFirstRating?: boolean
+  onChange?: (value: number) => void
+  disabled?: boolean
 }
 
 export const RatingScale: React.FunctionComponent<RatingScaleProps> = ({
@@ -22,6 +23,7 @@ export const RatingScale: React.FunctionComponent<RatingScaleProps> = ({
   anchorLabelCenter = 'Uncertain',
   anchorLabelRight = 'Certain scream',
   onChange,
+  disabled,
   lockFirstRating = true,
 }) => {
   // Keep track of selected value
@@ -42,13 +44,15 @@ export const RatingScale: React.FunctionComponent<RatingScaleProps> = ({
 
   // Update internal state + parent
   const setSelectionOption = (value: number, debounceLock = false) => {
-    setCurrentButton(value)
+    if (!disabled) {
+      setCurrentButton(value)
+    }
     // If we are swiping we only want to lock when we stop swiping
     if (debounceLock) {
       debouncedLock(value)
     } else {
       setRatingLocked(true)
-      onChange(value)
+      onChange?.(value)
     }
   }
 
@@ -56,7 +60,7 @@ export const RatingScale: React.FunctionComponent<RatingScaleProps> = ({
   const debouncedLock = useCallback(
     debounce((value: number) => {
       setRatingLocked(true)
-      onChange(value)
+      onChange?.(value)
     }, 300),
     [],
   )
@@ -101,6 +105,7 @@ export const RatingScale: React.FunctionComponent<RatingScaleProps> = ({
               alignItems="center"
               justifyContent="center"
               onPress={() => (!locked ? setSelectionOption(value) : null)}
+              disabled={disabled}
             >
               <Text fontSize={20} fontWeight="bold" color="white">
                 {value}

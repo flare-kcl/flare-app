@@ -15,10 +15,12 @@ import { TermsContainer } from './TermsContainer'
 import { CriterionContainer } from './CriterionContainer'
 import { FearConditioningContainer } from './FearConditioningContainer'
 import { VolumeCalibrationContainer } from './VolumeCalibrationContainer'
+import { InstructionsContainer } from './InstructionsContainer'
 
 const ExperimentModuleTypes = {
   TERMS: TermsContainer,
   CRITERIA: CriterionContainer,
+  INSTRUCTIONS: InstructionsContainer,
   VOLUME_CALIBRATION: VolumeCalibrationContainer,
   FEAR_CONDITIONING: FearConditioningContainer,
 }
@@ -50,14 +52,14 @@ export type ExperimentModule<
   ModuleState = any,
   ExtraProps = any
 > = React.FunctionComponent<
-  {
+  ExtraProps & {
     module: ModuleState
     updateModule: (ModuleState) => void
     experiment: ExperimentCache
     onModuleComplete: () => void
     terminateExperiment: () => void
     exitExperiment: () => void
-  } & ExtraProps
+  }
 >
 
 export const ExperimentContainer = () => {
@@ -72,7 +74,7 @@ export const ExperimentContainer = () => {
   }
 
   // If no experiment saved then return the login
-  if (experiment.definition == undefined) {
+  if (experiment.definition == undefined || currentModule == undefined) {
     return <LoginScreen />
   }
 

@@ -206,7 +206,6 @@ exports[`Text Renders Correctly 1`] = `
                 Array [
                   Object {
                     "backgroundColor": "#726DA8",
-                    "borderRadius": 8,
                     "height": 60,
                     "marginTop": 8,
                     "paddingVertical": 16,

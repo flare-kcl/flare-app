@@ -4,6 +4,7 @@ export const palette = {
   purple: '#726DA8',
   purpleLight: '#a537fd',
   greenLight: '#B2DBBF',
+  teal: '#008080',
 
   greenPrimary: '#70C1B3',
   greenDark: '#0A906E',
@@ -40,6 +41,8 @@ export const theme = createTheme({
     15: 56,
     16: 60,
     24: 96,
+    25: 100,
+    26: 104,
   },
   borderRadii: {
     s: 4,
@@ -83,6 +86,24 @@ export const theme = createTheme({
       fontSize: 20,
       color: 'white',
     },
+    instructionHeading: {
+      fontWeight: '700',
+      fontSize: 25,
+      color: 'darkGrey',
+      textAlign: 'center',
+    },
+    instructionDescription: {
+      fontWeight: '500',
+      fontSize: 18,
+      color: 'darkGrey',
+      textAlign: 'center',
+    },
+    instructionActionLabel: {
+      fontWeight: '300',
+      fontSize: 15,
+      color: 'darkGrey',
+      textAlign: 'center',
+    },
   },
   buttonVariants: {
     primary: {
@@ -90,7 +111,6 @@ export const theme = createTheme({
       mt: 2,
       py: 4,
       height: 60,
-      borderRadius: 'm',
       textProps: {
         color: 'white',
       },
@@ -99,7 +119,6 @@ export const theme = createTheme({
       mt: 2,
       py: 4,
       backgroundColor: 'red',
-      borderRadius: 'm',
       textProps: {
         color: 'white',
       },

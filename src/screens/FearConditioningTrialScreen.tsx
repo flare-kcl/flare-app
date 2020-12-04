@@ -3,8 +3,7 @@ import { Audio } from 'expo-av'
 import { EmitterSubscription, ImageSourcePropType } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { recordEvent } from '@redux/reducers'
-import { Box, TrialImageStack, RatingScale, Text } from '@components'
-import { ModuleScreen } from './BaseScreen'
+import { Box, TrialImageStack, RatingScale, Interval } from '@components'
 import AudioSensor from '@utils/AudioSensor'
 
 Audio.setAudioModeAsync({
@@ -161,20 +160,7 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
     return (
       <>
         {/* Show marker when delaying trial */}
-        {showTrial === false && (
-          <Box
-            flex={1}
-            width="100%"
-            position="absolute"
-            top={0}
-            pt={24}
-            alignItems="center"
-          >
-            <Text fontWeight="bold" fontSize={120}>
-              +
-            </Text>
-          </Box>
-        )}
+        {showTrial === false && <Interval />}
 
         {/* Set opacity to zero during inter-trial delay to enable loading of images */}
         <Box flex={1} opacity={showTrial ? 1 : 0}>
