@@ -6,9 +6,10 @@ import { Entypo, AntDesign } from '@expo/vector-icons'
 import { useRef } from 'react'
 import { EmitterSubscription } from 'react-native'
 import { palette } from '@utils/theme'
+import { HeadphoneType } from '@containers/BasicInfoContainer'
 
 type HeadphonesDetectionScreenProps = {
-  headphoneType: string
+  headphoneType: HeadphoneType
   onNext: () => void
 }
 

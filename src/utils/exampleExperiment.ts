@@ -95,6 +95,17 @@ export const exampleExperimentData: Experiment = {
   },
   modules: [
     {
+      id: '451651',
+      moduleType: 'BASIC_INFO',
+      definition: {
+        genders: [
+          { label: 'Male', value: 'male' },
+          { label: 'Female', value: 'male' },
+          { label: 'Other', value: 'other' },
+        ],
+      },
+    },
+    {
       id: '387484',
       moduleType: 'INSTRUCTIONS',
       definition: {

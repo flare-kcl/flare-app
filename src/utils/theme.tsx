@@ -1,8 +1,8 @@
 import { ThemeProvider, createTheme } from '@shopify/restyle'
 
 export const palette = {
-  purple: '#726DA8',
-  purpleLight: '#a537fd',
+  purple: '#5E44AE',
+  purpleLight: '#EAE3FF',
   greenLight: '#B2DBBF',
   teal: '#008080',
 
@@ -16,6 +16,7 @@ export const palette = {
   lightGrey: '#e4e9ed',
   black: '#0B0B0B',
   white: '#F0F2F3',
+  pureWhite: '#FFFF',
 }
 
 export const theme = createTheme({
@@ -57,15 +58,26 @@ export const theme = createTheme({
     // Both used on the login scren
     heading: {
       fontFamily: 'Inter-Light',
+      fontSize: 30,
+      fontWeight: 'bold',
+      color: 'darkGrey',
+      alignSelf: 'flex-start',
+      marginBottom: 3,
+    },
+    heading3: {
+      fontFamily: 'Inter',
+      fontSize: 16,
+      fontWeight: '500',
+      color: 'darkGrey',
+      marginBottom: 2,
+    },
+    loginHeading: {
+      fontFamily: 'Inter-Light',
       fontSize: 45,
       color: 'black',
       opacity: 0.7,
       alignSelf: 'center',
-    },
-    heading3: {
-      fontFamily: 'Inter',
-      fontSize: 20,
-      fontWeight: '700',
+      marginBottom: 3,
     },
     caption: {
       fontFamily: 'Inter-SemiBold',
@@ -111,6 +123,7 @@ export const theme = createTheme({
       mt: 2,
       py: 4,
       height: 60,
+      borderRadius: 'm',
       textProps: {
         color: 'white',
       },
@@ -119,6 +132,7 @@ export const theme = createTheme({
       mt: 2,
       py: 4,
       backgroundColor: 'red',
+      borderRadius: 'm',
       textProps: {
         color: 'white',
       },
@@ -133,7 +147,7 @@ export const theme = createTheme({
       borderColor: 'purple',
       borderWidth: 2,
       borderRadius: 'm',
-      paddingLeft: 10,
+      paddingLeft: 4,
     },
   },
 })

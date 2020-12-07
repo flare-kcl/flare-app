@@ -1,11 +1,13 @@
 import { createAction, createReducer } from '@reduxjs/toolkit'
 import { Experiment } from '@containers/ExperimentContainer'
+import { HeadphoneType } from '@containers/BasicInfoContainer'
 
 export type ExperimentCache = {
   definition?: Experiment
   currentModuleIndex?: number
   participantRejected: boolean
   volume: number
+  headphoneType?: HeadphoneType
 }
 
 type ExperimentCacheUpdate = {

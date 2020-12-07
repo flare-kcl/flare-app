@@ -16,8 +16,10 @@ import { CriterionContainer } from './CriterionContainer'
 import { FearConditioningContainer } from './FearConditioningContainer'
 import { VolumeCalibrationContainer } from './VolumeCalibrationContainer'
 import { InstructionsContainer } from './InstructionsContainer'
+import { BasicInfoContainer } from './BasicInfoContainer'
 
 const ExperimentModuleTypes = {
+  BASIC_INFO: BasicInfoContainer,
   TERMS: TermsContainer,
   CRITERIA: CriterionContainer,
   INSTRUCTIONS: InstructionsContainer,
