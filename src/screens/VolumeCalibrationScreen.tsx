@@ -41,8 +41,7 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
   }, [])
 
   const playStimuli = async () => {
-    return new Promise(async (resolve, reject) => {
-      console.log('Playing with Volume: ', volume.current)
+    return new Promise(async (resolve, _) => {
       // Set the volume
       await soundRef.current?.setVolumeAsync(volume.current)
       // Set update handler
