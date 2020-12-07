@@ -45,10 +45,6 @@ export default function App() {
   }
 
   useEffect(() => {
-    // TODO: Ensure user has headphones connected - Will be moved to future module
-    AudioSensor.isHeadphonesConnected().then(notifyUserRegardingHeadphones)
-    AudioSensor.addHeadphonesListener(notifyUserRegardingHeadphones)
-
     // Start AppState listening...
     onStateHydrated().then(() => {
       AppStateMonitor.startMonitoring()

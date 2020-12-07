@@ -93,6 +93,12 @@ export const ExperimentContainer = () => {
     dispatch(nextModule())
   }
 
+  // If no matching component then skip it (this avoids issues caused by upgrades)
+  if (ModuleComponent === undefined) {
+    onModuleComplete()
+    return null
+  }
+
   // Function used to reset experiment state
   function terminateExperiment(redirect = true) {
     // Delete all event data

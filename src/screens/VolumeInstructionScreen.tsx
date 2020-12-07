@@ -1,6 +1,5 @@
 import { useRef, useState, useEffect } from 'react'
 import { EmitterSubscription } from 'react-native'
-import { Audio } from 'expo-av'
 import { Box, Text, Button } from '@components'
 import AudioSensor from '@utils/AudioSensor'
 
@@ -12,7 +11,6 @@ export const VolumeInstructionScreen: React.FunctionComponent<VolumeInstructionS
   onNext,
 }) => {
   const [volume, setVolume] = useState<number>()
-  const soundRef = useRef<Audio.Sound>()
   const volumeSensorRef = useRef<EmitterSubscription>()
 
   useEffect(() => {
@@ -24,19 +22,9 @@ export const VolumeInstructionScreen: React.FunctionComponent<VolumeInstructionS
       setVolume(volume)
     })
 
-    // Setup Audio Loop
-    Audio.Sound.createAsync(require('../assets/sounds/ding.wav'), {
-      shouldPlay: true,
-      isLooping: true,
-    }).then(({ sound }) => {
-      soundRef.current = sound
-    })
-
     // Detach listener on unmount
     return () => {
       volumeSensorRef.current.remove()
-      soundRef.current?.stopAsync()
-      soundRef.current?.unloadAsync()
     }
   }, [])
 

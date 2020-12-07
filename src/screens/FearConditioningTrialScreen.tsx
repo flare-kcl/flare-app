@@ -67,6 +67,20 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
     const mountedTimerRef = useRef<any>(false)
     const soundSensorListener = useRef<EmitterSubscription>()
 
+    const onSoundStarted = () => {
+      if (endTimerRef.current === undefined) {
+        endTimerRef.current = setTimeout(async () => {
+          onTrialEnd({
+            rating: ratingValueRef.current,
+            skipped: ratingValueRef.current === undefined,
+            startTime: startTimeRef.current,
+            decisionTime: reactionTimeRef.current,
+            volume: await AudioSensor.getCurrentVolume(),
+          })
+        }, 500)
+      }
+    }
+
     const setupSound = async () => {
       try {
         const { sound } = await Audio.Sound.createAsync(
@@ -79,6 +93,11 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
 
         // Assign sound object to ref
         soundRef.current = sound
+        soundRef.current.setOnPlaybackStatusUpdate((update) => {
+          if (update.isPlaying) {
+            onSoundStarted()
+          }
+        })
       } catch (error) {
         console.error(error)
       }
@@ -110,24 +129,14 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
       )
 
       mountedTimerRef.current = setTimeout(() => {
-        // Set timer for end of trial
-        endTimerRef.current = setTimeout(async () => {
-          onTrialEnd({
-            rating: ratingValueRef.current,
-            skipped: ratingValueRef.current === undefined,
-            startTime: startTimeRef.current,
-            decisionTime: reactionTimeRef.current,
-            volume: await AudioSensor.getCurrentVolume(),
-          })
-        }, trialLength)
-
         // Set timer for sound, 500ms before end
-        if (reinforced) {
-          soundTimerRef.current = setTimeout(
-            async () => playSound(),
-            trialLength - 500,
-          )
-        }
+        soundTimerRef.current = setTimeout(async () => {
+          if (reinforced) {
+            playSound()
+          } else {
+            onSoundStarted()
+          }
+        }, trialLength - 500)
 
         // Set timer for scale reveal
         scaleTimerRef.current = setTimeout(() => {

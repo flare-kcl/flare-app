@@ -114,10 +114,6 @@ export const exampleExperimentData: Experiment = {
       definition: exampleCriteriaDefinition,
     },
     {
-      id: '998498',
-      moduleType: 'VOLUME_CALIBRATION',
-    },
-    {
       id: '848948',
       moduleType: 'FEAR_CONDITIONING',
       definition: {
