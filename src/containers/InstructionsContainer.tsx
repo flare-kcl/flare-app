@@ -13,19 +13,30 @@ type InstructionsModuleState = {
   renderIntroTask: boolean
   renderTrialTask: boolean
   advancedVolumeCalibration: boolean
+  currentAppInstruction?: number
+  currentTrialInstruction?: number
 }
 
 export const InstructionsContainer: ExperimentModule<InstructionsModuleState> = ({
   module: mod,
+  updateModule,
   updateExperiment,
   onModuleComplete,
 }) => {
-  const [currentAppInstruction, setCurrentAppInstruction] = useState(0)
-  const [currentTrialInstruction, setCurrentTrialInstruction] = useState(0)
+  // Store current instruction in state
+  useEffect(() => {
+    if (mod.currentAppInstruction === undefined) {
+      updateModule({ currentAppInstruction: 0, currentTrialInstruction: 0 })
+    }
+  }, [])
+
+  // Use zero on first render
+  const currentAppInstruction = mod.currentAppInstruction ?? 0
+  const currentTrialInstruction = mod.currentTrialInstruction ?? 0
 
   // All the slides to render in order to render setup
   const onNextInstruction = () =>
-    setCurrentAppInstruction(currentAppInstruction + 1)
+    updateModule({ currentAppInstruction: mod.currentAppInstruction + 1 })
   let introScreens = mod.renderIntroTask
     ? [
         () => (
@@ -60,13 +71,13 @@ export const InstructionsContainer: ExperimentModule<InstructionsModuleState> = 
             onNext={onNextInstruction}
           />
         ),
-        () => <VolumeInstructionScreen onNext={onNextInstruction} />,
         () => (
           <HeadphonesDetectionScreen
             headphoneType="ON_EAR"
             onNext={onNextInstruction}
           />
         ),
+        () => <VolumeInstructionScreen onNext={onNextInstruction} />,
       ]
     : []
 
@@ -84,7 +95,7 @@ export const InstructionsContainer: ExperimentModule<InstructionsModuleState> = 
 
   // All slides for trial setup
   const onNextTrialInstruction = () =>
-    setCurrentTrialInstruction(currentTrialInstruction + 1)
+    updateModule({ currentTrialInstruction: mod.currentTrialInstruction + 1 })
   let trialScreens = mod.renderTrialTask
     ? [
         () => (
@@ -136,11 +147,9 @@ export const InstructionsContainer: ExperimentModule<InstructionsModuleState> = 
   const inRatingPhase = IntroScreen === undefined && TrialScreen !== undefined
 
   // If no screens left then finish module
-  useEffect(() => {
-    if (IntroScreen === undefined && TrialScreen === undefined) {
-      onModuleComplete()
-    }
-  })
+  if (IntroScreen === undefined && TrialScreen === undefined) {
+    onModuleComplete()
+  }
 
   return (
     <>

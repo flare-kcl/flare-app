@@ -25,12 +25,11 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
   const [countdown, setCountdown] = useState(3)
   const [volumeRating, setVolumeRating] = useState(undefined)
 
-  const playStimuli = async () => {
-    // Set the volume
-    await soundRef.current?.setVolumeAsync(volume.current)
-    // Play the sound
-    await soundRef.current?.replayAsync()
-  }
+  // Edit volume value without floating point errors
+  const incrementVolume = () =>
+    Math.min((volume.current = +(volume.current + 0.1).toFixed(2)), 1.0)
+  const decrementVolume = () =>
+    Math.max((volume.current = +(volume.current - 0.1).toFixed(2)), 0.1)
 
   useEffect(() => {
     // Assign sound object to ref
@@ -40,6 +39,22 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
       soundRef.current = sound
     })
   }, [])
+
+  const playStimuli = async () => {
+    return new Promise(async (resolve, reject) => {
+      console.log('Playing with Volume: ', volume.current)
+      // Set the volume
+      await soundRef.current?.setVolumeAsync(volume.current)
+      // Set update handler
+      soundRef.current?.setOnPlaybackStatusUpdate((update) => {
+        if (update.didJustFinish) {
+          resolve(true)
+        }
+      })
+      // Play the sound
+      await soundRef.current?.replayAsync()
+    })
+  }
 
   const decreaseCountdown = (countdown: number, callback: () => void) => {
     setTimeout(() => {
@@ -62,43 +77,45 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
       setCountdown(3)
       decreaseCountdown(3, async () => {
         // Play Sound
-        await playStimuli()
+        const didPlay = await playStimuli()
 
         // Ask participant what they thought
-        Alert.alert(
-          'How was that?',
-          'Is the volume of the sound uncomfortable?',
-          [
-            {
-              text: 'Yes',
-              onPress: () => {
-                // Switch to volume rating
-                setStage(VolumeCalibrationStages.Rating)
-              },
-            },
-            {
-              text: 'No',
-              onPress: () => {
-                // If reached max volume
-                if (volume.current >= 1.0) {
+        if (didPlay) {
+          Alert.alert(
+            'How was that?',
+            'Is the volume of the sound uncomfortable?',
+            [
+              {
+                text: 'Yes',
+                onPress: () => {
+                  // Switch to volume rating
                   setStage(VolumeCalibrationStages.Rating)
-                } else {
-                  // Increase volume and play again
-                  volume.current = +(volume.current + 0.1).toFixed(2)
+                },
+              },
+              {
+                text: 'No',
+                onPress: () => {
+                  // If reached max volume
+                  if (volume.current >= 1.0) {
+                    setStage(VolumeCalibrationStages.Rating)
+                  } else {
+                    // Increase volume and play again
+                    incrementVolume()
+                    testCurrentVolume()
+                  }
+                },
+              },
+              {
+                text: 'Listen Again',
+                onPress: () => {
+                  // Restart countdown
                   testCurrentVolume()
-                }
+                },
               },
-            },
-            {
-              text: 'Listen Again',
-              onPress: () => {
-                // Restart countdown
-                testCurrentVolume()
-              },
-            },
-          ],
-          { cancelable: false },
-        )
+            ],
+            { cancelable: false },
+          )
+        }
       })
     }
 
@@ -115,8 +132,14 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
       )
     }
 
+    // If sound is painful then decrement one step and repeat calibration
+    else if (volumeRating == 9) {
+      decrementVolume()
+      setStage(VolumeCalibrationStages.Error)
+    }
+
     // User finds volume painful, let's verify they want to continue
-    else if (volumeRating === 9) {
+    else if (volumeRating === 8) {
       Alert.alert(
         'Are you sure',
         'You may hear sounds at this volume multiple times during the experiment. Do you think you can tolerate this volume?',
@@ -127,11 +150,19 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
           },
           {
             text: 'No',
-            onPress: () => setStage(VolumeCalibrationStages.Error),
+            onPress: () => {
+              decrementVolume()
+              setStage(VolumeCalibrationStages.Error)
+            },
           },
         ],
         { cancelable: false },
       )
+    }
+
+    // If at max volume and below threshold continue
+    else if (volume.current >= 1) {
+      onFinishCalibration(volume.current)
     }
 
     // See if rating is beyond threshold
@@ -141,12 +172,12 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
 
     // If is below threshold
     else {
+      incrementVolume()
       setStage(VolumeCalibrationStages.Error)
     }
   }
 
   const resetCalibration = () => {
-    volume.current = 0.5
     setVolumeRating(undefined)
     startCalibration()
   }
