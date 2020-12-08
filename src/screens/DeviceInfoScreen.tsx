@@ -62,7 +62,7 @@ export const DeviceInfoScreen: React.FunctionComponent<DeviceInfoScreenProps> = 
           height: '100%',
         }}
       >
-        <Box pt={4} px={4} pb={4}>
+        <Box pt={14} px={4} pb={4}>
           <Text variant="heading">Your information</Text>
           <Text variant="heading3">Please enter your details below</Text>
           <LabeledDateField
@@ -76,6 +76,7 @@ export const DeviceInfoScreen: React.FunctionComponent<DeviceInfoScreenProps> = 
             value={gender}
             options={genders}
             onChange={setGender}
+            placeholder="Select your gender..."
           />
           <LabeledTextField
             label="Operating System"
@@ -89,7 +90,9 @@ export const DeviceInfoScreen: React.FunctionComponent<DeviceInfoScreenProps> = 
             disabled
           />
           <LabeledTextField label="Device Model" value={model} disabled />
-          <Button variant="primary" label="Next" mt={4} onPress={onNext} />
+          {gender && (
+            <Button variant="primary" label="Next" mt={4} onPress={onNext} />
+          )}
         </Box>
       </ScrollView>
     </>

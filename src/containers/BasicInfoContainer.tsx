@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import { ExperimentModule } from './ExperimentContainer'
 import { DeviceInfoScreen, HeadphoneChoiceScreen } from '@screens'
+import { useEffect } from 'react'
 
 export type PickerOptions = [{ label: string; value: string }]
 export type HeadphoneType = 'IN_EAR' | 'ON_EAR' | 'OVER_EAR'
 
-type BasicInfoContainerState = {
+export type BasicInfoContainerState = {
   genders: PickerOptions
+  screenIndex?: BasicInfoScreens
   dob?: string
   gender?: string
   operatingSystem?: string
@@ -27,11 +29,17 @@ export const BasicInfoContainer: ExperimentModule<BasicInfoContainerState> = ({
   updateExperiment,
   onModuleComplete,
 }) => {
-  const [screen, setScreen] = useState(BasicInfoScreens.DeviceInfo)
+  // Set initial screen value
+  const screen = mod.screenIndex ?? 0
+  useEffect(() => {
+    if (mod.screenIndex === undefined) {
+      updateModule({ screenIndex: 0 })
+    }
+  }, [])
 
   function nextScreen() {
     if (screen === BasicInfoScreens.DeviceInfo) {
-      setScreen(BasicInfoScreens.HeadphoneChoice)
+      updateModule({ screenIndex: BasicInfoScreens.HeadphoneChoice })
     } else {
       onModuleComplete()
     }

@@ -91,6 +91,7 @@ export const LabeledPickerField = ({
   value,
   options = [],
   onChange,
+  placeholder,
 }) => (
   <Box width="100%" py={4}>
     <Text fontWeight="bold" color="darkGrey" pb={2}>
@@ -106,6 +107,7 @@ export const LabeledPickerField = ({
       <RNPickerSelect
         value={value}
         fixAndroidTouchableBug
+        placeholder={placeholder}
         textInputProps={{
           height: 50,
           borderRadius: 8,
