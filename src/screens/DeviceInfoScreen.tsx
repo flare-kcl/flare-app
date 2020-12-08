@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { Platform } from 'react-native'
 import * as Device from 'expo-device'
 import { ScrollView } from 'react-native-gesture-handler'
@@ -11,45 +11,47 @@ import {
   LabeledPickerField,
 } from '@components'
 
+import { BasicInfoContainerState } from '@containers/BasicInfoContainer'
+
 export type DeviceInfoScreenProps = {
   dob: string
-  setDob: (string) => void
   gender: string
   genders: [{ label: string; value: string }]
-  setGender: (string) => void
   operatingSystem: string
-  setOperatingSystem: (string) => void
   model: string
-  setModel: (string) => void
   manufacturer: string
-  setManufacturer: (string) => void
   version: string
-  setVersion: (string) => void
+  updateModule: (BasicInfoContainerState) => void
   onNext: () => void
 }
 
 export const DeviceInfoScreen: React.FunctionComponent<DeviceInfoScreenProps> = ({
   dob,
-  setDob,
   gender,
   genders,
-  setGender,
   operatingSystem,
-  setOperatingSystem,
   model,
-  setModel,
   manufacturer,
-  setManufacturer,
   version,
-  setVersion,
+  updateModule,
   onNext,
 }) => {
   useEffect(() => {
-    setOperatingSystem(Device.osName)
-    setVersion(Platform.Version)
-    setManufacturer(Device.manufacturer)
-    setModel(Device.modelName)
+    updateModule({
+      model: Device.modelName,
+      manufacturer: Device.manufacturer,
+      version: Device.osVersion,
+      operatingSystem: Device.osName,
+    })
   }, [])
+
+  function setDob(dob) {
+    updateModule({ dob })
+  }
+
+  function setGender(gender) {
+    updateModule({ gender })
+  }
 
   return (
     <>

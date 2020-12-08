@@ -1041,7 +1041,8 @@ exports[`Text Renders Correctly 1`] = `
               },
               Array [
                 Object {
-                  "backgroundColor": "#726DA8",
+                  "backgroundColor": "#5E44AE",
+                  "borderRadius": 8,
                   "height": 60,
                   "marginTop": 8,
                   "paddingVertical": 16,
@@ -1098,6 +1099,7 @@ exports[`Text Renders Correctly 1`] = `
               Array [
                 Object {
                   "backgroundColor": "#ff4757",
+                  "borderRadius": 8,
                   "marginTop": 8,
                   "paddingVertical": 16,
                 },

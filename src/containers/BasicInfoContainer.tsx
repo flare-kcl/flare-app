@@ -41,20 +41,13 @@ export const BasicInfoContainer: ExperimentModule<BasicInfoContainerState> = ({
     return (
       <DeviceInfoScreen
         dob={mod.dob}
-        setDob={(dob) => updateModule({ dob })}
         gender={mod.gender}
         genders={mod.genders}
-        setGender={(gender) => updateModule({ gender })}
         operatingSystem={mod.operatingSystem}
-        setOperatingSystem={(operatingSystem) =>
-          updateModule({ operatingSystem })
-        }
         model={mod.model}
-        setModel={(model) => updateModule({ model })}
         manufacturer={mod.manufacturer}
-        setManufacturer={(manufacturer) => updateModule({ manufacturer })}
         version={mod.version}
-        setVersion={(version) => updateModule({ version })}
+        updateModule={updateModule}
         onNext={nextScreen}
       />
     )
