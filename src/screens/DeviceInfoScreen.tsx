@@ -65,7 +65,7 @@ export const DeviceInfoScreen: React.FunctionComponent<DeviceInfoScreenProps> = 
           <Text variant="heading3">Please enter your details below</Text>
           <LabeledDateField
             label="Date of birth"
-            value={dob && new Date(dob)}
+            value={dob ? new Date(dob) : new Date()}
             onChange={setDob}
             disabled
           />
