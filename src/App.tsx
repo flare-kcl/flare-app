@@ -33,10 +33,6 @@ export default function App() {
     AssetCache.construct().then(() => setLoaded(true))
   })
 
-  const hiddenHeaderProps = {
-    headerShown: false,
-  }
-
   return (
     loaded && (
       <FlareThemeProvider>
