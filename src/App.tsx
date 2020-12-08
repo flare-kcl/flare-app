@@ -12,12 +12,11 @@ import { FlareThemeProvider } from '@utils/theme'
 import { store, peristor } from '@redux/store'
 import { onStateHydrated } from '@redux/persist'
 import { ExperimentContainer } from 'containers/ExperimentContainer'
-import { Stepper } from '@components'
-import { TextInstructionScreen } from '@screens'
 
 // Link with Sentry
 Sentry.init({
   dsn: Config.SENTRY_DTN,
+  enableAutoSessionTracking: true,
 })
 
 // Base container for all screens

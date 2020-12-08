@@ -2,6 +2,8 @@ import { memo, useState, useEffect, useRef } from 'react'
 import { Audio } from 'expo-av'
 import { EmitterSubscription, ImageSourcePropType } from 'react-native'
 import { useDispatch } from 'react-redux'
+import * as Sentry from '@sentry/react-native'
+
 import { recordEvent } from '@redux/reducers'
 import { Box, TrialImageStack, RatingScale, Interval } from '@components'
 import AudioSensor from '@utils/AudioSensor'
@@ -98,16 +100,16 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
             onSoundStarted()
           }
         })
-      } catch (error) {
-        console.error(error)
+      } catch (err) {
+        Sentry.captureException(err)
       }
     }
 
     const playSound = async () => {
       try {
-        await soundRef.current?.playAsync()
-      } catch (error) {
-        console.error(error)
+        await soundRef.current?.replayAsync()
+      } catch (err) {
+        Sentry.captureException(err)
       }
     }
 
