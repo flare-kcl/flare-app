@@ -20,6 +20,7 @@ type InstructionsModuleState = {
 export const InstructionsContainer: ExperimentModule<InstructionsModuleState> = ({
   module: mod,
   updateModule,
+  experiment,
   updateExperiment,
   onModuleComplete,
 }) => {
@@ -73,7 +74,7 @@ export const InstructionsContainer: ExperimentModule<InstructionsModuleState> = 
         ),
         () => (
           <HeadphonesDetectionScreen
-            headphoneType="ON_EAR"
+            headphoneType={experiment.headphoneType}
             onNext={onNextInstruction}
           />
         ),

@@ -66,7 +66,7 @@ export const LoginScreen = () => {
       justifyContent="flex-start"
       backgroundColor="greenPrimary"
     >
-      <Text variant="heading" pt={24} pb={2}>
+      <Text variant="loginHeading" pt={24} pb={2}>
         FLARe
       </Text>
 

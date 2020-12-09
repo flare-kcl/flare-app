@@ -23,26 +23,6 @@ Sentry.init({
 export default function App() {
   const [loaded, setLoaded] = useState(false)
 
-  const notifyUserRegardingHeadphones = (connected: boolean) => {
-    if (connected === false) {
-      Alert.alert(
-        'Headphones Required',
-        'Please connect headphones to continue with the experiment',
-        [
-          {
-            text: 'Dismiss',
-            onPress: async () => {
-              notifyUserRegardingHeadphones(
-                await AudioSensor.isHeadphonesConnected(),
-              )
-            },
-          },
-        ],
-        { cancelable: false },
-      )
-    }
-  }
-
   useEffect(() => {
     // Start AppState listening...
     onStateHydrated().then(() => {
@@ -52,10 +32,6 @@ export default function App() {
     // Show screens when cache loaded
     AssetCache.construct().then(() => setLoaded(true))
   })
-
-  const hiddenHeaderProps = {
-    headerShown: false,
-  }
 
   return (
     loaded && (
