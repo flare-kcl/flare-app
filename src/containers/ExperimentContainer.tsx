@@ -85,12 +85,13 @@ export const ExperimentContainer = () => {
   // If all modules have been completed...
   if (experiment.currentModuleIndex === experiment.definition?.modules.length) {
     // Mark experiment complete
-    dispatch(
-      updateExperiment({
-        ...experiment,
-        isComplete: true,
-      }),
-    )
+    if (!experiment.isComplete)
+      dispatch(
+        updateExperiment({
+          ...experiment,
+          isComplete: true,
+        }),
+      )
 
     // Are all the modules synced?
     if (!experiment.offlineOnly) {
