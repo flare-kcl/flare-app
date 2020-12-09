@@ -7,8 +7,9 @@ export type ExperimentCache = {
   definition?: Experiment
   currentModuleIndex?: number
   headphoneType?: HeadphoneType
-  participantRejected?: boolean
+  participantRejected: boolean
   volume?: number
+  isComplete: boolean
 }
 
 export const updateExperiment = createAction<ExperimentCache>(
@@ -25,6 +26,7 @@ const initialState: ExperimentCache = {
   volume: 1,
   currentModuleIndex: 0,
   participantRejected: false,
+  isComplete: true,
 }
 
 export const experimentReducer = createReducer<ExperimentCache>(

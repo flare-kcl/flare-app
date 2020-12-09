@@ -8,7 +8,7 @@ import {
   recordEvent,
   rejectParticipant,
 } from '@redux/reducers'
-import { currentModuleSelector } from '@redux/selectors'
+import { currentModuleSelector, experimentSelector } from '@redux/selectors'
 
 const SUSPENDED_TIMEOUT = 60000
 const STRICT_SUSPENED_TIMEOUT = 30000
@@ -50,14 +50,16 @@ export default class AppStateMonitor {
       )
 
       // Determine timeout mode
+      const experiment = experimentSelector(store.getState())
       const currentModule = currentModuleSelector(store.getState())
       const applyStrictTimeout =
         currentModule?.moduleType === 'FEAR_CONDITIONING'
 
       // Trigger flag if the user had the app suspended for too long.
       if (
-        suspendedTime > SUSPENDED_TIMEOUT ||
-        (applyStrictTimeout && suspendedTime > STRICT_SUSPENED_TIMEOUT)
+        !experiment.isComplete &&
+        (suspendedTime > SUSPENDED_TIMEOUT ||
+          (applyStrictTimeout && suspendedTime > STRICT_SUSPENED_TIMEOUT))
       ) {
         store.dispatch(rejectParticipant())
       }
