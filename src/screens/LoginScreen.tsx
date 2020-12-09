@@ -197,7 +197,6 @@ async function loginWithID(participantID: string, dispatch) {
         id,
         moduleType: type,
         definition: camelcaseKeys(config),
-        moduleCompleted: false,
       })),
       // TODO: Hardcoded as backend doesn't support yet...
       description: '',
@@ -214,6 +213,8 @@ async function loginWithID(participantID: string, dispatch) {
           moduleId: mod.id,
           moduleType: mod.moduleType,
           moduleState: mod.definition,
+          moduleCompleted: false,
+          moduleSynced: false,
         }),
       )
     })
@@ -221,6 +222,7 @@ async function loginWithID(participantID: string, dispatch) {
     // Save experiment to redux
     dispatch(
       updateExperiment({
+        participantID,
         definition: experiment,
         currentModuleIndex: 0,
       }),
@@ -241,6 +243,8 @@ function demoLogin(dispatch) {
         moduleId: mod.id,
         moduleType: mod.moduleType,
         moduleState: mod.definition,
+        moduleCompleted: false,
+        moduleSynced: false,
       }),
     )
   })
@@ -250,6 +254,7 @@ function demoLogin(dispatch) {
     updateExperiment({
       definition: exampleExperimentData,
       currentModuleIndex: 0,
+      offlineOnly: true,
     }),
   )
 }

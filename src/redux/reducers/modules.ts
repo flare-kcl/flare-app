@@ -1,13 +1,15 @@
 import { createAction, createReducer } from '@reduxjs/toolkit'
 
-type ModuleCacheUpdate = {
+export type ExperimentModule<StateType = any> = {
   moduleId: string
   moduleType: string
-  moduleState: any
+  moduleState: StateType
+  moduleCompleted?: boolean
+  moduleSynced?: boolean
 }
 
-export const updateModule = createAction<ModuleCacheUpdate>('module/update')
-export const clearAllModules = createAction<ModuleCacheUpdate>(
+export const updateModule = createAction<ExperimentModule>('module/update')
+export const clearAllModules = createAction<ExperimentModule>(
   'module/clear_all',
 )
 

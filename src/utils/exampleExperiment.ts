@@ -132,9 +132,9 @@ export const exampleExperimentData: Experiment = {
         trialsPerStimulus: 3,
         reinforcementRate: 3,
         contextImage: require('../assets/images/example-context.jpg'),
-        stimuliImages: [
-          require('../assets/images/small.png'),
-          require('../assets/images/large.png'),
+        stimuli: [
+          { label: 'CSA', image: require('../assets/images/small.png') },
+          { label: 'CSB', image: require('../assets/images/large.png') },
         ],
       },
     },

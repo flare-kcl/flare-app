@@ -1,27 +1,21 @@
 import { createAction, createReducer } from '@reduxjs/toolkit'
 import { Experiment } from '@containers/ExperimentContainer'
-import { HeadphoneType } from '@containers/BasicInfoContainer'
 
 export type ExperimentCache = {
+  participantID?: string
+  offlineOnly?: boolean
   definition?: Experiment
   currentModuleIndex?: number
-  participantRejected: boolean
-  volume: number
   headphoneType?: HeadphoneType
+  participantRejected?: boolean
+  volume?: number
 }
 
-type ExperimentCacheUpdate = {
-  definition: Experiment
-  currentModuleIndex: number
-}
-
-export const updateExperiment = createAction<ExperimentCacheUpdate>(
+export const updateExperiment = createAction<ExperimentCache>(
   'experiment/update',
 )
 
-export const clearExperiment = createAction<ExperimentCacheUpdate>(
-  'experiment/clear',
-)
+export const clearExperiment = createAction<ExperimentCache>('experiment/clear')
 
 export const rejectParticipant = createAction('experiment/reject')
 

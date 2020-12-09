@@ -285,6 +285,8 @@ PODS:
     - React-Core
   - react-native-date-picker (3.2.5):
     - React-Core
+  - react-native-netinfo (5.9.9):
+    - React-Core
   - react-native-safe-area-context (3.1.8):
     - React-Core
   - react-native-spinkit (1.4.1):
@@ -442,6 +444,7 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-config (from `../node_modules/react-native-config`)
   - react-native-date-picker (from `../node_modules/react-native-date-picker`)
+  - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-spinkit (from `../node_modules/react-native-spinkit`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -557,6 +560,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-config"
   react-native-date-picker:
     :path: "../node_modules/react-native-date-picker"
+  react-native-netinfo:
+    :path: "../node_modules/@react-native-community/netinfo"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-spinkit:
@@ -668,6 +673,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 8e68ffbfe23880d3ee9bafa8be2777f60b25cbe2
   react-native-config: f309b9ac19456dea12325699af51e0fa0217ce6a
   react-native-date-picker: 7b03feaea96db983f1de449e9d6d1dea4fa61010
+  react-native-netinfo: 77d133105df525d4a11f10fcaa8d0b8883ea6429
   react-native-safe-area-context: 01158a92c300895d79dee447e980672dc3fb85a6
   react-native-spinkit: da294fd828216ad211fe36a5c14c1e09f09e62db
   React-RCTActionSheet: 53ea72699698b0b47a6421cb1c8b4ab215a774aa
