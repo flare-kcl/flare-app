@@ -37,8 +37,7 @@ export const VolumeInstructionScreen: React.FunctionComponent<VolumeInstructionS
       px={5}
     >
       <Text variant="instructionDescription" mb={10}>
-        Make sure your device is not in silent mode. You should currently be
-        hearing a repeating noise being played.
+        Make sure your device is not in silent mode.
       </Text>
       <Text variant="instructionActionLabel" px={6}>
         Set your volume to 100% to continue

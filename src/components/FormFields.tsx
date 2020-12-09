@@ -107,7 +107,6 @@ export const LabeledPickerField = ({
       <RNPickerSelect
         value={value}
         fixAndroidTouchableBug
-        placeholder={placeholder}
         textInputProps={{
           height: 50,
           borderRadius: 8,
