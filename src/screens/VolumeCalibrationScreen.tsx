@@ -27,14 +27,15 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
 
   // Edit volume value without floating point errors
   const incrementVolume = () =>
-    Math.min((volume.current = +(volume.current + 0.1).toFixed(2)), 1.0)
+    Math.min((volume.current = +(volume.current + 0.05).toFixed(2)), 1.0)
   const decrementVolume = () =>
-    Math.max((volume.current = +(volume.current - 0.1).toFixed(2)), 0.1)
+    Math.max((volume.current = +(volume.current - 0.05).toFixed(2)), 0.1)
 
   useEffect(() => {
     // Assign sound object to ref
     Audio.Sound.createAsync(require('../assets/sounds/ding.wav'), {
       shouldPlay: false,
+      volume: volume.current,
     }).then(({ sound }) => {
       soundRef.current = sound
     })
@@ -214,7 +215,13 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
 
       {/* Stimuli Countdown */}
       {stage == VolumeCalibrationStages.Countdown && countdown > 0 && (
-        <Text variant="heading" fontSize={100} mt={24}>
+        <Text
+          fontWeight="500"
+          width="100%"
+          fontSize={100}
+          mt={24}
+          textAlign="center"
+        >
           {countdown}
         </Text>
       )}

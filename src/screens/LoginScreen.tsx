@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 import Spinner from 'react-native-spinkit'
 import Config from 'react-native-config'
 import camelcaseKeys from 'camelcase-keys'
+import Constants from 'expo-constants'
 
 import { Experiment } from '@containers/ExperimentContainer'
 import { Box, Text, Button, Image, TextField } from '@components'
@@ -66,6 +67,12 @@ export const LoginScreen = () => {
       justifyContent="flex-start"
       backgroundColor="greenPrimary"
     >
+      <Box position="absolute" top={20}>
+        <Text>
+          Version: {Constants.nativeAppVersion} ({Constants.nativeBuildVersion})
+        </Text>
+      </Box>
+
       <Text variant="loginHeading" pt={24} pb={2}>
         FLARe
       </Text>

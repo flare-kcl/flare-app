@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-import { Platform } from 'react-native'
 import * as Device from 'expo-device'
 import { ScrollView } from 'react-native-gesture-handler'
 import {

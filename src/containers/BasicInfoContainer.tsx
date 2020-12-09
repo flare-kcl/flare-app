@@ -31,11 +31,6 @@ export const BasicInfoContainer: ExperimentModule<BasicInfoContainerState> = ({
 }) => {
   // Set initial screen value
   const screen = mod.screenIndex ?? 0
-  useEffect(() => {
-    if (mod.screenIndex === undefined) {
-      updateModule({ screenIndex: 0 })
-    }
-  }, [])
 
   function nextScreen() {
     if (screen === BasicInfoScreens.DeviceInfo) {
