@@ -100,7 +100,7 @@ export const exampleExperimentData: Experiment = {
       definition: {
         genders: [
           { label: 'Male', value: 'male' },
-          { label: 'Female', value: 'male' },
+          { label: 'Female', value: 'female' },
           { label: 'Other', value: 'other' },
         ],
       },

@@ -45,32 +45,35 @@ export const BasicInfoContainer: ExperimentModule<BasicInfoContainerState> = ({
     }
   }
 
-  if (screen === BasicInfoScreens.DeviceInfo) {
-    return (
-      <DeviceInfoScreen
-        dob={mod.dob}
-        gender={mod.gender}
-        genders={mod.genders}
-        operatingSystem={mod.operatingSystem}
-        model={mod.model}
-        manufacturer={mod.manufacturer}
-        version={mod.version}
-        updateModule={updateModule}
-        onNext={nextScreen}
-      />
-    )
-  }
+  switch (screen) {
+    case BasicInfoScreens.DeviceInfo:
+      return (
+        <DeviceInfoScreen
+          dob={mod.dob}
+          gender={mod.gender}
+          genders={mod.genders}
+          operatingSystem={mod.operatingSystem}
+          model={mod.model}
+          manufacturer={mod.manufacturer}
+          version={mod.version}
+          updateModule={updateModule}
+          onNext={nextScreen}
+        />
+      )
 
-  if (screen === BasicInfoScreens.HeadphoneChoice) {
-    return (
-      <HeadphoneChoiceScreen
-        headphoneType={mod.headphoneType}
-        updateHeadphoneType={(headphoneType) => {
-          updateModule({ headphoneType })
-          updateExperiment({ headphoneType })
-        }}
-        onNext={nextScreen}
-      />
-    )
+    case BasicInfoScreens.HeadphoneChoice:
+      return (
+        <HeadphoneChoiceScreen
+          headphoneType={mod.headphoneType}
+          updateHeadphoneType={(headphoneType) => {
+            updateModule({ headphoneType })
+            updateExperiment({ headphoneType })
+          }}
+          onNext={nextScreen}
+        />
+      )
+
+    default:
+      return null
   }
 }
