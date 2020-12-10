@@ -36,10 +36,13 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
       // Setup audio
       if (soundRef.current === undefined) {
         // Load audio file
-        const { sound } = await Audio.Sound.createAsync(require('../assets/sounds/ding.wav'), {
-          shouldPlay: false,
-          volume: volume.current,
-        })
+        const { sound } = await Audio.Sound.createAsync(
+          require('../assets/sounds/ding.wav'),
+          {
+            shouldPlay: false,
+            volume: volume.current,
+          },
+        )
 
         // Assign to ref
         soundRef.current = sound

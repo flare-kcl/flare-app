@@ -87,7 +87,7 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
 
         // Report errors if sound not playing
         if (volume == null || volume == 0) {
-          Sentry.captureMessage("Invalid volume parameter used by trial.")
+          Sentry.captureMessage('Invalid volume parameter used by trial.')
         }
 
         // Assign sound object to ref
@@ -107,8 +107,7 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
     const playSound = async () => {
       try {
         // If sound not loaded, retry
-        if (soundRef.current === undefined)
-          await setupSound()
+        if (soundRef.current === undefined) await setupSound()
 
         // Play sound file from begining
         await soundRef.current.playFromPositionAsync(0)

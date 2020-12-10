@@ -96,7 +96,7 @@ export const InstructionsContainer: ExperimentModule<InstructionsModuleState> = 
             heading="Practice Time"
             description="Before you begin the experiment, we need to to practice using the rating interface."
             actionLabel="Please select ‘next’ to confirm."
-            color='teal'
+            color="teal"
             onNext={onNextTrialInstruction}
           />
         ),

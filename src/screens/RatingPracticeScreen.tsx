@@ -30,7 +30,9 @@ export const RatingPracticeScreen: React.FunctionComponent<RatingPracticeScreenP
 
       {showButton && (
         <Box flex={1} justifyContent="flex-end" pb={14}>
-          <Text textAlign='center' pb={8}>Notice how you cannot change your rating once it has been made.</Text>
+          <Text textAlign="center" pb={8}>
+            Notice how you cannot change your rating once it has been made.
+          </Text>
           <Button
             variant="primary"
             label="Next"

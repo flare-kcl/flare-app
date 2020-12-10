@@ -75,7 +75,7 @@ export const HeadphonesDetectionScreen: React.FunctionComponent<HeadphonesDetect
       {connected == false && (
         <>
           <Entypo name="circle-with-cross" size={90} color={palette.red} />
-          <Text variant="instructionActionLabel" fontWeight='500' mt={8}>
+          <Text variant="instructionActionLabel" fontWeight="500" mt={8}>
             Plug in your headphones to continue.
           </Text>
         </>
