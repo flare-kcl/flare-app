@@ -7,12 +7,12 @@ import {
   FearConditioningTrialResponse,
 } from '@screens'
 
-type FearConditioningModuleState = {
+export type FearConditioningModuleState = {
   phase: string
   trialsPerStimulus: number
   reinforcementRate: number
   generalisationStimuliEnabled: boolean
-  stimuliImages: any[]
+  stimuli: [{ label: string; image: any }]
   contextImage: any
   trials?: Trial[]
   currentTrialIndex: number
@@ -36,6 +36,7 @@ export const FearConditioningContainer: ExperimentModule<FearConditioningModuleS
 
   // Build the trials sequence on first render
   useEffect(() => {
+    // Generate trials if they don't exist
     if (mod.trials === undefined) {
       updateModule({
         currentTrialIndex: 0,
@@ -44,13 +45,18 @@ export const FearConditioningContainer: ExperimentModule<FearConditioningModuleS
           mod.reinforcementRate,
           // TODO: Remove Hardcoded Stimuli
           [
-            require('../assets/images/small.png'),
-            require('../assets/images/large.png'),
+            { label: 'CSA', image: require('../assets/images/small.png') },
+            { label: 'CSB', image: require('../assets/images/large.png') },
           ],
         ),
       })
     }
-  }, [])
+
+    // If we have finished trials then proceed on
+    else if (mod.currentTrialIndex === mod.trials?.length) {
+      onModuleComplete()
+    }
+  })
 
   const onTrialEnd = useCallback(
     (trialResponse: FearConditioningTrialResponse, checkIfSkipped = true) => {
@@ -98,27 +104,19 @@ export const FearConditioningContainer: ExperimentModule<FearConditioningModuleS
         return trial
       })
 
-      // Iterate to next trial if ready, otherwise finish module
-      if (mod.currentTrialIndex === mod.trials.length - 1) {
-        // Update state with responses
-        updateModule({
-          trials: updatedTrials,
-        })
-
-        // Iterate to next module
-        onModuleComplete()
-      } else {
-        updateModule({
-          currentTrialIndex: mod.currentTrialIndex + 1,
-          trials: updatedTrials,
-        })
-      }
+      updateModule({
+        currentTrialIndex: mod.currentTrialIndex + 1,
+        trials: updatedTrials,
+      })
     },
     [mod, lastTrialSkipped],
   )
 
   // Don't render until trials generated...
-  if (mod.trials === undefined) {
+  if (
+    mod.trials === undefined ||
+    mod.currentTrialIndex === mod.trials?.length
+  ) {
     return null
   }
 
@@ -157,45 +155,51 @@ export const FearConditioningContainer: ExperimentModule<FearConditioningModuleS
 function generateTrials(
   trialsPerStimulus: number,
   reinforcementRate: number,
-  stimuliImages: any[],
+  stimuliDefs: any[],
 ): Trial[] {
   // Determine which image matches what stimulus
-  let images = shuffle(stimuliImages)
+  let stimuli = shuffle(stimuliDefs)
 
-  const positiveStimuliImage = images[0]
-  const negativeStimuliImage = images[1]
+  const positiveStimuli = stimuli[0]
+  const negativeStimuli = stimuli[1]
 
   // Create equal amounts of trials
-  let positiveStimuli: Trial[] = []
-  let negativeStimuli: Trial[] = []
+  let positiveStimuliTrials: Trial[] = []
+  let negativeStimuliTrials: Trial[] = []
   for (var i = 0; i <= trialsPerStimulus; i++) {
     // Generate positive stimulus trial
-    positiveStimuli.push({
-      label: 'CS+',
-      stimulusImage: positiveStimuliImage,
-      reinforced: i < reinforcementRate,
+    positiveStimuliTrials.push({
+      label: positiveStimuli.label,
+      stimulusImage: positiveStimuli.image,
+      reinforced: i <= reinforcementRate,
     })
 
     // Generate negative stimulus trial
-    negativeStimuli.push({
-      label: 'CS-',
-      stimulusImage: negativeStimuliImage,
+    negativeStimuliTrials.push({
+      label: negativeStimuli.label,
+      stimulusImage: negativeStimuli.image,
       reinforced: false,
     })
   }
 
   // Rule 1: First two trials must be one of each (in random order)
   // Rule 2: The first positive stimuli must be reinforced (hence the shift instead of pop)
-  let trials = shuffle([positiveStimuli.shift(), negativeStimuli.shift()])
+  let trials = shuffle([
+    positiveStimuliTrials.shift(),
+    negativeStimuliTrials.shift(),
+  ])
 
   // Shuffle sets to mix reinforced trials
-  positiveStimuli = shuffle(positiveStimuli)
-  negativeStimuli = shuffle(negativeStimuli)
+  positiveStimuliTrials = shuffle(positiveStimuliTrials)
+  negativeStimuliTrials = shuffle(negativeStimuliTrials)
 
   // Rule 3: Merge positive and negative stimuli with a maxiumum of 2 stimuli in consectutive order
-  for (var i = 0; i < positiveStimuli.length; i++) {
+  for (var i = 0; i < positiveStimuliTrials.length; i++) {
     // Get one of each stimuli & shuffle
-    let tail = shuffle([positiveStimuli.shift(), negativeStimuli.shift()])
+    let tail = shuffle([
+      positiveStimuliTrials.shift(),
+      negativeStimuliTrials.shift(),
+    ])
     // Append to end of our existing trials
     trials = trials.concat(tail)
   }

@@ -1,5 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { experimentSelector, currentModuleSelector } from '@redux/selectors'
+import {
+  experimentSelector,
+  currentModuleSelector,
+  allModulesSelector,
+} from '@redux/selectors'
 import {
   nextModule,
   updateModule,
@@ -10,6 +14,7 @@ import {
   rejectParticipant,
   ExperimentCache,
 } from '@redux/reducers'
+import { syncExperiment } from '@redux/actions'
 import { LoginScreen, RejectionScreen } from '@screens'
 import { TermsContainer } from './TermsContainer'
 import { CriterionContainer } from './CriterionContainer'
@@ -17,6 +22,7 @@ import { FearConditioningContainer } from './FearConditioningContainer'
 import { VolumeCalibrationContainer } from './VolumeCalibrationContainer'
 import { InstructionsContainer } from './InstructionsContainer'
 import { BasicInfoContainer } from './BasicInfoContainer'
+import { SummaryScreen } from '@screens/SummaryScreen'
 
 const ExperimentModuleTypes = {
   BASIC_INFO: BasicInfoContainer,
@@ -68,6 +74,7 @@ export const ExperimentContainer = () => {
   // Get the experiment object and the index of the current module.
   const dispatch = useDispatch()
   const experiment = useSelector(experimentSelector)
+  const experimentModules = useSelector(allModulesSelector)
   const currentModule = useSelector(currentModuleSelector)
 
   // If the user has been 'screened out' then show respective screen
@@ -75,15 +82,37 @@ export const ExperimentContainer = () => {
     return <RejectionScreen onExit={() => terminateExperiment(false)} />
   }
 
+  // If all modules have been completed...
+  if (experiment.currentModuleIndex === experiment.definition?.modules.length) {
+    // Mark experiment complete
+    if (!experiment.isComplete)
+      dispatch(
+        updateExperiment({
+          ...experiment,
+          isComplete: true,
+        }),
+      )
+
+    // Are all the modules synced?
+    if (!experiment.offlineOnly) {
+      return (
+        <SummaryScreen
+          modules={experimentModules}
+          syncExperiment={() => dispatch(syncExperiment)}
+          onExit={() => terminateExperiment(false)}
+        />
+      )
+    } else {
+      terminateExperiment(false)
+    }
+
+    // Render nothing...
+    return null
+  }
+
   // If no experiment saved then return the login
   if (experiment.definition == undefined || currentModule == undefined) {
     return <LoginScreen />
-  }
-
-  // If all modules rendered then go back to login
-  if (experiment.currentModuleIndex === experiment.definition.modules.length) {
-    terminateExperiment(false)
-    return null
   }
 
   // Get the current module data and it's respective component.
@@ -92,7 +121,19 @@ export const ExperimentContainer = () => {
 
   // This function is called when the experiment should transition to next module.
   function onModuleComplete() {
+    // Mark current module as complete
+    dispatch(
+      updateModule({
+        ...currentModule,
+        moduleCompleted: true,
+      }),
+    )
+
+    // Proceed to next module
     dispatch(nextModule())
+
+    // Sync past screen data
+    dispatch(syncExperiment)
   }
 
   // If no matching component then skip it (this avoids issues caused by upgrades)
