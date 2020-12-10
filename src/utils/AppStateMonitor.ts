@@ -61,7 +61,9 @@ export default class AppStateMonitor {
         (suspendedTime > SUSPENDED_TIMEOUT ||
           (applyStrictTimeout && suspendedTime > STRICT_SUSPENED_TIMEOUT))
       ) {
-        store.dispatch(rejectParticipant())
+        store.dispatch(
+          rejectParticipant(applyStrictTimeout ? 'TRIAL_TIMEOUT' : 'TIMEOUT'),
+        )
       }
     }
 

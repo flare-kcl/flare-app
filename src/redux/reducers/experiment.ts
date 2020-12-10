@@ -1,13 +1,21 @@
 import { createAction, createReducer } from '@reduxjs/toolkit'
 import { Experiment } from '@containers/ExperimentContainer'
+import { HeadphoneType } from '@containers/BasicInfoContainer'
+
+export type RejectionReason =
+  | 'TERMS_DECLINE'
+  | 'INCORRECT_CRITERIA'
+  | 'TIMEOUT'
+  | 'TRIAL_TIMEOUT'
+  | 'UNKNOWN'
 
 export type ExperimentCache = {
   participantID?: string
   offlineOnly?: boolean
   definition?: Experiment
   currentModuleIndex?: number
+  rejectionReason?: RejectionReason
   headphoneType?: HeadphoneType
-  participantRejected: boolean
   volume?: number
   isComplete: boolean
 }
@@ -18,15 +26,16 @@ export const updateExperiment = createAction<ExperimentCache>(
 
 export const clearExperiment = createAction<ExperimentCache>('experiment/clear')
 
-export const rejectParticipant = createAction('experiment/reject')
+export const rejectParticipant = createAction<RejectionReason>(
+  'experiment/reject',
+)
 
 export const nextModule = createAction('experiment/increment')
 
 const initialState: ExperimentCache = {
   volume: 1,
   currentModuleIndex: 0,
-  participantRejected: false,
-  isComplete: true,
+  isComplete: false,
 }
 
 export const experimentReducer = createReducer<ExperimentCache>(
@@ -48,10 +57,10 @@ export const experimentReducer = createReducer<ExperimentCache>(
     })
 
     // Lock out the participant
-    builder.addCase(rejectParticipant, (state) => {
+    builder.addCase(rejectParticipant, (state, action) => {
       return {
         ...state,
-        participantRejected: true,
+        rejectionReason: action.payload,
       }
     })
 

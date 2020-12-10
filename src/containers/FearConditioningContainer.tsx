@@ -77,7 +77,7 @@ export const FearConditioningContainer: ExperimentModule<FearConditioningModuleS
                 text: 'Continue',
                 onPress: () => {
                   // Continue with trials
-                  if (experiment.participantRejected === false) {
+                  if (experiment.rejectionReason === undefined) {
                     onTrialEnd(trialResponse, false)
                   }
                 },

@@ -13,6 +13,7 @@ import {
   updateExperiment,
   rejectParticipant,
   ExperimentCache,
+  RejectionReason,
 } from '@redux/reducers'
 import { syncExperiment } from '@redux/actions'
 import { LoginScreen, RejectionScreen } from '@screens'
@@ -65,8 +66,8 @@ export type ExperimentModule<
     updateModule: (ModuleState) => void
     experiment: ExperimentCache
     onModuleComplete: () => void
-    terminateExperiment: () => void
-    exitExperiment: () => void
+    terminateExperiment: (boolean, RejectionReason) => void
+    exitExperiment: (RejectionReason) => void
   }
 >
 
@@ -78,8 +79,13 @@ export const ExperimentContainer = () => {
   const currentModule = useSelector(currentModuleSelector)
 
   // If the user has been 'screened out' then show respective screen
-  if (experiment.participantRejected) {
-    return <RejectionScreen onExit={() => terminateExperiment(false)} />
+  if (experiment.rejectionReason) {
+    return (
+      <RejectionScreen
+        reason={experiment.rejectionReason}
+        onExit={() => terminateExperiment(false)}
+      />
+    )
   }
 
   // If all modules have been completed...
@@ -143,7 +149,10 @@ export const ExperimentContainer = () => {
   }
 
   // Function used to reset experiment state
-  function terminateExperiment(redirect = true) {
+  function terminateExperiment(
+    redirect = true,
+    rejectionReason: RejectionReason = 'UNKNOWN',
+  ) {
     // Delete all event data
     dispatch(clearAllEvents())
     // Delete all the module cache
@@ -152,13 +161,13 @@ export const ExperimentContainer = () => {
     dispatch(clearExperiment())
     // Set variable to show the terminated screen
     if (redirect) {
-      dispatch(rejectParticipant())
+      dispatch(rejectParticipant(rejectionReason))
     }
   }
 
   // Function used to show the rejection screen
-  function exitExperiment() {
-    dispatch(rejectParticipant())
+  function exitExperiment(rejectionReason: RejectionReason = 'UNKNOWN') {
+    dispatch(rejectParticipant(rejectionReason))
   }
 
   // Function used to update the current module
