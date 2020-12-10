@@ -31,28 +31,32 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
   const decrementVolume = () =>
     Math.max((volume.current = +(volume.current - 0.05).toFixed(2)), 0.1)
 
-  useEffect(() => {
-    // Assign sound object to ref
-    Audio.Sound.createAsync(require('../assets/sounds/ding.wav'), {
-      shouldPlay: false,
-      volume: volume.current,
-    }).then(({ sound }) => {
-      soundRef.current = sound
-    })
-  }, [])
-
   const playStimuli = async () => {
     return new Promise(async (resolve, _) => {
+      // Setup audio
+      if (soundRef.current === undefined) {
+        // Load audio file
+        const { sound } = await Audio.Sound.createAsync(require('../assets/sounds/ding.wav'), {
+          shouldPlay: false,
+          volume: volume.current,
+        })
+
+        // Assign to ref
+        soundRef.current = sound
+      }
+
       // Set the volume
-      await soundRef.current?.setVolumeAsync(volume.current)
+      await soundRef.current.setVolumeAsync(volume.current)
+
       // Set update handler
-      soundRef.current?.setOnPlaybackStatusUpdate((update) => {
+      soundRef.current.setOnPlaybackStatusUpdate((update) => {
         if (update.didJustFinish) {
           resolve(true)
         }
       })
+
       // Play the sound
-      await soundRef.current?.replayAsync()
+      await soundRef.current.playFromPositionAsync(0)
     })
   }
 

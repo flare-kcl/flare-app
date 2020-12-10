@@ -59,15 +59,7 @@ export const InstructionsContainer: ExperimentModule<InstructionsModuleState> = 
         () => (
           <TextInstructionScreen
             heading="Check your Wifi"
-            description="Make sure you are connected to the internet using wifi and you have airplane mode turned on (you may need to turn wifi on after you have selected airplane mode)."
-            actionLabel="Ignore any messages, calls, or notifications you may receive during this time."
-            onNext={onNextInstruction}
-          />
-        ),
-        () => (
-          <TextInstructionScreen
-            heading="Practice Time"
-            description="Before you begin the experiment, we need to to practice using the rating interface."
+            description={`Make sure you are connected to the internet using wifi and you have airplane mode turned on (you may need to turn wifi on after you have selected airplane mode).\n\nIgnore any messages, calls, or notifications you may receive during this time.`}
             actionLabel="Please select ‘next’ to confirm."
             onNext={onNextInstruction}
           />
@@ -101,16 +93,16 @@ export const InstructionsContainer: ExperimentModule<InstructionsModuleState> = 
     ? [
         () => (
           <TextInstructionScreen
-            heading="Task Instructions"
-            description="You will now see some images. You will be asked to rate your feelings and familiarity for these images."
-            actionLabel="Use the whole range of scales to help you make as detailed a rating of how you feel as possible."
-            color="teal"
+            heading="Practice Time"
+            description="Before you begin the experiment, we need to to practice using the rating interface."
+            actionLabel="Please select ‘next’ to confirm."
+            color='teal'
             onNext={onNextTrialInstruction}
           />
         ),
         () => (
           <RatingExplainationScreen
-            heading="A few seconds after each circle appears, this scale will disappear at the bottom of the screen."
+            heading="A few seconds after each circle appears, this scale will appear at the bottom of the screen."
             description="Each time the scale appears, press the corresponding number on the screen to rate how much you expect to hear a scream."
             color="teal"
             onNext={onNextTrialInstruction}

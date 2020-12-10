@@ -1,10 +1,10 @@
-import { useEffect, useState, useRef } from 'react'
-import { StatusBar, LogBox, Alert } from 'react-native'
+import { useEffect, useState } from 'react'
+import { StatusBar, LogBox } from 'react-native'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import Config from 'react-native-config'
 import * as Sentry from '@sentry/react-native'
-import AudioSensor from '@utils/AudioSensor'
+import { Audio } from 'expo-av'
 
 import AssetCache from '@utils/AssetCache'
 import AppStateMonitor from '@utils/AppStateMonitor'
@@ -17,6 +17,16 @@ import { ExperimentContainer } from 'containers/ExperimentContainer'
 Sentry.init({
   dsn: Config.SENTRY_DTN,
   enableAutoSessionTracking: true,
+})
+
+Audio.setAudioModeAsync({
+  allowsRecordingIOS: false,
+  staysActiveInBackground: true,
+  interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+  playsInSilentModeIOS: true,
+  shouldDuckAndroid: true,
+  interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
+  playThroughEarpieceAndroid: false,
 })
 
 // Base container for all screens
