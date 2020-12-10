@@ -9,7 +9,7 @@ export const syncExperiment = async (dispatch, getState: () => AppState) => {
   const experiment = state.experiment
   const modules: ExperimentModule[] = Object.values(state.modules)
 
-  // Finish early if experimennt is offline-only
+  // Finish early if experiment is offline-only
   if (experiment.offlineOnly) return
 
   // Get all modules that have been completed but not synced.
