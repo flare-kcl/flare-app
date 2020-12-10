@@ -108,7 +108,7 @@ export const theme = createTheme({
       fontWeight: '500',
       fontSize: 18,
       color: 'darkGrey',
-      textAlign: 'center',
+      textAlign: 'left',
     },
     instructionActionLabel: {
       fontWeight: '300',

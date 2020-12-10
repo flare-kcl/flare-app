@@ -8,16 +8,6 @@ import { recordEvent } from '@redux/reducers'
 import { Box, TrialImageStack, RatingScale, Interval } from '@components'
 import AudioSensor from '@utils/AudioSensor'
 
-Audio.setAudioModeAsync({
-  allowsRecordingIOS: false,
-  staysActiveInBackground: false,
-  interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
-  playsInSilentModeIOS: true,
-  shouldDuckAndroid: true,
-  interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
-  playThroughEarpieceAndroid: false,
-})
-
 type FearConditioningTrialScreenParams = {
   contextImage: ImageSourcePropType
   stimulusImage: ImageSourcePropType
@@ -95,6 +85,11 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
           },
         )
 
+        // Report errors if sound not playing
+        if (volume == null || volume == 0) {
+          Sentry.captureMessage('Invalid volume parameter used by trial.')
+        }
+
         // Assign sound object to ref
         soundRef.current = sound
         soundRef.current.setOnPlaybackStatusUpdate((update) => {
@@ -102,6 +97,8 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
             onSoundStarted()
           }
         })
+
+        return Promise.resolve()
       } catch (err) {
         Sentry.captureException(err)
       }
@@ -109,7 +106,11 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
 
     const playSound = async () => {
       try {
-        await soundRef.current?.replayAsync()
+        // If sound not loaded, retry
+        if (soundRef.current === undefined) await setupSound()
+
+        // Play sound file from begining
+        await soundRef.current.playFromPositionAsync(0)
       } catch (err) {
         Sentry.captureException(err)
       }
