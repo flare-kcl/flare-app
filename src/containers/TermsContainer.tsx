@@ -14,7 +14,7 @@ export const TermsContainer: ExperimentModule<TermsModuleState> = ({
     <TermsScreen
       terms={mod.terms}
       onAccept={onModuleComplete}
-      onExit={exitExperiment}
+      onExit={() => exitExperiment('TERMS_DECLINE')}
     />
   )
 }

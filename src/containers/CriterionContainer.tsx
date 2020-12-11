@@ -30,8 +30,8 @@ export const CriterionContainer: ExperimentModule<CriteriaModuleState> = ({
       description={mod.description}
       continueMessage={mod.continueMessage}
       onPassCriteria={submitCritera}
-      onFailCriteria={exitExperiment}
-      onExit={exitExperiment}
+      onFailCriteria={() => exitExperiment('INCORRECT_CRITERIA')}
+      onExit={() => exitExperiment('INCORRECT_CRITERIA')}
     />
   )
 }
