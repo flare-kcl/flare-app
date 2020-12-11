@@ -5,6 +5,7 @@ export const palette = {
   purpleLight: '#EAE3FF',
   greenLight: '#B2DBBF',
   teal: '#008080',
+  tealLight: '#88CDC5',
 
   greenPrimary: '#70C1B3',
   greenDark: '#0A906E',

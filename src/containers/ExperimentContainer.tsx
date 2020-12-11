@@ -23,9 +23,11 @@ import { VolumeCalibrationContainer } from './VolumeCalibrationContainer'
 import { InstructionsContainer } from './InstructionsContainer'
 import { BasicInfoContainer } from './BasicInfoContainer'
 import { SummaryScreen } from '@screens/SummaryScreen'
+import { ExternalLinkContainer } from './ExternalLinkContainer'
 
 const ExperimentModuleTypes = {
   BASIC_INFO: BasicInfoContainer,
+  EXTERNAL_LINK: ExternalLinkContainer,
   TERMS: TermsContainer,
   CRITERIA: CriterionContainer,
   INSTRUCTIONS: InstructionsContainer,
