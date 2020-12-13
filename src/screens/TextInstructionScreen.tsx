@@ -46,7 +46,7 @@ export const TextInstructionScreen: React.FunctionComponent<TextInstructionScree
           {description}
         </Text>
 
-        <Box flex={1} justifyContent="flex-end" pb={4}>
+        <Box flex={1} justifyContent="flex-end" pb={6}>
           {actionLabel && (
             <Text variant="caption2" px={6} mb={4} color={textColor}>
               {actionLabel}

@@ -23,7 +23,7 @@ export const TermsScreen: React.FunctionComponent<TermsScreenParams> = ({
     >
       {/* Terms and Condition Text */}
       <SafeAreaView flex={1}>
-        <Box pt={10} px={6} pb={4}>
+        <Box pt={10} px={6} pb={6}>
           <Markdown mb={4}>{terms}</Markdown>
 
           <Button

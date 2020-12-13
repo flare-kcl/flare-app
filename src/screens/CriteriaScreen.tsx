@@ -111,7 +111,7 @@ export const CriteriaScreen: React.FunctionComponent<CriteriaScreenParams> = ({
             </Box>
           ))}
 
-          <Box borderTopColor="lightGrey" borderTopWidth={2} pt={6} pb={4}>
+          <Box borderTopColor="lightGrey" borderTopWidth={2} pt={6} pb={6}>
             {/* Small feature text to remined them to check answers */}
             <Markdown pb={4}>{continueMessage}</Markdown>
             <Button

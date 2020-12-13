@@ -162,7 +162,7 @@ export const LoginScreen = () => {
         </ScrollView>
 
         {/* Push button to bottom of screen */}
-        <Box flex={1} justifyContent="flex-end" pb={4} px={6}>
+        <Box flex={1} justifyContent="flex-end" pb={6} px={6}>
           {stage != Stages.Loading && (
             <Button
               variant="primary"

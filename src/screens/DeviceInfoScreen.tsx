@@ -63,7 +63,7 @@ export const DeviceInfoScreen: React.FunctionComponent<DeviceInfoScreenProps> = 
         }}
       >
         <SafeAreaView>
-          <Box flex={1} pt={10} px={6} pb={4}>
+          <Box flex={1} pt={10} px={6} pb={6}>
             <Text variant="heading">Your information</Text>
             <Text variant="heading3">Please enter your details below</Text>
             <LabeledDateField

@@ -60,7 +60,7 @@ export const RejectionScreen: React.FunctionComponent<RejectionScreenParams> = (
           {reasonCopy}
         </Text>
 
-        <Box flex={1} flexDirection="column" justifyContent="flex-end" pb={4}>
+        <Box flex={1} flexDirection="column" justifyContent="flex-end" pb={6}>
           {contactLink && (
             <Button
               testID="ContinueButton"

@@ -41,7 +41,7 @@ export const RatingPracticeScreen: React.FunctionComponent<RatingPracticeScreenP
         />
 
         {showButton && (
-          <Box flex={1} justifyContent="flex-end" pb={4} px={5}>
+          <Box flex={1} justifyContent="flex-end" pb={6} px={5}>
             <Text variant="caption2" textAlign="center" pb={8}>
               Notice how you cannot change your rating once it has been made.
             </Text>

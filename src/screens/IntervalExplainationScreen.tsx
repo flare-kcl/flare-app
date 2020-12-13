@@ -26,7 +26,7 @@ export const IntervalExplainationScreen: React.FunctionComponent<IntervalExplain
           {description}
         </Text>
 
-        <Box flex={1} justifyContent="flex-end" pb={4}>
+        <Box flex={1} justifyContent="flex-end" pb={6}>
           <Button
             variant="primary"
             label="Next"

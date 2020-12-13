@@ -702,7 +702,7 @@ exports[`Text Renders Correctly 1`] = `
                 "borderTopColor": "#e4e9ed",
                 "borderTopWidth": 2,
                 "display": "flex",
-                "paddingBottom": 16,
+                "paddingBottom": 24,
                 "paddingTop": 24,
               },
             ]

@@ -83,7 +83,7 @@ export const exampleExperimentData: Experiment = {
     In elit est, aliquet et aliquet eu, blandit vitae erat. Curabitur finibus dapibus tellus, et scelerisque sem dictum quis.
     Praesent pellentesque rutrum libero, a ultrices ante molestie id. Etiam semper hendrerit feugiat.
   `,
-  contactEmail: 'mailto:flare@torchbox.com',
+  contactEmail: 'mailto:flare@email.com',
   ratingDelay: 2000,
   trialLength: 8000,
   ratingScaleAnchorLabelLeft: 'Certain no scream',

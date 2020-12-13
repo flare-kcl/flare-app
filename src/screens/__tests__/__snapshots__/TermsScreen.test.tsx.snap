@@ -28,7 +28,7 @@ exports[`Text Renders Correctly 1`] = `
           Array [
             Object {
               "display": "flex",
-              "paddingBottom": 16,
+              "paddingBottom": 24,
               "paddingHorizontal": 24,
               "paddingTop": 40,
             },
