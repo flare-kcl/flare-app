@@ -1,4 +1,4 @@
-import { Box, Text, Button, Interval } from '@components'
+import { Box, Text, Button, Interval, SafeAreaView } from '@components'
 
 type IntervalExplainationScreenProps = {
   description: string
@@ -12,27 +12,29 @@ export const IntervalExplainationScreen: React.FunctionComponent<IntervalExplain
   onNext,
 }) => {
   return (
-    <Box
-      flex={1}
-      alignItems="center"
-      justifyContent="flex-start"
-      pt={24}
-      px={5}
-    >
-      <Interval />
+    <SafeAreaView flex={1}>
+      <Box
+        flex={1}
+        alignItems="center"
+        justifyContent="flex-start"
+        pt={24}
+        px={6}
+      >
+        <Interval />
 
-      <Text variant="instructionDescription" mt={24} mb={10} pt={24}>
-        {description}
-      </Text>
+        <Text variant="instructionDescription" mt={26} mb={10} pt={24}>
+          {description}
+        </Text>
 
-      <Box flex={1} justifyContent="flex-end" pb={14}>
-        <Button
-          variant="primary"
-          label="Next"
-          backgroundColor={color}
-          onPress={onNext}
-        />
+        <Box flex={1} justifyContent="flex-end" pb={6}>
+          <Button
+            variant="primary"
+            label="Next"
+            backgroundColor={color}
+            onPress={onNext}
+          />
+        </Box>
       </Box>
-    </Box>
+    </SafeAreaView>
   )
 }

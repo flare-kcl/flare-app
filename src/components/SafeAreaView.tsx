@@ -7,7 +7,6 @@ import {
   BorderProps,
   AllProps,
   BackgroundColorProps,
-  createVariant,
   createRestyleComponent,
 } from '@shopify/restyle'
 

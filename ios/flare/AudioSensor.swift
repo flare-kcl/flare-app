@@ -22,7 +22,7 @@ class AudioSensor: RCTEventEmitter {
       try self.audioSession.setActive(true)
       // Look for any changes in self.audioSession.outputVolume
       self.volumeObservation = self.audioSession.observe( \.outputVolume ) { (av, change) in
-        if self.hasListeners {
+        if self.hasListeners && self.bridge != nil {
           // Send data to JS via EventEmitter
           self.sendEvent(withName: "VolumeChange", body: av.outputVolume)
         }
@@ -36,7 +36,7 @@ class AudioSensor: RCTEventEmitter {
   }
 
   @objc func onAudioOutputChange() {
-    if self.hasListeners {
+    if self.hasListeners && self.bridge != nil {
       // Send data to JS via EventEmitter
       self.sendEvent(withName: "OutputChange", body: self.isHeadphonesConnected())
     }

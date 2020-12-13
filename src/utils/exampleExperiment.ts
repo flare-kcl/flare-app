@@ -83,7 +83,7 @@ export const exampleExperimentData: Experiment = {
     In elit est, aliquet et aliquet eu, blandit vitae erat. Curabitur finibus dapibus tellus, et scelerisque sem dictum quis.
     Praesent pellentesque rutrum libero, a ultrices ante molestie id. Etiam semper hendrerit feugiat.
   `,
-  contactEmail: 'flare@torchbox.com',
+  contactEmail: 'mailto:flare@email.com',
   ratingDelay: 2000,
   trialLength: 8000,
   ratingScaleAnchorLabelLeft: 'Certain no scream',
@@ -94,6 +94,11 @@ export const exampleExperimentData: Experiment = {
     max: 1500,
   },
   modules: [
+    {
+      id: '154654',
+      moduleType: 'TERMS',
+      definition: exampleTermsDefinition,
+    },
     {
       id: '451651',
       moduleType: 'BASIC_INFO',
@@ -113,11 +118,6 @@ export const exampleExperimentData: Experiment = {
         renderTrialTask: true,
         advancedVolumeCalibration: true,
       },
-    },
-    {
-      id: '154654',
-      moduleType: 'TERMS',
-      definition: exampleTermsDefinition,
     },
     {
       id: '548944',

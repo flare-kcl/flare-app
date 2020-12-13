@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react'
 import { Alert } from 'react-native'
 import { Audio } from 'expo-av'
 import { Entypo } from '@expo/vector-icons'
-import { Text, Box, Button, RatingScale } from '@components'
+import { Text, Box, Button, RatingScale, SafeAreaView } from '@components'
 import { palette } from '@utils/theme'
 
 type VolumeCalibrationScreenParams = {
@@ -190,90 +190,98 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
   }
 
   return (
-    <Box flex={1} alignItems="center" pt={24} px={8}>
-      <Entypo name="sound" size={100} color={palette.darkGrey} />
+    <SafeAreaView flex={1}>
+      <Box flex={1} alignItems="center" pt={24}>
+        <Entypo name="sound" size={100} color={palette.darkGrey} />
 
-      <Text mt={8} variant="caption" textAlign="center">
-        For this experiment it is important that the volume of the sound is
-        uncomfortable but not painful.
-      </Text>
-
-      {/* Instruction Stage */}
-      {stage == VolumeCalibrationStages.Intro && (
-        <Box
-          flex={1}
-          mt={15}
-          pb={14}
-          justifyContent="flex-end"
-          alignItems="center"
-        >
-          <Text pb={10} variant="caption2" textAlign="center">
-            Once you click the button below you will be asked to rate the volume
-            played through your headphones.
-          </Text>
-          <Button
-            variant="primary"
-            label="Start"
-            alignSelf="flex-end"
-            onPress={startCalibration}
-          />
-        </Box>
-      )}
-
-      {/* Stimuli Countdown */}
-      {stage == VolumeCalibrationStages.Countdown && countdown > 0 && (
-        <Text
-          fontWeight="500"
-          width="100%"
-          fontSize={100}
-          mt={24}
-          textAlign="center"
-        >
-          {countdown}
+        <Text mt={8} variant="caption" textAlign="center" px={6}>
+          For this experiment it is important that the volume of the sound is
+          uncomfortable but not painful.
         </Text>
-      )}
 
-      {/* Volume Rating Scale */}
-      {stage == VolumeCalibrationStages.Rating && (
-        <Box
-          flex={1}
-          mt={15}
-          pb={14}
-          justifyContent="flex-end"
-          alignItems="center"
-        >
-          <RatingScale
-            anchorLabelLeft="Quiet"
-            anchorLabelCenter="Loud"
-            anchorLabelRight="Painful"
-            lockFirstRating={false}
-            onChange={(rating) => setVolumeRating(rating)}
-          />
-          <Button variant="primary" label="Next" onPress={validateRating} />
-        </Box>
-      )}
+        {/* Instruction Stage */}
+        {stage == VolumeCalibrationStages.Intro && (
+          <Box
+            flex={1}
+            mt={15}
+            pb={6}
+            px={6}
+            justifyContent="flex-end"
+            alignItems="center"
+          >
+            <Text mb={6} variant="caption2" textAlign="center">
+              Once you click the button below you will be asked to rate the
+              volume played through your headphones.
+            </Text>
+            <Button
+              variant="primary"
+              label="Start"
+              alignSelf="flex-end"
+              onPress={startCalibration}
+            />
+          </Box>
+        )}
 
-      {/* Incorrect Reading Block */}
-      {stage == VolumeCalibrationStages.Error && (
-        <Box
-          flex={1}
-          mt={15}
-          pb={14}
-          justifyContent="flex-end"
-          alignItems="center"
-        >
-          <Text pb={10} variant="caption2" textAlign="center">
-            We will now take you back to the calibration screen to try another
-            volume.
+        {/* Stimuli Countdown */}
+        {stage == VolumeCalibrationStages.Countdown && countdown > 0 && (
+          <Text
+            fontWeight="500"
+            width="100%"
+            fontSize={100}
+            mt={24}
+            textAlign="center"
+            color="darkGrey"
+          >
+            {countdown}
           </Text>
-          <Button
-            variant="primary"
-            label="Try Again"
-            alignSelf="flex-end"
-            onPress={resetCalibration}
-          />
-        </Box>
-      )}
-    </Box>
+        )}
+
+        {/* Volume Rating Scale */}
+        {stage == VolumeCalibrationStages.Rating && (
+          <Box
+            flex={1}
+            mt={15}
+            pb={6}
+            px={1}
+            justifyContent="flex-end"
+            alignItems="center"
+          >
+            <RatingScale
+              anchorLabelLeft="Quiet"
+              anchorLabelCenter="Loud"
+              anchorLabelRight="Painful"
+              lockFirstRating={false}
+              onChange={(rating) => setVolumeRating(rating)}
+            />
+            <Box px={5}>
+              <Button variant="primary" label="Next" onPress={validateRating} />
+            </Box>
+          </Box>
+        )}
+
+        {/* Incorrect Reading Block */}
+        {stage == VolumeCalibrationStages.Error && (
+          <Box
+            flex={1}
+            mt={15}
+            pb={6}
+            px={5}
+            justifyContent="flex-end"
+            alignItems="center"
+          >
+            <Text mb={6} variant="caption2" textAlign="center">
+              We will now take you back to the calibration screen to try another
+              volume.
+            </Text>
+            <Button
+              variant="primary"
+              label="Try Again"
+              alignSelf="flex-end"
+              onPress={resetCalibration}
+            />
+          </Box>
+        )}
+      </Box>
+    </SafeAreaView>
   )
 }

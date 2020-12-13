@@ -1,14 +1,14 @@
 import { Box, Text, Button, SafeAreaView } from '@components'
-import { palette } from '@utils/theme'
+import { ThemeColors } from '@utils/theme'
 
 type TextInstructionScreenProps = {
   heading: string
   description: string
   actionLabel?: string
   color?: string
-  backgroundColor?: string
-  textColor?: string
-  linkColor?: string
+  backgroundColor?: ThemeColors
+  textColor?: ThemeColors
+  linkColor?: ThemeColors
   textAlign?: string
   onNext: () => void
 }
@@ -17,10 +17,10 @@ export const TextInstructionScreen: React.FunctionComponent<TextInstructionScree
   heading,
   description,
   actionLabel,
-  color = 'purple',
+  color = { phone: 'purple' },
   textColor = 'darkGrey',
-  backgroundColor = 'white',
-  linkColor = 'white',
+  backgroundColor = 'pureWhite',
+  linkColor = 'pureWhite',
   textAlign = 'center',
   onNext,
 }) => {
@@ -32,9 +32,9 @@ export const TextInstructionScreen: React.FunctionComponent<TextInstructionScree
         justifyContent="flex-start"
         backgroundColor={backgroundColor}
         pt={10}
-        px={5}
+        px={6}
       >
-        <Text variant="instructionHeading" mb={5} color={textColor}>
+        <Text variant="instructionHeading" mt={10} mb={5} color={textColor}>
           {heading}
         </Text>
         <Text
@@ -45,12 +45,14 @@ export const TextInstructionScreen: React.FunctionComponent<TextInstructionScree
         >
           {description}
         </Text>
-        {actionLabel && (
-          <Text variant="instructionActionLabel" px={6} color={textColor}>
-            {actionLabel}
-          </Text>
-        )}
-        <Box flex={1} justifyContent="flex-end" pb={4}>
+
+        <Box flex={1} justifyContent="flex-end" pb={6}>
+          {actionLabel && (
+            <Text variant="caption2" px={6} mb={4} color={textColor}>
+              {actionLabel}
+            </Text>
+          )}
+
           <Button
             variant="primary"
             label="Next"

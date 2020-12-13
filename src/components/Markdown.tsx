@@ -3,7 +3,7 @@ import * as WebBrowser from 'expo-web-browser'
 import { BoxProps } from '@shopify/restyle'
 
 import { Box } from '@components'
-import { Theme, palette } from '@utils/theme'
+import theme, { Theme, palette } from '@utils/theme'
 
 type MarkdownProps = BoxProps<Theme>
 
@@ -39,20 +39,20 @@ export const Markdown: React.FunctionComponent<MarkdownProps> = ({
           },
           paragraph: {
             marginBottom: 10,
+            fontSize: 16,
           },
           list_item: {
             marginBottom: 20,
           },
           link: {
-            color: palette.greenDark,
+            color: palette.purple,
           },
           heading1: {
-            fontSize: 45,
             fontFamily: 'Inter',
-            color: palette.darkGrey,
-            alignSelf: 'center',
+            fontSize: 30,
             fontWeight: 'bold',
-            width: '100%',
+            color: palette.darkGrey,
+            alignSelf: 'flex-start',
             marginBottom: 10,
           },
           heading2: {
@@ -64,7 +64,7 @@ export const Markdown: React.FunctionComponent<MarkdownProps> = ({
           heading3: {
             fontFamily: 'Inter',
             fontSize: 20,
-            fontWeight: '700',
+            fontWeight: '600',
           },
         }}
       >

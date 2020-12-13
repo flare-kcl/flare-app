@@ -1,4 +1,4 @@
-import { Box, Text, Button, RatingScale } from '@components'
+import { Box, Text, Button, RatingScale, SafeAreaView } from '@components'
 
 type RatingExplainationScreenProps = {
   heading: string
@@ -16,35 +16,49 @@ export const RatingExplainationScreen: React.FunctionComponent<RatingExplainatio
   onNext,
 }) => {
   return (
-    <Box
-      flex={1}
-      alignItems="center"
-      justifyContent="flex-start"
-      pt={24}
-      px={5}
-    >
-      <Text variant="instructionDescription" mb={10}>
-        {heading}
-      </Text>
-
-      <RatingScale disabled />
-
-      <Text variant="instructionDescription" mb={10}>
-        {description}
-      </Text>
-      {actionLabel && (
-        <Text variant="instructionActionLabel" px={6}>
-          {actionLabel}
+    <SafeAreaView flex={1}>
+      <Box
+        flex={1}
+        alignItems="center"
+        justifyContent="flex-start"
+        pt={24}
+        px={1}
+      >
+        <Text
+          variant="instructionDescription"
+          mb={10}
+          px={5}
+          textAlign="center"
+        >
+          {heading}
         </Text>
-      )}
-      <Box flex={1} justifyContent="flex-end" pb={14}>
-        <Button
-          variant="primary"
-          label="Next"
-          backgroundColor={color}
-          onPress={onNext}
-        />
+
+        <RatingScale disabled />
+
+        <Text
+          variant="instructionDescription"
+          mb={10}
+          px={5}
+          textAlign="center"
+        >
+          {description}
+        </Text>
+
+        {actionLabel && (
+          <Text variant="instructionActionLabel" px={6}>
+            {actionLabel}
+          </Text>
+        )}
+
+        <Box flex={1} justifyContent="flex-end" pb={6} px={5}>
+          <Button
+            variant="primary"
+            label="Next"
+            backgroundColor={color}
+            onPress={onNext}
+          />
+        </Box>
       </Box>
-    </Box>
+    </SafeAreaView>
   )
 }

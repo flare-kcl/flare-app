@@ -2,7 +2,14 @@ import { useState } from 'react'
 import { Alert } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 
-import { Box, Button, Markdown, CriterionToggle, Text } from '@components'
+import {
+  Box,
+  Button,
+  Markdown,
+  CriterionToggle,
+  Text,
+  SafeAreaView,
+} from '@components'
 
 type ExperimentCriterion = {
   name: string
@@ -78,16 +85,16 @@ export const CriteriaScreen: React.FunctionComponent<CriteriaScreenParams> = ({
   }
 
   return (
-    <>
-      <ScrollView
-        scrollEventThrottle={16}
-        contentInsetAdjustmentBehavior="automatic"
-        style={{
-          position: 'absolute',
-          height: '100%',
-        }}
-      >
-        <Box flex={1} px={6} pt={10} pb={10}>
+    <ScrollView
+      scrollEventThrottle={16}
+      contentInsetAdjustmentBehavior="automatic"
+      style={{
+        position: 'absolute',
+        height: '100%',
+      }}
+    >
+      <SafeAreaView flex={1}>
+        <Box flex={1} px={6} pt={10}>
           {/* Experiment Description */}
           <Markdown mb={4}>{description}</Markdown>
 
@@ -104,7 +111,7 @@ export const CriteriaScreen: React.FunctionComponent<CriteriaScreenParams> = ({
             </Box>
           ))}
 
-          <Box borderTopColor="lightGrey" borderTopWidth={2} pt={6}>
+          <Box borderTopColor="lightGrey" borderTopWidth={2} pt={6} pb={6}>
             {/* Small feature text to remined them to check answers */}
             <Markdown pb={4}>{continueMessage}</Markdown>
             <Button
@@ -121,7 +128,7 @@ export const CriteriaScreen: React.FunctionComponent<CriteriaScreenParams> = ({
             />
           </Box>
         </Box>
-      </ScrollView>
-    </>
+      </SafeAreaView>
+    </ScrollView>
   )
 }
