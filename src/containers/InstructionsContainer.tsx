@@ -105,6 +105,7 @@ export const InstructionsContainer: ExperimentModule<InstructionsModuleState> = 
             heading="A few seconds after each circle appears, this scale will appear at the bottom of the screen."
             description="Each time the scale appears, press the corresponding number on the screen to rate how much you expect to hear a scream."
             color="teal"
+            textAlign="center"
             onNext={onNextTrialInstruction}
           />
         ),

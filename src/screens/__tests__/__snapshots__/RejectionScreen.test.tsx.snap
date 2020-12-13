@@ -1,17 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Text Renders Correctly 1`] = `
-<View
+<RCTSafeAreaView
+  emulateUnlessSupported={true}
+  flex={1}
   style={
     Array [
       Object {
-        "alignItems": "center",
-        "backgroundColor": "#B2DBBF",
-        "display": "flex",
-        "flex": 1,
-        "flexDirection": "column",
-        "paddingHorizontal": 16,
-        "paddingTop": 40,
+        "backgroundColor": "#70C1B3",
       },
     ]
   }
@@ -21,131 +17,148 @@ exports[`Text Renders Correctly 1`] = `
       Array [
         Object {
           "alignItems": "center",
-          "display": "flex",
-          "flexDirection": "row",
-          "justifyContent": "center",
-          "paddingTop": 40,
-          "width": "100%",
-        },
-      ]
-    }
-  >
-    <Image
-      height="100%"
-      maxHeight={150}
-      maxWidth={240}
-      opacity={0.8}
-      resizeMode="contain"
-      source={1}
-      style={
-        Array [
-          Object {},
-        ]
-      }
-      width="100%"
-    />
-  </View>
-  <Text
-    style={
-      Array [
-        Object {
-          "alignSelf": "flex-start",
-          "color": "#212529",
-          "display": "flex",
-          "fontFamily": "Inter-Light",
-          "fontSize": 30,
-          "fontWeight": "bold",
-          "marginBottom": 12,
-          "marginTop": 40,
-        },
-      ]
-    }
-  >
-    Thank you for your interest in the FLARe app.
-  </Text>
-  <Text
-    style={
-      Array [
-        Object {
-          "color": "#212529",
-          "display": "flex",
-          "fontSize": 15,
-          "fontWeight": "500",
-          "marginTop": 16,
-        },
-      ]
-    }
-  />
-  <View
-    style={
-      Array [
-        Object {
+          "backgroundColor": "#70C1B3",
           "display": "flex",
           "flex": 1,
           "flexDirection": "column",
-          "justifyContent": "flex-end",
-          "paddingBottom": 40,
+          "paddingHorizontal": 24,
+          "paddingTop": 40,
         },
       ]
     }
   >
     <View
-      accessible={true}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
       style={
-        Object {
-          "flex": 0,
-          "flexDirection": "row",
-          "opacity": 1,
-          "width": "100%",
-        }
+        Array [
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "center",
+            "paddingTop": 40,
+            "width": "100%",
+          },
+        ]
       }
-      testID="ExitButton"
     >
-      <View
+      <Image
+        height="100%"
+        maxHeight={150}
+        maxWidth={240}
+        opacity={0.8}
+        resizeMode="contain"
+        source={1}
         style={
           Array [
-            Object {
-              "alignItems": "center",
-              "display": "flex",
-              "justifyContent": "center",
-              "width": "100%",
-            },
-            Array [
-              Object {
-                "backgroundColor": "#5E44AE",
-                "borderRadius": 8,
-                "height": 60,
-                "marginTop": 8,
-                "paddingVertical": 16,
-              },
-            ],
+            Object {},
           ]
         }
+        width="100%"
+      />
+    </View>
+    <Text
+      style={
+        Array [
+          Object {
+            "alignSelf": "flex-start",
+            "color": "#212529",
+            "display": "flex",
+            "fontFamily": "Inter-Light",
+            "fontSize": 30,
+            "fontWeight": "bold",
+            "marginBottom": 12,
+            "marginTop": 96,
+          },
+        ]
+      }
+    >
+      Thank you for your interest in the FLARe app.
+    </Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#212529",
+            "display": "flex",
+            "fontSize": 18,
+            "fontWeight": "500",
+            "marginTop": 24,
+            "padding": 0,
+          },
+        ]
+      }
+    />
+    <View
+      style={
+        Array [
+          Object {
+            "display": "flex",
+            "flex": 1,
+            "flexDirection": "column",
+            "justifyContent": "flex-end",
+            "paddingBottom": 16,
+          },
+        ]
+      }
+    >
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "flex": 0,
+            "flexDirection": "row",
+            "opacity": 1,
+            "width": "100%",
+          }
+        }
+        testID="ExitButton"
       >
-        <Text
+        <View
           style={
             Array [
               Object {
-                "color": "#F0F2F3",
+                "alignItems": "center",
                 "display": "flex",
-                "fontFamily": "Inter-SemiBold",
-                "fontSize": 20,
+                "justifyContent": "center",
+                "width": "100%",
               },
+              Array [
+                Object {
+                  "backgroundColor": "#5E44AE",
+                  "borderRadius": 8,
+                  "height": 60,
+                  "marginTop": 8,
+                  "paddingVertical": 16,
+                },
+              ],
             ]
           }
         >
-          Exit Experiment
-        </Text>
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#F0F2F3",
+                  "display": "flex",
+                  "fontFamily": "Inter-SemiBold",
+                  "fontSize": 20,
+                },
+              ]
+            }
+          >
+            Exit Experiment
+          </Text>
+        </View>
       </View>
     </View>
   </View>
-</View>
+</RCTSafeAreaView>
 `;

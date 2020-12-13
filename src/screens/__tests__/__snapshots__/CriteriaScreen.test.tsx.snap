@@ -15,16 +15,12 @@ exports[`Text Renders Correctly 1`] = `
   }
 >
   <View>
-    <View
+    <RCTSafeAreaView
+      emulateUnlessSupported={true}
+      flex={1}
       style={
         Array [
-          Object {
-            "display": "flex",
-            "flex": 1,
-            "paddingBottom": 40,
-            "paddingHorizontal": 24,
-            "paddingTop": 40,
-          },
+          Object {},
         ]
       }
     >
@@ -33,85 +29,9 @@ exports[`Text Renders Correctly 1`] = `
           Array [
             Object {
               "display": "flex",
-              "marginBottom": 16,
-            },
-          ]
-        }
-      >
-        <View
-          style={Object {}}
-        >
-          <View
-            style={
-              Object {
-                "alignSelf": "center",
-                "flexDirection": "row",
-                "marginBottom": 10,
-                "width": "100%",
-              }
-            }
-          >
-            <Text
-              style={Object {}}
-            >
-              <Text
-                style={
-                  Array [
-                    Object {
-                      "color": "#212529",
-                      "fontFamily": "Inter",
-                      "fontSize": 45,
-                      "fontWeight": "bold",
-                    },
-                    Object {},
-                  ]
-                }
-              >
-                What is this experiment?
-              </Text>
-            </Text>
-          </View>
-          <View
-            style={
-              Object {
-                "alignItems": "flex-start",
-                "flexDirection": "row",
-                "flexWrap": "wrap",
-                "justifyContent": "flex-start",
-                "marginBottom": 10,
-                "marginTop": 10,
-                "width": "100%",
-              }
-            }
-          >
-            <Text
-              style={Object {}}
-            >
-              <Text
-                style={
-                  Array [
-                    Object {
-                      "color": "#212529",
-                      "fontFamily": "Inter",
-                      "fontWeight": "500",
-                    },
-                    Object {},
-                  ]
-                }
-              >
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ac magna ut neque auctor varius et eu lectus. Proin eget fringilla lectus. Donec feugiat, turpis sed blandit lacinia, dolor nulla pretium quam, quis cursus neque lorem et ipsum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus aliquam tortor at rhoncus condimentum. Maecenas gravida nibh et gravida pretium. Morbi quam nisl, tempor et auctor sit amet, convallis et dui. Duis luctus mollis dolor vitae rutrum. Cras dapibus congue neque sed sodales.
-              </Text>
-            </Text>
-          </View>
-        </View>
-      </View>
-      <View
-        style={
-          Array [
-            Object {
-              "display": "flex",
-              "paddingBottom": 32,
-              "paddingTop": 8,
+              "flex": 1,
+              "paddingHorizontal": 24,
+              "paddingTop": 40,
             },
           ]
         }
@@ -121,6 +41,7 @@ exports[`Text Renders Correctly 1`] = `
             Array [
               Object {
                 "display": "flex",
+                "marginBottom": 16,
               },
             ]
           }
@@ -131,7 +52,9 @@ exports[`Text Renders Correctly 1`] = `
             <View
               style={
                 Object {
+                  "alignSelf": "flex-start",
                   "flexDirection": "row",
+                  "marginBottom": 10,
                 }
               }
             >
@@ -144,384 +67,14 @@ exports[`Text Renders Correctly 1`] = `
                       Object {
                         "color": "#212529",
                         "fontFamily": "Inter",
-                        "fontSize": 20,
-                        "fontWeight": "700",
+                        "fontSize": 30,
+                        "fontWeight": "bold",
                       },
                       Object {},
                     ]
                   }
                 >
-                  1. Do you have a pre-existing heart condition?
-                </Text>
-              </Text>
-            </View>
-          </View>
-        </View>
-        <View
-          style={
-            Array [
-              Object {
-                "alignItems": "center",
-                "display": "flex",
-                "flex": 1,
-                "flexDirection": "row",
-                "justifyContent": "space-between",
-                "marginTop": 16,
-                "width": "100%",
-              },
-            ]
-          }
-        >
-          <View
-            accessible={true}
-            focusable={true}
-            onClick={[Function]}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
-            style={
-              Object {
-                "flex": 1,
-                "flexDirection": "row",
-                "opacity": 1,
-                "width": "100%",
-              }
-            }
-          >
-            <View
-              accessibilityLabel="No"
-              style={
-                Array [
-                  Object {
-                    "alignItems": "center",
-                    "display": "flex",
-                    "height": 60,
-                    "justifyContent": "center",
-                    "width": "100%",
-                  },
-                  Array [
-                    Object {
-                      "backgroundColor": "#212529",
-                      "borderBottomLeftRadius": 8,
-                      "borderColor": "#F0F2F3",
-                      "borderTopLeftRadius": 8,
-                      "borderWidth": 2,
-                    },
-                  ],
-                ]
-              }
-            >
-              <Text
-                style={
-                  Array [
-                    Object {
-                      "color": "#F0F2F3",
-                      "display": "flex",
-                      "fontFamily": "Inter-SemiBold",
-                      "fontSize": 20,
-                    },
-                  ]
-                }
-              >
-                No
-              </Text>
-            </View>
-          </View>
-          <View
-            accessible={true}
-            focusable={true}
-            onClick={[Function]}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
-            style={
-              Object {
-                "flex": 1,
-                "flexDirection": "row",
-                "opacity": 1,
-                "width": "100%",
-              }
-            }
-          >
-            <View
-              accessibilityLabel="Yes"
-              style={
-                Array [
-                  Object {
-                    "alignItems": "center",
-                    "display": "flex",
-                    "height": 60,
-                    "justifyContent": "center",
-                    "width": "100%",
-                  },
-                  Array [
-                    Object {
-                      "backgroundColor": "#212529",
-                      "borderBottomRightRadius": 8,
-                      "borderColor": "#F0F2F3",
-                      "borderTopRightRadius": 8,
-                      "borderWidth": 2,
-                    },
-                  ],
-                ]
-              }
-            >
-              <Text
-                style={
-                  Array [
-                    Object {
-                      "color": "#F0F2F3",
-                      "display": "flex",
-                      "fontFamily": "Inter-SemiBold",
-                      "fontSize": 20,
-                    },
-                  ]
-                }
-              >
-                Yes
-              </Text>
-            </View>
-          </View>
-        </View>
-      </View>
-      <View
-        style={
-          Array [
-            Object {
-              "display": "flex",
-              "paddingBottom": 32,
-              "paddingTop": 8,
-            },
-          ]
-        }
-      >
-        <View
-          style={
-            Array [
-              Object {
-                "display": "flex",
-              },
-            ]
-          }
-        >
-          <View
-            style={Object {}}
-          >
-            <View
-              style={
-                Object {
-                  "flexDirection": "row",
-                }
-              }
-            >
-              <Text
-                style={Object {}}
-              >
-                <Text
-                  style={
-                    Array [
-                      Object {
-                        "color": "#212529",
-                        "fontFamily": "Inter",
-                        "fontSize": 20,
-                        "fontWeight": "700",
-                      },
-                      Object {},
-                    ]
-                  }
-                >
-                  2. Do you suffer from PTSD?
-                </Text>
-              </Text>
-            </View>
-          </View>
-        </View>
-        <View
-          style={
-            Array [
-              Object {
-                "alignItems": "center",
-                "display": "flex",
-                "flex": 1,
-                "flexDirection": "row",
-                "justifyContent": "space-between",
-                "marginTop": 16,
-                "width": "100%",
-              },
-            ]
-          }
-        >
-          <View
-            accessible={true}
-            focusable={true}
-            onClick={[Function]}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
-            style={
-              Object {
-                "flex": 1,
-                "flexDirection": "row",
-                "opacity": 1,
-                "width": "100%",
-              }
-            }
-          >
-            <View
-              accessibilityLabel="No"
-              style={
-                Array [
-                  Object {
-                    "alignItems": "center",
-                    "display": "flex",
-                    "height": 60,
-                    "justifyContent": "center",
-                    "width": "100%",
-                  },
-                  Array [
-                    Object {
-                      "backgroundColor": "#212529",
-                      "borderBottomLeftRadius": 8,
-                      "borderColor": "#F0F2F3",
-                      "borderTopLeftRadius": 8,
-                      "borderWidth": 2,
-                    },
-                  ],
-                ]
-              }
-            >
-              <Text
-                style={
-                  Array [
-                    Object {
-                      "color": "#F0F2F3",
-                      "display": "flex",
-                      "fontFamily": "Inter-SemiBold",
-                      "fontSize": 20,
-                    },
-                  ]
-                }
-              >
-                No
-              </Text>
-            </View>
-          </View>
-          <View
-            accessible={true}
-            focusable={true}
-            onClick={[Function]}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
-            style={
-              Object {
-                "flex": 1,
-                "flexDirection": "row",
-                "opacity": 1,
-                "width": "100%",
-              }
-            }
-          >
-            <View
-              accessibilityLabel="Yes"
-              style={
-                Array [
-                  Object {
-                    "alignItems": "center",
-                    "display": "flex",
-                    "height": 60,
-                    "justifyContent": "center",
-                    "width": "100%",
-                  },
-                  Array [
-                    Object {
-                      "backgroundColor": "#212529",
-                      "borderBottomRightRadius": 8,
-                      "borderColor": "#F0F2F3",
-                      "borderTopRightRadius": 8,
-                      "borderWidth": 2,
-                    },
-                  ],
-                ]
-              }
-            >
-              <Text
-                style={
-                  Array [
-                    Object {
-                      "color": "#F0F2F3",
-                      "display": "flex",
-                      "fontFamily": "Inter-SemiBold",
-                      "fontSize": 20,
-                    },
-                  ]
-                }
-              >
-                Yes
-              </Text>
-            </View>
-          </View>
-        </View>
-      </View>
-      <View
-        style={
-          Array [
-            Object {
-              "display": "flex",
-              "paddingBottom": 32,
-              "paddingTop": 8,
-            },
-          ]
-        }
-      >
-        <View
-          style={
-            Array [
-              Object {
-                "display": "flex",
-              },
-            ]
-          }
-        >
-          <View
-            style={Object {}}
-          >
-            <View
-              style={
-                Object {
-                  "flexDirection": "row",
-                }
-              }
-            >
-              <Text
-                style={Object {}}
-              >
-                <Text
-                  style={
-                    Array [
-                      Object {
-                        "color": "#212529",
-                        "fontFamily": "Inter",
-                        "fontSize": 20,
-                        "fontWeight": "700",
-                      },
-                      Object {},
-                    ]
-                  }
-                >
-                  3. Do you have a diagnosed anxiety condtion?
+                  What is this experiment?
                 </Text>
               </Text>
             </View>
@@ -547,13 +100,14 @@ exports[`Text Renders Correctly 1`] = `
                       Object {
                         "color": "#212529",
                         "fontFamily": "Inter",
+                        "fontSize": 16,
                         "fontWeight": "500",
                       },
                       Object {},
                     ]
                   }
                 >
-                  Mauris ut urna nunc. Proin luctus, odio cursus ornare sodales, sapien metus ultrices nisl, at pulvinar dui ipsum et lacus. Cras sodales faucibus est vel volutpat. Pellentesque lacinia suscipit mi ut euismod. Donec ut viverra ante. Morbi bibendum vulputate neque vitae viverra. Mauris egestas vehicula tortor. Aenean ornare euismod massa, at cursus urna sodales nec.
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ac magna ut neque auctor varius et eu lectus. Proin eget fringilla lectus. Donec feugiat, turpis sed blandit lacinia, dolor nulla pretium quam, quis cursus neque lorem et ipsum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus aliquam tortor at rhoncus condimentum. Maecenas gravida nibh et gravida pretium. Morbi quam nisl, tempor et auctor sit amet, convallis et dui. Duis luctus mollis dolor vitae rutrum. Cras dapibus congue neque sed sodales.
                 </Text>
               </Text>
             </View>
@@ -563,336 +117,788 @@ exports[`Text Renders Correctly 1`] = `
           style={
             Array [
               Object {
-                "alignItems": "center",
                 "display": "flex",
-                "flex": 1,
-                "flexDirection": "row",
-                "justifyContent": "space-between",
-                "marginTop": 16,
-                "width": "100%",
+                "paddingBottom": 32,
+                "paddingTop": 8,
               },
             ]
           }
         >
           <View
-            accessible={true}
-            focusable={true}
-            onClick={[Function]}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
             style={
-              Object {
-                "flex": 1,
-                "flexDirection": "row",
-                "opacity": 1,
-                "width": "100%",
-              }
+              Array [
+                Object {
+                  "display": "flex",
+                },
+              ]
             }
           >
             <View
-              accessibilityLabel="No"
-              style={
-                Array [
-                  Object {
-                    "alignItems": "center",
-                    "display": "flex",
-                    "height": 60,
-                    "justifyContent": "center",
-                    "width": "100%",
-                  },
-                  Array [
-                    Object {
-                      "backgroundColor": "#212529",
-                      "borderBottomLeftRadius": 8,
-                      "borderColor": "#F0F2F3",
-                      "borderTopLeftRadius": 8,
-                      "borderWidth": 2,
-                    },
-                  ],
-                ]
-              }
+              style={Object {}}
             >
-              <Text
+              <View
                 style={
-                  Array [
-                    Object {
-                      "color": "#F0F2F3",
-                      "display": "flex",
-                      "fontFamily": "Inter-SemiBold",
-                      "fontSize": 20,
-                    },
-                  ]
+                  Object {
+                    "flexDirection": "row",
+                  }
                 }
               >
-                No
-              </Text>
+                <Text
+                  style={Object {}}
+                >
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "color": "#212529",
+                          "fontFamily": "Inter",
+                          "fontSize": 20,
+                          "fontWeight": "600",
+                        },
+                        Object {},
+                      ]
+                    }
+                  >
+                    1. Do you have a pre-existing heart condition?
+                  </Text>
+                </Text>
+              </View>
             </View>
           </View>
           <View
-            accessible={true}
-            focusable={true}
-            onClick={[Function]}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
             style={
-              Object {
-                "flex": 1,
-                "flexDirection": "row",
-                "opacity": 1,
-                "width": "100%",
-              }
+              Array [
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "flex": 1,
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                  "marginTop": 16,
+                  "width": "100%",
+                },
+              ]
             }
           >
             <View
-              accessibilityLabel="Yes"
+              accessible={true}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
               style={
-                Array [
-                  Object {
-                    "alignItems": "center",
-                    "display": "flex",
-                    "height": 60,
-                    "justifyContent": "center",
-                    "width": "100%",
-                  },
-                  Array [
-                    Object {
-                      "backgroundColor": "#212529",
-                      "borderBottomRightRadius": 8,
-                      "borderColor": "#F0F2F3",
-                      "borderTopRightRadius": 8,
-                      "borderWidth": 2,
-                    },
-                  ],
-                ]
+                Object {
+                  "flex": 1,
+                  "flexDirection": "row",
+                  "opacity": 1,
+                  "width": "100%",
+                }
               }
             >
-              <Text
+              <View
+                accessibilityLabel="No"
                 style={
                   Array [
                     Object {
-                      "color": "#F0F2F3",
+                      "alignItems": "center",
                       "display": "flex",
-                      "fontFamily": "Inter-SemiBold",
-                      "fontSize": 20,
+                      "height": 70,
+                      "justifyContent": "center",
+                      "width": "100%",
                     },
+                    Array [
+                      Object {
+                        "backgroundColor": "#EAE3FF",
+                        "borderRadius": 8,
+                        "marginRight": 8,
+                      },
+                    ],
                   ]
                 }
               >
-                Yes
-              </Text>
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "color": "#5E44AE",
+                        "display": "flex",
+                        "fontFamily": "Inter-SemiBold",
+                        "fontSize": 20,
+                        "fontWeight": "700",
+                      },
+                    ]
+                  }
+                >
+                  No
+                </Text>
+              </View>
+            </View>
+            <View
+              accessible={true}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                Object {
+                  "flex": 1,
+                  "flexDirection": "row",
+                  "opacity": 1,
+                  "width": "100%",
+                }
+              }
+            >
+              <View
+                accessibilityLabel="Yes"
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "center",
+                      "display": "flex",
+                      "height": 70,
+                      "justifyContent": "center",
+                      "width": "100%",
+                    },
+                    Array [
+                      Object {
+                        "backgroundColor": "#EAE3FF",
+                        "borderRadius": 8,
+                        "marginLeft": 8,
+                      },
+                    ],
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "color": "#5E44AE",
+                        "display": "flex",
+                        "fontFamily": "Inter-SemiBold",
+                        "fontSize": 20,
+                        "fontWeight": "700",
+                      },
+                    ]
+                  }
+                >
+                  Yes
+                </Text>
+              </View>
             </View>
           </View>
         </View>
-      </View>
-      <View
-        style={
-          Array [
-            Object {
-              "borderTopColor": "#e4e9ed",
-              "borderTopWidth": 2,
-              "display": "flex",
-              "paddingTop": 24,
-            },
-          ]
-        }
-      >
         <View
           style={
             Array [
               Object {
+                "display": "flex",
+                "paddingBottom": 32,
+                "paddingTop": 8,
+              },
+            ]
+          }
+        >
+          <View
+            style={
+              Array [
+                Object {
+                  "display": "flex",
+                },
+              ]
+            }
+          >
+            <View
+              style={Object {}}
+            >
+              <View
+                style={
+                  Object {
+                    "flexDirection": "row",
+                  }
+                }
+              >
+                <Text
+                  style={Object {}}
+                >
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "color": "#212529",
+                          "fontFamily": "Inter",
+                          "fontSize": 20,
+                          "fontWeight": "600",
+                        },
+                        Object {},
+                      ]
+                    }
+                  >
+                    2. Do you suffer from PTSD?
+                  </Text>
+                </Text>
+              </View>
+            </View>
+          </View>
+          <View
+            style={
+              Array [
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "flex": 1,
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                  "marginTop": 16,
+                  "width": "100%",
+                },
+              ]
+            }
+          >
+            <View
+              accessible={true}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                Object {
+                  "flex": 1,
+                  "flexDirection": "row",
+                  "opacity": 1,
+                  "width": "100%",
+                }
+              }
+            >
+              <View
+                accessibilityLabel="No"
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "center",
+                      "display": "flex",
+                      "height": 70,
+                      "justifyContent": "center",
+                      "width": "100%",
+                    },
+                    Array [
+                      Object {
+                        "backgroundColor": "#EAE3FF",
+                        "borderRadius": 8,
+                        "marginRight": 8,
+                      },
+                    ],
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "color": "#5E44AE",
+                        "display": "flex",
+                        "fontFamily": "Inter-SemiBold",
+                        "fontSize": 20,
+                        "fontWeight": "700",
+                      },
+                    ]
+                  }
+                >
+                  No
+                </Text>
+              </View>
+            </View>
+            <View
+              accessible={true}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                Object {
+                  "flex": 1,
+                  "flexDirection": "row",
+                  "opacity": 1,
+                  "width": "100%",
+                }
+              }
+            >
+              <View
+                accessibilityLabel="Yes"
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "center",
+                      "display": "flex",
+                      "height": 70,
+                      "justifyContent": "center",
+                      "width": "100%",
+                    },
+                    Array [
+                      Object {
+                        "backgroundColor": "#EAE3FF",
+                        "borderRadius": 8,
+                        "marginLeft": 8,
+                      },
+                    ],
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "color": "#5E44AE",
+                        "display": "flex",
+                        "fontFamily": "Inter-SemiBold",
+                        "fontSize": 20,
+                        "fontWeight": "700",
+                      },
+                    ]
+                  }
+                >
+                  Yes
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          style={
+            Array [
+              Object {
+                "display": "flex",
+                "paddingBottom": 32,
+                "paddingTop": 8,
+              },
+            ]
+          }
+        >
+          <View
+            style={
+              Array [
+                Object {
+                  "display": "flex",
+                },
+              ]
+            }
+          >
+            <View
+              style={Object {}}
+            >
+              <View
+                style={
+                  Object {
+                    "flexDirection": "row",
+                  }
+                }
+              >
+                <Text
+                  style={Object {}}
+                >
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "color": "#212529",
+                          "fontFamily": "Inter",
+                          "fontSize": 20,
+                          "fontWeight": "600",
+                        },
+                        Object {},
+                      ]
+                    }
+                  >
+                    3. Do you have a diagnosed anxiety condtion?
+                  </Text>
+                </Text>
+              </View>
+              <View
+                style={
+                  Object {
+                    "alignItems": "flex-start",
+                    "flexDirection": "row",
+                    "flexWrap": "wrap",
+                    "justifyContent": "flex-start",
+                    "marginBottom": 10,
+                    "marginTop": 10,
+                    "width": "100%",
+                  }
+                }
+              >
+                <Text
+                  style={Object {}}
+                >
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "color": "#212529",
+                          "fontFamily": "Inter",
+                          "fontSize": 16,
+                          "fontWeight": "500",
+                        },
+                        Object {},
+                      ]
+                    }
+                  >
+                    Mauris ut urna nunc. Proin luctus, odio cursus ornare sodales, sapien metus ultrices nisl, at pulvinar dui ipsum et lacus. Cras sodales faucibus est vel volutpat. Pellentesque lacinia suscipit mi ut euismod. Donec ut viverra ante. Morbi bibendum vulputate neque vitae viverra. Mauris egestas vehicula tortor. Aenean ornare euismod massa, at cursus urna sodales nec.
+                  </Text>
+                </Text>
+              </View>
+            </View>
+          </View>
+          <View
+            style={
+              Array [
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "flex": 1,
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                  "marginTop": 16,
+                  "width": "100%",
+                },
+              ]
+            }
+          >
+            <View
+              accessible={true}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                Object {
+                  "flex": 1,
+                  "flexDirection": "row",
+                  "opacity": 1,
+                  "width": "100%",
+                }
+              }
+            >
+              <View
+                accessibilityLabel="No"
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "center",
+                      "display": "flex",
+                      "height": 70,
+                      "justifyContent": "center",
+                      "width": "100%",
+                    },
+                    Array [
+                      Object {
+                        "backgroundColor": "#EAE3FF",
+                        "borderRadius": 8,
+                        "marginRight": 8,
+                      },
+                    ],
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "color": "#5E44AE",
+                        "display": "flex",
+                        "fontFamily": "Inter-SemiBold",
+                        "fontSize": 20,
+                        "fontWeight": "700",
+                      },
+                    ]
+                  }
+                >
+                  No
+                </Text>
+              </View>
+            </View>
+            <View
+              accessible={true}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                Object {
+                  "flex": 1,
+                  "flexDirection": "row",
+                  "opacity": 1,
+                  "width": "100%",
+                }
+              }
+            >
+              <View
+                accessibilityLabel="Yes"
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "center",
+                      "display": "flex",
+                      "height": 70,
+                      "justifyContent": "center",
+                      "width": "100%",
+                    },
+                    Array [
+                      Object {
+                        "backgroundColor": "#EAE3FF",
+                        "borderRadius": 8,
+                        "marginLeft": 8,
+                      },
+                    ],
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "color": "#5E44AE",
+                        "display": "flex",
+                        "fontFamily": "Inter-SemiBold",
+                        "fontSize": 20,
+                        "fontWeight": "700",
+                      },
+                    ]
+                  }
+                >
+                  Yes
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          style={
+            Array [
+              Object {
+                "borderTopColor": "#e4e9ed",
+                "borderTopWidth": 2,
                 "display": "flex",
                 "paddingBottom": 16,
+                "paddingTop": 24,
               },
             ]
           }
         >
           <View
-            style={Object {}}
-          >
-            <View
-              style={
-                Object {
-                  "flexDirection": "row",
-                }
-              }
-            >
-              <Text
-                style={Object {}}
-              >
-                <Text
-                  style={
-                    Array [
-                      Object {
-                        "color": "#212529",
-                        "fontFamily": "Inter",
-                        "fontSize": 20,
-                        "fontWeight": "700",
-                      },
-                      Object {},
-                    ]
-                  }
-                >
-                  Ready to continue?
-                </Text>
-              </Text>
-            </View>
-            <View
-              style={
-                Object {
-                  "alignItems": "flex-start",
-                  "flexDirection": "row",
-                  "flexWrap": "wrap",
-                  "justifyContent": "flex-start",
-                  "marginBottom": 10,
-                  "marginTop": 10,
-                  "width": "100%",
-                }
-              }
-            >
-              <Text
-                style={Object {}}
-              >
-                <Text
-                  style={
-                    Array [
-                      Object {
-                        "color": "#212529",
-                        "fontFamily": "Inter",
-                        "fontWeight": "500",
-                      },
-                      Object {},
-                    ]
-                  }
-                >
-                  Please make sure all of the above criteria are answered correctly. This is essential to the integreity of the your data.
-                </Text>
-              </Text>
-            </View>
-          </View>
-        </View>
-        <View
-          accessible={true}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "flex": 0,
-              "flexDirection": "row",
-              "opacity": 1,
-              "width": "100%",
-            }
-          }
-          testID="ContinueButton"
-        >
-          <View
             style={
               Array [
                 Object {
-                  "alignItems": "center",
                   "display": "flex",
-                  "justifyContent": "center",
-                  "width": "100%",
+                  "paddingBottom": 16,
                 },
-                Array [
-                  Object {
-                    "backgroundColor": "#5E44AE",
-                    "borderRadius": 8,
-                    "height": 60,
-                    "marginTop": 8,
-                    "paddingVertical": 16,
-                  },
-                ],
               ]
             }
           >
-            <Text
-              style={
-                Array [
-                  Object {
-                    "color": "#F0F2F3",
-                    "display": "flex",
-                    "fontFamily": "Inter-SemiBold",
-                    "fontSize": 20,
-                  },
-                ]
-              }
+            <View
+              style={Object {}}
             >
-              Continue
-            </Text>
+              <View
+                style={
+                  Object {
+                    "flexDirection": "row",
+                  }
+                }
+              >
+                <Text
+                  style={Object {}}
+                >
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "color": "#212529",
+                          "fontFamily": "Inter",
+                          "fontSize": 20,
+                          "fontWeight": "600",
+                        },
+                        Object {},
+                      ]
+                    }
+                  >
+                    Ready to continue?
+                  </Text>
+                </Text>
+              </View>
+              <View
+                style={
+                  Object {
+                    "alignItems": "flex-start",
+                    "flexDirection": "row",
+                    "flexWrap": "wrap",
+                    "justifyContent": "flex-start",
+                    "marginBottom": 10,
+                    "marginTop": 10,
+                    "width": "100%",
+                  }
+                }
+              >
+                <Text
+                  style={Object {}}
+                >
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "color": "#212529",
+                          "fontFamily": "Inter",
+                          "fontSize": 16,
+                          "fontWeight": "500",
+                        },
+                        Object {},
+                      ]
+                    }
+                  >
+                    Please make sure all of the above criteria are answered correctly. This is essential to the integreity of the your data.
+                  </Text>
+                </Text>
+              </View>
+            </View>
           </View>
-        </View>
-        <View
-          accessible={true}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "flex": 0,
-              "flexDirection": "row",
-              "opacity": 1,
-              "width": "100%",
-            }
-          }
-          testID="ExitButton"
-        >
           <View
+            accessible={true}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
             style={
-              Array [
-                Object {
-                  "alignItems": "center",
-                  "display": "flex",
-                  "justifyContent": "center",
-                  "width": "100%",
-                },
-                Array [
-                  Object {
-                    "backgroundColor": "#ff4757",
-                    "borderRadius": 8,
-                    "marginTop": 8,
-                    "paddingVertical": 16,
-                  },
-                ],
-              ]
+              Object {
+                "flex": 0,
+                "flexDirection": "row",
+                "opacity": 1,
+                "width": "100%",
+              }
             }
+            testID="ContinueButton"
           >
-            <Text
+            <View
               style={
                 Array [
                   Object {
-                    "color": "#F0F2F3",
+                    "alignItems": "center",
                     "display": "flex",
-                    "fontFamily": "Inter-SemiBold",
-                    "fontSize": 20,
+                    "justifyContent": "center",
+                    "width": "100%",
                   },
+                  Array [
+                    Object {
+                      "backgroundColor": "#5E44AE",
+                      "borderRadius": 8,
+                      "height": 60,
+                      "marginTop": 8,
+                      "paddingVertical": 16,
+                    },
+                  ],
                 ]
               }
             >
-              Exit Experiment
-            </Text>
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "color": "#F0F2F3",
+                      "display": "flex",
+                      "fontFamily": "Inter-SemiBold",
+                      "fontSize": 20,
+                    },
+                  ]
+                }
+              >
+                Continue
+              </Text>
+            </View>
+          </View>
+          <View
+            accessible={true}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "flex": 0,
+                "flexDirection": "row",
+                "opacity": 1,
+                "width": "100%",
+              }
+            }
+            testID="ExitButton"
+          >
+            <View
+              style={
+                Array [
+                  Object {
+                    "alignItems": "center",
+                    "display": "flex",
+                    "justifyContent": "center",
+                    "width": "100%",
+                  },
+                  Array [
+                    Object {
+                      "backgroundColor": "#ff4757",
+                      "borderRadius": 8,
+                      "marginTop": 8,
+                      "paddingVertical": 16,
+                    },
+                  ],
+                ]
+              }
+            >
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "color": "#F0F2F3",
+                      "display": "flex",
+                      "fontFamily": "Inter-SemiBold",
+                      "fontSize": 20,
+                    },
+                  ]
+                }
+              >
+                Exit Experiment
+              </Text>
+            </View>
           </View>
         </View>
       </View>
-    </View>
+    </RCTSafeAreaView>
   </View>
 </RCTScrollView>
 `;

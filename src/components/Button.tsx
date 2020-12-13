@@ -56,6 +56,7 @@ export const Button = ({
       onPress={onPress}
       disabled={disabled}
       delayPressIn={0}
+      delayPressOut={0}
       activeOpacity={activeOpacity}
       style={{
         flex,

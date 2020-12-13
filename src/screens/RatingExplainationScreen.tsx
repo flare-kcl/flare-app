@@ -21,23 +21,25 @@ export const RatingExplainationScreen: React.FunctionComponent<RatingExplainatio
       alignItems="center"
       justifyContent="flex-start"
       pt={24}
-      px={5}
+      px={1}
     >
-      <Text variant="instructionDescription" mb={10}>
+      <Text variant="instructionDescription" mb={10} px={5} textAlign="center">
         {heading}
       </Text>
 
       <RatingScale disabled />
 
-      <Text variant="instructionDescription" mb={10}>
+      <Text variant="instructionDescription" mb={10} px={5} textAlign="center">
         {description}
       </Text>
+
       {actionLabel && (
         <Text variant="instructionActionLabel" px={6}>
           {actionLabel}
         </Text>
       )}
-      <Box flex={1} justifyContent="flex-end" pb={14}>
+
+      <Box flex={1} justifyContent="flex-end" pb={14} px={5}>
         <Button
           variant="primary"
           label="Next"

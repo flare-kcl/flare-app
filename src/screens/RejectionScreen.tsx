@@ -1,5 +1,5 @@
-import { Linking, ScrollView } from 'react-native'
-import { Image, Box, Button, Text } from '@components'
+import { Linking } from 'react-native'
+import { Image, Box, Button, Text, SafeAreaView } from '@components'
 import { RejectionReason } from '@redux/reducers'
 
 type RejectionScreenParams = {
@@ -25,57 +25,59 @@ export const RejectionScreen: React.FunctionComponent<RejectionScreenParams> = (
   const reasonCopy = RejectionReasons[reason]
 
   return (
-    <Box
-      flex={1}
-      flexDirection="column"
-      alignItems="center"
-      paddingTop={10}
-      paddingHorizontal={4}
-      backgroundColor="greenLight"
-    >
+    <SafeAreaView flex={1} backgroundColor="greenPrimary">
       <Box
-        flexDirection="row"
-        justifyContent="center"
+        flex={1}
+        flexDirection="column"
         alignItems="center"
-        paddingTop={10}
-        width="100%"
+        pt={10}
+        px={6}
+        backgroundColor="greenPrimary"
       >
-        <Image
+        <Box
+          flexDirection="row"
+          justifyContent="center"
+          alignItems="center"
+          paddingTop={10}
           width="100%"
-          height="100%"
-          maxWidth={240}
-          maxHeight={150}
-          resizeMode="contain"
-          opacity={0.8}
-          source={require('../assets/images/fireworks.png')}
-        />
-      </Box>
-
-      <Text variant="heading" mt={10}>
-        Thank you for your interest in the FLARe app.
-      </Text>
-
-      <Text fontWeight="500" color="darkGrey" fontSize={15} mt={4}>
-        {reasonCopy}
-      </Text>
-
-      <Box flex={1} flexDirection="column" justifyContent="flex-end" pb={10}>
-        {contactLink && (
-          <Button
-            testID="ContinueButton"
-            label="Contact Researcher"
-            variant="primary"
-            backgroundColor="coral"
-            onPress={() => Linking.openURL(contactLink)}
+        >
+          <Image
+            width="100%"
+            height="100%"
+            maxWidth={240}
+            maxHeight={150}
+            resizeMode="contain"
+            opacity={0.8}
+            source={require('../assets/images/fireworks.png')}
           />
-        )}
-        <Button
-          testID="ExitButton"
-          label="Exit Experiment"
-          variant="primary"
-          onPress={() => onExit?.()}
-        />
+        </Box>
+
+        <Text variant="heading" mt={24}>
+          Thank you for your interest in the FLARe app.
+        </Text>
+
+        <Text fontWeight="500" color="darkGrey" fontSize={18} mt={6} p={0}>
+          {reasonCopy}
+        </Text>
+
+        <Box flex={1} flexDirection="column" justifyContent="flex-end" pb={4}>
+          {contactLink && (
+            <Button
+              testID="ContinueButton"
+              label="Contact Researcher"
+              variant="primary"
+              backgroundColor="coral"
+              onPress={() => Linking.openURL(contactLink)}
+            />
+          )}
+          <Button
+            testID="ExitButton"
+            label="Exit Experiment"
+            variant="primary"
+            onPress={() => onExit?.()}
+          />
+        </Box>
       </Box>
-    </Box>
+    </SafeAreaView>
   )
 }

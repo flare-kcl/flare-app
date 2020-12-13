@@ -63,7 +63,7 @@ export const HeadphonesDetectionScreen: React.FunctionComponent<HeadphonesDetect
         fontSize={25}
         color="darkGrey"
         textAlign="center"
-        mb={10}
+        mb={16}
       >
         Please ensure you're wearing headphones.
       </Text>
@@ -75,7 +75,7 @@ export const HeadphonesDetectionScreen: React.FunctionComponent<HeadphonesDetect
       {connected == false && (
         <>
           <Entypo name="circle-with-cross" size={90} color={palette.red} />
-          <Text variant="instructionActionLabel" fontWeight="500" mt={8}>
+          <Text variant="caption2" fontWeight="500" mt={8}>
             Plug in your headphones to continue.
           </Text>
         </>

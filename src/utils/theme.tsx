@@ -1,4 +1,4 @@
-import { ThemeProvider, createTheme } from '@shopify/restyle'
+import { ResponsiveValue, ThemeProvider, createTheme } from '@shopify/restyle'
 
 export const palette = {
   purple: '#5E44AE',
@@ -34,6 +34,7 @@ export const theme = createTheme({
     4: 16,
     5: 20,
     6: 24,
+    7: 28,
     8: 32,
     9: 36,
     10: 40,
@@ -100,18 +101,21 @@ export const theme = createTheme({
       color: 'white',
     },
     instructionHeading: {
+      fontFamily: 'Inter',
       fontWeight: '700',
       fontSize: 25,
       color: 'darkGrey',
       textAlign: 'center',
     },
     instructionDescription: {
+      fontFamily: 'Inter',
       fontWeight: '500',
       fontSize: 18,
       color: 'darkGrey',
       textAlign: 'left',
     },
     instructionActionLabel: {
+      fontFamily: 'Inter',
       fontWeight: '300',
       fontSize: 15,
       color: 'darkGrey',
@@ -160,3 +164,6 @@ export const FlareThemeProvider = ({ children }) => (
 
 export type Theme = typeof theme
 export default theme
+
+// Export color props for types
+export type ThemeColors = ResponsiveValue<keyof Theme['colors'], Theme>

@@ -1,6 +1,6 @@
 import { ScrollView } from 'react-native-gesture-handler'
 
-import { Box, Button, Markdown } from '@components'
+import { Box, Button, Markdown, SafeAreaView } from '@components'
 
 export type TermsScreenParams = {
   terms: string
@@ -14,21 +14,17 @@ export const TermsScreen: React.FunctionComponent<TermsScreenParams> = ({
   onExit,
 }) => {
   return (
-    <>
-      <ScrollView
-        scrollEventThrottle={16}
-        contentInsetAdjustmentBehavior="automatic"
-        style={{
-          position: 'absolute',
-          height: '100%',
-        }}
-      >
-        {/* Terms and Condition Text */}
-        <Box paddingHorizontal={4} paddingTop={10} paddingBottom={10}>
-          <Markdown>
-            {/* TODO: Will be swapped out for prop when we have example experiment! */}
-            {terms}
-          </Markdown>
+    <ScrollView
+      contentInsetAdjustmentBehavior="automatic"
+      style={{
+        position: 'absolute',
+        height: '100%',
+      }}
+    >
+      {/* Terms and Condition Text */}
+      <SafeAreaView flex={1}>
+        <Box pt={10} px={6} pb={4}>
+          <Markdown mb={4}>{terms}</Markdown>
 
           <Button
             testID="AcceptButton"
@@ -43,7 +39,7 @@ export const TermsScreen: React.FunctionComponent<TermsScreenParams> = ({
             onPress={() => onExit()}
           />
         </Box>
-      </ScrollView>
-    </>
+      </SafeAreaView>
+    </ScrollView>
   )
 }

@@ -1,5 +1,4 @@
-import { ScrollView } from 'react-native-gesture-handler'
-import { Box, Button, Text, Pressable, Image } from '@components'
+import { Box, Button, Text, Pressable, Image, SafeAreaView } from '@components'
 import { HeadphoneType } from '@containers/BasicInfoContainer'
 
 export type HeadphoneChoiceScreenProps = {
@@ -14,8 +13,8 @@ export const HeadphoneChoiceScreen: React.FunctionComponent<HeadphoneChoiceScree
   onNext,
 }) => {
   return (
-    <>
-      <Box flex={1} pt={24} px={4} pb={4}>
+    <SafeAreaView flex={1}>
+      <Box flex={1} pt={10} px={6}>
         <Text variant="heading">Select headphones</Text>
         <Text variant="heading3">
           Select the type of headphones you are using
@@ -40,7 +39,7 @@ export const HeadphoneChoiceScreen: React.FunctionComponent<HeadphoneChoiceScree
         />
 
         {headphoneType && (
-          <Box flex={1} justifyContent="flex-end" pb={14}>
+          <Box flex={1} justifyContent="flex-end" pb={4}>
             <Button
               variant="primary"
               label="Next"
@@ -50,7 +49,7 @@ export const HeadphoneChoiceScreen: React.FunctionComponent<HeadphoneChoiceScree
           </Box>
         )}
       </Box>
-    </>
+    </SafeAreaView>
   )
 }
 

@@ -190,10 +190,10 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
   }
 
   return (
-    <Box flex={1} alignItems="center" pt={24} px={8}>
+    <Box flex={1} alignItems="center" pt={24}>
       <Entypo name="sound" size={100} color={palette.darkGrey} />
 
-      <Text mt={8} variant="caption" textAlign="center">
+      <Text mt={8} variant="caption" textAlign="center" px={6}>
         For this experiment it is important that the volume of the sound is
         uncomfortable but not painful.
       </Text>
@@ -204,10 +204,11 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
           flex={1}
           mt={15}
           pb={14}
+          px={6}
           justifyContent="flex-end"
           alignItems="center"
         >
-          <Text pb={10} variant="caption2" textAlign="center">
+          <Text mb={6} variant="caption2" textAlign="center">
             Once you click the button below you will be asked to rate the volume
             played through your headphones.
           </Text>
@@ -228,6 +229,7 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
           fontSize={100}
           mt={24}
           textAlign="center"
+          color="darkGrey"
         >
           {countdown}
         </Text>
@@ -239,6 +241,7 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
           flex={1}
           mt={15}
           pb={14}
+          px={1}
           justifyContent="flex-end"
           alignItems="center"
         >
@@ -249,7 +252,9 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
             lockFirstRating={false}
             onChange={(rating) => setVolumeRating(rating)}
           />
-          <Button variant="primary" label="Next" onPress={validateRating} />
+          <Box px={5}>
+            <Button variant="primary" label="Next" onPress={validateRating} />
+          </Box>
         </Box>
       )}
 
@@ -259,10 +264,11 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
           flex={1}
           mt={15}
           pb={14}
+          px={5}
           justifyContent="flex-end"
           alignItems="center"
         >
-          <Text pb={10} variant="caption2" textAlign="center">
+          <Text mb={6} variant="caption2" textAlign="center">
             We will now take you back to the calibration screen to try another
             volume.
           </Text>
