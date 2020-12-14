@@ -159,6 +159,10 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
             },
           ],
         )
+      } else if (connected) {
+        // If we detect a reconnect then dismiss alert
+        headphoneRef.current?.dismiss()
+        headphoneRef.current = undefined
       }
     }
 
