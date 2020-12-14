@@ -1,7 +1,4 @@
-import {
-  Modal,
-  TouchableOpacity,
-} from 'react-native'
+import { Modal, TouchableOpacity } from 'react-native'
 
 import { ThemeColors } from '@utils/theme'
 import { Text, SafeAreaView, Box } from '.'
