@@ -131,6 +131,7 @@ export const LoginScreen = () => {
                 autoCompleteType="username"
                 placeholder="Example: ANIXETY-jBSkjbckjb"
                 onChangeText={(text) => onChangeText(text)}
+                onSubmitEditing={() => setScrollStage(stage + 1)}
                 value={value}
               />
             </Box>

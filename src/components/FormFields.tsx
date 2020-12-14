@@ -1,6 +1,5 @@
-import { useRef } from 'react'
 import { TextInput, TextInputProps } from 'react-native'
-import RNPickerSelect from 'react-native-picker-select'
+import { Picker } from '@react-native-picker/picker'
 import DatePicker from 'react-native-date-picker'
 import {
   createRestyleComponent,
@@ -10,7 +9,6 @@ import {
   backgroundColor,
   SpacingProps,
   BorderProps,
-  AllProps,
   BackgroundColorProps,
   createVariant,
 } from '@shopify/restyle'
@@ -92,29 +90,31 @@ export const LabeledPickerField = ({
   options = [],
   onChange,
   placeholder,
-}) => (
-  <Box width="100%" py={4}>
-    <Text fontWeight="bold" color="darkGrey" pb={2}>
-      {label}
-    </Text>
-    <Box
-      borderColor="purple"
-      borderWidth={2}
-      borderRadius="m"
-      alignItems="center"
-      justifyContent="center"
-    >
-      <RNPickerSelect
-        value={value}
-        fixAndroidTouchableBug
-        textInputProps={{
-          height: 50,
-          borderRadius: 8,
-          paddingLeft: 16,
-        }}
-        onValueChange={onChange}
-        items={options}
-      />
+}) => {
+  console.log(value)
+  return (
+    <Box width="100%" py={4}>
+      <Text fontWeight="bold" color="darkGrey" pb={2}>
+        {label}
+      </Text>
+      <Box
+        borderColor="purple"
+        borderWidth={2}
+        borderRadius="m"
+        alignItems="center"
+        justifyContent="center"
+        pl={1}
+      >
+        <Picker
+          style={{ width: '100%' }}
+          selectedValue={value}
+          onValueChange={(itemValue, _) => onChange(itemValue)}
+        >
+          {options.map((option) => (
+            <Picker.Item {...option} />
+          ))}
+        </Picker>
+      </Box>
     </Box>
-  </Box>
-)
+  )
+}
