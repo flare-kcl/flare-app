@@ -12,6 +12,7 @@ export const Stepper = ({
       <Box flexDirection="row" alignItems="center" justifyContent="center">
         {new Array(numberOfSteps).fill(0).map((_, index) => (
           <Box
+            key={`stepper-item-${index}`}
             position="relative"
             height={14}
             width={14}

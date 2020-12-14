@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { Alert } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 
 import {
@@ -7,9 +6,9 @@ import {
   Button,
   Markdown,
   CriterionToggle,
-  Text,
   SafeAreaView,
 } from '@components'
+import { useAlert } from '@utils/AlertProvider'
 
 type ExperimentCriterion = {
   name: string
@@ -37,6 +36,7 @@ export const CriteriaScreen: React.FunctionComponent<CriteriaScreenParams> = ({
   onFailCriteria,
   onExit,
 }) => {
+  const Alert = useAlert()
   let [consentCriteria, setConsentCriteria] = useState<ExperimentCriteria>(
     criteria,
   )

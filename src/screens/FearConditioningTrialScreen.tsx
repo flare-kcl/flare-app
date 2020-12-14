@@ -5,8 +5,15 @@ import { useDispatch } from 'react-redux'
 import * as Sentry from '@sentry/react-native'
 
 import { recordEvent } from '@redux/reducers'
-import { Box, TrialImageStack, RatingScale, Interval } from '@components'
+import {
+  Box,
+  TrialImageStack,
+  RatingScale,
+  Interval,
+  ToastRef,
+} from '@components'
 import AudioSensor from '@utils/AudioSensor'
+import { useAlert } from '@utils/AlertProvider'
 
 type FearConditioningTrialScreenParams = {
   contextImage: ImageSourcePropType
@@ -45,6 +52,7 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
     anchorLabelCenter,
     anchorLabelRight,
   }) => {
+    const Alert = useAlert()
     const dispatch = useDispatch()
     const [showTrial, setShowTrial] = useState<boolean>(false)
     const [showScale, setShowScale] = useState(false)
@@ -59,6 +67,7 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
     const ratingValueRef = useRef<any>()
     const mountedTimerRef = useRef<any>(false)
     const soundSensorListener = useRef<EmitterSubscription>()
+    const toastRef = useRef<ToastRef>()
 
     const onSoundStarted = () => {
       if (endTimerRef.current === undefined) {
@@ -123,6 +132,7 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
       // Setup Volume Listening
       soundSensorListener.current = AudioSensor.addVolumeListener(
         (volume: number) => {
+          // Record event
           dispatch(
             recordEvent({
               eventType: 'VolumeChange',
@@ -130,6 +140,18 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
               recorded: Date.now(),
             }),
           )
+
+          // Show user a toast warning
+          if (toastRef.current === undefined && volume < 1) {
+            toastRef.current = Alert.toast(
+              'Volume Change Detected',
+              'Please increase volume back to 100%',
+            )
+          } else if (volume === 1) {
+            // Hide Toast since we restored volume
+            toastRef.current.dismiss()
+            toastRef.current = undefined
+          }
         },
       )
 
@@ -168,6 +190,9 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
 
         // Disconnect volume listener
         soundSensorListener.current.remove()
+
+        // Remove toast warning
+        toastRef.current?.dismiss()
       }
     }, [])
 

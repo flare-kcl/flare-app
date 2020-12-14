@@ -50,6 +50,7 @@ export const theme = createTheme({
   borderRadii: {
     s: 4,
     m: 8,
+    l: 12,
     round: 1000000,
   },
   breakpoints: {

@@ -12,6 +12,7 @@ import { FlareThemeProvider } from '@utils/theme'
 import { store, peristor } from '@redux/store'
 import { onStateHydrated } from '@redux/persist'
 import { ExperimentContainer } from 'containers/ExperimentContainer'
+import { AlertProvider } from '@utils/AlertProvider'
 
 // Link with Sentry
 Sentry.init({
@@ -49,6 +50,7 @@ export default function App() {
         <StatusBar barStyle="dark-content" />
         <Provider store={store}>
           <PersistGate persistor={peristor}>
+            <AlertProvider />
             <ExperimentContainer />
           </PersistGate>
         </Provider>
