@@ -22,6 +22,16 @@ jest.mock('redux-persist', () => {
   }
 })
 
+jest.mock('react-native-get-random-values', () => ({
+  getRandomBase64: jest.fn(),
+}))
+
+const mockDispatch = jest.fn()
+jest.mock('react-redux', () => ({
+  useSelector: jest.fn(),
+  useDispatch: () => mockDispatch,
+}))
+
 // Mock any Native Modules
 const NativeModules = {
   AudioSensor: {
