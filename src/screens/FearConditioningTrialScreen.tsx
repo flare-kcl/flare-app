@@ -11,6 +11,7 @@ import {
   RatingScale,
   Interval,
   ToastRef,
+  AlertRef,
 } from '@components'
 import AudioSensor from '@utils/AudioSensor'
 import { useAlert } from '@utils/AlertProvider'
@@ -66,8 +67,10 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
     const scaleTimerRef = useRef<any>()
     const ratingValueRef = useRef<any>()
     const mountedTimerRef = useRef<any>(false)
-    const soundSensorListener = useRef<EmitterSubscription>()
+    const volumeSensorListener = useRef<EmitterSubscription>()
+    const headphoneSensorListener = useRef<EmitterSubscription>()
     const toastRef = useRef<ToastRef>()
+    const headphoneRef = useRef<AlertRef>()
 
     const onSoundStarted = () => {
       if (endTimerRef.current === undefined) {
@@ -134,8 +137,28 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
         )
       } else if (volume === 1) {
         // Hide Toast since we restored volume
-        toastRef.current.dismiss()
+        toastRef.current?.dismiss()
         toastRef.current = undefined
+      }
+    }
+
+    const showHeadphoneAlert = (connected: boolean) => {
+      // Show user a toast warning
+      if (headphoneRef.current === undefined && connected === false) {
+        headphoneRef.current = Alert.alert(
+          'Reconnect Headphones',
+          'Please reconnect your headphones to continue.',
+          [
+            {
+              label: 'Continue',
+              onPress: async () => {
+                // Reopen prompt if they have not been connected
+                headphoneRef.current = undefined
+                showHeadphoneAlert(await AudioSensor.isHeadphonesConnected())
+              },
+            },
+          ],
+        )
       }
     }
 
@@ -145,7 +168,7 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
 
       // Setup Volume Listening
       AudioSensor.getCurrentVolume().then(showVolumeToast)
-      soundSensorListener.current = AudioSensor.addVolumeListener(
+      volumeSensorListener.current = AudioSensor.addVolumeListener(
         (volume: number) => {
           // Record event
           dispatch(
@@ -159,6 +182,12 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
           // Show toast if we have to
           showVolumeToast(volume)
         },
+      )
+
+      // Setup Headphone Listening
+      AudioSensor.isHeadphonesConnected().then(showHeadphoneAlert)
+      headphoneSensorListener.current = AudioSensor.addHeadphonesListener(
+        showHeadphoneAlert,
       )
 
       mountedTimerRef.current = setTimeout(() => {
@@ -195,10 +224,12 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
         soundRef.current?.unloadAsync()
 
         // Disconnect volume listener
-        soundSensorListener.current.remove()
+        volumeSensorListener.current?.remove()
+        headphoneSensorListener.current?.remove()
 
         // Remove toast warning
         toastRef.current?.dismiss()
+        headphoneRef.current?.dismiss()
       }
     }, [])
 

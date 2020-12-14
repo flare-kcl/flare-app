@@ -122,6 +122,7 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
                 },
               },
             ],
+            'yellow',
           )
         }
       })
@@ -137,6 +138,8 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
       Alert.alert(
         'Rate the volume',
         'Please use the rating scale to describe how you felt about the played sound',
+        [],
+        'yellow',
       )
     }
 
@@ -164,6 +167,7 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
             },
           },
         ],
+        'yellow',
       )
     }
 

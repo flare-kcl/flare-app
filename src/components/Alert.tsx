@@ -1,9 +1,10 @@
-import AudioSensor from '@utils/AudioSensor'
+import {
+  Modal,
+  TouchableOpacity,
+} from 'react-native'
+
 import { ThemeColors } from '@utils/theme'
-import { TouchableOpacity } from 'react-native'
-import { Text } from '.'
-import { Box } from './Box'
-import { SafeAreaView } from './SafeAreaView'
+import { Text, SafeAreaView, Box } from '.'
 
 type AlertProps = {
   id: any
@@ -23,7 +24,7 @@ export const Alert: React.FC<AlertProps> = ({
   color,
 }) => {
   return (
-    <>
+    <Modal transparent={true} visible={true}>
       {/* Alert Modal */}
       <Box
         flex={1}
@@ -33,6 +34,7 @@ export const Alert: React.FC<AlertProps> = ({
         left={0}
         position="absolute"
         zIndex={100}
+        elevation={100}
         justifyContent="flex-end"
       >
         <Box
@@ -45,15 +47,11 @@ export const Alert: React.FC<AlertProps> = ({
           borderTopColor={color}
           borderTopWidth={10}
           borderRadius="m"
+          zIndex={110}
         >
           <SafeAreaView flex={1}>
             {/* Alert Heading */}
-            <Text
-              color="darkGrey"
-              fontWeight="800"
-              fontSize={28}
-              fontFamily="inter"
-            >
+            <Text color="darkGrey" fontSize={28} fontFamily="Inter-Bold">
               {title}
             </Text>
 
@@ -61,9 +59,8 @@ export const Alert: React.FC<AlertProps> = ({
             <Text
               mt={6}
               color="darkGrey"
-              fontWeight="500"
+              fontFamily="Inter-Regular"
               fontSize={16}
-              fontFamily="inter"
             >
               {description}
             </Text>
@@ -76,6 +73,7 @@ export const Alert: React.FC<AlertProps> = ({
               justifyContent="flex-start"
               alignItems="flex-start"
               pb={6}
+              zIndex={120}
             >
               {actions.length > 0 ? (
                 actions.map((props) => (
@@ -85,7 +83,7 @@ export const Alert: React.FC<AlertProps> = ({
                 <AlertButton
                   alertRef={alertRef}
                   label="Dismiss"
-                  onPress={() => alertRef.dismiss()}
+                  onPress={(alertRef) => alertRef.dismiss()}
                 />
               )}
             </Box>
@@ -102,10 +100,11 @@ export const Alert: React.FC<AlertProps> = ({
         left={0}
         position="absolute"
         zIndex={99}
+        elevation={99}
         backgroundColor="black"
         opacity={0.8}
       />
-    </>
+    </Modal>
   )
 }
 
@@ -137,21 +136,20 @@ const AlertButton: React.FC<AlertButtonProps> = ({
   }[style]
 
   return (
-    <TouchableOpacity
-      delayPressIn={0}
-      delayPressOut={0}
-      style={{ marginRight: 30 }}
-      onPress={() => {
-        // Call handler if exists
-        onPress?.(alertRef)
+    <Box mr={6}>
+      <TouchableOpacity
+        onPress={() => {
+          // Call handler if exists
+          onPress?.(alertRef)
 
-        // Dimiss alert
-        alertRef.dismiss()
-      }}
-    >
-      <Text fontSize={19} fontFamily="inter" color={color} fontWeight="600">
-        {label}
-      </Text>
-    </TouchableOpacity>
+          // Dimiss alert
+          alertRef.dismiss()
+        }}
+      >
+        <Text fontSize={19} fontFamily="Inter-SemiBold" color={color}>
+          {label}
+        </Text>
+      </TouchableOpacity>
+    </Box>
   )
 }
