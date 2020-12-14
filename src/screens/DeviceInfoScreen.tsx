@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import * as Device from 'expo-device'
 import { ScrollView } from 'react-native-gesture-handler'
 import {
@@ -36,22 +36,19 @@ export const DeviceInfoScreen: React.FunctionComponent<DeviceInfoScreenProps> = 
   updateModule,
   onNext,
 }) => {
+  const [genderValue, setGenderValue] = useState<string>()
+  const [dobValue, setDobValue] = useState<string>()
+
   useEffect(() => {
     updateModule({
       model: Device.modelName,
       manufacturer: Device.manufacturer,
       version: Device.osVersion,
       operatingSystem: Device.osName,
+      gender: genderValue,
+      dob: dobValue,
     })
-  }, [])
-
-  function setDob(dob) {
-    updateModule({ dob })
-  }
-
-  function setGender(gender) {
-    updateModule({ gender })
-  }
+  }, [dobValue, genderValue])
 
   return (
     <>
@@ -68,15 +65,17 @@ export const DeviceInfoScreen: React.FunctionComponent<DeviceInfoScreenProps> = 
             <Text variant="heading3">Please enter your details below</Text>
             <LabeledDateField
               label="Date of birth"
-              value={dob ? new Date(dob) : new Date()}
-              onChange={setDob}
+              value={
+                dob ? new Date(dob) : dobValue ? new Date(dobValue) : new Date()
+              }
+              onChange={setDobValue}
               disabled
             />
             <LabeledPickerField
               label="Gender"
-              value={gender}
+              value={genderValue}
               options={genders}
-              onChange={setGender}
+              onChange={setGenderValue}
               placeholder="Select your gender..."
             />
             <LabeledTextField
