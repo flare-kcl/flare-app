@@ -11,6 +11,7 @@ import {
   AlertRecord,
   ToastRecord,
 } from '@redux/reducers'
+import { ThemeColors } from './theme'
 
 const createAlertRef = (dispatch, alert): AlertRef => ({
   dismiss: () => dispatch(dismissAlert(alert.id)),
@@ -57,6 +58,7 @@ type AlertInterface = {
     title: string,
     description: string,
     actions?: AlertAction[],
+    color?: ThemeColors,
   ) => AlertRef
   toast: (title: string, description: string) => ToastRef
 }
@@ -65,13 +67,14 @@ export const useAlert = (): AlertInterface => {
   const dispatch = useDispatch()
 
   return {
-    alert: (title, description, actions = []) => {
+    alert: (title, description, actions = [], color = 'red') => {
       // Create alert
       const alert: AlertRecord = {
         id: uuidv4(),
         title,
         description,
         actions,
+        color,
       }
 
       // Save alert to state

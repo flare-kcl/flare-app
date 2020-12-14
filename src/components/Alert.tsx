@@ -1,4 +1,5 @@
 import AudioSensor from '@utils/AudioSensor'
+import { ThemeColors } from '@utils/theme'
 import { TouchableOpacity } from 'react-native'
 import { Text } from '.'
 import { Box } from './Box'
@@ -10,6 +11,7 @@ type AlertProps = {
   title: string
   description: string
   actions?: AlertAction[]
+  color?: ThemeColors
 }
 
 export const Alert: React.FC<AlertProps> = ({
@@ -18,6 +20,7 @@ export const Alert: React.FC<AlertProps> = ({
   title,
   description,
   actions,
+  color,
 }) => {
   return (
     <>
@@ -39,7 +42,7 @@ export const Alert: React.FC<AlertProps> = ({
           pt={6}
           px={4}
           backgroundColor="white"
-          borderTopColor="red"
+          borderTopColor={color}
           borderTopWidth={10}
           borderRadius="m"
         >
@@ -146,7 +149,7 @@ const AlertButton: React.FC<AlertButtonProps> = ({
         alertRef.dismiss()
       }}
     >
-      <Text fontSize={18} color={color} fontWeight="600">
+      <Text fontSize={19} fontFamily="inter" color={color} fontWeight="600">
         {label}
       </Text>
     </TouchableOpacity>

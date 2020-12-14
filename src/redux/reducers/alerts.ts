@@ -1,10 +1,12 @@
 import { createAction, createReducer } from '@reduxjs/toolkit'
 import { AlertAction } from '@components'
+import { ThemeColors } from '@utils/theme'
 
 export type AlertRequest = {
   title: string
   description: string
   actions: AlertAction[]
+  color?: ThemeColors
 }
 
 export type ToastRequest = {

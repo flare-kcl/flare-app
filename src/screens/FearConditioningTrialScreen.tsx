@@ -125,11 +125,26 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
       }
     }
 
+    const showVolumeToast = (volume: number) => {
+      // Show user a toast warning
+      if (toastRef.current === undefined && volume < 1) {
+        toastRef.current = Alert.toast(
+          'Volume Change Detected',
+          'Please increase volume back to 100%',
+        )
+      } else if (volume === 1) {
+        // Hide Toast since we restored volume
+        toastRef.current.dismiss()
+        toastRef.current = undefined
+      }
+    }
+
     useEffect(() => {
       // Setup sound object before setting timers
       setupSound()
 
       // Setup Volume Listening
+      AudioSensor.getCurrentVolume().then(showVolumeToast)
       soundSensorListener.current = AudioSensor.addVolumeListener(
         (volume: number) => {
           // Record event
@@ -141,17 +156,8 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
             }),
           )
 
-          // Show user a toast warning
-          if (toastRef.current === undefined && volume < 1) {
-            toastRef.current = Alert.toast(
-              'Volume Change Detected',
-              'Please increase volume back to 100%',
-            )
-          } else if (volume === 1) {
-            // Hide Toast since we restored volume
-            toastRef.current.dismiss()
-            toastRef.current = undefined
-          }
+          // Show toast if we have to
+          showVolumeToast(volume)
         },
       )
 
@@ -203,7 +209,7 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
 
         {/* Set opacity to zero during inter-trial delay to enable loading of images */}
         <Box flex={1} opacity={showTrial ? 1 : 0}>
-          <Box height="70%">
+          <Box height="55%">
             <TrialImageStack
               contextImage={contextImage}
               stimulusImage={stimulusImage}
