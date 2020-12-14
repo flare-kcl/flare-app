@@ -43,7 +43,6 @@ export const Alert: React.FC<AlertProps> = ({
           backgroundColor="white"
           borderTopColor={color}
           borderTopWidth={10}
-          borderRadius="m"
           zIndex={110}
         >
           <SafeAreaView flex={1}>
