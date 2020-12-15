@@ -1,3 +1,6 @@
+import { useRef } from 'react'
+import { TouchableOpacity } from 'react-native'
+import { MaterialIcons } from '@expo/vector-icons'
 import { WebView, WebViewNavigation } from 'react-native-webview'
 
 import { Box, Text, Button, SafeAreaView } from '@components'
@@ -17,6 +20,7 @@ export const ExternalLinkScreen: React.FunctionComponent<ExternalLinkScreenProps
   closeDetectionMatch,
 }) => {
   const Alert = useAlert()
+  const webView = useRef<any>()
   const onNavigationStateChange = (navigation: WebViewNavigation) => {
     if (closeDetectionMatch && navigation.url.includes(closeDetectionMatch)) {
       onNext()
@@ -40,6 +44,12 @@ export const ExternalLinkScreen: React.FunctionComponent<ExternalLinkScreenProps
     )
   }
 
+  // Force the webview to reset to original origin (This is the recommended way...)
+  const resetWebView = () => {
+    const redirectTo = 'window.location = "' + link + '"'
+    webView.current.injectJavaScript(redirectTo)
+  }
+
   return (
     <SafeAreaView flex={1} backgroundColor="purple">
       <Box
@@ -48,7 +58,11 @@ export const ExternalLinkScreen: React.FunctionComponent<ExternalLinkScreenProps
         paddingVertical={4}
         alignItems="center"
       >
-        <Box width="25%" />
+        <Box width="25%" pl={5}>
+          <TouchableOpacity onPress={resetWebView}>
+            <MaterialIcons name="loop" size={24} color="white" />
+          </TouchableOpacity>
+        </Box>
         <Box width="50%" alignItems="center">
           <Text color="white" fontSize={16} fontWeight="600">
             {title}
@@ -68,7 +82,9 @@ export const ExternalLinkScreen: React.FunctionComponent<ExternalLinkScreenProps
         />
       </Box>
       <WebView
+        ref={webView}
         source={{ uri: link }}
+        allowsBackForwardNavigationGestures
         onNavigationStateChange={onNavigationStateChange}
       />
     </SafeAreaView>
