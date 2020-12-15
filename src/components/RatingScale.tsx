@@ -16,6 +16,7 @@ type RatingScaleProps = {
   lockFirstRating?: boolean
   onChange?: (value: number) => void
   disabled?: boolean
+  ratingOptions?: number[]
 }
 
 export const RatingScale: React.FunctionComponent<RatingScaleProps> = ({
@@ -25,15 +26,15 @@ export const RatingScale: React.FunctionComponent<RatingScaleProps> = ({
   onChange,
   disabled,
   lockFirstRating = true,
+  ratingOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9],
 }) => {
   // Keep track of selected value
-  const ratingOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9]
   const [locked, setLocked] = useState(false)
   const [currentButton, setCurrentButton] = useState<number>()
 
   // Calculate size of buttons
   const screenWidth = Dimensions.get('screen').width
-  const boxSize = 0.1 * screenWidth
+  const boxSize = (1 / (ratingOptions.length + 1)) * screenWidth
 
   // Only lock if specified via props
   const setRatingLocked = (locked: boolean) => {
@@ -70,8 +71,10 @@ export const RatingScale: React.FunctionComponent<RatingScaleProps> = ({
     const { absoluteX } = event.nativeEvent
     // See what segment along scale the finger is scrolling past
     let value = Math.round((absoluteX / screenWidth) * ratingOptions.length)
-    // Apply 1-9 bounds to value
-    value = value < 1 ? 1 : value > 9 ? 9 : value
+    // Apply 1-n bounds to value
+    const minValue = ratingOptions[0]
+    const maxValue = ratingOptions[ratingOptions.length - 1]
+    value = value < minValue ? minValue : value > maxValue ? maxValue : value
     if (!locked) {
       setSelectionOption(value, true)
     }

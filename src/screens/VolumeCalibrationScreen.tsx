@@ -144,13 +144,13 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
     }
 
     // If sound is painful then decrement one step and repeat calibration
-    else if (volumeRating == 9) {
+    else if (volumeRating == 10) {
       decrementVolume()
       setStage(VolumeCalibrationStages.Error)
     }
 
     // User finds volume painful, let's verify they want to continue
-    else if (volumeRating === 8) {
+    else if (volumeRating === 9) {
       Alert.alert(
         'Are you sure',
         'You may hear sounds at this volume multiple times during the experiment. Do you think you can tolerate this volume?',
@@ -256,6 +256,7 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
               anchorLabelRight="Painful"
               lockFirstRating={false}
               onChange={(rating) => setVolumeRating(rating)}
+              ratingOptions={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
             />
             <Box px={5}>
               <Button variant="primary" label="Next" onPress={validateRating} />
