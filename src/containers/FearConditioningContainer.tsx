@@ -166,7 +166,7 @@ function generateTrials(
   // Create equal amounts of trials
   let positiveStimuliTrials: Trial[] = []
   let negativeStimuliTrials: Trial[] = []
-  for (var i = 0; i <= trialsPerStimulus; i++) {
+  for (var i = 0; i < trialsPerStimulus; i++) {
     // Generate positive stimulus trial
     positiveStimuliTrials.push({
       label: positiveStimuli.label,
