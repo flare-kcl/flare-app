@@ -154,7 +154,7 @@ export const InstructionsContainer: ExperimentModule<InstructionsModuleState> = 
   const CurrentScreen = IntroScreen ?? TrialScreen
   const inRatingPhase = IntroScreen === undefined && TrialScreen !== undefined
 
-  // Generate a componennt with appropariate key to optimize rendering
+  // Generate a component with appropariate key to optimize rendering
   const Screen =
     CurrentScreen &&
     CurrentScreen(

@@ -57,9 +57,7 @@ export const alertReducer = createReducer<AlertState>(
     builder.addCase(dismissAlert, (state, action) => {
       // Remove any alerts with id
       state.alerts = state.alerts.filter((alert) => {
-        if (alert.id != action.payload) return true
-
-        return false
+        return alert.id !== action.payload
       })
 
       return state
@@ -68,9 +66,7 @@ export const alertReducer = createReducer<AlertState>(
     builder.addCase(dismissToast, (state, action) => {
       // Remove any alerts with id
       state.toasts = state.toasts.filter((toast) => {
-        if (toast.id != action.payload) return true
-
-        return false
+        return toast.id !== action.payload
       })
 
       return state
