@@ -1,9 +1,9 @@
-import { useEffect, useState, useRef } from 'react'
-import { Alert } from 'react-native'
+import { useState, useRef } from 'react'
 import { Audio } from 'expo-av'
 import { Entypo } from '@expo/vector-icons'
 import { Text, Box, Button, RatingScale, SafeAreaView } from '@components'
 import { palette } from '@utils/theme'
+import { useAlert } from '@utils/AlertProvider'
 
 type VolumeCalibrationScreenParams = {
   onFinishCalibration: (volume: number) => void
@@ -19,6 +19,7 @@ enum VolumeCalibrationStages {
 export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationScreenParams> = ({
   onFinishCalibration,
 }) => {
+  const Alert = useAlert()
   const volume = useRef(0.5)
   const soundRef = useRef<Audio.Sound>()
   const [stage, setStage] = useState(VolumeCalibrationStages.Intro)
@@ -93,14 +94,15 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
             'Is the volume of the sound uncomfortable?',
             [
               {
-                text: 'Yes',
+                label: 'Yes',
                 onPress: () => {
                   // Switch to volume rating
                   setStage(VolumeCalibrationStages.Rating)
+                  console.log('Clicked yes!')
                 },
               },
               {
-                text: 'No',
+                label: 'No',
                 onPress: () => {
                   // If reached max volume
                   if (volume.current >= 1.0) {
@@ -113,14 +115,14 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
                 },
               },
               {
-                text: 'Listen Again',
+                label: 'Listen Again',
                 onPress: () => {
                   // Restart countdown
                   testCurrentVolume()
                 },
               },
             ],
-            { cancelable: false },
+            'yellow',
           )
         }
       })
@@ -136,6 +138,8 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
       Alert.alert(
         'Rate the volume',
         'Please use the rating scale to describe how you felt about the played sound',
+        [],
+        'yellow',
       )
     }
 
@@ -152,18 +156,18 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
         'You may hear sounds at this volume multiple times during the experiment. Do you think you can tolerate this volume?',
         [
           {
-            text: 'Yes',
+            label: 'Yes',
             onPress: () => onFinishCalibration(volume.current),
           },
           {
-            text: 'No',
+            label: 'No',
             onPress: () => {
               decrementVolume()
               setStage(VolumeCalibrationStages.Error)
             },
           },
         ],
-        { cancelable: false },
+        'yellow',
       )
     }
 

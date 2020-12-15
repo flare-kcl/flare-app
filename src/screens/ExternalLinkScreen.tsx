@@ -1,7 +1,7 @@
-import { Alert } from 'react-native'
 import { WebView, WebViewNavigation } from 'react-native-webview'
 
 import { Box, Text, Button, SafeAreaView } from '@components'
+import { useAlert } from '@utils/AlertProvider'
 
 export type ExternalLinkScreenProps = {
   link: string
@@ -16,6 +16,7 @@ export const ExternalLinkScreen: React.FunctionComponent<ExternalLinkScreenProps
   onNext,
   closeDetectionMatch,
 }) => {
+  const Alert = useAlert()
   const onNavigationStateChange = (navigation: WebViewNavigation) => {
     if (closeDetectionMatch && navigation.url.includes(closeDetectionMatch)) {
       onNext()
@@ -28,12 +29,12 @@ export const ExternalLinkScreen: React.FunctionComponent<ExternalLinkScreenProps
       'You will not be able to return to this screen. Are you sure you want to continue?',
       [
         {
-          text: 'Continue',
-          onPress: () => onNext(),
+          label: 'Dismiss',
+          style: 'cancel',
         },
         {
-          text: 'Dismiss',
-          style: 'cancel',
+          label: 'Continue',
+          onPress: () => onNext(),
         },
       ],
     )

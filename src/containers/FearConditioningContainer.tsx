@@ -1,11 +1,11 @@
 import { useEffect, useCallback, useState } from 'react'
-import { Alert } from 'react-native'
 import { shuffle } from 'lodash'
 import { ExperimentModule } from './ExperimentContainer'
 import {
   FearConditioningTrialScreen,
   FearConditioningTrialResponse,
 } from '@screens'
+import { useAlert } from '@utils/AlertProvider'
 
 export type FearConditioningModuleState = {
   phase: string
@@ -32,6 +32,7 @@ export const FearConditioningContainer: ExperimentModule<FearConditioningModuleS
   exitExperiment,
   onModuleComplete,
 }) => {
+  const Alert = useAlert()
   const [lastTrialSkipped, setLastTrialSkipped] = useState(false)
 
   // Build the trials sequence on first render
@@ -69,12 +70,12 @@ export const FearConditioningContainer: ExperimentModule<FearConditioningModuleS
             'You have not been rating trials in the designated time, Please try to answer them as fast as you can.',
             [
               {
-                text: 'Exit Experiment',
+                label: 'Exit Experiment',
                 onPress: () => exitExperiment(),
                 style: 'cancel',
               },
               {
-                text: 'Continue',
+                label: 'Continue',
                 onPress: () => {
                   // Continue with trials
                   if (experiment.rejectionReason === undefined) {
@@ -83,7 +84,6 @@ export const FearConditioningContainer: ExperimentModule<FearConditioningModuleS
                 },
               },
             ],
-            { cancelable: false },
           )
           return
         } else {

@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { Alert, Dimensions, ScrollView } from 'react-native'
+import { Dimensions, ScrollView } from 'react-native'
 import { useDispatch } from 'react-redux'
 import Spinner from 'react-native-spinkit'
 import Config from 'react-native-config'
@@ -11,6 +11,7 @@ import { Box, Text, Button, Image, TextField, SafeAreaView } from '@components'
 import { palette } from '@utils/theme'
 import { exampleExperimentData } from '@utils/exampleExperiment'
 import { updateExperiment, updateModule } from '@redux/reducers'
+import { useAlert } from '@utils/AlertProvider'
 
 const dimensions = Dimensions.get('screen')
 enum Stages {
@@ -20,6 +21,7 @@ enum Stages {
 }
 
 export const LoginScreen = () => {
+  const Alert = useAlert()
   const dispatch = useDispatch()
   const loginScroll = useRef(null)
   const [stage, setStage] = useState(0)

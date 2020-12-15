@@ -10,6 +10,7 @@ import {
   rnAppStateReducer,
   experimentReducer,
   moduleReducer,
+  alertReducer,
 } from './reducers'
 
 const reducers = combineReducers({
@@ -17,11 +18,13 @@ const reducers = combineReducers({
   appState: rnAppStateReducer,
   modules: moduleReducer,
   experiment: experimentReducer,
+  alerts: alertReducer,
 })
 
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
+  blacklist: ['alerts'],
 }
 
 export const store = configureStore({
