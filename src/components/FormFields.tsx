@@ -79,7 +79,15 @@ export const LabeledDateField = ({ label, value, onChange, ...props }) => (
       borderRadius="m"
       alignItems="center"
     >
-      <DatePicker mode="date" date={value} onDateChange={onChange} />
+      <DatePicker
+        mode="date"
+        date={value}
+        locale="fr"
+        onDateChange={(date) => {
+          console.log('Date CHanged', date)
+          onChange(date)
+        }}
+      />
     </Box>
   </Box>
 )

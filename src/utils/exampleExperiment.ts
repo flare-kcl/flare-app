@@ -108,6 +108,11 @@ export const exampleExperimentData: Experiment = {
           { label: 'Female', value: 'female' },
           { label: 'Other', value: 'other' },
         ],
+        collectDateOfBirth: true,
+        collectGender: true,
+        collectHeadphoneMake: true,
+        collectHeadphoneModel: true,
+        collectHeadphoneLabel: true,
       },
     },
     {

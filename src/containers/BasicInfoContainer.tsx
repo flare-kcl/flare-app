@@ -1,13 +1,19 @@
-import { useState } from 'react'
 import { ExperimentModule } from './ExperimentContainer'
 import { DeviceInfoScreen, HeadphoneChoiceScreen } from '@screens'
-import { useEffect } from 'react'
 
 export type PickerOptions = [{ label: string; value: string }]
-export type HeadphoneType = 'IN_EAR' | 'ON_EAR' | 'OVER_EAR'
+export type HeadphoneType = 'in_ear' | 'on_ear' | 'over_ear'
 
-export type BasicInfoContainerState = {
+export type BasicInfoModuleDefinition = {
   genders: PickerOptions
+  collectDateOfBirth: boolean
+  collectGender: boolean
+  collectHeadphoneMake: boolean
+  collectHeadphoneModel: boolean
+  collectHeadphoneLabel: boolean
+}
+
+export type BasicInfoContainerState = BasicInfoModuleDefinition & {
   screenIndex?: BasicInfoScreens
   dob?: string
   gender?: string
@@ -22,6 +28,12 @@ enum BasicInfoScreens {
   DeviceInfo = 0,
   HeadphoneChoice = 1,
 }
+
+const DEFAULT_GENDERS = [
+  { label: 'Male', value: 'male' },
+  { label: 'Female', value: 'female' },
+  { label: 'Other', value: 'other' },
+]
 
 export const BasicInfoContainer: ExperimentModule<BasicInfoContainerState> = ({
   module: mod,
@@ -45,8 +57,10 @@ export const BasicInfoContainer: ExperimentModule<BasicInfoContainerState> = ({
       return (
         <DeviceInfoScreen
           dob={mod.dob}
+          shouldCollectDob={mod.collectDateOfBirth}
+          shouldCollectGender={mod.collectGender}
           gender={mod.gender}
-          genders={mod.genders}
+          genders={mod.genders ?? DEFAULT_GENDERS}
           operatingSystem={mod.operatingSystem}
           model={mod.model}
           manufacturer={mod.manufacturer}

@@ -14,9 +14,9 @@ type HeadphonesDetectionScreenProps = {
 }
 
 const HeadphoneImages = {
-  ON_EAR: require('../assets/images/headphones/on-ear.jpg'),
-  IN_EAR: require('../assets/images/headphones/in-ear.jpg'),
-  OVER_EAR: require('../assets/images/headphones/over-ear.jpg'),
+  on_ear: require('../assets/images/headphones/on-ear.jpg'),
+  in_ear: require('../assets/images/headphones/in-ear.jpg'),
+  over_ear: require('../assets/images/headphones/over-ear.jpg'),
 }
 
 export const HeadphonesDetectionScreen: React.FunctionComponent<HeadphonesDetectionScreenProps> = ({
