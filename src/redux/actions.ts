@@ -66,6 +66,7 @@ const syncFearConditioningModule = async (
             trial.response?.decisionTime,
           ).toISOString(),
           volume_level: trial.response?.volume.toFixed(2),
+          calibrated_volume_level: experiment.volume.toFixed(2),
           headphones: trial.response?.headphonesConnected,
         })
 
