@@ -2,8 +2,8 @@ import { Dimensions, ImageSourcePropType } from 'react-native'
 import { Image, Box } from '@components'
 
 type TrialImageStackProps = {
-  contextImage: ImageSourcePropType
-  stimulusImage: ImageSourcePropType
+  contextImage?: ImageSourcePropType
+  stimulusImage?: ImageSourcePropType
 }
 
 // A base context image is sused to scale the stimulus
@@ -32,17 +32,19 @@ export const TrialImageStack: React.FunctionComponent<TrialImageStackProps> = ({
       justifyContent="center"
     >
       {/* Context Image */}
-      <Image {...imageSizingProps} source={contextImage} />
+      {contextImage && <Image {...imageSizingProps} source={contextImage} />}
 
       {/* Stimulus Image */}
-      <Image
-        position="absolute"
-        height="100%"
-        width="100%"
-        maxWidth={`${imageToScreenRatio}%`}
-        maxHeight={`${imageToScreenRatio}%`}
-        source={stimulusImage}
-      />
+      {stimulusImage && (
+        <Image
+          position="absolute"
+          height="100%"
+          width="100%"
+          maxWidth={`${imageToScreenRatio}%`}
+          maxHeight={`${imageToScreenRatio}%`}
+          source={stimulusImage}
+        />
+      )}
     </Box>
   )
 }
