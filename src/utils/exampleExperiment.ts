@@ -90,8 +90,8 @@ export const exampleExperimentData: Experiment = {
   ratingScaleAnchorLabelCenter: 'Uncertain',
   ratingScaleAnchorLabelRight: 'Certain scream',
   intervalTimeBounds: {
-    min: 500,
-    max: 1500,
+    min: 1,
+    max: 3,
   },
   modules: [
     {

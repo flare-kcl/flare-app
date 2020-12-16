@@ -123,7 +123,7 @@ export const FearConditioningContainer: ExperimentModule<FearConditioningModuleS
   // Calculate a random trial interval length
   const intervalBounds = experiment.definition.intervalTimeBounds
   const trialDelay =
-    Math.floor(Math.random() * intervalBounds.max) + intervalBounds.min
+    (Math.floor(Math.random() * intervalBounds.max) + intervalBounds.min) * 1000
 
   // Render the current trial
   const currentTrial = mod.trials[mod.currentTrialIndex]

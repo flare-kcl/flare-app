@@ -205,6 +205,13 @@ async function loginWithID(participantID: string, dispatch) {
     const experiment: Experiment = {
       id: experimentApiData.experiment.id,
       name: experimentApiData.experiment.name,
+      description: experimentApiData.experiment.description,
+      ratingScaleAnchorLabelLeft:
+        experimentApiData.experiment.rating_scale_anchor_label_left,
+      ratingScaleAnchorLabelRight:
+        experimentApiData.experiment.rating_scale_anchor_label_right,
+      ratingScaleAnchorLabelCenter:
+        experimentApiData.experiment.rating_scale_anchor_label_center,
       trialLength: experimentApiData.experiment.trial_length * 1000,
       ratingDelay: experimentApiData.experiment.rating_delay * 1000,
       modules: experimentApiData.modules.map(({ id, type, config }) => ({
@@ -212,11 +219,9 @@ async function loginWithID(participantID: string, dispatch) {
         moduleType: type,
         definition: camelcaseKeys(config),
       })),
-      // TODO: Hardcoded as backend doesn't support yet...
-      description: '',
       intervalTimeBounds: {
-        min: 500,
-        max: 1500,
+        min: experimentApiData.experiment.iti_min_delay,
+        max: experimentApiData.experiment.iti_max_delay,
       },
     }
 
@@ -239,6 +244,7 @@ async function loginWithID(participantID: string, dispatch) {
         participantID,
         definition: experiment,
         currentModuleIndex: 0,
+        isComplete: false,
       }),
     )
   } catch (err) {
@@ -269,6 +275,7 @@ function demoLogin(dispatch) {
       definition: exampleExperimentData,
       currentModuleIndex: 0,
       offlineOnly: true,
+      isComplete: false,
     }),
   )
 }
