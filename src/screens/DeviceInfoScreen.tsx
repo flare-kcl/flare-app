@@ -19,7 +19,7 @@ export type DeviceInfoScreenProps = {
   shouldCollectGender: boolean
   dob: string
   gender: string
-  genders: [{ label: string; value: string }]
+  genders: { label: string; value: string }[]
   operatingSystem: string
   model: string
   manufacturer: string

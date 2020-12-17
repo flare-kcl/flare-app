@@ -97,9 +97,7 @@ export const LabeledPickerField = ({
   value,
   options = [],
   onChange,
-  placeholder,
 }) => {
-  console.log(value)
   return (
     <Box width="100%" py={4}>
       <Text fontWeight="bold" color="darkGrey" pb={2}>

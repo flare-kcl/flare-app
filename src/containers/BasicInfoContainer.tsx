@@ -5,7 +5,6 @@ export type PickerOptions = [{ label: string; value: string }]
 export type HeadphoneType = 'in_ear' | 'on_ear' | 'over_ear'
 
 export type BasicInfoModuleDefinition = {
-  genders: PickerOptions
   collectDateOfBirth: boolean
   collectGender: boolean
   collectHeadphoneMake: boolean
@@ -29,9 +28,14 @@ enum BasicInfoScreens {
   HeadphoneChoice = 1,
 }
 
+// When updating this list, you also need to update the portal.
 const DEFAULT_GENDERS = [
   { label: 'Male', value: 'male' },
   { label: 'Female', value: 'female' },
+  { label: 'Non-binary', value: 'non_binary' },
+  { label: 'Prefer to self-define', value: 'self_define' },
+  { label: "Don't know", value: 'dont_know' },
+  { label: 'Prefer not to answer', value: 'no_answer' },
   { label: 'Other', value: 'other' },
 ]
 
@@ -60,7 +64,7 @@ export const BasicInfoContainer: ExperimentModule<BasicInfoContainerState> = ({
           shouldCollectDob={mod.collectDateOfBirth}
           shouldCollectGender={mod.collectGender}
           gender={mod.gender}
-          genders={mod.genders ?? DEFAULT_GENDERS}
+          genders={DEFAULT_GENDERS}
           operatingSystem={mod.operatingSystem}
           model={mod.model}
           manufacturer={mod.manufacturer}

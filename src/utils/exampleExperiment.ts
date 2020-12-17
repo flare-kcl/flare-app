@@ -103,11 +103,6 @@ export const exampleExperimentData: Experiment = {
       id: '451651',
       moduleType: 'BASIC_INFO',
       definition: {
-        genders: [
-          { label: 'Male', value: 'male' },
-          { label: 'Female', value: 'female' },
-          { label: 'Other', value: 'other' },
-        ],
         collectDateOfBirth: true,
         collectGender: true,
         collectHeadphoneMake: true,
