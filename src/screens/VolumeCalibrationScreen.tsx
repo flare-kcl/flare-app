@@ -98,7 +98,6 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
                 onPress: () => {
                   // Switch to volume rating
                   setStage(VolumeCalibrationStages.Rating)
-                  console.log('Clicked yes!')
                 },
               },
               {
