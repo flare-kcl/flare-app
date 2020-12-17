@@ -16,32 +16,32 @@ type ExperimentCriterion = {
   questionText: string
   helpText: string
   value?: boolean
-  requiredValue?: boolean
+  requiredAnswer?: boolean
   required: boolean
 }
 
 export type ExperimentCriteria = ExperimentCriterion[]
 
 export type CriteriaScreenParams = {
-  criteria: ExperimentCriteria
-  description: string
-  continueMessage: string
+  questions: ExperimentCriteria
+  introText: string
+  outroText: string
   onPassCriteria?: (criteria: ExperimentCriteria) => void
   onFailCriteria?: () => void
   onExit?: () => void
 }
 
 export const CriteriaScreen: React.FunctionComponent<CriteriaScreenParams> = ({
-  criteria,
-  description,
-  continueMessage,
+  questions,
+  introText,
+  outroText,
   onPassCriteria,
   onFailCriteria,
   onExit,
 }) => {
   const Alert = useAlert()
   let [consentCriteria, setConsentCriteria] = useState<ExperimentCriteria>(
-    criteria,
+    questions,
   )
 
   // Utility function to update the criteria object
@@ -78,8 +78,8 @@ export const CriteriaScreen: React.FunctionComponent<CriteriaScreenParams> = ({
     // Check if any of the answers make participant incompatible
     const invalidCriterion = consentCriteria.find(
       (criterion) =>
-        criterion.requiredValue !== undefined &&
-        criterion.value != criterion.requiredValue,
+        criterion.requiredAnswer !== undefined &&
+        criterion.value != criterion.requiredAnswer,
     )
 
     // Proceed or redirect
@@ -102,14 +102,14 @@ export const CriteriaScreen: React.FunctionComponent<CriteriaScreenParams> = ({
     >
       <SafeAreaView flex={1}>
         <Box flex={1} px={6} pt={10}>
-          {/* Experiment Description */}
-          <Markdown mb={4}>{description}</Markdown>
+          {/* Experiment introText */}
+          <Markdown mb={4}>{introText}</Markdown>
 
           {/* Loop over each consent criteria */}
           {consentCriteria.map((criterion) => (
             <Box key={`criterion-${criterion.id}`} pt={2} pb={8}>
               <Text variant="heading2">{criterion.questionText}</Text>
-              {criterion.helpText !== '' && (
+              {!!criterion.helpText && (
                 <Text fontSize={15} mb={4}>
                   {criterion.helpText}
                 </Text>
@@ -126,7 +126,7 @@ export const CriteriaScreen: React.FunctionComponent<CriteriaScreenParams> = ({
 
           <Box borderTopColor="lightGrey" borderTopWidth={2} pt={6} pb={6}>
             {/* Small feature text to remined them to check answers */}
-            <Markdown pb={4}>{continueMessage}</Markdown>
+            <Markdown pb={4}>{outroText}</Markdown>
             <Button
               testID="ContinueButton"
               label="Continue"

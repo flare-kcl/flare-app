@@ -67,7 +67,9 @@ export const exampleCriteriaDefinition = {
     {
       id: 9813,
       questionText: `3. Do you have a diagnosed anxiety condtion?`,
-      descriptionText: `Mauris ut urna nunc. Proin luctus, odio cursus ornare sodales, sapien metus ultrices nisl, at pulvinar dui ipsum et lacus. Cras sodales faucibus est vel volutpat. Pellentesque lacinia suscipit mi ut euismod. Donec ut viverra ante. Morbi bibendum vulputate neque vitae viverra. Mauris egestas vehicula tortor. Aenean ornare euismod massa, at cursus urna sodales nec.`,
+      helpText: `Mauris ut urna nunc. Proin luctus, odio cursus ornare sodales, sapien metus ultrices nisl, at pulvinar dui ipsum et lacus. Cras sodales faucibus est vel volutpat. Pellentesque lacinia suscipit mi ut euismod. Donec ut viverra ante. Morbi bibendum vulputate neque vitae viverra. Mauris egestas vehicula tortor. Aenean ornare euismod massa, at cursus urna sodales nec.`,
+      requiredAnswer: false,
+      required: true,
     },
   ],
 }

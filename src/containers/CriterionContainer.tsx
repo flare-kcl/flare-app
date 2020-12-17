@@ -22,9 +22,9 @@ export const CriterionContainer: ExperimentModule<CriteriaModuleState> = ({
 
   return (
     <CriteriaScreen
-      criteria={mod.questions}
-      description={mod.introText}
-      continueMessage={mod.outroText ?? ''}
+      introText={mod.introText}
+      outroText={mod.outroText ?? ''}
+      questions={mod.questions}
       onPassCriteria={submitCritera}
       onFailCriteria={() => exitExperiment('INCORRECT_CRITERIA')}
       onExit={() => exitExperiment('INCORRECT_CRITERIA')}
