@@ -1,7 +1,8 @@
-import Config from 'react-native-config'
 import { ExperimentCache, ExperimentModule, updateModule } from './reducers'
 import { AppState } from './store'
 import { FearConditioningModuleState } from '@containers/FearConditioningContainer'
+import { PortalAPI } from '@utils/PortalAPI'
+import { BasicInfoContainerState } from '@containers/BasicInfoContainer'
 
 export const syncExperiment = async (dispatch, getState: () => AppState) => {
   // Get Latest State
@@ -29,6 +30,10 @@ export const syncExperiment = async (dispatch, getState: () => AppState) => {
           await syncFearConditioningModule(experiment, mod, onModuleSync)
           break
 
+        case 'BASIC_INFO':
+          await syncBasicInfoModule(experiment, mod, onModuleSync)
+          break
+
         default:
           onModuleSync()
           console.warn(
@@ -53,41 +58,23 @@ const syncFearConditioningModule = async (
         // Don't attempt sync if no response
         if (trial.response === undefined || trial.response?.skipped) return
 
-        // Create the JSON object that the API expects
-        const submissionData = JSON.stringify({
-          trial: index + 1,
-          module: mod.moduleId,
-          participant: experiment.participantID,
-          rating: trial.response?.rating,
-          conditional_stimulus: trial.label,
-          unconditional_stimulus: trial.reinforced,
-          trial_started_at: new Date(trial.response?.startTime).toISOString(),
-          response_recorded_at: new Date(
-            trial.response?.decisionTime,
-          ).toISOString(),
-          volume_level: trial.response?.volume.toFixed(2),
-          calibrated_volume_level: experiment.volume.toFixed(2),
-          headphones: trial.response?.headphonesConnected,
-        })
-
+        // Submit data to portal
         try {
-          const response = await fetch(
-            `${Config.BASE_API_URL}/fear-conditioning-data/`,
-            {
-              method: 'POST',
-              headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': Config.API_AUTH_TOKEN,
-              },
-              body: submissionData,
-            },
-          )
-
-          // If validation error
-          if (response.status === 400) {
-            console.warn('Trial submission could not be processed.')
-          }
+          await PortalAPI.submitTrialRating({
+            trial: index + 1,
+            module: mod.moduleId,
+            participant: experiment.participantID,
+            rating: trial.response?.rating,
+            conditional_stimulus: trial.label,
+            unconditional_stimulus: trial.reinforced,
+            trial_started_at: new Date(trial.response?.startTime).toISOString(),
+            response_recorded_at: new Date(
+              trial.response?.decisionTime,
+            ).toISOString(),
+            volume_level: trial.response?.volume.toFixed(2),
+            calibrated_volume_level: experiment.volume.toFixed(2),
+            headphones: trial.response?.headphonesConnected,
+          })
         } catch (err) {
           console.error(err)
         }
@@ -98,5 +85,38 @@ const syncFearConditioningModule = async (
     onModuleSync()
   } catch (err) {
     console.error('Could not sync all trials', err)
+  }
+}
+
+const syncBasicInfoModule = async (
+  experiment: ExperimentCache,
+  mod: ExperimentModule<BasicInfoContainerState>,
+  onModuleSync: ModuleSyncCallback,
+) => {
+  try {
+    // Submit data to portal
+    await PortalAPI.submitBasicInfo({
+      participant: experiment.participantID,
+      module: mod.moduleId,
+      date_of_birth: mod.moduleState.dob,
+      gender: mod.moduleState.gender,
+      headphone_type: mod.moduleState.headphoneType,
+      device_make: mod.moduleState.manufacturer,
+      device_model: mod.moduleState.model,
+      os_name: mod.moduleState.operatingSystem,
+      os_version: mod.moduleState.version,
+      /*
+       TODO: The following three fields will be done as a seperate peice
+       of work as they are not MVP.
+      */
+      headphone_make: '',
+      headphone_model: '',
+      headphone_label: '',
+    })
+
+    // Mark module as synced
+    onModuleSync()
+  } catch (err) {
+    console.error(err)
   }
 }

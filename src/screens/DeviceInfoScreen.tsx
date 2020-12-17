@@ -12,11 +12,14 @@ import {
 } from '@components'
 
 import { BasicInfoContainerState } from '@containers/BasicInfoContainer'
+import AudioSensor from '@utils/AudioSensor'
 
 export type DeviceInfoScreenProps = {
+  shouldCollectDob: boolean
+  shouldCollectGender: boolean
   dob: string
   gender: string
-  genders: [{ label: string; value: string }]
+  genders: { label: string; value: string }[]
   operatingSystem: string
   model: string
   manufacturer: string
@@ -26,6 +29,8 @@ export type DeviceInfoScreenProps = {
 }
 
 export const DeviceInfoScreen: React.FunctionComponent<DeviceInfoScreenProps> = ({
+  shouldCollectDob,
+  shouldCollectGender,
   dob,
   gender,
   genders,
@@ -45,8 +50,8 @@ export const DeviceInfoScreen: React.FunctionComponent<DeviceInfoScreenProps> = 
       manufacturer: Device.manufacturer,
       version: Device.osVersion,
       operatingSystem: Device.osName,
-      gender: genderValue ?? genders[0],
-      dob: dobValue,
+      gender: shouldCollectGender ? genderValue ?? genders[0].value : null,
+      dob: shouldCollectDob ? dobValue : null,
     })
   }, [dobValue, genderValue])
 
@@ -63,21 +68,29 @@ export const DeviceInfoScreen: React.FunctionComponent<DeviceInfoScreenProps> = 
           <Box flex={1} pt={10} px={6} pb={6}>
             <Text variant="heading">Your information</Text>
             <Text variant="heading3">Please enter your details below</Text>
-            <LabeledDateField
-              label="Date of birth"
-              value={
-                dob ? new Date(dob) : dobValue ? new Date(dobValue) : new Date()
-              }
-              onChange={setDobValue}
-              disabled
-            />
-            <LabeledPickerField
-              label="Gender"
-              value={genderValue}
-              options={genders}
-              onChange={setGenderValue}
-              placeholder="Select your gender..."
-            />
+            {shouldCollectDob && (
+              <LabeledDateField
+                label="Date of birth"
+                value={
+                  dob
+                    ? new Date(dob)
+                    : dobValue
+                    ? new Date(dobValue)
+                    : new Date()
+                }
+                onChange={setDobValue}
+                disabled
+              />
+            )}
+            {shouldCollectGender && (
+              <LabeledPickerField
+                label="Gender"
+                value={genderValue}
+                options={genders}
+                onChange={setGenderValue}
+                placeholder="Select your gender..."
+              />
+            )}
             <LabeledTextField
               label="Operating System"
               value={operatingSystem}
@@ -90,7 +103,7 @@ export const DeviceInfoScreen: React.FunctionComponent<DeviceInfoScreenProps> = 
               disabled
             />
             <LabeledTextField label="Device Model" value={model} disabled />
-            {gender && (
+            {((shouldCollectDob && gender !== undefined) || true) && (
               <Button
                 variant="primary"
                 label="Next"

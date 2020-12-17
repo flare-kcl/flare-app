@@ -20,22 +20,22 @@ export const HeadphoneChoiceScreen: React.FunctionComponent<HeadphoneChoiceScree
           Select the type of headphones you are using
         </Text>
         <HeadphoneButton
-          active={headphoneType == 'IN_EAR'}
+          active={headphoneType == 'in_ear'}
           label="In-ear"
           image={require('../assets/images/headphones/in-ear.jpg')}
-          onPress={() => updateHeadphoneType('IN_EAR')}
+          onPress={() => updateHeadphoneType('in_ear')}
         />
         <HeadphoneButton
-          active={headphoneType == 'ON_EAR'}
+          active={headphoneType == 'on_ear'}
           label="On-ear"
           image={require('../assets/images/headphones/on-ear.jpg')}
-          onPress={() => updateHeadphoneType('ON_EAR')}
+          onPress={() => updateHeadphoneType('on_ear')}
         />
         <HeadphoneButton
-          active={headphoneType == 'OVER_EAR'}
+          active={headphoneType == 'over_ear'}
           label="Over-ear"
           image={require('../assets/images/headphones/over-ear.jpg')}
-          onPress={() => updateHeadphoneType('OVER_EAR')}
+          onPress={() => updateHeadphoneType('over_ear')}
         />
 
         {headphoneType && (

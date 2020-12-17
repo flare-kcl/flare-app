@@ -79,7 +79,12 @@ export const LabeledDateField = ({ label, value, onChange, ...props }) => (
       borderRadius="m"
       alignItems="center"
     >
-      <DatePicker mode="date" date={value} onDateChange={onChange} />
+      <DatePicker
+        mode="date"
+        date={value}
+        locale="fr"
+        onDateChange={(date) => onChange(date)}
+      />
     </Box>
   </Box>
 )
@@ -89,9 +94,7 @@ export const LabeledPickerField = ({
   value,
   options = [],
   onChange,
-  placeholder,
 }) => {
-  console.log(value)
   return (
     <Box width="100%" py={4}>
       <Text fontWeight="bold" color="darkGrey" pb={2}>
