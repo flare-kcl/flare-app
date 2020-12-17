@@ -83,10 +83,7 @@ export const LabeledDateField = ({ label, value, onChange, ...props }) => (
         mode="date"
         date={value}
         locale="fr"
-        onDateChange={(date) => {
-          console.log('Date CHanged', date)
-          onChange(date)
-        }}
+        onDateChange={(date) => onChange(date)}
       />
     </Box>
   </Box>
