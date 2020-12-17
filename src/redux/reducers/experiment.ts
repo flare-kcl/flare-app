@@ -17,6 +17,7 @@ export type ExperimentCache = {
   rejectionReason?: RejectionReason
   headphoneType?: HeadphoneType
   volume?: number
+  contactEmail?: string
   isComplete: boolean
 }
 
@@ -65,8 +66,11 @@ export const experimentReducer = createReducer<ExperimentCache>(
     })
 
     // Just reset the state...
-    builder.addCase(clearExperiment, () => {
-      return initialState
+    builder.addCase(clearExperiment, (state) => {
+      return {
+        ...initialState,
+        contactEmail: state.contactEmail,
+      }
     })
   },
 )

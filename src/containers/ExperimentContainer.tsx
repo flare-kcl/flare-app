@@ -82,13 +82,12 @@ export const ExperimentContainer = () => {
   const experiment = useSelector(experimentSelector)
   const experimentModules = useSelector(allModulesSelector)
   const currentModule = useSelector(currentModuleSelector)
-  const [contactEmail, setContactEmail] = useState<string>()
 
   // If the user has been 'screened out' then show respective screen
   if (experiment.rejectionReason) {
     return (
       <RejectionScreen
-        contactLink={contactEmail}
+        contactLink={experiment.contactEmail}
         reason={experiment.rejectionReason}
         onExit={() => terminateExperiment(false)}
       />
@@ -160,8 +159,6 @@ export const ExperimentContainer = () => {
     redirect = true,
     rejectionReason: RejectionReason = 'UNKNOWN',
   ) {
-    // Save contact email for rejection screen)
-    setContactEmail(experiment?.definition?.contactEmail)
     // Delete all event data
     dispatch(clearAllEvents())
     // Delete all the module cache

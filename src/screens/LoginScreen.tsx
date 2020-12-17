@@ -276,6 +276,7 @@ function demoLogin(dispatch) {
       currentModuleIndex: 0,
       offlineOnly: true,
       isComplete: false,
+      contactEmail: exampleExperimentData.contactEmail,
     }),
   )
 }
