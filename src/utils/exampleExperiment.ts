@@ -125,6 +125,28 @@ export const exampleExperimentData: Experiment = {
       definition: exampleCriteriaDefinition,
     },
     {
+      id: '546844',
+      moduleType: 'AFFECTIVE_RATING',
+      definition: {
+        stimuli: require('../assets/images/small.png'),
+        heading: 'Have you seen this blue circle before?',
+        ratingScaleAnchorLabelLeft: 'Definitely never seen before',
+        ratingScaleAnchorLabelCenter: 'Neutral',
+        ratingScaleAnchorLabelRight: 'Definitely have seen before',
+      },
+    },
+    {
+      id: '56516',
+      moduleType: 'AFFECTIVE_RATING',
+      definition: {
+        stimuli: require('../assets/images/large.png'),
+        heading: 'Have you seen this red circle before?',
+        ratingScaleAnchorLabelLeft: 'Definitely never seen before',
+        ratingScaleAnchorLabelCenter: 'Neutral',
+        ratingScaleAnchorLabelRight: 'Definitely have seen before',
+      },
+    },
+    {
       id: '848948',
       moduleType: 'FEAR_CONDITIONING',
       definition: {

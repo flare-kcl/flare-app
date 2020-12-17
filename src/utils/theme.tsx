@@ -67,6 +67,13 @@ export const theme = createTheme({
       alignSelf: 'flex-start',
       marginBottom: 3,
     },
+    heading2: {
+      fontFamily: 'Inter',
+      fontSize: 22,
+      fontWeight: '600',
+      color: 'darkGrey',
+      marginBottom: 2,
+    },
     heading3: {
       fontFamily: 'Inter',
       fontSize: 16,

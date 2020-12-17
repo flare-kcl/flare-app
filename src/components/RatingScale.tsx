@@ -124,6 +124,7 @@ export const RatingScale: React.FunctionComponent<RatingScaleProps> = ({
           alignItems="flex-start"
           px={1}
           pt={4}
+          minHeight={100}
         >
           <Box width="25%">
             <Text textAlign="left" fontWeight="600">
