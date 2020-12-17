@@ -44,6 +44,22 @@ export class PortalAPI {
       console.warn('Could not upload basic info data')
     }
   }
+
+  static async submitCriterionAnswer(
+    criterionAnswer: PortalCriterionSubmission,
+  ) {
+    // Convert object to string
+    const jsonData = JSON.stringify(criterionAnswer)
+    const response = await PortalAPI.executeAPIRequest(
+      'criterion-data',
+      jsonData,
+    )
+
+    // If validation error
+    if (response.status === 400) {
+      console.warn('Criterion answer could not be processed.')
+    }
+  }
 }
 
 type PortalTrialRatingSubmission = {
@@ -73,4 +89,11 @@ type PortalBasicInfoSubmission = {
   device_model: string
   os_name: string
   os_version: string
+}
+
+type PortalCriterionSubmission = {
+  participant: string
+  module: string
+  question: number
+  answer: boolean
 }

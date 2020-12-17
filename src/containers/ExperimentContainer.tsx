@@ -32,7 +32,7 @@ const ExperimentModuleTypes = {
   BASIC_INFO: BasicInfoContainer,
   EXTERNAL_LINK: ExternalLinkContainer,
   TERMS: TermsContainer,
-  CRITERIA: CriterionContainer,
+  CRITERION: CriterionContainer,
   INSTRUCTIONS: InstructionsContainer,
   VOLUME_CALIBRATION: VolumeCalibrationContainer,
   FEAR_CONDITIONING: FearConditioningContainer,
@@ -133,11 +133,15 @@ export const ExperimentContainer = () => {
     ExperimentModuleTypes[currentModule?.moduleType]
 
   // This function is called when the experiment should transition to next module.
-  function onModuleComplete() {
+  function onModuleComplete(updatedModuleState = {}) {
     // Mark current module as complete
     dispatch(
       updateModule({
         ...currentModule,
+        moduleState: {
+          ...currentModule.moduleState,
+          ...updatedModuleState,
+        },
         moduleCompleted: true,
       }),
     )

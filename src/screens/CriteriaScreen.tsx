@@ -3,6 +3,7 @@ import { ScrollView } from 'react-native-gesture-handler'
 
 import {
   Box,
+  Text,
   Button,
   Markdown,
   CriterionToggle,
@@ -11,10 +12,12 @@ import {
 import { useAlert } from '@utils/AlertProvider'
 
 type ExperimentCriterion = {
-  name: string
-  description: string
+  id: number
+  questionText: string
+  helpText: string
   value?: boolean
   requiredValue?: boolean
+  required: boolean
 }
 
 export type ExperimentCriteria = ExperimentCriterion[]
@@ -42,10 +45,10 @@ export const CriteriaScreen: React.FunctionComponent<CriteriaScreenParams> = ({
   )
 
   // Utility function to update the criteria object
-  const updateCriteria = (name: string, value: boolean) => {
+  const updateCriteria = (id: number, value: boolean) => {
     setConsentCriteria(
       consentCriteria.map((criteria) => {
-        if (criteria.name == name) {
+        if (criteria.id == id) {
           return {
             ...criteria,
             value,
@@ -60,7 +63,11 @@ export const CriteriaScreen: React.FunctionComponent<CriteriaScreenParams> = ({
   // Utility function to check the validity of consent data
   const onContinue = () => {
     // Check if any questions are unanswered
-    if (consentCriteria.find((criterion) => criterion.value == null)) {
+    if (
+      consentCriteria.find(
+        (criterion) => criterion.value === undefined && criterion.required,
+      )
+    ) {
       Alert.alert(
         'Check your answers!',
         "It looks like you haven't answered all the questions.",
@@ -100,10 +107,16 @@ export const CriteriaScreen: React.FunctionComponent<CriteriaScreenParams> = ({
 
           {/* Loop over each consent criteria */}
           {consentCriteria.map((criterion) => (
-            <Box key={criterion.name} pt={2} pb={8}>
-              <Markdown>{criterion.description}</Markdown>
+            <Box key={`criterion-${criterion.id}`} pt={2} pb={8}>
+              <Text variant="heading2">{criterion.questionText}</Text>
+              {criterion.helpText !== '' && (
+                <Text fontSize={15} mb={4}>
+                  {criterion.helpText}
+                </Text>
+              )}
               <CriterionToggle
-                name={criterion.name}
+                id={criterion.id}
+                name={criterion.questionText}
                 value={criterion.value}
                 onChange={updateCriteria}
                 mt={4}

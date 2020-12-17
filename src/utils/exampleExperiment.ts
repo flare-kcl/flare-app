@@ -49,28 +49,27 @@ export const exampleTermsDefinition = {
 }
 
 export const exampleCriteriaDefinition = {
-  description: `# What is this experiment? \n Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ac magna ut neque auctor varius et eu lectus. Proin eget fringilla lectus. Donec feugiat, turpis sed blandit lacinia, dolor nulla pretium quam, quis cursus neque lorem et ipsum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus aliquam tortor at rhoncus condimentum. Maecenas gravida nibh et gravida pretium. Morbi quam nisl, tempor et auctor sit amet, convallis et dui. Duis luctus mollis dolor vitae rutrum. Cras dapibus congue neque sed sodales.`,
-  criteria: [
+  introText: `# What is this experiment? \n Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ac magna ut neque auctor varius et eu lectus. Proin eget fringilla lectus. Donec feugiat, turpis sed blandit lacinia, dolor nulla pretium quam, quis cursus neque lorem et ipsum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus aliquam tortor at rhoncus condimentum. Maecenas gravida nibh et gravida pretium. Morbi quam nisl, tempor et auctor sit amet, convallis et dui. Duis luctus mollis dolor vitae rutrum. Cras dapibus congue neque sed sodales.`,
+  outroText: `### Ready to continue? \n Please make sure all of the above criteria are answered correctly. This is essential to the integreity of the your data.`,
+  questions: [
     {
-      name: 'heart-criteria',
-      description: `### 1. Do you have a pre-existing heart condition?`,
-      value: null,
-      requiredValue: false,
+      id: 8798,
+      questionText: `1. Do you have a pre-existing heart condition?`,
+      requiredAnswer: false,
+      required: true,
     },
     {
-      name: 'ptsd-criteria',
-      description: `### 2. Do you suffer from PTSD?`,
-      value: null,
-      requiredValue: false,
+      id: 4511,
+      questionText: `2. Do you suffer from PTSD?`,
+      requiredAnswer: false,
+      required: true,
     },
     {
-      name: 'anxiety-criteria',
-      description: `### 3. Do you have a diagnosed anxiety condtion?  \n Mauris ut urna nunc. Proin luctus, odio cursus ornare sodales, sapien metus ultrices nisl, at pulvinar dui ipsum et lacus. Cras sodales faucibus est vel volutpat. Pellentesque lacinia suscipit mi ut euismod. Donec ut viverra ante. Morbi bibendum vulputate neque vitae viverra. Mauris egestas vehicula tortor. Aenean ornare euismod massa, at cursus urna sodales nec.`,
-      value: null,
+      id: 9813,
+      questionText: `3. Do you have a diagnosed anxiety condtion?`,
+      descriptionText: `Mauris ut urna nunc. Proin luctus, odio cursus ornare sodales, sapien metus ultrices nisl, at pulvinar dui ipsum et lacus. Cras sodales faucibus est vel volutpat. Pellentesque lacinia suscipit mi ut euismod. Donec ut viverra ante. Morbi bibendum vulputate neque vitae viverra. Mauris egestas vehicula tortor. Aenean ornare euismod massa, at cursus urna sodales nec.`,
     },
   ],
-  continueMessage: `### Ready to continue? \n Please make sure all of the above criteria are answered correctly. This is essential to the integreity of the your data.
-  `,
 }
 
 // Example data that mocks what portal will return
@@ -121,7 +120,7 @@ export const exampleExperimentData: Experiment = {
     },
     {
       id: '548944',
-      moduleType: 'CRITERIA',
+      moduleType: 'CRITERION',
       definition: exampleCriteriaDefinition,
     },
     {
