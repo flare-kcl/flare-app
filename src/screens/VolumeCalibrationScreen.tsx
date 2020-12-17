@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Audio } from 'expo-av'
 import { Entypo } from '@expo/vector-icons'
 import { Text, Box, Button, RatingScale, SafeAreaView } from '@components'
@@ -20,37 +20,42 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
   onFinishCalibration,
 }) => {
   const Alert = useAlert()
-  const volume = useRef(0.5)
+  const volumeIndex = useRef(0)
+  const volumeScale = [0.5, 0.65, 0.8, 0.9, 0.95, 1]
   const soundRef = useRef<Audio.Sound>()
   const [stage, setStage] = useState(VolumeCalibrationStages.Intro)
   const [countdown, setCountdown] = useState(3)
   const [volumeRating, setVolumeRating] = useState(undefined)
 
-  // Edit volume value without floating point errors
-  const incrementVolume = () =>
-    Math.min((volume.current = +(volume.current + 0.05).toFixed(2)), 1.0)
-  const decrementVolume = () =>
-    Math.max((volume.current = +(volume.current - 0.05).toFixed(2)), 0.1)
+  const incrementVolume = () => {
+    if (volumeIndex.current < volumeScale.length - 1) {
+      volumeIndex.current = volumeIndex.current + 1
+    }
+  }
+
+  const decrementVolume = () => {
+    if (volumeIndex.current > 0) {
+      volumeIndex.current = volumeIndex.current - 1
+    }
+  }
 
   const playStimuli = async () => {
+    const volume = volumeScale[volumeIndex.current]
     return new Promise(async (resolve, _) => {
       // Setup audio
       if (soundRef.current === undefined) {
         // Load audio file
         const { sound } = await Audio.Sound.createAsync(
-          require('../assets/sounds/ding.wav'),
+          require('../assets/sounds/scream.wav'),
           {
             shouldPlay: false,
-            volume: volume.current,
+            volume,
           },
         )
 
         // Assign to ref
         soundRef.current = sound
       }
-
-      // Set the volume
-      await soundRef.current.setVolumeAsync(volume.current)
 
       // Set update handler
       soundRef.current.setOnPlaybackStatusUpdate((update) => {
@@ -104,7 +109,7 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
                 label: 'No',
                 onPress: () => {
                   // If reached max volume
-                  if (volume.current >= 1.0) {
+                  if (volumeScale[volumeIndex.current] >= 1.0) {
                     setStage(VolumeCalibrationStages.Rating)
                   } else {
                     // Increase volume and play again
@@ -132,6 +137,7 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
   }
 
   const validateRating = () => {
+    const volume = volumeScale[volumeIndex.current]
     // Respond if no rating selected
     if (volumeRating === undefined) {
       Alert.alert(
@@ -156,7 +162,7 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
         [
           {
             label: 'Yes',
-            onPress: () => onFinishCalibration(volume.current),
+            onPress: () => onFinishCalibration(volume),
           },
           {
             label: 'No',
@@ -171,13 +177,13 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
     }
 
     // If at max volume and below threshold continue
-    else if (volume.current >= 1) {
-      onFinishCalibration(volume.current)
+    else if (volume >= 1) {
+      onFinishCalibration(volume)
     }
 
     // See if rating is beyond threshold
     else if (volumeRating > 5) {
-      onFinishCalibration(volume.current)
+      onFinishCalibration(volume)
     }
 
     // If is below threshold
@@ -249,6 +255,9 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
             justifyContent="flex-end"
             alignItems="center"
           >
+            <Text variant="caption2" mb={6}>
+              Please rate the volume of the sound
+            </Text>
             <RatingScale
               anchorLabelLeft="Quiet"
               anchorLabelCenter="Loud"
