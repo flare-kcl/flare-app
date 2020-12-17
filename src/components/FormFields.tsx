@@ -1,6 +1,7 @@
 import { TextInput, TextInputProps } from 'react-native'
 import { Picker } from '@react-native-picker/picker'
 import DatePicker from 'react-native-date-picker'
+import { format } from 'date-fns'
 import {
   createRestyleComponent,
   spacing,
@@ -82,8 +83,7 @@ export const LabeledDateField = ({ label, value, onChange, ...props }) => (
       <DatePicker
         mode="date"
         date={value}
-        locale="fr"
-        onDateChange={(date) => onChange(date)}
+        onDateChange={(date) => onChange(format(date, 'yyyy-MM-dd'))}
       />
     </Box>
   </Box>

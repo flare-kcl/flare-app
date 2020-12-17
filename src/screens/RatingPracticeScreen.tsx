@@ -35,7 +35,6 @@ export const RatingPracticeScreen: React.FunctionComponent<RatingPracticeScreenP
         <RatingScale
           lockFirstRating
           onChange={() => {
-            console.log('Called...')
             setShowButton(true)
           }}
         />

@@ -40,7 +40,6 @@ export class PortalAPI {
 
     // If validation error
     if (response.status === 400) {
-      console.log(await response.json())
       console.warn('Could not upload basic info data')
     }
   }
