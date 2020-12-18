@@ -35,6 +35,19 @@ class AudioSensor: RCTEventEmitter {
     }
   }
 
+  /// Set this audio session as active
+  @objc func focus(
+    _ resolve: RCTPromiseResolveBlock,
+    rejecter reject: RCTPromiseRejectBlock
+  ) {
+    do {
+      try self.audioSession.setActive(true)
+      resolve(true)
+    } catch {
+      resolve(false)
+    }
+  }
+
   @objc func onAudioOutputChange() {
     if self.hasListeners && self.bridge != nil {
       // Send data to JS via EventEmitter

@@ -63,6 +63,12 @@ public class AudioSensor extends ReactContextBaseJavaModule implements ActivityE
         promise.resolve(this.isHeadphonesConnected());
     }
 
+    @ReactMethod
+    // This method is not used in Android
+    public void focus(Promise promise) {
+        promise.resolve(true);
+    }
+
     public float getCurrentVolume() {
         int mediaVolume = am.getStreamVolume(AudioManager.STREAM_MUSIC);
         return mediaVolume * (float) 1/15;

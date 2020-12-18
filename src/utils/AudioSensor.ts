@@ -23,6 +23,10 @@ export default class AudioSensor {
     return await AudioSensorModule.isHeadphonesConnected()
   }
 
+  static async focus(): Promise<boolean> {
+    return await AudioSensorModule.focus()
+  }
+
   static addVolumeListener(cb: (volume: number) => void): EmitterSubscription {
     return AudioSensorEmitter.addListener('VolumeChange', (volume) => {
       if (volume !== this.currentVolume) {

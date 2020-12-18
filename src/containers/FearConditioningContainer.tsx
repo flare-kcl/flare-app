@@ -1,11 +1,14 @@
-import { useEffect, useCallback, useState } from 'react'
+import { useEffect, useCallback, useState, useRef } from 'react'
+import { EmitterSubscription } from 'react-native'
 import { shuffle } from 'lodash'
 import { ExperimentModule } from './ExperimentContainer'
 import {
   FearConditioningTrialScreen,
   FearConditioningTrialResponse,
 } from '@screens'
+import { ToastRef } from '@components'
 import { useAlert } from '@utils/AlertProvider'
+import AudioSensor from '@utils/AudioSensor'
 
 export type FearConditioningModuleState = {
   phase: string
@@ -34,6 +37,8 @@ export const FearConditioningContainer: ExperimentModule<FearConditioningModuleS
 }) => {
   const Alert = useAlert()
   const [lastTrialSkipped, setLastTrialSkipped] = useState(false)
+  const toastRef = useRef<ToastRef>()
+  const volumeSensorListener = useRef<EmitterSubscription>()
 
   // Build the trials sequence on first render
   useEffect(() => {
@@ -58,6 +63,34 @@ export const FearConditioningContainer: ExperimentModule<FearConditioningModuleS
       onModuleComplete()
     }
   })
+
+  // Setup Volume Listening
+  useEffect(() => {
+    const showVolumeToast = (volume: number) => {
+      // Show user a toast warning
+      if (toastRef.current === undefined && volume < 1) {
+        toastRef.current = Alert.toast(
+          'Volume Change Detected',
+          'Please increase volume back to 100%',
+        )
+      } else if (volume === 1) {
+        // Hide Toast since we restored volume
+        toastRef.current?.dismiss()
+        toastRef.current = undefined
+      }
+    }
+
+    AudioSensor.getCurrentVolume().then(showVolumeToast)
+    volumeSensorListener.current = AudioSensor.addVolumeListener(
+      showVolumeToast,
+    )
+
+    // Cleanup refs
+    return () => {
+      volumeSensorListener.current?.remove()
+      toastRef.current?.dismiss()
+    }
+  }, [])
 
   const onTrialEnd = useCallback(
     (trialResponse: FearConditioningTrialResponse, checkIfSkipped = true) => {
