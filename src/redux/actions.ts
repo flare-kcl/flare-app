@@ -102,16 +102,14 @@ const syncCriterionModule = async (
   try {
     await Promise.all(
       mod.moduleState.questions.map(async (question, index) => {
-        // Don't attempt sync if no response
-        if (question.value === undefined) return
-
         // Submit data to portal
         try {
           await PortalAPI.submitCriterionAnswer({
             module: mod.moduleId,
             participant: experiment.participantID,
             question: index + 1,
-            answer: question.value,
+            // If value is undefined then submit null
+            answer: question.value ?? null,
           })
         } catch (err) {
           console.error(err)
