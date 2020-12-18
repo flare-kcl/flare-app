@@ -3,6 +3,7 @@ import { AppState } from './store'
 import { FearConditioningModuleState } from '@containers/FearConditioningContainer'
 import { PortalAPI } from '@utils/PortalAPI'
 import { BasicInfoContainerState } from '@containers/BasicInfoContainer'
+import { CriteriaModuleState } from '@containers/CriterionContainer'
 
 export const syncExperiment = async (dispatch, getState: () => AppState) => {
   // Get Latest State
@@ -32,6 +33,10 @@ export const syncExperiment = async (dispatch, getState: () => AppState) => {
 
         case 'BASIC_INFO':
           await syncBasicInfoModule(experiment, mod, onModuleSync)
+          break
+
+        case 'CRITERION':
+          await syncCriterionModule(experiment, mod, onModuleSync)
           break
 
         default:
@@ -85,6 +90,37 @@ const syncFearConditioningModule = async (
     onModuleSync()
   } catch (err) {
     console.error('Could not sync all trials', err)
+  }
+}
+
+const syncCriterionModule = async (
+  experiment: ExperimentCache,
+  mod: ExperimentModule<CriteriaModuleState>,
+  onModuleSync: ModuleSyncCallback,
+) => {
+  // Perform POST request for each recordered question
+  try {
+    await Promise.all(
+      mod.moduleState.questions.map(async (question, index) => {
+        // Submit data to portal
+        try {
+          await PortalAPI.submitCriterionAnswer({
+            module: mod.moduleId,
+            participant: experiment.participantID,
+            question: index + 1,
+            // If value is undefined then submit null
+            answer: question.value ?? null,
+          })
+        } catch (err) {
+          console.error(err)
+        }
+      }),
+    )
+
+    // If synced all trials then mark module synec
+    onModuleSync()
+  } catch (err) {
+    console.error('Could not sync all criterions', err)
   }
 }
 

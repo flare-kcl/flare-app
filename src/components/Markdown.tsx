@@ -36,6 +36,7 @@ export const Markdown: React.FunctionComponent<MarkdownProps> = ({
             fontFamily: 'Inter',
             fontWeight: '500',
             color: palette.darkGrey,
+            marginBottom: 10,
           },
           paragraph: {
             marginBottom: 10,
@@ -56,7 +57,7 @@ export const Markdown: React.FunctionComponent<MarkdownProps> = ({
             marginBottom: 10,
           },
           heading2: {
-            fontSize: 30,
+            fontSize: 22,
             fontFamily: 'Inter',
             fontWeight: 'bold',
             width: '100%',

@@ -1,10 +1,10 @@
 import { ExperimentModule } from '@containers/ExperimentContainer'
 import { CriteriaScreen, ExperimentCriteria } from '@screens'
 
-type CriteriaModuleState = {
-  criteria: ExperimentCriteria
-  description: string
-  continueMessage: string
+export type CriteriaModuleState = {
+  questions: ExperimentCriteria
+  introText: string
+  outroText: string
 }
 
 export const CriterionContainer: ExperimentModule<CriteriaModuleState> = ({
@@ -14,21 +14,17 @@ export const CriterionContainer: ExperimentModule<CriteriaModuleState> = ({
   exitExperiment,
 }) => {
   function submitCritera(updatedCriteria: ExperimentCriteria) {
-    // Update internal state
-    updateModule({
-      ...mod,
-      criiteria: updatedCriteria,
-    })
-
     // Proceed to next module
-    onModuleComplete()
+    onModuleComplete({
+      questions: updatedCriteria,
+    })
   }
 
   return (
     <CriteriaScreen
-      criteria={mod.criteria}
-      description={mod.description}
-      continueMessage={mod.continueMessage}
+      introText={mod.introText}
+      outroText={mod.outroText ?? ''}
+      questions={mod.questions}
       onPassCriteria={submitCritera}
       onFailCriteria={() => exitExperiment('INCORRECT_CRITERIA')}
       onExit={() => exitExperiment('INCORRECT_CRITERIA')}

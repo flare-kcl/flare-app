@@ -217,7 +217,7 @@ async function loginWithID(participantID: string, dispatch) {
       modules: experimentApiData.modules.map(({ id, type, config }) => ({
         id,
         moduleType: type,
-        definition: camelcaseKeys(config),
+        definition: camelcaseKeys(config, { deep: true }),
       })),
       intervalTimeBounds: {
         min: experimentApiData.experiment.iti_min_delay,

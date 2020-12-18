@@ -46,7 +46,11 @@ exports[`Text Renders Correctly 1`] = `
           }
         >
           <View
-            style={Object {}}
+            style={
+              Object {
+                "marginBottom": 10,
+              }
+            }
           >
             <View
               style={

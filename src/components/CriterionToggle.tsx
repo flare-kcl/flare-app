@@ -4,12 +4,14 @@ import { Box, Button } from '@components'
 import { Theme } from '@utils/theme'
 
 type CriterionToggleProps = BoxProps<Theme> & {
+  id: number
   name: string
   value: boolean
   onChange: Function
 }
 
 export const CriterionToggle: React.FunctionComponent<CriterionToggleProps> = ({
+  id,
   name,
   value,
   onChange,
@@ -17,7 +19,7 @@ export const CriterionToggle: React.FunctionComponent<CriterionToggleProps> = ({
 }) => {
   const updateChoice = (value: boolean) => {
     // Update parent
-    onChange?.(name, value)
+    onChange?.(id, value)
   }
 
   return (
