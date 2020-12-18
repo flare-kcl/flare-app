@@ -90,7 +90,7 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
     const setupSound = async () => {
       try {
         const { sound } = await Audio.Sound.createAsync(
-          require('../assets/sounds/ding.wav'),
+          require('../assets/sounds/scream.wav'),
           {
             shouldPlay: false,
             volume: volume,
