@@ -30,7 +30,7 @@ import { AffectiveRatingContainer } from './AffectiveRatingContainer'
 
 const ExperimentModuleTypes = {
   BASIC_INFO: BasicInfoContainer,
-  EXTERNAL_LINK: ExternalLinkContainer,
+  WEB: ExternalLinkContainer,
   TERMS: TermsContainer,
   CRITERION: CriterionContainer,
   INSTRUCTIONS: InstructionsContainer,

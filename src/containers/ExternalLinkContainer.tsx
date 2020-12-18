@@ -2,21 +2,35 @@ import { ExperimentModule } from './ExperimentContainer'
 import { ExternalLinkScreen, TextInstructionScreen } from '@screens'
 
 type ExternalLinkModuleState = {
-  link: string
-  title: string
+  url: string
+  heading: string
   description: string
-  closeDetectionMatch?: string
+  appendParticipantId: boolean
+  autoCloseUrl?: string
   introShown?: boolean
 }
 
 export const ExternalLinkContainer: ExperimentModule<ExternalLinkModuleState> = ({
   module: mod,
+  experiment,
   updateModule,
   onModuleComplete,
 }) => {
+  const getFormattedURL = () => {
+    if (mod.appendParticipantId) {
+      // Parse the URL
+      const url = new URL(mod.url)
+      // Add search param
+      url.searchParams.set('participantID', experiment.participantID)
+      return url.toString()
+    }
+
+    return mod.url
+  }
+
   return !mod.introShown ? (
     <TextInstructionScreen
-      heading={mod.title}
+      heading={mod.heading}
       description={mod.description}
       color="tealLight"
       backgroundColor="purple"
@@ -31,9 +45,9 @@ export const ExternalLinkContainer: ExperimentModule<ExternalLinkModuleState> = 
     />
   ) : (
     <ExternalLinkScreen
-      link={mod.link}
-      title={mod.title}
-      closeDetectionMatch={mod.closeDetectionMatch}
+      link={getFormattedURL()}
+      title={mod.heading}
+      closeDetectionMatch={mod.autoCloseUrl}
       onNext={onModuleComplete}
     />
   )

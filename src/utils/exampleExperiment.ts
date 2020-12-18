@@ -163,13 +163,13 @@ export const exampleExperimentData: Experiment = {
     },
     {
       id: '564651',
-      moduleType: 'EXTERNAL_LINK',
+      moduleType: 'WEB',
       definition: {
-        title: 'FLARe Questionnaire',
+        heading: 'FLARe Questionnaire',
         description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc in dui quis odio volutpat pulvinar eu id eros. In ut ipsum ac ipsum varius scelerisque. Pellentesque nec neque vel odio tempor aliquam. Aliquam rutrum vestibulum ligula, eget viverra mauris porta id.`,
-        link: 'https://kclbs.eu.qualtrics.com/jfe/form/SV_802kLj0WlUSVByd',
-        closeDetectionMatch:
-          'http://flare-portal.staging.torchbox.com/redirect',
+        url: 'https://kclbs.eu.qualtrics.com/jfe/form/SV_802kLj0WlUSVByd',
+        appendParticipantId: true,
+        autoCloseUrl: 'http://flare-portal.staging.torchbox.com/redirect',
       },
     },
   ],
