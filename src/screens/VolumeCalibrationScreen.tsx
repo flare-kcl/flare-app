@@ -4,6 +4,7 @@ import { Entypo } from '@expo/vector-icons'
 import { Text, Box, Button, RatingScale, SafeAreaView } from '@components'
 import { palette } from '@utils/theme'
 import { useAlert } from '@utils/AlertProvider'
+import AudioSensor from '@utils/AudioSensor'
 
 type VolumeCalibrationScreenParams = {
   onFinishCalibration: (volume: number) => void
@@ -15,6 +16,16 @@ enum VolumeCalibrationStages {
   Rating = 2,
   Error = 3,
 }
+
+Audio.setAudioModeAsync({
+  allowsRecordingIOS: false,
+  staysActiveInBackground: true,
+  interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_MIX_WITH_OTHERS,
+  playsInSilentModeIOS: true,
+  shouldDuckAndroid: false,
+  interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DUCK_OTHERS,
+  playThroughEarpieceAndroid: false,
+})
 
 export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationScreenParams> = ({
   onFinishCalibration,
@@ -38,6 +49,13 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
       volumeIndex.current = volumeIndex.current - 1
     }
   }
+
+  // Regain focus to AudioSensor after playing sounds
+  useEffect(() => {
+    return async () => {
+      await AudioSensor.focus()
+    }
+  }, [])
 
   const playStimuli = async () => {
     const volume = volumeScale[volumeIndex.current]

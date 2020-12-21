@@ -10,7 +10,6 @@ import {
   TrialImageStack,
   RatingScale,
   Interval,
-  ToastRef,
   AlertRef,
 } from '@components'
 import AudioSensor from '@utils/AudioSensor'
@@ -38,6 +37,16 @@ export type FearConditioningTrialResponse = {
   volume: number
   headphonesConnected: boolean
 }
+
+Audio.setAudioModeAsync({
+  allowsRecordingIOS: false,
+  staysActiveInBackground: true,
+  interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_MIX_WITH_OTHERS,
+  playsInSilentModeIOS: true,
+  shouldDuckAndroid: false,
+  interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DUCK_OTHERS,
+  playThroughEarpieceAndroid: false,
+})
 
 export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioningTrialScreenParams> = memo(
   ({
@@ -69,7 +78,6 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
     const mountedTimerRef = useRef<any>(false)
     const volumeSensorListener = useRef<EmitterSubscription>()
     const headphoneSensorListener = useRef<EmitterSubscription>()
-    const toastRef = useRef<ToastRef>()
     const headphoneRef = useRef<AlertRef>()
 
     const onSoundStarted = () => {
@@ -83,6 +91,9 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
             volume: await AudioSensor.getCurrentVolume(),
             headphonesConnected: await AudioSensor.isHeadphonesConnected(),
           })
+
+          // Regain focus to audio
+          await AudioSensor.focus()
         }, 500)
       }
     }
@@ -128,20 +139,6 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
       }
     }
 
-    const showVolumeToast = (volume: number) => {
-      // Show user a toast warning
-      if (toastRef.current === undefined && volume < 1) {
-        toastRef.current = Alert.toast(
-          'Volume Change Detected',
-          'Please increase volume back to 100%',
-        )
-      } else if (volume === 1) {
-        // Hide Toast since we restored volume
-        toastRef.current?.dismiss()
-        toastRef.current = undefined
-      }
-    }
-
     const showHeadphoneAlert = (connected: boolean) => {
       // Show user a toast warning
       if (headphoneRef.current === undefined && connected === false) {
@@ -169,24 +166,6 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
     useEffect(() => {
       // Setup sound object before setting timers
       setupSound()
-
-      // Setup Volume Listening
-      AudioSensor.getCurrentVolume().then(showVolumeToast)
-      volumeSensorListener.current = AudioSensor.addVolumeListener(
-        (volume: number) => {
-          // Record event
-          dispatch(
-            recordEvent({
-              eventType: 'VolumeChange',
-              value: String(volume),
-              recorded: Date.now(),
-            }),
-          )
-
-          // Show toast if we have to
-          showVolumeToast(volume)
-        },
-      )
 
       // Setup Headphone Listening
       AudioSensor.isHeadphonesConnected().then(showHeadphoneAlert)
@@ -228,11 +207,9 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
         soundRef.current?.unloadAsync()
 
         // Disconnect volume listener
-        volumeSensorListener.current?.remove()
         headphoneSensorListener.current?.remove()
 
         // Remove toast warning
-        toastRef.current?.dismiss()
         headphoneRef.current?.dismiss()
       }
     }, [])
