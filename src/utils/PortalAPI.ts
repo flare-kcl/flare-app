@@ -59,6 +59,19 @@ export class PortalAPI {
       console.warn('Criterion answer could not be processed.')
     }
   }
+
+  static async submitTermsAgree(participantID: string) {
+    const jsonData = JSON.stringify({ participant: participantID })
+    const response = await PortalAPI.executeAPIRequest(
+      'terms-and-conditions',
+      jsonData,
+    )
+
+    // If validation error
+    if (response.status === 400) {
+      console.warn("Could not agree to T&C's")
+    }
+  }
 }
 
 type PortalTrialRatingSubmission = {

@@ -1,7 +1,7 @@
 import { ExperimentModule } from './ExperimentContainer'
 import { TermsScreen } from '@screens'
 
-type TermsModuleState = {
+export type TermsModuleState = {
   terms: string
 }
 
