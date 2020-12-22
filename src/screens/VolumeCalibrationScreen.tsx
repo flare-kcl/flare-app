@@ -83,6 +83,7 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
       })
 
       // Play the sound
+      await soundRef.current.setVolumeAsync(volume)
       await soundRef.current.playFromPositionAsync(0)
     })
   }
