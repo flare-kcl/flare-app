@@ -10,22 +10,31 @@ export const syncExperiment = async (dispatch, getState: () => AppState) => {
   // Get Latest State
   const state = getState()
   const experiment = state.experiment
-  const modules: ExperimentModule[] = Object.values(state.modules)
+  const modules: ExperimentModule[] = Object.values(state.modules).filter(
+    (mod: ExperimentModule) => mod.moduleCompleted && !mod.moduleSynced,
+  )
 
   // Finish early if experiment is offline-only
   if (experiment.offlineOnly) return
 
+  // If we have submitted all the modules thens let's flag the experiment as finished
+  if (modules.length == 0) syncExperimentEnd(experiment)
+
   // Get all modules that have been completed but not synced.
   for (const mod of modules) {
-    if (mod.moduleCompleted && !mod.moduleSynced) {
-      // Call the specific syncing method and then update the module
-      const onModuleSync = () =>
-        dispatch(
-          updateModule({
-            ...mod,
-            moduleSynced: true,
-          }),
-        )
+    // Call the specific syncing method and then update the module
+    const onModuleSync = () =>
+      dispatch(
+        updateModule({
+          ...mod,
+          moduleSynced: true,
+        }),
+      )
+
+    switch (mod.moduleType) {
+      case 'FEAR_CONDITIONING':
+        await syncFearConditioningModule(experiment, mod, onModuleSync)
+        break
 
       switch (mod.moduleType) {
         case 'FEAR_CONDITIONING':
@@ -170,6 +179,12 @@ const syncTermsModule = async (
   try {
     await PortalAPI.submitTermsAgree(experiment.participantID)
     onModuleSync()
+  }
+}
+
+const syncExperimentEnd = async (experiment: ExperimentCache) => {
+  try {
+    await PortalAPI.submitExperimentEnd(experiment.participantID)
   } catch (err) {
     console.error(err)
   }
