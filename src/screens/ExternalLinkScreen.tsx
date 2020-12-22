@@ -72,9 +72,7 @@ export const ExternalLinkScreen: React.FunctionComponent<ExternalLinkScreenProps
           width="25%"
           alignItems="flex-end"
           pr={5}
-          label="Next"
-          opacity={closeDetectionMatch !== undefined ? 0 : 1}
-          disabled={closeDetectionMatch !== undefined ? true : false}
+          label="Exit"
           onPress={onNextPress}
           textProps={{
             fontSize: 16,
