@@ -283,9 +283,7 @@ async function loginWithID(participantID: string, dispatch) {
       }),
     )
   } catch (err) {
-    return Promise.reject(
-      'This participant identifier is not correct, please try again.',
-    )
+    return Promise.reject('An unknown error occured, Please try again.')
   }
 }
 
