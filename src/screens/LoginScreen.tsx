@@ -201,6 +201,26 @@ async function loginWithID(participantID: string, dispatch) {
     // Parse the experiment data to typed structure
     const experimentApiData = await experimentRawData.json()
 
+    // Parse experiment modules
+    let modules = experimentApiData.modules.map(({ id, type, config }) => ({
+      id,
+      moduleType: type,
+      definition: camelcaseKeys(config, { deep: true }),
+    }))
+
+    // Add T&C's module dymanically if config exists
+    if (experimentApiData.config) {
+      modules = [
+        {
+          id: 'TermsModule',
+          moduleType: 'TERMS',
+          definition: {
+            terms: experimentApiData.config.terms_and_conditions,
+          },
+        },
+      ].concat(modules)
+    }
+
     // Covert API data to experiment type
     const experiment: Experiment = {
       id: experimentApiData.experiment.id,
@@ -214,11 +234,7 @@ async function loginWithID(participantID: string, dispatch) {
         experimentApiData.experiment.rating_scale_anchor_label_center,
       trialLength: experimentApiData.experiment.trial_length * 1000,
       ratingDelay: experimentApiData.experiment.rating_delay * 1000,
-      modules: experimentApiData.modules.map(({ id, type, config }) => ({
-        id,
-        moduleType: type,
-        definition: camelcaseKeys(config, { deep: true }),
-      })),
+      modules,
       intervalTimeBounds: {
         min: experimentApiData.experiment.iti_min_delay,
         max: experimentApiData.experiment.iti_max_delay,

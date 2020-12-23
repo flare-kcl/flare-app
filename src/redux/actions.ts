@@ -4,6 +4,7 @@ import { FearConditioningModuleState } from '@containers/FearConditioningContain
 import { PortalAPI } from '@utils/PortalAPI'
 import { BasicInfoContainerState } from '@containers/BasicInfoContainer'
 import { CriteriaModuleState } from '@containers/CriterionContainer'
+import { TermsModuleState } from '@containers/TermsContainer'
 
 export const syncExperiment = async (dispatch, getState: () => AppState) => {
   // Get Latest State
@@ -37,6 +38,10 @@ export const syncExperiment = async (dispatch, getState: () => AppState) => {
 
         case 'CRITERION':
           await syncCriterionModule(experiment, mod, onModuleSync)
+          break
+
+        case 'TERMS':
+          await syncTermsModule(experiment, mod, onModuleSync)
           break
 
         default:
@@ -151,6 +156,19 @@ const syncBasicInfoModule = async (
     })
 
     // Mark module as synced
+    onModuleSync()
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+const syncTermsModule = async (
+  experiment: ExperimentCache,
+  mod: ExperimentModule<TermsModuleState>,
+  onModuleSync: ModuleSyncCallback,
+) => {
+  try {
+    await PortalAPI.submitTermsAgree(experiment.participantID)
     onModuleSync()
   } catch (err) {
     console.error(err)
