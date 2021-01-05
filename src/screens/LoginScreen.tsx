@@ -5,6 +5,7 @@ import Spinner from 'react-native-spinkit'
 import Config from 'react-native-config'
 import camelcaseKeys from 'camelcase-keys'
 import Constants from 'expo-constants'
+import * as Sentry from '@sentry/react-native'
 
 import { Experiment } from '@containers/ExperimentContainer'
 import { Box, Text, Button, Image, TextField, SafeAreaView } from '@components'
@@ -221,6 +222,24 @@ async function loginWithID(participantID: string, dispatch) {
       ].concat(modules)
     }
 
+    // Check id user is locked out
+    if (experimentApiData.participant_started_at != null) {
+      return Promise.reject(
+        'This particpant id has already been used, Please contact your research contact.',
+      )
+    }
+
+    // If incorrect login
+    if (experimentRawData.status == 400) {
+      if (experimentApiData.participant) {
+        return Promise.reject(experimentApiData.participant)
+      } else {
+        // Record unknown validation issue
+        Sentry.captureMessage(JSON.stringify(experimentApiData))
+        return Promise.reject('An unknown error occured, Please try again.')
+      }
+    }
+
     // Covert API data to experiment type
     const experiment: Experiment = {
       id: experimentApiData.experiment.id,
@@ -264,9 +283,7 @@ async function loginWithID(participantID: string, dispatch) {
       }),
     )
   } catch (err) {
-    return Promise.reject(
-      'This participant identifier is not correct, please try again.',
-    )
+    return Promise.reject('An unknown error occured, Please try again.')
   }
 }
 
