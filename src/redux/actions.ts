@@ -55,9 +55,6 @@ export const syncExperiment = async (dispatch, getState: () => AppState) => {
 
         default:
           onModuleSync()
-          console.warn(
-            `Module type ${mod.moduleType} doesn't support data submission!`,
-          )
       }
     }
   }

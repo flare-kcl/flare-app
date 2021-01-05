@@ -80,7 +80,7 @@ export class PortalAPI {
 
     // If validation error
     if (response.status === 400) {
-      console.warn('Criterion answer could not be processed.')
+      console.warn('Submission request could not be processed.')
     }
   }
 }
