@@ -36,26 +36,20 @@ export const syncExperiment = async (dispatch, getState: () => AppState) => {
         await syncFearConditioningModule(experiment, mod, onModuleSync)
         break
 
-      switch (mod.moduleType) {
-        case 'FEAR_CONDITIONING':
-          await syncFearConditioningModule(experiment, mod, onModuleSync)
-          break
+      case 'BASIC_INFO':
+        await syncBasicInfoModule(experiment, mod, onModuleSync)
+        break
 
-        case 'BASIC_INFO':
-          await syncBasicInfoModule(experiment, mod, onModuleSync)
-          break
+      case 'CRITERION':
+        await syncCriterionModule(experiment, mod, onModuleSync)
+        break
 
-        case 'CRITERION':
-          await syncCriterionModule(experiment, mod, onModuleSync)
-          break
+      case 'TERMS':
+        await syncTermsModule(experiment, mod, onModuleSync)
+        break
 
-        case 'TERMS':
-          await syncTermsModule(experiment, mod, onModuleSync)
-          break
-
-        default:
-          onModuleSync()
-      }
+      default:
+        onModuleSync()
     }
   }
 }
@@ -176,6 +170,8 @@ const syncTermsModule = async (
   try {
     await PortalAPI.submitTermsAgree(experiment.participantID)
     onModuleSync()
+  } catch (err) {
+    console.error(err)
   }
 }
 
