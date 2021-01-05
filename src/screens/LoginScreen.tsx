@@ -223,7 +223,7 @@ async function loginWithID(participantID: string, dispatch) {
     }
 
     // Check id user is locked out
-    if (experimentApiData.participant_started_at !== null) {
+    if (experimentApiData.participant_started_at != null) {
       return Promise.reject(
         'This particpant id has already been used, Please contact your research contact.',
       )
