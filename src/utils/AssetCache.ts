@@ -77,8 +77,6 @@ export default class AssetCache {
       // Update internal map for saved files
       AssetCache.fileMap[url] = uri
 
-      console.log(AssetCache)
-
       // Update mapping cache
       AssetCache.syncCache()
 
