@@ -16,10 +16,12 @@ export default class AudioSensor {
   private static headphoneConnected: boolean
 
   static async getCurrentVolume(): Promise<number> {
+    return Promise.resolve(1.0)
     return await AudioSensorModule.getCurrentVolume()
   }
 
   static async isHeadphonesConnected(): Promise<boolean> {
+    return Promise.resolve(true)
     return await AudioSensorModule.isHeadphonesConnected()
   }
 

@@ -90,6 +90,7 @@ export const InstructionsContainer: ExperimentModule<InstructionsModuleState> = 
     introScreens = introScreens.concat((key) => (
       <VolumeCalibrationScreen
         key={key}
+        unconditionalStimulus={experiment.definition.unconditionalStimulus}
         onFinishCalibration={onFinishCalibration}
       />
     ))

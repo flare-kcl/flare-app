@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { ImageSourcePropType } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   experimentSelector,
@@ -45,6 +46,11 @@ type ExperimentModuleConfig = {
   definition?: Object
 }
 
+export type VisualStimuli = {
+  image: ImageSourcePropType
+  label: string
+}
+
 export type Experiment = {
   id: number
   name: string
@@ -60,6 +66,15 @@ export type Experiment = {
     min: number
     max: number
   }
+  // Store URI of assets
+  unconditionalStimulus:
+    | {
+        uri: string
+      }
+    | NodeModule
+  contextStimuli: { [key: string]: ImageSourcePropType }
+  conditionalStimuli: VisualStimuli[]
+  generalisationStimuli: VisualStimuli[]
 }
 
 export type ExperimentModule<

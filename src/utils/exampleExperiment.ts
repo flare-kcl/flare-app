@@ -94,6 +94,20 @@ export const exampleExperimentData: Experiment = {
     min: 1,
     max: 3,
   },
+  unconditionalStimulus: require('../assets/sounds/ding.wav'),
+  contextStimuli: {
+    A: require('../assets/images/example-context.png'),
+  },
+  conditionalStimuli: [
+    { label: 'CSA', image: require('../assets/images/CSA.png') },
+    { label: 'CSB', image: require('../assets/images/CSB.png') },
+  ],
+  generalisationStimuli: [
+    { label: 'GSA', image: require('../assets/images/GSA.png') },
+    { label: 'GSB', image: require('../assets/images/GSB.png') },
+    { label: 'GSC', image: require('../assets/images/GSC.png') },
+    { label: 'GSD', image: require('../assets/images/GSD.png') },
+  ],
   modules: [
     {
       id: '154654',
@@ -154,11 +168,7 @@ export const exampleExperimentData: Experiment = {
         phase: 'acquisition',
         trialsPerStimulus: 3,
         reinforcementRate: 3,
-        contextImage: require('../assets/images/example-context.jpg'),
-        stimuli: [
-          { label: 'CSA', image: require('../assets/images/small.png') },
-          { label: 'CSB', image: require('../assets/images/large.png') },
-        ],
+        context: 'A',
       },
     },
     {
