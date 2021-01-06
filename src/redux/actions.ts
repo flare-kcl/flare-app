@@ -69,25 +69,21 @@ const syncFearConditioningModule = async (
         if (trial.response === undefined || trial.response?.skipped) return
 
         // Submit data to portal
-        try {
-          await PortalAPI.submitTrialRating({
-            trial: index + 1,
-            module: mod.moduleId,
-            participant: experiment.participantID,
-            rating: trial.response?.rating,
-            conditional_stimulus: trial.label,
-            unconditional_stimulus: trial.reinforced,
-            trial_started_at: new Date(trial.response?.startTime).toISOString(),
-            response_recorded_at: new Date(
-              trial.response?.decisionTime,
-            ).toISOString(),
-            volume_level: trial.response?.volume.toFixed(2),
-            calibrated_volume_level: experiment.volume.toFixed(2),
-            headphones: trial.response?.headphonesConnected,
-          })
-        } catch (err) {
-          console.error(err)
-        }
+        await PortalAPI.submitTrialRating({
+          trial: index + 1,
+          module: mod.moduleId,
+          participant: experiment.participantID,
+          rating: trial.response?.rating,
+          conditional_stimulus: trial.label,
+          unconditional_stimulus: trial.reinforced,
+          trial_started_at: new Date(trial.response?.startTime).toISOString(),
+          response_recorded_at: new Date(
+            trial.response?.decisionTime,
+          ).toISOString(),
+          volume_level: trial.response?.volume.toFixed(2),
+          calibrated_volume_level: experiment.volume.toFixed(2),
+          headphones: trial.response?.headphonesConnected,
+        })
       }),
     )
 
