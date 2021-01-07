@@ -28,6 +28,7 @@ import { BasicInfoContainer } from './BasicInfoContainer'
 import { SummaryScreen } from '@screens/SummaryScreen'
 import { ExternalLinkContainer } from './ExternalLinkContainer'
 import { AffectiveRatingContainer } from './AffectiveRatingContainer'
+import { TextContainer } from './TextContainer'
 
 const ExperimentModuleTypes = {
   BASIC_INFO: BasicInfoContainer,
@@ -38,6 +39,7 @@ const ExperimentModuleTypes = {
   VOLUME_CALIBRATION: VolumeCalibrationContainer,
   FEAR_CONDITIONING: FearConditioningContainer,
   AFFECTIVE_RATING: AffectiveRatingContainer,
+  TEXT: TextContainer,
 }
 
 type ExperimentModuleConfig = {
