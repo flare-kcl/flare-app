@@ -288,14 +288,14 @@ async function loginWithID(participantID: string, dispatch) {
         experimentApiData.experiment.us,
       ),
       conditionalStimuli: [
-        await cacheVisualStimuli('CSA', experimentApiData.experiment.csa),
-        await cacheVisualStimuli('CSB', experimentApiData.experiment.csb),
+        await cacheVisualStimuli('csa', experimentApiData.experiment.csa),
+        await cacheVisualStimuli('csb', experimentApiData.experiment.csb),
       ].filter((cs) => cs != null),
       generalisationStimuli: [
-        await cacheVisualStimuli('GSA', experimentApiData.experiment.gsa),
-        await cacheVisualStimuli('GSB', experimentApiData.experiment.gsb),
-        await cacheVisualStimuli('GSC', experimentApiData.experiment.gsc),
-        await cacheVisualStimuli('GSD', experimentApiData.experiment.gsd),
+        await cacheVisualStimuli('gsa', experimentApiData.experiment.gsa),
+        await cacheVisualStimuli('gsb', experimentApiData.experiment.gsb),
+        await cacheVisualStimuli('gsc', experimentApiData.experiment.gsc),
+        await cacheVisualStimuli('gsd', experimentApiData.experiment.gsd),
       ].filter((cs) => cs != null),
     }
 

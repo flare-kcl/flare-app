@@ -99,14 +99,14 @@ export const exampleExperimentData: Experiment = {
     A: require('../assets/images/example-context.png'),
   },
   conditionalStimuli: [
-    { label: 'CSA', image: require('../assets/images/CSA.png') },
-    { label: 'CSB', image: require('../assets/images/CSB.png') },
+    { label: 'csa', image: require('../assets/images/CSA.png') },
+    { label: 'csb', image: require('../assets/images/CSB.png') },
   ],
   generalisationStimuli: [
-    { label: 'GSA', image: require('../assets/images/GSA.png') },
-    { label: 'GSB', image: require('../assets/images/GSB.png') },
-    { label: 'GSC', image: require('../assets/images/GSC.png') },
-    { label: 'GSD', image: require('../assets/images/GSD.png') },
+    { label: 'gsa', image: require('../assets/images/GSA.png') },
+    { label: 'gsb', image: require('../assets/images/GSB.png') },
+    { label: 'gsc', image: require('../assets/images/GSC.png') },
+    { label: 'gsd', image: require('../assets/images/GSD.png') },
   ],
   modules: [
     {

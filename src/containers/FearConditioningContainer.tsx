@@ -231,12 +231,12 @@ function generateTrials(
   // Add GS if nessacery
   if (generalisationStimuli.length > 0) {
     // We transform the label to it's GS identifier (i.e GSA) and it's coding id (i.e GS2, meaning 2 increments away from the CS+)
-    const gsCodingDescending = positiveStimuli.label == 'CSA'
+    const gsCodingDescending = positiveStimuli.label == 'csa'
     const gsCoding = {
-      GSA: gsCodingDescending ? 1 : 4,
-      GSB: gsCodingDescending ? 2 : 3,
-      GSC: gsCodingDescending ? 3 : 2,
-      GSD: gsCodingDescending ? 4 : 1,
+      gsa: gsCodingDescending ? 1 : 4,
+      gsb: gsCodingDescending ? 2 : 3,
+      gsc: gsCodingDescending ? 3 : 2,
+      gsd: gsCodingDescending ? 4 : 1,
     }
 
     trials = generalisationStimuli.map((gs) => ({
