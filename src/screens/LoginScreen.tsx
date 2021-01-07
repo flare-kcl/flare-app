@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { Dimensions, ScrollView } from 'react-native'
+import { Dimensions, ImageSourcePropType, ScrollView } from 'react-native'
 import { useDispatch } from 'react-redux'
 import Spinner from 'react-native-spinkit'
 import Config from 'react-native-config'
@@ -13,6 +13,7 @@ import { palette } from '@utils/theme'
 import { exampleExperimentData } from '@utils/exampleExperiment'
 import { updateExperiment, updateModule } from '@redux/reducers'
 import { useAlert } from '@utils/AlertProvider'
+import AssetCache from '@utils/AssetCache'
 
 const dimensions = Dimensions.get('screen')
 enum Stages {
@@ -186,18 +187,16 @@ export const LoginScreen = () => {
 async function loginWithID(participantID: string, dispatch) {
   try {
     // Create login request and get the corresponding experiment object
-    const experimentRawData = await fetch(
-      `${Config.BASE_API_URL}/configuration/`,
-      {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Authorization': Config.API_AUTH_TOKEN,
-        },
-        body: JSON.stringify({ participant: participantID }),
+    const { BASE_MEDIA_URL, BASE_API_URL } = Config
+    const experimentRawData = await fetch(`${BASE_API_URL}/configuration/`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': Config.API_AUTH_TOKEN,
       },
-    )
+      body: JSON.stringify({ participant: participantID }),
+    })
 
     // Parse the experiment data to typed structure
     const experimentApiData = await experimentRawData.json()
@@ -240,6 +239,28 @@ async function loginWithID(participantID: string, dispatch) {
       }
     }
 
+    // Utility function to cache a file and return a format that can loaded.
+    const cacheRemoteAsset = async (url: string) => {
+      if (url == null) {
+        return null
+      }
+
+      return {
+        uri: await AssetCache.cacheFile(BASE_MEDIA_URL + url),
+      }
+    }
+
+    const cacheVisualStimuli = async (label: string, url: string) => {
+      if (url == null) {
+        return null
+      }
+
+      return {
+        label,
+        image: await cacheRemoteAsset(url),
+      }
+    }
+
     // Covert API data to experiment type
     const experiment: Experiment = {
       id: experimentApiData.experiment.id,
@@ -258,6 +279,24 @@ async function loginWithID(participantID: string, dispatch) {
         min: experimentApiData.experiment.iti_min_delay,
         max: experimentApiData.experiment.iti_max_delay,
       },
+      contextStimuli: {
+        A: await cacheRemoteAsset(experimentApiData.experiment.context_a),
+        B: await cacheRemoteAsset(experimentApiData.experiment.context_b),
+        C: await cacheRemoteAsset(experimentApiData.experiment.context_c),
+      },
+      unconditionalStimulus: await cacheRemoteAsset(
+        experimentApiData.experiment.us,
+      ),
+      conditionalStimuli: [
+        await cacheVisualStimuli('csa', experimentApiData.experiment.csa),
+        await cacheVisualStimuli('csb', experimentApiData.experiment.csb),
+      ].filter((cs) => cs != null),
+      generalisationStimuli: [
+        await cacheVisualStimuli('gsa', experimentApiData.experiment.gsa),
+        await cacheVisualStimuli('gsb', experimentApiData.experiment.gsb),
+        await cacheVisualStimuli('gsc', experimentApiData.experiment.gsc),
+        await cacheVisualStimuli('gsd', experimentApiData.experiment.gsd),
+      ].filter((cs) => cs != null),
     }
 
     // Save modules to redux
@@ -283,6 +322,7 @@ async function loginWithID(participantID: string, dispatch) {
       }),
     )
   } catch (err) {
+    console.error(err)
     return Promise.reject('An unknown error occured, Please try again.')
   }
 }

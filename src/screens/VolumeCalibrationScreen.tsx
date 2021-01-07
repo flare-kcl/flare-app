@@ -6,7 +6,10 @@ import { palette } from '@utils/theme'
 import { useAlert } from '@utils/AlertProvider'
 import AudioSensor from '@utils/AudioSensor'
 
-type VolumeCalibrationScreenParams = {
+type VolumeCalibrationScreenProps = {
+  unconditionalStimulus: {
+    uri: string
+  }
   onFinishCalibration: (volume: number) => void
 }
 
@@ -27,7 +30,8 @@ Audio.setAudioModeAsync({
   playThroughEarpieceAndroid: false,
 })
 
-export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationScreenParams> = ({
+export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationScreenProps> = ({
+  unconditionalStimulus,
   onFinishCalibration,
 }) => {
   const Alert = useAlert()
@@ -63,13 +67,10 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
       // Setup audio
       if (soundRef.current === undefined) {
         // Load audio file
-        const { sound } = await Audio.Sound.createAsync(
-          require('../assets/sounds/scream.wav'),
-          {
-            shouldPlay: false,
-            volume,
-          },
-        )
+        const { sound } = await Audio.Sound.createAsync(unconditionalStimulus, {
+          shouldPlay: false,
+          volume,
+        })
 
         // Assign to ref
         soundRef.current = sound

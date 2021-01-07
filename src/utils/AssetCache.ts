@@ -50,7 +50,8 @@ export default class AssetCache {
    * @param url The url of the remote file
    */
   private static generateFileName(url: string): string {
-    return BASE_DIR + hashCode(url)
+    const ext = url.split(/[#?]/)[0].split('.').pop().trim()
+    return `${BASE_DIR}${hashCode(url)}.${ext}`
   }
 
   /**
@@ -60,6 +61,12 @@ export default class AssetCache {
    */
   static async cacheFile(url: string): Promise<string | null> {
     try {
+      // Check valid URL
+      if (url == null) {
+        console.error(`${url} is not a valid URL.`)
+        return
+      }
+
       // Download file async
       const { uri } = await FileSystem.downloadAsync(
         url,

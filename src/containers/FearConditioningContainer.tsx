@@ -1,7 +1,7 @@
 import { useEffect, useCallback, useState, useRef } from 'react'
 import { EmitterSubscription } from 'react-native'
 import { shuffle } from 'lodash'
-import { ExperimentModule } from './ExperimentContainer'
+import { ExperimentModule, VisualStimuli } from './ExperimentContainer'
 import {
   FearConditioningTrialScreen,
   FearConditioningTrialResponse,
@@ -11,12 +11,12 @@ import { useAlert } from '@utils/AlertProvider'
 import AudioSensor from '@utils/AudioSensor'
 
 export type FearConditioningModuleState = {
+  context: string
   phase: string
   trialsPerStimulus: number
   reinforcementRate: number
   generalisationStimuliEnabled: boolean
-  stimuli: [{ label: string; image: any }]
-  contextImage: any
+  conditionalStimuli: VisualStimuli[]
   trials?: Trial[]
   currentTrialIndex: number
 }
@@ -49,11 +49,10 @@ export const FearConditioningContainer: ExperimentModule<FearConditioningModuleS
         trials: generateTrials(
           mod.trialsPerStimulus,
           mod.reinforcementRate,
-          // TODO: Remove Hardcoded Stimuli
-          [
-            { label: 'CSA', image: require('../assets/images/small.png') },
-            { label: 'CSB', image: require('../assets/images/large.png') },
-          ],
+          experiment.definition.conditionalStimuli,
+          mod.generalisationStimuliEnabled
+            ? experiment.definition.generalisationStimuli
+            : [],
         ),
       })
     }
@@ -168,7 +167,8 @@ export const FearConditioningContainer: ExperimentModule<FearConditioningModuleS
       <FearConditioningTrialScreen
         key={`trial-${mod.currentTrialIndex}`}
         stimulusImage={currentTrial.stimulusImage}
-        contextImage={require('../assets/images/example-context.jpg')}
+        contextImage={experiment.definition.contextStimuli[mod.context]}
+        unconditionalStimulus={experiment.definition.unconditionalStimulus}
         trialDelay={trialDelay}
         volume={experiment.volume}
         trialLength={experiment.definition.trialLength}
@@ -191,13 +191,13 @@ export const FearConditioningContainer: ExperimentModule<FearConditioningModuleS
 function generateTrials(
   trialsPerStimulus: number,
   reinforcementRate: number,
-  stimuliDefs: any[],
+  conditionalStimuli: VisualStimuli[],
+  generalisationStimuli: VisualStimuli[],
 ): Trial[] {
   // Determine which image matches what stimulus
-  let stimuli = shuffle(stimuliDefs)
-
-  const positiveStimuli = stimuli[0]
-  const negativeStimuli = stimuli[1]
+  let stimuli = shuffle(conditionalStimuli)
+  const positiveStimuli: VisualStimuli = stimuli[0]
+  const negativeStimuli: VisualStimuli = stimuli[1]
 
   // Create equal amounts of trials
   let positiveStimuliTrials: Trial[] = []
@@ -220,12 +220,34 @@ function generateTrials(
 
   // Rule 1: First two trials must be one of each (in random order)
   // Rule 2: The first positive stimuli must be reinforced (hence the shift instead of pop)
-  let trials = shuffle([
+  let trialsHead = shuffle([
     positiveStimuliTrials.shift(),
     negativeStimuliTrials.shift(),
   ])
 
+  // Store remaining CS in seperate array that concatonates with the head.
+  let trials: Trial[] = []
+
+  // Add GS if nessacery
+  if (generalisationStimuli.length > 0) {
+    // We transform the label to it's GS identifier (i.e GSA) and it's coding id (i.e GS2, meaning 2 increments away from the CS+)
+    const gsCodingDescending = positiveStimuli.label == 'csa'
+    const gsCoding = {
+      gsa: gsCodingDescending ? 1 : 4,
+      gsb: gsCodingDescending ? 2 : 3,
+      gsc: gsCodingDescending ? 3 : 2,
+      gsd: gsCodingDescending ? 4 : 1,
+    }
+
+    trials = generalisationStimuli.map((gs) => ({
+      label: `${gs.label}/${gsCoding[gs.label]}`,
+      stimulusImage: gs.image,
+      reinforced: false,
+    }))
+  }
+
   // Shuffle sets to mix reinforced trials
+  trials = shuffle(trials)
   positiveStimuliTrials = shuffle(positiveStimuliTrials)
   negativeStimuliTrials = shuffle(negativeStimuliTrials)
 
@@ -241,5 +263,5 @@ function generateTrials(
   }
 
   // Return the generated trials.
-  return trials
+  return trialsHead.concat(trials)
 }

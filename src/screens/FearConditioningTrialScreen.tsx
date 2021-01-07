@@ -1,6 +1,6 @@
 import { memo, useState, useEffect, useRef } from 'react'
 import { Audio } from 'expo-av'
-import { EmitterSubscription, ImageSourcePropType } from 'react-native'
+import { EmitterSubscription, ImageSourcePropType, Image } from 'react-native'
 import { useDispatch } from 'react-redux'
 import * as Sentry from '@sentry/react-native'
 
@@ -15,9 +15,10 @@ import {
 import AudioSensor from '@utils/AudioSensor'
 import { useAlert } from '@utils/AlertProvider'
 
-type FearConditioningTrialScreenParams = {
+type FearConditioningTrialScreenProps = {
   contextImage: ImageSourcePropType
   stimulusImage: ImageSourcePropType
+  unconditionalStimulus: { uri: string }
   trialLength: number
   ratingDelay: number
   reinforced: boolean
@@ -48,10 +49,11 @@ Audio.setAudioModeAsync({
   playThroughEarpieceAndroid: false,
 })
 
-export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioningTrialScreenParams> = memo(
+export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioningTrialScreenProps> = memo(
   ({
     stimulusImage,
     contextImage,
+    unconditionalStimulus,
     trialLength,
     reinforced,
     ratingDelay,
@@ -100,13 +102,10 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
 
     const setupSound = async () => {
       try {
-        const { sound } = await Audio.Sound.createAsync(
-          require('../assets/sounds/scream.wav'),
-          {
-            shouldPlay: false,
-            volume: volume,
-          },
-        )
+        const { sound } = await Audio.Sound.createAsync(unconditionalStimulus, {
+          shouldPlay: false,
+          volume: volume,
+        })
 
         // Report errors if sound not playing
         if (volume == null || volume == 0) {
@@ -124,6 +123,7 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
         return Promise.resolve()
       } catch (err) {
         Sentry.captureException(err)
+        console.error(err)
       }
     }
 

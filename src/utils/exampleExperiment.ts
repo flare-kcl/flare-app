@@ -94,6 +94,20 @@ export const exampleExperimentData: Experiment = {
     min: 1,
     max: 3,
   },
+  unconditionalStimulus: require('../assets/sounds/ding.wav'),
+  contextStimuli: {
+    A: require('../assets/images/example-context.png'),
+  },
+  conditionalStimuli: [
+    { label: 'csa', image: require('../assets/images/CSA.png') },
+    { label: 'csb', image: require('../assets/images/CSB.png') },
+  ],
+  generalisationStimuli: [
+    { label: 'gsa', image: require('../assets/images/GSA.png') },
+    { label: 'gsb', image: require('../assets/images/GSB.png') },
+    { label: 'gsc', image: require('../assets/images/GSC.png') },
+    { label: 'gsd', image: require('../assets/images/GSD.png') },
+  ],
   modules: [
     {
       id: '154654',
@@ -129,7 +143,7 @@ export const exampleExperimentData: Experiment = {
       id: '546844',
       moduleType: 'AFFECTIVE_RATING',
       definition: {
-        stimuli: require('../assets/images/small.png'),
+        stimuli: require('../assets/images/CSA.png'),
         heading: 'Have you seen this blue circle before?',
         ratingScaleAnchorLabelLeft: 'Definitely never seen before',
         ratingScaleAnchorLabelCenter: 'Neutral',
@@ -140,7 +154,7 @@ export const exampleExperimentData: Experiment = {
       id: '56516',
       moduleType: 'AFFECTIVE_RATING',
       definition: {
-        stimuli: require('../assets/images/large.png'),
+        stimuli: require('../assets/images/CSB.png'),
         heading: 'Have you seen this red circle before?',
         ratingScaleAnchorLabelLeft: 'Definitely never seen before',
         ratingScaleAnchorLabelCenter: 'Neutral',
@@ -154,11 +168,7 @@ export const exampleExperimentData: Experiment = {
         phase: 'acquisition',
         trialsPerStimulus: 3,
         reinforcementRate: 3,
-        contextImage: require('../assets/images/example-context.jpg'),
-        stimuli: [
-          { label: 'CSA', image: require('../assets/images/small.png') },
-          { label: 'CSB', image: require('../assets/images/large.png') },
-        ],
+        context: 'A',
       },
     },
     {
