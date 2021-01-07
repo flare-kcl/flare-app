@@ -50,7 +50,6 @@ export const syncExperiment = async (dispatch, getState: () => AppState) => {
         break
 
       case 'AFFECTIVE_RATING':
-        console.log('Got to sync AF!')
         await syncAffectiveRatingModule(experiment, mod, onModuleSync)
 
       default:
@@ -182,12 +181,6 @@ const syncAffectiveRatingModule = async (
   onModuleSync: ModuleSyncCallback,
 ) => {
   try {
-    console.log('Tick: ', {
-      participant: experiment.participantID,
-      module: mod.moduleId,
-      rating: mod.moduleState.rating,
-      stimulus: mod.moduleState.stimulus,
-    })
     await PortalAPI.submitAffectiveRating({
       participant: experiment.participantID,
       module: mod.moduleId,

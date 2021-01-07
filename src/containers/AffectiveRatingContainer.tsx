@@ -17,12 +17,8 @@ export type AffectiveRatingModuleState = AffectiveRatingModuleDefinition & {
 export const AffectiveRatingContainer: ExperimentModule<AffectiveRatingModuleState> = ({
   experiment,
   module: mod,
-  updateModule,
   onModuleComplete,
-  exitExperiment,
 }) => {
-  console.log(mod.stimulus)
-  console.log(experiment)
   const stimulusImage: ImageSourcePropType =
     mod.stimulus === 'csa' || mod.stimulus === 'csb'
       ? experiment.definition.conditionalStimuli.find(
