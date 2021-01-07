@@ -177,7 +177,7 @@ export const exampleExperimentData: Experiment = {
       definition: {
         heading: 'FLARe Questionnaire',
         description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc in dui quis odio volutpat pulvinar eu id eros. In ut ipsum ac ipsum varius scelerisque. Pellentesque nec neque vel odio tempor aliquam. Aliquam rutrum vestibulum ligula, eget viverra mauris porta id.`,
-        url: 'https://www.youtube.com/embed/qsfgnz0FOow',
+        url: 'https://kclbs.eu.qualtrics.com/jfe/form/SV_802kLj0WlUSVByd',
         appendParticipantId: true,
         autoCloseUrl: 'http://flare-portal.staging.torchbox.com/redirect',
       },
