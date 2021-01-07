@@ -77,7 +77,9 @@ const syncFearConditioningModule = async (
           conditional_stimulus: trial.label,
           unconditional_stimulus: trial.reinforced,
           trial_started_at: new Date(trial.response?.startTime).toISOString(),
-          response_recorded_at: trial.response?.decisionTime && new Date(trial.response?.decisionTime).toISOString(),
+          response_recorded_at:
+            trial.response?.decisionTime &&
+            new Date(trial.response?.decisionTime).toISOString(),
           volume_level: trial.response?.volume.toFixed(2),
           calibrated_volume_level: experiment.volume.toFixed(2),
           headphones: trial.response?.headphonesConnected,
