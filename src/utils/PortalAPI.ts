@@ -73,6 +73,20 @@ export class PortalAPI {
     }
   }
 
+  static async submitAffectiveRating(submission: AffectiveRatingSubmission) {
+    // Convert object to string
+    const jsonData = JSON.stringify(submission)
+    const response = await PortalAPI.executeAPIRequest(
+      'affective-rating-data',
+      jsonData,
+    )
+
+    // If validation error
+    if (response.status === 400) {
+      console.error('Affective rating could not be processed.')
+    }
+  }
+
   static async submitExperimentEnd(participantID: string) {
     // Convert object to string
     const jsonData = JSON.stringify({ participant: participantID })
@@ -119,4 +133,11 @@ type PortalCriterionSubmission = {
   module: string
   question: number
   answer: boolean
+}
+
+type AffectiveRatingSubmission = {
+  participant: string
+  module: string
+  rating: number
+  stimulus: string
 }
