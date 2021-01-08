@@ -9,14 +9,16 @@ import {
   TrialImageStack,
 } from '@components'
 import { AffectiveRatingModuleDefinition } from '@containers/AffectiveRatingContainer'
+import { ImageSourcePropType } from 'react-native'
 
 export type AffectiveRatingScreenProps = AffectiveRatingModuleDefinition & {
+  stimulusImage: ImageSourcePropType
   onNext?: (rating: number) => void
 }
 
 export const AffectiveRatingScreen: React.FunctionComponent<AffectiveRatingScreenProps> = ({
-  stimuli,
-  heading,
+  question,
+  stimulusImage,
   ratingScaleAnchorLabelLeft,
   ratingScaleAnchorLabelCenter,
   ratingScaleAnchorLabelRight,
@@ -27,9 +29,9 @@ export const AffectiveRatingScreen: React.FunctionComponent<AffectiveRatingScree
   return (
     <SafeAreaView flex={1}>
       <Box flex={1} px={1} pt={10} alignItems="center">
-        <TrialImageStack stimulusImage={stimuli} />
+        <TrialImageStack stimulusImage={stimulusImage} />
         <Text variant="heading2" mt={14} mb={24} px={2} textAlign="center">
-          {heading}
+          {question}
         </Text>
         <RatingScale
           lockFirstRating={false}

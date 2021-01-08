@@ -143,8 +143,8 @@ export const exampleExperimentData: Experiment = {
       id: '546844',
       moduleType: 'AFFECTIVE_RATING',
       definition: {
-        stimuli: require('../assets/images/CSA.png'),
-        heading: 'Have you seen this blue circle before?',
+        stimulus: 'csa',
+        question: 'Have you seen this blue circle before?',
         ratingScaleAnchorLabelLeft: 'Definitely never seen before',
         ratingScaleAnchorLabelCenter: 'Neutral',
         ratingScaleAnchorLabelRight: 'Definitely have seen before',

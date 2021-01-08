@@ -3,34 +3,41 @@ import { AffectiveRatingScreen } from '@screens'
 import { ImageSourcePropType } from 'react-native'
 
 export type AffectiveRatingModuleDefinition = {
-  stimuli: ImageSourcePropType
-  heading: string
+  stimulus: string
+  question: string
   ratingScaleAnchorLabelLeft: string
   ratingScaleAnchorLabelCenter: string
   ratingScaleAnchorLabelRight: string
 }
 
-type AffectiveRatingModuleState = AffectiveRatingModuleDefinition & {
-  rating?: string
+export type AffectiveRatingModuleState = AffectiveRatingModuleDefinition & {
+  rating?: number
 }
 
 export const AffectiveRatingContainer: ExperimentModule<AffectiveRatingModuleState> = ({
+  experiment,
   module: mod,
-  updateModule,
   onModuleComplete,
-  exitExperiment,
 }) => {
+  const stimulusImage: ImageSourcePropType =
+    mod.stimulus === 'csa' || mod.stimulus === 'csb'
+      ? experiment.definition.conditionalStimuli.find(
+          (cs) => cs.label == mod.stimulus,
+        )?.image
+      : experiment.definition.generalisationStimuli.find(
+          (gs) => gs.label == mod.stimulus,
+        )?.image
+
   function onRatingComplete(rating: number) {
-    // Save rating response
-    updateModule({ rating })
-    // Mark module finished
-    onModuleComplete()
+    // Save rating response & Mark module finished
+    onModuleComplete({ rating })
   }
 
   return (
     <AffectiveRatingScreen
-      heading={mod.heading}
-      stimuli={mod.stimuli}
+      question={mod.question}
+      stimulus={mod.stimulus}
+      stimulusImage={stimulusImage}
       ratingScaleAnchorLabelCenter={mod.ratingScaleAnchorLabelCenter}
       ratingScaleAnchorLabelLeft={mod.ratingScaleAnchorLabelLeft}
       ratingScaleAnchorLabelRight={mod.ratingScaleAnchorLabelRight}

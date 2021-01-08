@@ -5,6 +5,7 @@ import { PortalAPI } from '@utils/PortalAPI'
 import { BasicInfoContainerState } from '@containers/BasicInfoContainer'
 import { CriteriaModuleState } from '@containers/CriterionContainer'
 import { TermsModuleState } from '@containers/TermsContainer'
+import { AffectiveRatingModuleState } from '@containers/AffectiveRatingContainer'
 
 export const syncExperiment = async (dispatch, getState: () => AppState) => {
   // Get Latest State
@@ -47,6 +48,9 @@ export const syncExperiment = async (dispatch, getState: () => AppState) => {
       case 'TERMS':
         await syncTermsModule(experiment, mod, onModuleSync)
         break
+
+      case 'AFFECTIVE_RATING':
+        await syncAffectiveRatingModule(experiment, mod, onModuleSync)
 
       default:
         onModuleSync()
@@ -165,6 +169,25 @@ const syncTermsModule = async (
 ) => {
   try {
     await PortalAPI.submitTermsAgree(experiment.participantID)
+    onModuleSync()
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+const syncAffectiveRatingModule = async (
+  experiment: ExperimentCache,
+  mod: ExperimentModule<AffectiveRatingModuleState>,
+  onModuleSync: ModuleSyncCallback,
+) => {
+  try {
+    await PortalAPI.submitAffectiveRating({
+      participant: experiment.participantID,
+      module: mod.moduleId,
+      rating: mod.moduleState.rating,
+      stimulus: mod.moduleState.stimulus,
+    })
+
     onModuleSync()
   } catch (err) {
     console.error(err)
