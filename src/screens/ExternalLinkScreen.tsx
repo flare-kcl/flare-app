@@ -33,7 +33,7 @@ export const ExternalLinkScreen: React.FunctionComponent<ExternalLinkScreenProps
       'You will not be able to return to this screen. Are you sure you want to continue?',
       [
         {
-          label: 'Dismiss',
+          label: 'Cancel',
           style: 'cancel',
         },
         {
@@ -82,6 +82,8 @@ export const ExternalLinkScreen: React.FunctionComponent<ExternalLinkScreenProps
       <WebView
         ref={webView}
         source={{ uri: link }}
+        allowsFullscreenVideo
+        javaScriptEnabled
         allowsBackForwardNavigationGestures
         onNavigationStateChange={onNavigationStateChange}
       />
