@@ -246,7 +246,7 @@ async function loginWithID(participantID: string, dispatch) {
       }
 
       return {
-        uri: await AssetCache.cacheFile(BASE_MEDIA_URL + url),
+        uri: await AssetCache.cacheFile((Config.BASE_MEDIA_URL ?? '') + url),
       }
     }
 
