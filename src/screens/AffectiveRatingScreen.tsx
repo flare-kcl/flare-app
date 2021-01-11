@@ -11,7 +11,11 @@ import {
 import { AffectiveRatingModuleDefinition } from '@containers/AffectiveRatingContainer'
 import { ImageSourcePropType } from 'react-native'
 
-export type AffectiveRatingScreenProps = AffectiveRatingModuleDefinition & {
+export type AffectiveRatingScreenProps = {
+  question: string
+  ratingScaleAnchorLabelLeft: string
+  ratingScaleAnchorLabelCenter: string
+  ratingScaleAnchorLabelRight: string
   stimulusImage: ImageSourcePropType
   onNext?: (rating: number) => void
 }

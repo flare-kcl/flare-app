@@ -154,11 +154,11 @@ export const exampleExperimentData: Experiment = {
       id: '56516',
       moduleType: 'AFFECTIVE_RATING',
       definition: {
-        stimuli: require('../assets/images/CSB.png'),
-        heading: 'Have you seen this red circle before?',
+        question: 'Have you seen this circle before?',
         ratingScaleAnchorLabelLeft: 'Definitely never seen before',
         ratingScaleAnchorLabelCenter: 'Neutral',
         ratingScaleAnchorLabelRight: 'Definitely have seen before',
+        generalisationStimuliEnabled: true,
       },
     },
     {

@@ -181,12 +181,16 @@ const syncAffectiveRatingModule = async (
   onModuleSync: ModuleSyncCallback,
 ) => {
   try {
-    await PortalAPI.submitAffectiveRating({
-      participant: experiment.participantID,
-      module: mod.moduleId,
-      rating: mod.moduleState.rating,
-      stimulus: mod.moduleState.stimulus,
-    })
+    await Promise.all(
+      mod.moduleState.stimuli.map((stimuli) => {
+        return PortalAPI.submitAffectiveRating({
+          participant: experiment.participantID,
+          module: mod.moduleId,
+          rating: stimuli.rating,
+          stimulus: stimuli.label,
+        })
+      }),
+    )
 
     onModuleSync()
   } catch (err) {
