@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
 import { WebView, WebViewNavigation } from 'react-native-webview'
@@ -21,9 +21,25 @@ export const ExternalLinkScreen: React.FunctionComponent<ExternalLinkScreenProps
 }) => {
   const Alert = useAlert()
   const webView = useRef<any>()
+  const [originURL, setOriginURL] = useState(link)
   const onNavigationStateChange = (navigation: WebViewNavigation) => {
+    // If close detection activated
     if (closeDetectionMatch && navigation.url.includes(closeDetectionMatch)) {
       onNext()
+    }
+
+    // If opening a intent URL scheme
+    if (navigation.url.startsWith('intent://')) {
+      webView.current.stopLoading()
+
+      // Extract fallback URL
+      const intentGroups = navigation.url.match(/browser_fallback_url=(.*?)%/)
+      const fallbackURL = intentGroups.length > 1 ? intentGroups[1] : null
+
+      // Redirect to fallback URL
+      if (fallbackURL != null) {
+        setOriginURL(fallbackURL)
+      }
     }
   }
 
@@ -81,7 +97,7 @@ export const ExternalLinkScreen: React.FunctionComponent<ExternalLinkScreenProps
       </Box>
       <WebView
         ref={webView}
-        source={{ uri: link }}
+        source={{ uri: originURL }}
         allowsFullscreenVideo
         javaScriptEnabled
         allowsBackForwardNavigationGestures
