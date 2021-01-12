@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react'
-import { EmitterSubscription } from 'react-native'
+import { Dimensions, EmitterSubscription } from 'react-native'
 import { Box, Text, Button, SafeAreaView } from '@components'
 import AudioSensor from '@utils/AudioSensor'
 
@@ -34,7 +34,7 @@ export const VolumeInstructionScreen: React.FunctionComponent<VolumeInstructionS
         flex={1}
         alignItems="center"
         justifyContent="flex-start"
-        pt={24}
+        pt={{ s: 8, m: 12 }}
         px={5}
       >
         <Text variant="instructionHeading" mb={10}>
@@ -46,13 +46,13 @@ export const VolumeInstructionScreen: React.FunctionComponent<VolumeInstructionS
         </Text>
 
         {volume !== undefined && (
-          <Text mt={10} fontWeight="bold" fontSize={80} color="purple">
+          <Text fontWeight="bold" fontSize={60} color="purple">
             {(volume * 100).toFixed(0)}%
           </Text>
         )}
 
         <Box flex={1} justifyContent="flex-end" pb={6}>
-          <Text variant="caption2" px={6} mb={6}>
+          <Text variant="caption2" px={6} mb={3} textAlign="center">
             Set your volume to 100% to continue
           </Text>
           {volume === 1 && (

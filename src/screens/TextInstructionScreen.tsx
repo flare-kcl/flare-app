@@ -17,7 +17,7 @@ export const TextInstructionScreen: React.FunctionComponent<TextInstructionScree
   heading,
   description,
   actionLabel,
-  color = { phone: 'purple' },
+  color = { s: 'purple' },
   textColor = 'darkGrey',
   backgroundColor = 'pureWhite',
   linkColor = 'pureWhite',
@@ -31,7 +31,6 @@ export const TextInstructionScreen: React.FunctionComponent<TextInstructionScree
         alignItems="center"
         justifyContent="flex-start"
         backgroundColor={backgroundColor}
-        pt={10}
         px={6}
       >
         <Text variant="instructionHeading" mt={10} mb={5} color={textColor}>

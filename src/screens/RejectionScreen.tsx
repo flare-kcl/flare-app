@@ -31,18 +31,17 @@ export const RejectionScreen: React.FunctionComponent<RejectionScreenParams> = (
       style={{ flex: 1, height: '100%', backgroundColor: palette.greenPrimary }}
     >
       <SafeAreaView flex={1} minHeight={Dimensions.get('window').height}>
-        <Box flex={1} flexDirection="column" alignItems="center" pt={10} px={6}>
+        <Box flex={1} flexDirection="column" alignItems="center" pt={8} px={6}>
           <Box
             flexDirection="row"
             justifyContent="center"
             alignItems="center"
-            paddingTop={4}
             width="100%"
           >
             <Image
               width="100%"
               height="100%"
-              maxWidth={240}
+              maxWidth={150}
               maxHeight={150}
               resizeMode="contain"
               opacity={0.8}
@@ -54,7 +53,7 @@ export const RejectionScreen: React.FunctionComponent<RejectionScreenParams> = (
             Thank you for your interest in the FLARe app.
           </Text>
 
-          <Text fontWeight="500" color="darkGrey" fontSize={18} mt={6} p={0}>
+          <Text fontWeight="500" color="darkGrey" fontSize={18} mt={2} p={0}>
             {reasonCopy}
           </Text>
 

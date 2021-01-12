@@ -6,7 +6,7 @@ export const Interval = () => (
     width="100%"
     position="absolute"
     top={0}
-    pt={24}
+    pt={12}
     alignItems="center"
   >
     <Text fontWeight="bold" fontSize={120}>

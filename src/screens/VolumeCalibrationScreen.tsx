@@ -220,8 +220,8 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
 
   return (
     <SafeAreaView flex={1}>
-      <Box flex={1} alignItems="center" pt={24}>
-        <Entypo name="sound" size={100} color={palette.darkGrey} />
+      <Box flex={1} alignItems="center" pt={10}>
+        <Entypo name="sound" size={80} color={palette.darkGrey} />
 
         <Text mt={8} variant="caption" textAlign="center" px={6}>
           For this experiment it is important that the volume of the sound is
@@ -256,8 +256,8 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
           <Text
             fontWeight="500"
             width="100%"
-            fontSize={100}
-            mt={24}
+            fontSize={80}
+            mt={10}
             textAlign="center"
             color="darkGrey"
           >
@@ -269,13 +269,16 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
         {stage == VolumeCalibrationStages.Rating && (
           <Box
             flex={1}
-            mt={15}
+            mt={{
+              s: 8,
+              m: 15,
+            }}
             pb={6}
             px={1}
             justifyContent="flex-end"
             alignItems="center"
           >
-            <Text variant="caption2" mb={6}>
+            <Text variant="caption2" mb={2}>
               Please rate the volume of the sound
             </Text>
             <RatingScale
