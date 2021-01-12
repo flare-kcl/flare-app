@@ -54,14 +54,15 @@ export const theme = createTheme({
     round: 1000000,
   },
   breakpoints: {
-    phone: 0,
-    tablet: 768,
+    s: 0,
+    m: 370,
+    l: 640,
   },
   textVariants: {
     // Both used on the login scren
     heading: {
       fontFamily: 'Inter-Light',
-      fontSize: 30,
+      fontSize: 26,
       fontWeight: 'bold',
       color: 'darkGrey',
       alignSelf: 'flex-start',
@@ -91,14 +92,20 @@ export const theme = createTheme({
     },
     caption: {
       fontFamily: 'Inter-SemiBold',
-      fontSize: 20,
+      fontSize: {
+        s: 16,
+        m: 20,
+      },
       color: 'black',
       opacity: 0.7,
       alignSelf: 'center',
     },
     caption2: {
       fontFamily: 'Inter-SemiBold',
-      fontSize: 15,
+      fontSize: {
+        s: 14,
+        m: 15,
+      },
       color: 'black',
       opacity: 0.7,
       alignSelf: 'center',
@@ -111,16 +118,22 @@ export const theme = createTheme({
     instructionHeading: {
       fontFamily: 'Inter',
       fontWeight: '700',
-      fontSize: 25,
+      fontSize: {
+        s: 22,
+        m: 25,
+      },
       color: 'darkGrey',
       textAlign: 'center',
     },
     instructionDescription: {
       fontFamily: 'Inter',
       fontWeight: '500',
-      fontSize: 18,
+      fontSize: {
+        s: 16,
+        m: 18,
+      },
       color: 'darkGrey',
-      textAlign: 'left',
+      textAlign: 'center',
     },
     instructionActionLabel: {
       fontFamily: 'Inter',

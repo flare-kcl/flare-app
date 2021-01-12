@@ -47,7 +47,7 @@ export const HeadphonesDetectionScreen: React.FunctionComponent<HeadphonesDetect
         flex={1}
         alignItems="center"
         justifyContent="flex-start"
-        pt={24}
+        pt={7}
         px={5}
       >
         <Image
@@ -61,10 +61,10 @@ export const HeadphonesDetectionScreen: React.FunctionComponent<HeadphonesDetect
 
         <Text
           fontWeight="700"
-          fontSize={25}
+          fontSize={22}
           color="darkGrey"
           textAlign="center"
-          mb={16}
+          mb={8}
         >
           Please ensure you're wearing headphones.
         </Text>
@@ -72,7 +72,7 @@ export const HeadphonesDetectionScreen: React.FunctionComponent<HeadphonesDetect
         {connected == true && (
           <AntDesign
             name="checkcircle"
-            size={80}
+            size={60}
             color={palette.greenCorrect}
           />
         )}

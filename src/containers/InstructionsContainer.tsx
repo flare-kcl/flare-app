@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { ExperimentModule } from './ExperimentContainer'
-import { Stepper } from '@components'
+import { SafeAreaView, Stepper } from '@components'
 import { TextInstructionScreen } from '@screens'
 import { VolumeInstructionScreen } from '@screens/VolumeInstructionScreen'
 import { HeadphonesDetectionScreen } from '@screens/HeadphonesDetectionScreen'
@@ -170,7 +170,7 @@ export const InstructionsContainer: ExperimentModule<InstructionsModuleState> = 
   }
 
   return (
-    <>
+    <SafeAreaView flex={1}>
       <Stepper
         color={inRatingPhase ? 'teal' : 'purple'}
         stageLabel={inRatingPhase ? 'Task Instructions' : 'Set up instructions'}
@@ -182,6 +182,6 @@ export const InstructionsContainer: ExperimentModule<InstructionsModuleState> = 
         }
       />
       {Screen}
-    </>
+    </SafeAreaView>
   )
 }

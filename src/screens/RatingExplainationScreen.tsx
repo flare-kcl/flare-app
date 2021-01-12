@@ -21,7 +21,10 @@ export const RatingExplainationScreen: React.FunctionComponent<RatingExplainatio
         flex={1}
         alignItems="center"
         justifyContent="flex-start"
-        pt={24}
+        pt={{
+          s: 8,
+          m: 12,
+        }}
         px={1}
       >
         <Text

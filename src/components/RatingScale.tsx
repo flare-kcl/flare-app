@@ -82,14 +82,7 @@ export const RatingScale: React.FunctionComponent<RatingScaleProps> = ({
 
   return (
     <PanGestureHandler onGestureEvent={onSwipe}>
-      <Box
-        flex={1}
-        justifyContent="flex-start"
-        flexDirection={{
-          phone: 'column',
-        }}
-        pb={16}
-      >
+      <Box flex={1} justifyContent="flex-start" flexDirection="column" pb={16}>
         {/* Trial rating scale */}
         <Box
           flexDirection="row"

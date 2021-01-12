@@ -66,21 +66,19 @@ export const LoginScreen = () => {
         flex={1}
         flexGrow={1}
         height={dimensions.height}
-        flexDirection={{
-          phone: 'column',
-        }}
+        flexDirection={'column'}
         alignItems="center"
         justifyContent="flex-start"
         backgroundColor="greenPrimary"
       >
-        <Box position="absolute" top={5}>
+        <Box position="absolute" top={3}>
           <Text>
             Version: {Constants.nativeAppVersion} (
             {Constants.nativeBuildVersion})
           </Text>
         </Box>
 
-        <Text variant="loginHeading" pt={16} pb={2}>
+        <Text variant="loginHeading" pt={8} pb={2}>
           FLARe
         </Text>
 
@@ -110,7 +108,6 @@ export const LoginScreen = () => {
               style={{
                 width: '60%',
                 height: '65%',
-                marginTop: 40,
               }}
               resizeMode="contain"
               opacity={0.8}
@@ -141,7 +138,7 @@ export const LoginScreen = () => {
               />
             </Box>
 
-            <Text variant="caption2" textAlign="center" pt={10} px={3}>
+            <Text variant="caption2" textAlign="center" pt={5} px={3}>
               Please enter your Participant ID into the form above. You should
               have recieved this in your experiment briefing.
             </Text>

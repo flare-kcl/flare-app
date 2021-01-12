@@ -17,7 +17,9 @@ export const IntervalExplainationScreen: React.FunctionComponent<IntervalExplain
         flex={1}
         alignItems="center"
         justifyContent="flex-start"
-        pt={24}
+        pt={{
+          s: 8,
+        }}
         px={6}
       >
         <Interval />

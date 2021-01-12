@@ -221,7 +221,7 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
 
         {/* Set opacity to zero during inter-trial delay to enable loading of images */}
         <Box flex={1} opacity={showTrial ? 1 : 0}>
-          <Box height="55%">
+          <Box height="55%" mt={8}>
             <TrialImageStack
               contextImage={contextImage}
               stimulusImage={stimulusImage}
