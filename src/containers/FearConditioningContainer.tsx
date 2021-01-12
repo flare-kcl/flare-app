@@ -1,6 +1,6 @@
 import { useEffect, useCallback, useState, useRef } from 'react'
 import { EmitterSubscription } from 'react-native'
-import { shuffle } from 'lodash'
+import shuffle from 'lodash/shuffle'
 import { ExperimentModule, VisualStimuli } from './ExperimentContainer'
 import {
   FearConditioningTrialScreen,

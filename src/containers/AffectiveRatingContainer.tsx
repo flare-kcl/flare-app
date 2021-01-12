@@ -1,6 +1,6 @@
 import { ExperimentModule, VisualStimuli } from './ExperimentContainer'
 import { AffectiveRatingScreen } from '@screens'
-import { shuffle } from 'lodash'
+import shuffle from 'lodash/shuffle'
 import { useEffect } from 'react'
 
 export type AffectiveRatingResponse = VisualStimuli & {
