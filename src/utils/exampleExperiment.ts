@@ -98,10 +98,10 @@ export const exampleExperimentData: Experiment = {
   contextStimuli: {
     A: require('../assets/images/example-context.png'),
   },
-  conditionalStimuli: [
-    { label: 'csa', image: require('../assets/images/CSA.png') },
-    { label: 'csb', image: require('../assets/images/CSB.png') },
-  ],
+  conditionalStimuli: {
+    'cs+': { label: 'csa', image: require('../assets/images/CSA.png') },
+    'cs-': { label: 'csb', image: require('../assets/images/CSB.png') },
+  },
   generalisationStimuli: [
     { label: 'gsa', image: require('../assets/images/GSA.png') },
     { label: 'gsb', image: require('../assets/images/GSB.png') },

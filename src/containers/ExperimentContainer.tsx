@@ -75,7 +75,7 @@ export type Experiment = {
       }
     | NodeModule
   contextStimuli: { [key: string]: ImageSourcePropType }
-  conditionalStimuli: VisualStimuli[]
+  conditionalStimuli: { [key: string]: VisualStimuli }
   generalisationStimuli: VisualStimuli[]
 }
 

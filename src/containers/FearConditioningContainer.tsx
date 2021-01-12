@@ -49,7 +49,8 @@ export const FearConditioningContainer: ExperimentModule<FearConditioningModuleS
         trials: generateTrials(
           mod.trialsPerStimulus,
           mod.reinforcementRate,
-          experiment.definition.conditionalStimuli,
+          experiment.definition.conditionalStimuli['cs+'],
+          experiment.definition.conditionalStimuli['cs-'],
           mod.generalisationStimuliEnabled
             ? experiment.definition.generalisationStimuli
             : [],
@@ -188,26 +189,26 @@ export const FearConditioningContainer: ExperimentModule<FearConditioningModuleS
  *
  * @param experimentVC
  */
-function generateTrials(
+export function generateTrials(
   trialsPerStimulus: number,
   reinforcementRate: number,
-  conditionalStimuli: VisualStimuli[],
+  positiveStimuli: VisualStimuli,
+  negativeStimuli: VisualStimuli,
   generalisationStimuli: VisualStimuli[],
 ): Trial[] {
-  // Determine which image matches what stimulus
-  let stimuli = shuffle(conditionalStimuli)
-  const positiveStimuli: VisualStimuli = stimuli[0]
-  const negativeStimuli: VisualStimuli = stimuli[1]
-
   // Create equal amounts of trials
   let positiveStimuliTrials: Trial[] = []
   let negativeStimuliTrials: Trial[] = []
-  for (var i = 0; i < trialsPerStimulus; i++) {
+
+  // Store remaining CS in seperate array that concatonates with the head.
+  let trials: Trial[] = []
+
+  for (let i = 0; i <= trialsPerStimulus - 1; i++) {
     // Generate positive stimulus trial
     positiveStimuliTrials.push({
       label: positiveStimuli.label,
       stimulusImage: positiveStimuli.image,
-      reinforced: i <= reinforcementRate,
+      reinforced: i < reinforcementRate,
     })
 
     // Generate negative stimulus trial
@@ -216,6 +217,26 @@ function generateTrials(
       stimulusImage: negativeStimuli.image,
       reinforced: false,
     })
+
+    // Add GS if nessacery
+    if (generalisationStimuli.length > 0) {
+      // We transform the label to it's GS identifier (i.e GSA) and it's coding id (i.e GS2, meaning 2 increments away from the CS+)
+      const gsCodingDescending = positiveStimuli.label == 'csa'
+      const gsCoding = {
+        gsa: gsCodingDescending ? 1 : 4,
+        gsb: gsCodingDescending ? 2 : 3,
+        gsc: gsCodingDescending ? 3 : 2,
+        gsd: gsCodingDescending ? 4 : 1,
+      }
+
+      trials = trials.concat(
+        generalisationStimuli.map((gs) => ({
+          label: `${gs.label}/${gsCoding[gs.label]}`,
+          stimulusImage: gs.image,
+          reinforced: false,
+        })),
+      )
+    }
   }
 
   // Rule 1: First two trials must be one of each (in random order)
@@ -225,34 +246,13 @@ function generateTrials(
     negativeStimuliTrials.shift(),
   ])
 
-  // Store remaining CS in seperate array that concatonates with the head.
-  let trials: Trial[] = []
-
-  // Add GS if nessacery
-  if (generalisationStimuli.length > 0) {
-    // We transform the label to it's GS identifier (i.e GSA) and it's coding id (i.e GS2, meaning 2 increments away from the CS+)
-    const gsCodingDescending = positiveStimuli.label == 'csa'
-    const gsCoding = {
-      gsa: gsCodingDescending ? 1 : 4,
-      gsb: gsCodingDescending ? 2 : 3,
-      gsc: gsCodingDescending ? 3 : 2,
-      gsd: gsCodingDescending ? 4 : 1,
-    }
-
-    trials = generalisationStimuli.map((gs) => ({
-      label: `${gs.label}/${gsCoding[gs.label]}`,
-      stimulusImage: gs.image,
-      reinforced: false,
-    }))
-  }
-
   // Shuffle sets to mix reinforced trials
   trials = shuffle(trials)
   positiveStimuliTrials = shuffle(positiveStimuliTrials)
   negativeStimuliTrials = shuffle(negativeStimuliTrials)
 
   // Rule 3: Merge positive and negative stimuli with a maxiumum of 2 stimuli in consectutive order
-  for (var i = 0; i < positiveStimuliTrials.length; i++) {
+  for (let i = 0; i <= trialsPerStimulus - 2; i++) {
     // Get one of each stimuli & shuffle
     let tail = shuffle([
       positiveStimuliTrials.shift(),
