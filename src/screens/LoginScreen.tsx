@@ -6,6 +6,7 @@ import Config from 'react-native-config'
 import camelcaseKeys from 'camelcase-keys'
 import Constants from 'expo-constants'
 import * as Sentry from '@sentry/react-native'
+import { shuffle } from 'lodash'
 
 import { Experiment } from '@containers/ExperimentContainer'
 import { Box, Text, Button, Image, TextField, SafeAreaView } from '@components'
@@ -261,6 +262,12 @@ async function loginWithID(participantID: string, dispatch) {
       }
     }
 
+    // Shuffle CS and assign to CS+/CS-
+    const conditionalStimuli = await shuffle([
+      await cacheVisualStimuli('csa', experimentApiData.experiment.csa),
+      await cacheVisualStimuli('csb', experimentApiData.experiment.csb),
+    ])
+
     // Covert API data to experiment type
     const experiment: Experiment = {
       id: experimentApiData.experiment.id,
@@ -287,10 +294,10 @@ async function loginWithID(participantID: string, dispatch) {
       unconditionalStimulus: await cacheRemoteAsset(
         experimentApiData.experiment.us,
       ),
-      conditionalStimuli: [
-        await cacheVisualStimuli('csa', experimentApiData.experiment.csa),
-        await cacheVisualStimuli('csb', experimentApiData.experiment.csb),
-      ].filter((cs) => cs != null),
+      conditionalStimuli: {
+        'cs+': conditionalStimuli[0],
+        'cs-': conditionalStimuli[1],
+      },
       generalisationStimuli: [
         await cacheVisualStimuli('gsa', experimentApiData.experiment.gsa),
         await cacheVisualStimuli('gsb', experimentApiData.experiment.gsb),
