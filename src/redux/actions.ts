@@ -140,7 +140,7 @@ const syncBasicInfoModule = async (
       participant: experiment.participantID,
       module: mod.moduleId,
       date_of_birth: mod.moduleState.dob,
-      gender: mod.moduleState.gender,
+      gender: mod.moduleState.gender ?? '',
       headphone_type: mod.moduleState.headphoneType,
       device_make: mod.moduleState.manufacturer,
       device_model: mod.moduleState.model,
