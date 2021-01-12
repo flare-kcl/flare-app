@@ -33,7 +33,7 @@ exports[`Text Renders Correctly 1`] = `
               "flex": 1,
               "flexDirection": "column",
               "paddingHorizontal": 24,
-              "paddingTop": 40,
+              "paddingTop": 32,
             },
           ]
         }
@@ -46,7 +46,6 @@ exports[`Text Renders Correctly 1`] = `
                 "display": "flex",
                 "flexDirection": "row",
                 "justifyContent": "center",
-                "paddingTop": 16,
                 "width": "100%",
               },
             ]
@@ -55,7 +54,7 @@ exports[`Text Renders Correctly 1`] = `
           <Image
             height="100%"
             maxHeight={150}
-            maxWidth={240}
+            maxWidth={150}
             opacity={0.8}
             resizeMode="contain"
             source={1}
@@ -75,7 +74,7 @@ exports[`Text Renders Correctly 1`] = `
                 "color": "#212529",
                 "display": "flex",
                 "fontFamily": "Inter-Light",
-                "fontSize": 30,
+                "fontSize": 26,
                 "fontWeight": "bold",
                 "marginBottom": 12,
                 "marginTop": 32,
@@ -93,7 +92,7 @@ exports[`Text Renders Correctly 1`] = `
                 "display": "flex",
                 "fontSize": 18,
                 "fontWeight": "500",
-                "marginTop": 24,
+                "marginTop": 8,
                 "padding": 0,
               },
             ]
