@@ -18,11 +18,7 @@ export const ExternalLinkContainer: ExperimentModule<ExternalLinkModuleState> = 
 }) => {
   const getFormattedURL = () => {
     if (mod.appendParticipantId) {
-      // Parse the URL
-      const url = new URL(mod.url)
-      // Add search param
-      url.searchParams.set('participantID', experiment.participantID)
-      return url.toString()
+      return mod.url + experiment.participantID
     }
 
     return mod.url
