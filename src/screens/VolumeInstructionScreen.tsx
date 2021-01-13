@@ -13,6 +13,11 @@ export const VolumeInstructionScreen: React.FunctionComponent<VolumeInstructionS
   const [volume, setVolume] = useState<number>()
   const volumeSensorRef = useRef<EmitterSubscription>()
 
+  // Continuously attach to AV focus
+  useEffect(() => {
+    AudioSensor.focus()
+  })
+
   useEffect(() => {
     // Set initial value
     AudioSensor.getCurrentVolume().then((volume) => setVolume(volume))

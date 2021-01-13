@@ -22,6 +22,7 @@ export const InstructionsContainer: ExperimentModule<InstructionsModuleState> = 
   updateModule,
   experiment,
   updateExperiment,
+  unconditionalStimulus,
   onModuleComplete,
 }) => {
   // Store current instruction in state
@@ -90,7 +91,7 @@ export const InstructionsContainer: ExperimentModule<InstructionsModuleState> = 
     introScreens = introScreens.concat((key) => (
       <VolumeCalibrationScreen
         key={key}
-        unconditionalStimulus={experiment.definition.unconditionalStimulus}
+        unconditionalStimulus={unconditionalStimulus}
         onFinishCalibration={onFinishCalibration}
       />
     ))

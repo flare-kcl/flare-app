@@ -1,10 +1,7 @@
 import { memo, useState, useEffect, useRef } from 'react'
-import { Audio } from 'expo-av'
 import { EmitterSubscription, ImageSourcePropType, Image } from 'react-native'
 import { useDispatch } from 'react-redux'
-import * as Sentry from '@sentry/react-native'
 
-import { recordEvent } from '@redux/reducers'
 import {
   Box,
   TrialImageStack,
@@ -14,16 +11,16 @@ import {
 } from '@components'
 import AudioSensor from '@utils/AudioSensor'
 import { useAlert } from '@utils/AlertProvider'
+import { UnconditionalStimulusRef } from '@utils/hooks'
 
 type FearConditioningTrialScreenProps = {
   contextImage: ImageSourcePropType
   stimulusImage: ImageSourcePropType
-  unconditionalStimulus: { uri: string }
+  unconditionalStimulus: UnconditionalStimulusRef
   trialLength: number
   ratingDelay: number
   reinforced: boolean
   trialDelay: number
-  volume: number
   anchorLabelLeft: string
   anchorLabelCenter: string
   anchorLabelRight: string
@@ -39,16 +36,6 @@ export type FearConditioningTrialResponse = {
   headphonesConnected: boolean
 }
 
-Audio.setAudioModeAsync({
-  allowsRecordingIOS: false,
-  staysActiveInBackground: true,
-  interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_MIX_WITH_OTHERS,
-  playsInSilentModeIOS: true,
-  shouldDuckAndroid: false,
-  interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DUCK_OTHERS,
-  playThroughEarpieceAndroid: false,
-})
-
 export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioningTrialScreenProps> = memo(
   ({
     stimulusImage,
@@ -59,18 +46,15 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
     ratingDelay,
     onTrialEnd,
     trialDelay,
-    volume,
     anchorLabelLeft,
     anchorLabelCenter,
     anchorLabelRight,
   }) => {
     const Alert = useAlert()
-    const dispatch = useDispatch()
     const [showTrial, setShowTrial] = useState<boolean>(false)
     const [showScale, setShowScale] = useState(false)
 
     // Keep reference of timers
-    const soundRef = useRef<Audio.Sound>()
     const startTimeRef = useRef<number>()
     const reactionTimeRef = useRef<number>()
     const endTimerRef = useRef<any>()
@@ -78,11 +62,10 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
     const scaleTimerRef = useRef<any>()
     const ratingValueRef = useRef<any>()
     const mountedTimerRef = useRef<any>(false)
-    const volumeSensorListener = useRef<EmitterSubscription>()
     const headphoneSensorListener = useRef<EmitterSubscription>()
     const headphoneRef = useRef<AlertRef>()
 
-    const onSoundStarted = () => {
+    const finishTrial = (delay: number) => {
       if (endTimerRef.current === undefined) {
         endTimerRef.current = setTimeout(async () => {
           onTrialEnd({
@@ -93,49 +76,7 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
             volume: await AudioSensor.getCurrentVolume(),
             headphonesConnected: await AudioSensor.isHeadphonesConnected(),
           })
-
-          // Regain focus to audio
-          await AudioSensor.focus()
-        }, 500)
-      }
-    }
-
-    const setupSound = async () => {
-      try {
-        const { sound } = await Audio.Sound.createAsync(unconditionalStimulus, {
-          shouldPlay: false,
-          volume: volume,
-        })
-
-        // Report errors if sound not playing
-        if (volume == null || volume == 0) {
-          Sentry.captureMessage('Invalid volume parameter used by trial.')
-        }
-
-        // Assign sound object to ref
-        soundRef.current = sound
-        soundRef.current.setOnPlaybackStatusUpdate((update) => {
-          if (update.isPlaying) {
-            onSoundStarted()
-          }
-        })
-
-        return Promise.resolve()
-      } catch (err) {
-        Sentry.captureException(err)
-        console.error(err)
-      }
-    }
-
-    const playSound = async () => {
-      try {
-        // If sound not loaded, retry
-        if (soundRef.current === undefined) await setupSound()
-
-        // Play sound file from begining
-        await soundRef.current.playFromPositionAsync(0)
-      } catch (err) {
-        Sentry.captureException(err)
+        }, delay)
       }
     }
 
@@ -164,9 +105,6 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
     }
 
     useEffect(() => {
-      // Setup sound object before setting timers
-      setupSound()
-
       // Setup Headphone Listening
       AudioSensor.isHeadphonesConnected().then(showHeadphoneAlert)
       headphoneSensorListener.current = AudioSensor.addHeadphonesListener(
@@ -177,11 +115,12 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
         // Set timer for sound, 500ms before end
         soundTimerRef.current = setTimeout(async () => {
           if (reinforced) {
-            playSound()
+            await unconditionalStimulus.playSound()
+            finishTrial(0)
           } else {
-            onSoundStarted()
+            finishTrial(unconditionalStimulus.duration)
           }
-        }, trialLength - 500)
+        }, trialLength - unconditionalStimulus.duration)
 
         // Set timer for scale reveal
         scaleTimerRef.current = setTimeout(() => {
@@ -202,9 +141,6 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
         clearTimeout(soundTimerRef.current)
         clearTimeout(endTimerRef.current)
         clearTimeout(scaleTimerRef.current)
-
-        // Delete sound object
-        soundRef.current?.unloadAsync()
 
         // Disconnect volume listener
         headphoneSensorListener.current?.remove()
