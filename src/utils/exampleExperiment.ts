@@ -55,21 +55,23 @@ export const exampleCriteriaDefinition = {
     {
       id: 8798,
       questionText: `1. Do you have a pre-existing heart condition?`,
+      helpText: `This question is required and must be 'No'.`,
       requiredAnswer: false,
       required: true,
     },
     {
       id: 4511,
       questionText: `2. Do you suffer from PTSD?`,
-      requiredAnswer: false,
-      required: true,
+      helpText: `This question is not required and any response is valid.`,
+      requiredAnswer: null,
+      required: false,
     },
     {
       id: 9813,
       questionText: `3. Do you have a diagnosed anxiety condtion?`,
-      helpText: `Mauris ut urna nunc. Proin luctus, odio cursus ornare sodales, sapien metus ultrices nisl, at pulvinar dui ipsum et lacus. Cras sodales faucibus est vel volutpat. Pellentesque lacinia suscipit mi ut euismod. Donec ut viverra ante. Morbi bibendum vulputate neque vitae viverra. Mauris egestas vehicula tortor. Aenean ornare euismod massa, at cursus urna sodales nec.`,
+      helpText: `This question is not required but a 'Yes' response screens out the user.`,
       requiredAnswer: false,
-      required: true,
+      required: false,
     },
   ],
 }
