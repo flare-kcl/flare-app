@@ -84,20 +84,31 @@ exports[`Text Renders Correctly 1`] = `
         >
           Thank you for your interest in the FLARe app.
         </Text>
-        <Text
+        <View
           style={
             Array [
               Object {
-                "color": "#212529",
                 "display": "flex",
-                "fontSize": 18,
-                "fontWeight": "500",
-                "marginTop": 8,
-                "padding": 0,
+                "width": "100%",
               },
             ]
           }
-        />
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#212529",
+                  "display": "flex",
+                  "fontSize": 18,
+                  "fontWeight": "500",
+                  "marginTop": 8,
+                  "padding": 0,
+                },
+              ]
+            }
+          />
+        </View>
         <View
           style={
             Array [
