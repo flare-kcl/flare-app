@@ -1,6 +1,6 @@
-import { useState } from 'react'
 import { ImageSourcePropType } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
+import { AVPlaybackSource } from 'expo-av/build/AV'
 import {
   experimentSelector,
   currentModuleSelector,
@@ -29,6 +29,10 @@ import { SummaryScreen } from '@screens/SummaryScreen'
 import { ExternalLinkContainer } from './ExternalLinkContainer'
 import { AffectiveRatingContainer } from './AffectiveRatingContainer'
 import { TextContainer } from './TextContainer'
+import {
+  useUnconditionalStimulus,
+  UnconditionalStimulusRef,
+} from '@utils/hooks'
 
 const ExperimentModuleTypes = {
   BASIC_INFO: BasicInfoContainer,
@@ -73,7 +77,7 @@ export type Experiment = {
     | {
         uri: string
       }
-    | NodeModule
+    | AVPlaybackSource
   contextStimuli: { [key: string]: ImageSourcePropType }
   conditionalStimuli: { [key: string]: VisualStimuli }
   generalisationStimuli: VisualStimuli[]
@@ -88,6 +92,7 @@ export type ExperimentModule<
     updateModule: (ModuleState) => void
     experiment: ExperimentCache
     onModuleComplete: () => void
+    unconditionalStimulus?: UnconditionalStimulusRef
     terminateExperiment: (boolean, RejectionReason) => void
     exitExperiment: (RejectionReason) => void
   }
@@ -99,6 +104,7 @@ export const ExperimentContainer = () => {
   const experiment = useSelector(experimentSelector)
   const experimentModules = useSelector(allModulesSelector)
   const currentModule = useSelector(currentModuleSelector)
+  const usRef = useUnconditionalStimulus(experiment)
 
   // If the user has been 'screened out' then show respective screen
   if (experiment.rejectionReason) {
@@ -142,6 +148,11 @@ export const ExperimentContainer = () => {
   // If no experiment saved then return the login
   if (experiment.definition == undefined || currentModule == undefined) {
     return <LoginScreen />
+  }
+
+  // If the sound file is corrupt then terminate
+  if (usRef !== undefined && usRef?.duration === 0) {
+    terminateExperiment(true, 'CORRUPT_ASSETS')
   }
 
   // Get the current module data and it's respective component.
@@ -216,17 +227,23 @@ export const ExperimentContainer = () => {
     dispatch(updateExperiment(updatedExperimentState))
   }
 
+  // Only display module if US is loaded
+  const showView = usRef !== undefined
+
   // Return the current module
   return (
-    <ModuleComponent
-      key={`module-screen-${currentModule.moduleId}`}
-      module={currentModule.moduleState}
-      updateModule={updateModuleState}
-      experiment={experiment}
-      updateExperiment={updateExperimentState}
-      onModuleComplete={onModuleComplete}
-      terminateExperiment={terminateExperiment}
-      exitExperiment={exitExperiment}
-    />
+    showView && (
+      <ModuleComponent
+        key={`module-screen-${currentModule.moduleId}`}
+        module={currentModule.moduleState}
+        updateModule={updateModuleState}
+        experiment={experiment}
+        updateExperiment={updateExperimentState}
+        onModuleComplete={onModuleComplete}
+        terminateExperiment={terminateExperiment}
+        unconditionalStimulus={usRef}
+        exitExperiment={exitExperiment}
+      />
+    )
   )
 }

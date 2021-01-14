@@ -1,3 +1,4 @@
+import { ExperimentModule } from './ExperimentContainer'
 import { VolumeCalibrationScreen } from '@screens/VolumeCalibrationScreen'
 
 type TermsModuleState = {
@@ -11,7 +12,8 @@ type ModuleContainerProps = {
   exitExperiment: () => void
 }
 
-export const VolumeCalibrationContainer: React.FunctionComponent<ModuleContainerProps> = ({
+export const VolumeCalibrationContainer: ExperimentModule<ModuleContainerProps> = ({
+  mod,
   updateExperiment,
   onModuleComplete,
 }) => {
@@ -20,5 +22,10 @@ export const VolumeCalibrationContainer: React.FunctionComponent<ModuleContainer
     onModuleComplete()
   }
 
-  return <VolumeCalibrationScreen onFinishCalibration={onFinishCalibration} />
+  return (
+    <VolumeCalibrationScreen
+      unconditionalStimulus={mod.unconditionalStimulus}
+      onFinishCalibration={onFinishCalibration}
+    />
+  )
 }

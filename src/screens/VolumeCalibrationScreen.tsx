@@ -1,15 +1,13 @@
 import { useState, useRef, useEffect } from 'react'
-import { Audio } from 'expo-av'
 import { Entypo } from '@expo/vector-icons'
 import { Text, Box, Button, RatingScale, SafeAreaView } from '@components'
 import { palette } from '@utils/theme'
 import { useAlert } from '@utils/AlertProvider'
 import AudioSensor from '@utils/AudioSensor'
+import { UnconditionalStimulusRef } from '@utils/hooks'
 
 type VolumeCalibrationScreenProps = {
-  unconditionalStimulus: {
-    uri: string
-  }
+  unconditionalStimulus?: UnconditionalStimulusRef
   onFinishCalibration: (volume: number) => void
 }
 
@@ -20,16 +18,6 @@ enum VolumeCalibrationStages {
   Error = 3,
 }
 
-Audio.setAudioModeAsync({
-  allowsRecordingIOS: false,
-  staysActiveInBackground: true,
-  interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_MIX_WITH_OTHERS,
-  playsInSilentModeIOS: true,
-  shouldDuckAndroid: false,
-  interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DUCK_OTHERS,
-  playThroughEarpieceAndroid: false,
-})
-
 export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationScreenProps> = ({
   unconditionalStimulus,
   onFinishCalibration,
@@ -37,7 +25,6 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
   const Alert = useAlert()
   const volumeIndex = useRef(0)
   const volumeScale = [0.5, 0.65, 0.8, 0.9, 0.95, 1]
-  const soundRef = useRef<Audio.Sound>()
   const [stage, setStage] = useState(VolumeCalibrationStages.Intro)
   const [countdown, setCountdown] = useState(3)
   const [volumeRating, setVolumeRating] = useState(undefined)
@@ -61,34 +48,6 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
     }
   }, [])
 
-  const playStimuli = async () => {
-    const volume = volumeScale[volumeIndex.current]
-    return new Promise(async (resolve, _) => {
-      // Setup audio
-      if (soundRef.current === undefined) {
-        // Load audio file
-        const { sound } = await Audio.Sound.createAsync(unconditionalStimulus, {
-          shouldPlay: false,
-          volume,
-        })
-
-        // Assign to ref
-        soundRef.current = sound
-      }
-
-      // Set update handler
-      soundRef.current.setOnPlaybackStatusUpdate((update) => {
-        if (update.didJustFinish) {
-          resolve(true)
-        }
-      })
-
-      // Play the sound
-      await soundRef.current.setVolumeAsync(volume)
-      await soundRef.current.playFromPositionAsync(0)
-    })
-  }
-
   const decreaseCountdown = (countdown: number, callback: () => void) => {
     setTimeout(() => {
       // If timer finished...
@@ -110,45 +69,45 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
       setCountdown(3)
       decreaseCountdown(3, async () => {
         // Play Sound
-        const didPlay = await playStimuli()
+        const volume = volumeScale[volumeIndex.current]
+        await unconditionalStimulus.setVolume(volume)
+        await unconditionalStimulus.playSound()
 
         // Ask participant what they thought
-        if (didPlay) {
-          Alert.alert(
-            'How was that?',
-            'Is the volume of the sound uncomfortable?',
-            [
-              {
-                label: 'Yes',
-                onPress: () => {
-                  // Switch to volume rating
+        Alert.alert(
+          'How was that?',
+          'Is the volume of the sound uncomfortable?',
+          [
+            {
+              label: 'Yes',
+              onPress: () => {
+                // Switch to volume rating
+                setStage(VolumeCalibrationStages.Rating)
+              },
+            },
+            {
+              label: 'No',
+              onPress: () => {
+                // If reached max volume
+                if (volumeScale[volumeIndex.current] >= 1.0) {
                   setStage(VolumeCalibrationStages.Rating)
-                },
-              },
-              {
-                label: 'No',
-                onPress: () => {
-                  // If reached max volume
-                  if (volumeScale[volumeIndex.current] >= 1.0) {
-                    setStage(VolumeCalibrationStages.Rating)
-                  } else {
-                    // Increase volume and play again
-                    incrementVolume()
-                    testCurrentVolume()
-                  }
-                },
-              },
-              {
-                label: 'Listen Again',
-                onPress: () => {
-                  // Restart countdown
+                } else {
+                  // Increase volume and play again
+                  incrementVolume()
                   testCurrentVolume()
-                },
+                }
               },
-            ],
-            'yellow',
-          )
-        }
+            },
+            {
+              label: 'Listen Again',
+              onPress: () => {
+                // Restart countdown
+                testCurrentVolume()
+              },
+            },
+          ],
+          'yellow',
+        )
       })
     }
 

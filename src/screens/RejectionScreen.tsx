@@ -15,6 +15,7 @@ const RejectionReasons = {
   INCORRECT_CRITERIA: `Unfortunately, some of the responses you gave on the previous screen mean that you are no longer able to take part in the experiment.`,
   TRIAL_TIMEOUT: `Unfortunately, you have left the app for too long during the experiment.`,
   TIMEOUT: `Unfortunately, your time to complete the experiment has expired.`,
+  CORRUPT_ASSETS: `Unfortunately, we could not load the experiment correctly. Please contact your experiment administrator.`,
   UNKNOWN: `Unfortunately, you are not an ideal candiate for this study.`,
 }
 
@@ -23,7 +24,6 @@ export const RejectionScreen: React.FunctionComponent<RejectionScreenParams> = (
   contactLink,
   onExit,
 }) => {
-  // TODO: Swap to prop
   const reasonCopy = RejectionReasons[reason]
 
   return (
@@ -53,9 +53,11 @@ export const RejectionScreen: React.FunctionComponent<RejectionScreenParams> = (
             Thank you for your interest in the FLARe app.
           </Text>
 
-          <Text fontWeight="500" color="darkGrey" fontSize={18} mt={2} p={0}>
-            {reasonCopy}
-          </Text>
+          <Box width="100%">
+            <Text fontWeight="500" color="darkGrey" fontSize={18} mt={2} p={0}>
+              {reasonCopy}
+            </Text>
+          </Box>
 
           <Box
             flex={1}

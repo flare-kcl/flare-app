@@ -94,7 +94,7 @@ export const exampleExperimentData: Experiment = {
     min: 1,
     max: 3,
   },
-  unconditionalStimulus: require('../assets/sounds/ding.wav'),
+  unconditionalStimulus: require('../assets/sounds/scream.wav'),
   contextStimuli: {
     A: require('../assets/images/example-context.png'),
   },
@@ -130,7 +130,7 @@ export const exampleExperimentData: Experiment = {
       moduleType: 'INSTRUCTIONS',
       definition: {
         renderIntroTask: true,
-        renderTrialTask: true,
+        renderTrialTask: false,
         advancedVolumeCalibration: true,
       },
     },

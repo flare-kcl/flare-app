@@ -34,6 +34,7 @@ export const FearConditioningContainer: ExperimentModule<FearConditioningModuleS
   updateModule,
   exitExperiment,
   onModuleComplete,
+  unconditionalStimulus,
 }) => {
   const Alert = useAlert()
   const [lastTrialSkipped, setLastTrialSkipped] = useState(false)
@@ -169,9 +170,8 @@ export const FearConditioningContainer: ExperimentModule<FearConditioningModuleS
         key={`trial-${mod.currentTrialIndex}`}
         stimulusImage={currentTrial.stimulusImage}
         contextImage={experiment.definition.contextStimuli[mod.context]}
-        unconditionalStimulus={experiment.definition.unconditionalStimulus}
+        unconditionalStimulus={unconditionalStimulus}
         trialDelay={trialDelay}
-        volume={experiment.volume}
         trialLength={experiment.definition.trialLength}
         ratingDelay={experiment.definition.ratingDelay}
         reinforced={currentTrial.reinforced}
