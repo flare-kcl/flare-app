@@ -33,7 +33,7 @@ export const AffectiveRatingContainer: ExperimentModule<AffectiveRatingModuleSta
         stimuli: shuffle(
           mod.generalisationStimuliEnabled
             ? [
-                ...experiment.definition.conditionalStimuli,
+                ...Object.values(experiment.definition.conditionalStimuli),
                 ...experiment.definition.generalisationStimuli,
               ]
             : experiment.definition.conditionalStimuli,
