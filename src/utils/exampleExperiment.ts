@@ -142,17 +142,6 @@ export const exampleExperimentData: Experiment = {
       definition: exampleCriteriaDefinition,
     },
     {
-      id: '546844',
-      moduleType: 'AFFECTIVE_RATING',
-      definition: {
-        stimulus: 'csa',
-        question: 'Have you seen this blue circle before?',
-        ratingScaleAnchorLabelLeft: 'Definitely never seen before',
-        ratingScaleAnchorLabelCenter: 'Neutral',
-        ratingScaleAnchorLabelRight: 'Definitely have seen before',
-      },
-    },
-    {
       id: '56516',
       moduleType: 'AFFECTIVE_RATING',
       definition: {

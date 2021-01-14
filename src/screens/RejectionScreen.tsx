@@ -28,10 +28,22 @@ export const RejectionScreen: React.FunctionComponent<RejectionScreenParams> = (
 
   return (
     <ScrollView
-      style={{ flex: 1, height: '100%', backgroundColor: palette.greenPrimary }}
+      contentContainerStyle={{
+        flexGrow: 1,
+        backgroundColor: palette.greenPrimary,
+      }}
     >
-      <SafeAreaView flex={1} minHeight={Dimensions.get('window').height}>
-        <Box flex={1} flexDirection="column" alignItems="center" pt={8} px={6}>
+      <SafeAreaView flex={1}>
+        <Box
+          flex={1}
+          flexDirection="column"
+          alignItems="center"
+          pt={{
+            s: 2,
+            m: 8,
+          }}
+          px={6}
+        >
           <Box
             flexDirection="row"
             justifyContent="center"

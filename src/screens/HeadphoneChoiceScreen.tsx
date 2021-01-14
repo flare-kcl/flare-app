@@ -14,12 +14,8 @@ export const HeadphoneChoiceScreen: React.FunctionComponent<HeadphoneChoiceScree
   onNext,
 }) => {
   return (
-    <ScrollView
-      style={{
-        height: '100%',
-      }}
-    >
-      <SafeAreaView flex={1} minHeight={Dimensions.get('screen').height}>
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <SafeAreaView flex={1}>
         <Box flex={1} pt={8} px={6}>
           <Text variant="heading">Select headphones</Text>
           <Text variant="heading3">

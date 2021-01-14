@@ -92,14 +92,7 @@ export const CriteriaScreen: React.FunctionComponent<CriteriaScreenParams> = ({
   }
 
   return (
-    <ScrollView
-      scrollEventThrottle={16}
-      contentInsetAdjustmentBehavior="automatic"
-      style={{
-        position: 'absolute',
-        height: '100%',
-      }}
-    >
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <SafeAreaView flex={1}>
         <Box flex={1} px={6} pt={10}>
           {/* Experiment introText */}

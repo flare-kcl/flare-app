@@ -1,4 +1,4 @@
-import { ScrollView, Dimensions } from 'react-native'
+import { ScrollView } from 'react-native'
 import { Box, Text, Button, SafeAreaView, Markdown } from '@components'
 
 type TextScreenProps = {
@@ -13,12 +13,8 @@ export const TextScreen: React.FunctionComponent<TextScreenProps> = ({
   onNext,
 }) => {
   return (
-    <ScrollView style={{ flex: 1, height: '100%' }}>
-      <SafeAreaView
-        flex={1}
-        height="100%"
-        minHeight={Dimensions.get('window').height}
-      >
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <SafeAreaView flex={1}>
         <Box
           flex={1}
           alignItems="center"
