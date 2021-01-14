@@ -78,7 +78,7 @@ export const CriteriaScreen: React.FunctionComponent<CriteriaScreenParams> = ({
     // Check if any of the answers make participant incompatible
     const invalidCriterion = consentCriteria.find(
       (criterion) =>
-        criterion.requiredAnswer !== undefined &&
+        criterion.requiredAnswer != null &&
         criterion.value != criterion.requiredAnswer,
     )
 

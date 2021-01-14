@@ -112,7 +112,7 @@ const syncCriterionModule = async (
           await PortalAPI.submitCriterionAnswer({
             module: mod.moduleId,
             participant: experiment.participantID,
-            question: index + 1,
+            question: question.id,
             // If value is undefined then submit null
             answer: question.value ?? null,
           })
