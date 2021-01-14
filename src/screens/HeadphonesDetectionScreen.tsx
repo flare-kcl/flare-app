@@ -72,14 +72,14 @@ export const HeadphonesDetectionScreen: React.FunctionComponent<HeadphonesDetect
         {connected == true && (
           <AntDesign
             name="checkcircle"
-            size={60}
+            size={70}
             color={palette.greenCorrect}
           />
         )}
 
         {connected == false && (
           <>
-            <Entypo name="circle-with-cross" size={90} color={palette.red} />
+            <AntDesign name="closecircle" size={70} color={palette.red} />
             <Text variant="caption2" fontWeight="500" mt={8}>
               Plug in your headphones to continue.
             </Text>

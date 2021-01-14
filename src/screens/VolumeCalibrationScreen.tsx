@@ -8,7 +8,7 @@ import { UnconditionalStimulusRef } from '@utils/hooks'
 
 type VolumeCalibrationScreenProps = {
   unconditionalStimulus?: UnconditionalStimulusRef
-  onFinishCalibration: (volume: number) => void
+  onFinishCalibration: (volume: number, volumeRating: number) => void
 }
 
 enum VolumeCalibrationStages {
@@ -141,7 +141,7 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
         [
           {
             label: 'Yes',
-            onPress: () => onFinishCalibration(volume),
+            onPress: () => onFinishCalibration(volume, volumeRating),
           },
           {
             label: 'No',
@@ -157,12 +157,12 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
 
     // If at max volume and below threshold continue
     else if (volume >= 1) {
-      onFinishCalibration(volume)
+      onFinishCalibration(volume, volumeRating)
     }
 
     // See if rating is beyond threshold
     else if (volumeRating > 5) {
-      onFinishCalibration(volume)
+      onFinishCalibration(volume, volumeRating)
     }
 
     // If is below threshold
