@@ -262,6 +262,9 @@ export function generateTrials(
     trials = trials.concat(tail)
   }
 
+  // Shuffle trial again
+  trials = shuffle(trials)
+
   // Return the generated trials.
   return trialsHead.concat(trials)
 }
