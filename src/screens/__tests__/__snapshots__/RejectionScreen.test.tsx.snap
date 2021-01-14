@@ -3,21 +3,19 @@
 exports[`Text Renders Correctly 1`] = `
 <RCTScrollView
   collapsable={false}
-  onGestureHandlerEvent={[Function]}
-  onGestureHandlerStateChange={[Function]}
-  style={
+  contentContainerStyle={
     Object {
       "backgroundColor": "#70C1B3",
-      "flex": 1,
-      "height": "100%",
+      "flexGrow": 1,
     }
   }
+  onGestureHandlerEvent={[Function]}
+  onGestureHandlerStateChange={[Function]}
 >
   <View>
     <RCTSafeAreaView
       emulateUnlessSupported={true}
       flex={1}
-      minHeight={1334}
       style={
         Array [
           Object {},

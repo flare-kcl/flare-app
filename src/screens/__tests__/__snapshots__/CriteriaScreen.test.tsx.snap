@@ -3,16 +3,13 @@
 exports[`Text Renders Correctly 1`] = `
 <RCTScrollView
   collapsable={false}
-  contentInsetAdjustmentBehavior="automatic"
-  onGestureHandlerEvent={[Function]}
-  onGestureHandlerStateChange={[Function]}
-  scrollEventThrottle={16}
-  style={
+  contentContainerStyle={
     Object {
-      "height": "100%",
-      "position": "absolute",
+      "flexGrow": 1,
     }
   }
+  onGestureHandlerEvent={[Function]}
+  onGestureHandlerStateChange={[Function]}
 >
   <View>
     <RCTSafeAreaView

@@ -1,4 +1,4 @@
-import { Dimensions, ScrollView } from 'react-native'
+import { ScrollView } from 'react-native'
 import { FontAwesome, Entypo } from '@expo/vector-icons'
 import { useNetInfo } from '@react-native-community/netinfo'
 
@@ -31,9 +31,13 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
 
   return (
     <ScrollView
-      style={{ flex: 1, height: '100%', backgroundColor: palette.greenPrimary }}
+      contentContainerStyle={{
+        flexGrow: 1,
+        height: '100%',
+        backgroundColor: palette.greenPrimary,
+      }}
     >
-      <SafeAreaView flex={1} minHeight={Dimensions.get('window').height}>
+      <SafeAreaView flex={1}>
         <Box
           flex={1}
           alignItems="center"
