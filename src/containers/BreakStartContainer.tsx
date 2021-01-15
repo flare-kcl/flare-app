@@ -25,7 +25,7 @@ export const BreakStartContainer: ExperimentModule<BreakStartModuleState> = ({
     <TextInstructionScreen
       heading={mod.startTitle}
       description={mod.startBody}
-      textAlign='left'
+      textAlign="left"
       actionLabel="Select 'next' to start break tasks"
       onNext={() => onModuleComplete()}
     />

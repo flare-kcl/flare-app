@@ -167,7 +167,8 @@ export const exampleExperimentData: Experiment = {
       moduleType: 'BREAK_START',
       definition: {
         startTitle: 'Break Time',
-        startBody: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum dictum massa blandit nisi auctor placerat. Suspendisse fermentum enim non hendrerit elementum. In condimentum pharetra imperdiet. Fusce auctor eros eu finibus aliquam. Donec vel tortor tempus, condimentum augue ornare, molestie tortor.',
+        startBody:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum dictum massa blandit nisi auctor placerat. Suspendisse fermentum enim non hendrerit elementum. In condimentum pharetra imperdiet. Fusce auctor eros eu finibus aliquam. Donec vel tortor tempus, condimentum augue ornare, molestie tortor.',
         duration: 60,
         endModule: 234,
       },
@@ -188,7 +189,8 @@ export const exampleExperimentData: Experiment = {
       definition: {
         startModule: 123,
         endTitle: 'End of Break',
-        endBody: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum dictum massa blandit nisi auctor placerat. Suspendisse fermentum enim non hendrerit elementum. In condimentum pharetra imperdiet. Fusce auctor eros eu finibus aliquam. Donec vel tortor tempus, condimentum augue ornare, molestie tortor.',
+        endBody:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum dictum massa blandit nisi auctor placerat. Suspendisse fermentum enim non hendrerit elementum. In condimentum pharetra imperdiet. Fusce auctor eros eu finibus aliquam. Donec vel tortor tempus, condimentum augue ornare, molestie tortor.',
       },
     },
   ],

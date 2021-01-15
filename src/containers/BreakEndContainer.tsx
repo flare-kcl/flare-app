@@ -30,7 +30,8 @@ export const BreakEndContainer: ExperimentModule<BreakEndModuleState> = ({
   const [extendedTimeRemaining, setExtendedTimeRemaining] = useState<string>()
 
   // Convert string to date
-  const breakEndDate = experiment.breakEndDate && Date.parse(experiment.breakEndDate)
+  const breakEndDate =
+    experiment.breakEndDate && Date.parse(experiment.breakEndDate)
 
   const enableTimeout = () => {
     // Enable timeout again
@@ -59,10 +60,7 @@ export const BreakEndContainer: ExperimentModule<BreakEndModuleState> = ({
     }
 
     // Calculate how long left
-    const secondsRemaining = differenceInSeconds(
-      breakEndDate,
-      new Date(),
-    )
+    const secondsRemaining = differenceInSeconds(breakEndDate, new Date())
 
     const duration = intervalToDuration({
       start: new Date(),
@@ -72,7 +70,11 @@ export const BreakEndContainer: ExperimentModule<BreakEndModuleState> = ({
     // If over 24 hours then use something nicer than countown clock
     if (secondsRemaining >= 86400) {
       setTimeRemaining(null)
-      setExtendedTimeRemaining(formatDuration(duration))
+      setExtendedTimeRemaining(
+        formatDuration(duration, {
+          format: ['years', 'months', 'weeks', 'days', 'hours', 'minutes'],
+        }),
+      )
     } else {
       setExtendedTimeRemaining(null)
       setTimeRemaining(
@@ -107,16 +109,10 @@ export const BreakEndContainer: ExperimentModule<BreakEndModuleState> = ({
     <BreakEndScreen
       heading={mod.endTitle}
       description={mod.endBody}
-      timerText={
-        canContinue
-          ? 'Break Over'
-          : timeRemaining
-      }
-      eta={format(breakEndDate, "dd/MM/yyyy - HH:mm:ss")}
+      timerText={canContinue ? 'Break Over' : timeRemaining}
+      eta={format(breakEndDate, 'dd/MM/yyyy - HH:mm:ss')}
       extendedTimerText={extendedTimeRemaining}
-      actionLabel={
-        canContinue && "Select 'next' to continue with experiment."
-      }
+      actionLabel={canContinue && "Select 'next' to continue with experiment."}
       buttonDisabled={!canContinue}
       onNext={() => enableTimeout()}
     />
