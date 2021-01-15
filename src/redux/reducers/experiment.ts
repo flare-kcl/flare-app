@@ -19,6 +19,7 @@ export type ExperimentCache = {
   headphoneType?: HeadphoneType
   volume?: number
   contactEmail?: string
+  breakEndDate?: Date
   isComplete: boolean
 }
 

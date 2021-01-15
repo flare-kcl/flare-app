@@ -33,6 +33,8 @@ import {
   useUnconditionalStimulus,
   UnconditionalStimulusRef,
 } from '@utils/hooks'
+import { BreakStartContainer } from './BreakStartContainer'
+import { BreakEndContainer } from './BreakEndContainer'
 
 const ExperimentModuleTypes = {
   BASIC_INFO: BasicInfoContainer,
@@ -44,6 +46,8 @@ const ExperimentModuleTypes = {
   FEAR_CONDITIONING: FearConditioningContainer,
   AFFECTIVE_RATING: AffectiveRatingContainer,
   TEXT: TextContainer,
+  BREAK_START: BreakStartContainer,
+  BREAK_END: BreakEndContainer,
 }
 
 type ExperimentModuleConfig = {
@@ -104,7 +108,7 @@ export const ExperimentContainer = () => {
   const experiment = useSelector(experimentSelector)
   const experimentModules = useSelector(allModulesSelector)
   const currentModule = useSelector(currentModuleSelector)
-  const usRef = useUnconditionalStimulus(experiment)
+  const usRef = useUnconditionalStimulus()
 
   // If the user has been 'screened out' then show respective screen
   if (experiment.rejectionReason) {
