@@ -1,11 +1,11 @@
 import { useState } from 'react'
-import { ScrollView } from 'react-native-gesture-handler'
 
 import {
   Box,
   Text,
   Button,
   Markdown,
+  ScrollView,
   CriterionToggle,
   SafeAreaView,
 } from '@components'
@@ -76,9 +76,10 @@ export const CriteriaScreen: React.FunctionComponent<CriteriaScreenParams> = ({
     }
 
     // Check if any of the answers make participant incompatible
-    const invalidCriterion = consentCriteria.find(
-      (criterion) =>
-        criterion.value != null && criterion.value != criterion.requiredAnswer,
+    const invalidCriterion = consentCriteria.find((criterion) =>
+      criterion.requiredAnswer == null
+        ? false
+        : criterion.value != criterion.requiredAnswer,
     )
 
     // Proceed or redirect
@@ -90,7 +91,7 @@ export const CriteriaScreen: React.FunctionComponent<CriteriaScreenParams> = ({
   }
 
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+    <ScrollView>
       <SafeAreaView flex={1}>
         <Box flex={1} px={6} pt={10}>
           {/* Experiment introText */}

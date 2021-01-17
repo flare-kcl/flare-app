@@ -1,5 +1,12 @@
-import { Dimensions, ScrollView } from 'react-native'
-import { Box, Button, Text, Pressable, Image, SafeAreaView } from '@components'
+import {
+  Box,
+  Button,
+  Text,
+  Pressable,
+  Image,
+  SafeAreaView,
+  ScrollView,
+} from '@components'
 import { HeadphoneType } from '@containers/BasicInfoContainer'
 
 export type HeadphoneChoiceScreenProps = {
@@ -14,7 +21,7 @@ export const HeadphoneChoiceScreen: React.FunctionComponent<HeadphoneChoiceScree
   onNext,
 }) => {
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+    <ScrollView>
       <SafeAreaView flex={1}>
         <Box flex={1} pt={8} px={6}>
           <Text variant="heading">Select headphones</Text>

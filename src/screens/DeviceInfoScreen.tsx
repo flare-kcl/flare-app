@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 import * as Device from 'expo-device'
-import { ScrollView } from 'react-native-gesture-handler'
 import {
   Box,
   Button,
   Text,
+  ScrollView,
   LabeledDateField,
   LabeledTextField,
   LabeledPickerField,
@@ -12,7 +12,6 @@ import {
 } from '@components'
 
 import { BasicInfoContainerState } from '@containers/BasicInfoContainer'
-import AudioSensor from '@utils/AudioSensor'
 
 export type DeviceInfoScreenProps = {
   shouldCollectDob: boolean
@@ -57,7 +56,7 @@ export const DeviceInfoScreen: React.FunctionComponent<DeviceInfoScreenProps> = 
 
   return (
     <>
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <ScrollView>
         <SafeAreaView flex={1}>
           <Box flex={1} pt={10} px={6} pb={6}>
             <Text variant="heading">Your information</Text>

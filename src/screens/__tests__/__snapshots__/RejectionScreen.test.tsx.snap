@@ -2,15 +2,22 @@
 
 exports[`Text Renders Correctly 1`] = `
 <RCTScrollView
-  collapsable={false}
+  alwaysBounceVertical={false}
+  bounces={false}
+  bouncesZoom={false}
   contentContainerStyle={
     Object {
-      "backgroundColor": "#70C1B3",
       "flexGrow": 1,
     }
   }
-  onGestureHandlerEvent={[Function]}
-  onGestureHandlerStateChange={[Function]}
+  contentInsetAdjustmentBehavior="automatic"
+  style={
+    Object {
+      "backgroundColor": "#70C1B3",
+      "flex": 1,
+      "height": "100%",
+    }
+  }
 >
   <View>
     <RCTSafeAreaView
