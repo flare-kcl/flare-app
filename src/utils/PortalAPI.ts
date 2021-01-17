@@ -1,4 +1,5 @@
 import Config from 'react-native-config'
+import * as Sentry from '@sentry/react-native'
 
 export class PortalAPI {
   private static async executeAPIRequest(
@@ -16,6 +17,35 @@ export class PortalAPI {
     })
   }
 
+  static async reportValidationError(rawResponse: Response) {
+    // Decode response to JSON, and if not encodeable text
+    let response = null
+    try {
+      response = await rawResponse.json()
+      // Check if there is a duplication object issue
+      if (
+        Object.keys(response).length == 1 &&
+        response['non_field_errors'] !== undefined
+      ) {
+        console.warn('Duplicate object exists')
+        return
+      }
+    } catch {
+      response = await rawResponse.text()
+    }
+
+    // Report issue via Sentry
+    const errMessage = 'Portal API sync validation issue'
+    Sentry.captureMessage(errMessage, {
+      contexts: {
+        response,
+      },
+    })
+
+    // Raise error to stop module sync flag being incorrect
+    throw new Error(errMessage)
+  }
+
   static async submitTrialRating(ratingResponse: PortalTrialRatingSubmission) {
     // Convert object to string
     const jsonData = JSON.stringify(ratingResponse)
@@ -26,7 +56,7 @@ export class PortalAPI {
 
     // If validation error
     if (response.status === 400) {
-      console.warn('Trial submission could not be processed.')
+      PortalAPI.reportValidationError(response)
     }
   }
 
@@ -40,7 +70,7 @@ export class PortalAPI {
 
     // If validation error
     if (response.status === 400) {
-      console.warn('Could not upload basic info data')
+      PortalAPI.reportValidationError(response)
     }
   }
 
@@ -56,7 +86,7 @@ export class PortalAPI {
 
     // If validation error
     if (response.status === 400) {
-      console.warn('Criterion answer could not be processed.')
+      PortalAPI.reportValidationError(response)
     }
   }
 
@@ -69,7 +99,7 @@ export class PortalAPI {
 
     // If validation error
     if (response.status === 400) {
-      console.warn("Could not agree to T&C's")
+      PortalAPI.reportValidationError(response)
     }
   }
 
@@ -83,7 +113,7 @@ export class PortalAPI {
 
     // If validation error
     if (response.status === 400) {
-      console.error('Affective rating could not be processed.')
+      PortalAPI.reportValidationError(response)
     }
   }
 
@@ -94,7 +124,7 @@ export class PortalAPI {
 
     // If validation error
     if (response.status === 400) {
-      console.warn('Submission request could not be processed.')
+      PortalAPI.reportValidationError(response)
     }
   }
 }
