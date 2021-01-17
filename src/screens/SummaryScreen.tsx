@@ -1,8 +1,7 @@
-import { ScrollView } from 'react-native'
 import { FontAwesome, Entypo } from '@expo/vector-icons'
 import { useNetInfo } from '@react-native-community/netinfo'
 
-import { Box, Text, Button, SafeAreaView } from '@components'
+import { Box, Text, Button, SafeAreaView, ScrollView } from '@components'
 import { ExperimentModule } from '@redux/reducers'
 import { palette } from '@utils/theme'
 import { useEffect } from 'react'
@@ -31,9 +30,7 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
 
   return (
     <ScrollView
-      contentContainerStyle={{
-        flexGrow: 1,
-        height: '100%',
+      style={{
         backgroundColor: palette.greenPrimary,
       }}
     >

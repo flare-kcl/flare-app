@@ -1,7 +1,6 @@
-import { Dimensions, Linking } from 'react-native'
-import { Image, Box, Button, Text, SafeAreaView } from '@components'
+import { Linking } from 'react-native'
+import { Image, Box, Button, Text, SafeAreaView, ScrollView } from '@components'
 import { RejectionReason } from '@redux/reducers'
-import { ScrollView } from 'react-native-gesture-handler'
 import { palette } from '@utils/theme'
 
 type RejectionScreenParams = {
@@ -28,8 +27,7 @@ export const RejectionScreen: React.FunctionComponent<RejectionScreenParams> = (
 
   return (
     <ScrollView
-      contentContainerStyle={{
-        flexGrow: 1,
+      style={{
         backgroundColor: palette.greenPrimary,
       }}
     >

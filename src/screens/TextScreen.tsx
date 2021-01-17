@@ -1,5 +1,11 @@
-import { ScrollView } from 'react-native'
-import { Box, Text, Button, SafeAreaView, Markdown } from '@components'
+import {
+  Box,
+  Text,
+  Button,
+  SafeAreaView,
+  Markdown,
+  ScrollView,
+} from '@components'
 
 type TextScreenProps = {
   heading: string
@@ -13,7 +19,7 @@ export const TextScreen: React.FunctionComponent<TextScreenProps> = ({
   onNext,
 }) => {
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+    <ScrollView>
       <SafeAreaView flex={1}>
         <Box
           flex={1}
