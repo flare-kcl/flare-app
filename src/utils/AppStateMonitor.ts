@@ -1,4 +1,4 @@
-import { Alert, AppState as NativeAppState } from 'react-native'
+import { AppState as NativeAppState } from 'react-native'
 
 import { store } from '@redux/store'
 import {
@@ -8,6 +8,7 @@ import {
   recordEvent,
   rejectParticipant,
 } from '@redux/reducers'
+import { isPast } from 'date-fns'
 import { currentModuleSelector, experimentSelector } from '@redux/selectors'
 
 const SUSPENDED_TIMEOUT = 60000
@@ -56,11 +57,13 @@ export default class AppStateMonitor {
         currentModule?.moduleType === 'FEAR_CONDITIONING'
 
       // Trigger flag if the user had the app suspended for too long.
-      if (
+      const breakExpired =
+        experiment.breakEndDate === undefined || isPast(experiment.breakEndDate)
+      const timeoutTriggered =
         !experiment.isComplete &&
         (suspendedTime > SUSPENDED_TIMEOUT ||
           (applyStrictTimeout && suspendedTime > STRICT_SUSPENED_TIMEOUT))
-      ) {
+      if (timeoutTriggered && breakExpired) {
         store.dispatch(
           rejectParticipant(applyStrictTimeout ? 'TRIAL_TIMEOUT' : 'TIMEOUT'),
         )

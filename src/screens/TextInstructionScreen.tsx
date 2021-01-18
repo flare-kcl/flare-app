@@ -10,6 +10,7 @@ type TextInstructionScreenProps = {
   textColor?: ThemeColors
   linkColor?: ThemeColors
   textAlign?: string
+  buttonDisabled?: boolean
   onNext: () => void
 }
 
@@ -22,6 +23,7 @@ export const TextInstructionScreen: React.FunctionComponent<TextInstructionScree
   backgroundColor = 'pureWhite',
   linkColor = 'pureWhite',
   textAlign = 'center',
+  buttonDisabled = false,
   onNext,
 }) => {
   return (
@@ -47,7 +49,13 @@ export const TextInstructionScreen: React.FunctionComponent<TextInstructionScree
 
         <Box flex={1} justifyContent="flex-end" pb={6}>
           {actionLabel && (
-            <Text variant="caption2" px={6} mb={4} color={textColor}>
+            <Text
+              variant="caption2"
+              px={6}
+              mb={4}
+              color={textColor}
+              textAlign="center"
+            >
               {actionLabel}
             </Text>
           )}
@@ -57,6 +65,8 @@ export const TextInstructionScreen: React.FunctionComponent<TextInstructionScree
             label="Next"
             backgroundColor={color}
             onPress={onNext}
+            opacity={buttonDisabled ? 0.4 : 1}
+            disabled={buttonDisabled}
             textProps={{
               color: linkColor,
             }}

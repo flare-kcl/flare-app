@@ -163,14 +163,34 @@ export const exampleExperimentData: Experiment = {
       },
     },
     {
+      id: '34684',
+      moduleType: 'BREAK_START',
+      definition: {
+        startTitle: 'Break Time',
+        startBody:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum dictum massa blandit nisi auctor placerat. Suspendisse fermentum enim non hendrerit elementum. In condimentum pharetra imperdiet. Fusce auctor eros eu finibus aliquam. Donec vel tortor tempus, condimentum augue ornare, molestie tortor.',
+        duration: 60,
+        endModule: 234,
+      },
+    },
+    {
       id: '564651',
       moduleType: 'WEB',
       definition: {
         heading: 'FLARe Questionnaire',
         description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc in dui quis odio volutpat pulvinar eu id eros. In ut ipsum ac ipsum varius scelerisque. Pellentesque nec neque vel odio tempor aliquam. Aliquam rutrum vestibulum ligula, eget viverra mauris porta id.`,
-        url: 'https://kclbs.eu.qualtrics.com/jfe/form/SV_802kLj0WlUSVByd',
-        appendParticipantId: true,
-        autoCloseUrl: 'http://flare-portal.staging.torchbox.com/redirect',
+        url: 'https://google.com',
+      },
+    },
+
+    {
+      id: '34687',
+      moduleType: 'BREAK_END',
+      definition: {
+        startModule: 123,
+        endTitle: 'End of Break',
+        endBody:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum dictum massa blandit nisi auctor placerat. Suspendisse fermentum enim non hendrerit elementum. In condimentum pharetra imperdiet. Fusce auctor eros eu finibus aliquam. Donec vel tortor tempus, condimentum augue ornare, molestie tortor.',
       },
     },
   ],
