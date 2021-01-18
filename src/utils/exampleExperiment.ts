@@ -157,6 +157,30 @@ export const exampleExperimentData: Experiment = {
       },
     },
     {
+      id: '87979',
+      moduleType: 'TASK_INSTRUCTIONS',
+      definition: {
+        // Screen 1
+        introHeading: 'Practice Time',
+        introBody:
+          'Before you begin the experiment, we need to to practice using the rating interface.',
+        // Screen 2
+        ratingExplanationHeading:
+          'A few seconds after each circle appears, this scale will appear at the bottom of the screen.',
+        ratingExplanationBody:
+          'Each time the scale appears, press the corresponding number on the screen to rate how much you expect to hear a scream.',
+        // Screen 3
+        ratingPracticeHeading:
+          'Press any number to practice making a rating with the scaling below.',
+        // Screen 4
+        intervalExplanationBody:
+          'Before each circle is presented, you will see a white screen with a cross in the middle like the one shown above. It is important that you keep looking at the cross and wait for the next circle to appear.',
+        // Screen 5
+        outroHeading: 'Instructions Complete',
+        outroBody: `The experiment will now begin.\n\n You may occasionaly hear a scream.\n\n Remember to rate how much you expect to hear a scream by pressing a number every time the scale appears.`,
+      },
+    },
+    {
       id: '548944',
       moduleType: 'CRITERION',
       definition: exampleCriteriaDefinition,
@@ -202,7 +226,6 @@ export const exampleExperimentData: Experiment = {
         url: 'https://google.com',
       },
     },
-
     {
       id: '34687',
       moduleType: 'BREAK_END',

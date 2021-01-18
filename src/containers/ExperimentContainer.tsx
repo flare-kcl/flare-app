@@ -35,6 +35,7 @@ import {
 } from '@utils/hooks'
 import { BreakStartContainer } from './BreakStartContainer'
 import { BreakEndContainer } from './BreakEndContainer'
+import { TaskInstructionsContainer } from './TaskInstructionsContainer'
 
 const ExperimentModuleTypes = {
   BASIC_INFO: BasicInfoContainer,
@@ -42,6 +43,7 @@ const ExperimentModuleTypes = {
   TERMS: TermsContainer,
   CRITERION: CriterionContainer,
   INSTRUCTIONS: InstructionsContainer,
+  TASK_INSTRUCTIONS: TaskInstructionsContainer,
   VOLUME_CALIBRATION: VolumeCalibrationContainer,
   FEAR_CONDITIONING: FearConditioningContainer,
   AFFECTIVE_RATING: AffectiveRatingContainer,
@@ -88,12 +90,13 @@ export type Experiment = {
 }
 
 export type ExperimentModule<
-  ModuleState = any,
-  ExtraProps = any
+  ModuleState = Object,
+  ExtraProps = Object
 > = React.FunctionComponent<
   ExtraProps & {
     module: ModuleState
     updateModule: (ModuleState) => void
+    updateExperiment: (Object) => void
     experiment: ExperimentCache
     onModuleComplete: () => void
     unconditionalStimulus?: UnconditionalStimulusRef
