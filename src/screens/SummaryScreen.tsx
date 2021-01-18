@@ -34,7 +34,9 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
   // Trigger sync when connection is stable
   useEffect(() => {
     if (netInfo.isInternetReachable) {
-      syncExperimentAnimated()
+      if (isSyncing === false) {
+        syncExperimentAnimated()
+      }
     }
   }, [netInfo.isInternetReachable])
 
@@ -60,19 +62,21 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
               connection.
             </Text>
 
-            {isSyncing ? (
+            {true ? (
               <Spinner
                 isVisible
                 size={100}
                 type="WanderingCubes"
                 color={palette.purple}
               />
-            ) : allModulesSynced && (
-              <AntDesign
-                name="checkcircle"
-                size={90}
-                color={palette.greenCorrect}
-              />
+            ) : (
+              allModulesSynced && (
+                <AntDesign
+                  name="checkcircle"
+                  size={90}
+                  color={palette.greenCorrect}
+                />
+              )
             )}
           </Box>
 
@@ -102,7 +106,7 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
               label="Sync Now"
               variant="primary"
               backgroundColor="coral"
-              disabled={!allModulesSynced}
+              disabled={!allModulesSynced && !isSyncing}
               opacity={allModulesSynced ? 0 : 1}
               onPress={() => syncExperimentAnimated()}
             />
