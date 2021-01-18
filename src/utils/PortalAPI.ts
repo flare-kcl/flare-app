@@ -117,6 +117,20 @@ export class PortalAPI {
     }
   }
 
+  static async submitCalibratedVolume(submission: CalibratedVolumeSubmission) {
+    // Convert object to string
+    const jsonData = JSON.stringify(submission)
+    const response = await PortalAPI.executeAPIRequest(
+      'volume-calibration-data',
+      jsonData,
+    )
+
+    // If validation error
+    if (response.status === 400) {
+      console.error('Calbrated volume could not be processed.')
+    }
+  }
+
   static async submitExperimentEnd(participantID: string) {
     // Convert object to string
     const jsonData = JSON.stringify({ participant: participantID })
@@ -170,4 +184,11 @@ type AffectiveRatingSubmission = {
   module: string
   rating: number
   stimulus: string
+}
+
+type CalibratedVolumeSubmission = {
+  participant: string
+  module: string
+  rating: number
+  calibrated_volume_level: number
 }

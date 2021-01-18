@@ -6,6 +6,7 @@ import { BasicInfoContainerState } from '@containers/BasicInfoContainer'
 import { CriteriaModuleState } from '@containers/CriterionContainer'
 import { TermsModuleState } from '@containers/TermsContainer'
 import { AffectiveRatingModuleState } from '@containers/AffectiveRatingContainer'
+import { InstructionsModuleState } from '@containers/InstructionsContainer'
 
 export const syncExperiment = async (dispatch, getState: () => AppState) => {
   // Get Latest State
@@ -51,6 +52,9 @@ export const syncExperiment = async (dispatch, getState: () => AppState) => {
 
       case 'AFFECTIVE_RATING':
         await syncAffectiveRatingModule(experiment, mod, onModuleSync)
+
+      case 'INSTRUCTIONS':
+        await syncInstructionsModule(experiment, mod, onModuleSync)
 
       default:
         onModuleSync()
@@ -191,6 +195,25 @@ const syncAffectiveRatingModule = async (
         })
       }),
     )
+
+    onModuleSync()
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+const syncInstructionsModule = async (
+  experiment: ExperimentCache,
+  mod: ExperimentModule<InstructionsModuleState>,
+  onModuleSync: ModuleSyncCallback,
+) => {
+  try {
+    await PortalAPI.submitCalibratedVolume({
+      participant: experiment.participantID,
+      module: mod.moduleId,
+      rating: mod.moduleState.volumeRating,
+      calibrated_volume_level: experiment.volume,
+    })
 
     onModuleSync()
   } catch (err) {

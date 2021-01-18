@@ -96,7 +96,7 @@ export const exampleExperimentData: Experiment = {
     min: 1,
     max: 3,
   },
-  unconditionalStimulus: require('../assets/sounds/scream.wav'),
+  unconditionalStimulus: require('../assets/sounds/ding.wav'),
   contextStimuli: {
     A: require('../assets/images/example-context.png'),
   },
@@ -131,9 +131,29 @@ export const exampleExperimentData: Experiment = {
       id: '387484',
       moduleType: 'INSTRUCTIONS',
       definition: {
-        renderIntroTask: true,
-        renderTrialTask: false,
-        advancedVolumeCalibration: true,
+        includeVolumeCalibration: true,
+        endScreenTitle: 'Hello, World',
+        endScreenBody: '',
+        screens: [
+          {
+            title: 'Check your surroundings',
+            body:
+              'Before you begin the experiment, make sure you are alone, in a quiet room, where you will not be disturbed.',
+            actionLabel: "Please select 'next' to confirm.",
+          },
+          {
+            title: 'Check your phone battery',
+            body:
+              'Make sure your device is fully charged, or is plugged in, and you have enough time to complete the whole experiment.',
+            actionLabel: "Please select 'next' to confirm.",
+          },
+          {
+            title: 'Check your Wifi',
+            body:
+              'Make sure you are connected to the internet using wifi and you have airplane mode turned on (you may need to turn wifi on after you have selected airplane mode).\r\n\r\nIgnore any messages, calls, or notifications you may receive during this time.',
+            actionLabel: "Please select 'next' to confirm.",
+          },
+        ],
       },
     },
     {
