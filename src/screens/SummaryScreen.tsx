@@ -1,6 +1,7 @@
-import { FontAwesome, Entypo } from '@expo/vector-icons'
+import { useState } from 'react'
+import { AntDesign } from '@expo/vector-icons'
 import { useNetInfo } from '@react-native-community/netinfo'
-
+import Spinner from 'react-native-spinkit'
 import { Box, Text, Button, SafeAreaView, ScrollView } from '@components'
 import { ExperimentModule } from '@redux/reducers'
 import { palette } from '@utils/theme'
@@ -17,35 +18,64 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
   syncExperiment,
   onExit,
 }) => {
+  const [isSyncing, setIsSyncing] = useState<boolean>(false)
   const netInfo = useNetInfo()
   const allModulesSynced =
     modules.filter((modules) => !modules.moduleCompleted).length === 0
 
+  const syncExperimentAnimated = async () => {
+    // Start animation
+    setIsSyncing(true)
+    // Start sync
+    await syncExperiment()
+    // End Animtion
+    setIsSyncing(false)
+  }
+
   // Trigger sync when connection is stable
   useEffect(() => {
     if (netInfo.isInternetReachable) {
-      syncExperiment()
+      syncExperimentAnimated()
     }
   }, [netInfo.isInternetReachable])
 
   return (
-    <ScrollView
-      style={{
-        backgroundColor: palette.greenPrimary,
-      }}
-    >
+    <ScrollView>
       <SafeAreaView flex={1}>
         <Box
           flex={1}
+          width="100%"
           alignItems="center"
-          justifyContent="flex-start"
+          justifyContent="center"
           pt={8}
           px={5}
-          backgroundColor="greenPrimary"
         >
-          <Text variant="heading" mb={9}>
-            {allModulesSynced ? 'Sync Complete' : 'Syncing Data...'}
-          </Text>
+          <Box alignItems="center" mb={24}>
+            <Text variant="heading" mb={5}>
+              Experiment Upload
+            </Text>
+
+            <Text variant="instructionDescription" textAlign="left" mb={24}>
+              We need to upload your response data before you can continue,
+              please make sure you are connected to a stable internet
+              connection.
+            </Text>
+
+            {isSyncing && !allModulesSynced ? (
+              <Spinner
+                isVisible
+                size={100}
+                type="WanderingCubes"
+                color={palette.purple}
+              />
+            ) : (
+              <AntDesign
+                name="checkcircle"
+                size={90}
+                color={palette.greenCorrect}
+              />
+            )}
+          </Box>
 
           {/* Show connection status */}
           {!netInfo.isInternetReachable && !allModulesSynced && (
@@ -55,50 +85,36 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
               alignItems="center"
               mb={4}
               p={4}
-              backgroundColor="lightGrey"
+              backgroundColor="white"
+              borderColor="red"
+              borderWidth={4}
               borderRadius="m"
             >
-              <Text variant="heading3" fontWeight="600" color="red">
+              <Text variant="heading3" fontWeight="600" color="darkGrey">
                 You do not have internet access, Please come back when you have
                 a stable connection.
               </Text>
             </Box>
           )}
 
-          {/* Makeshift table */}
-          <Box width="100%">
-            {modules.map((mod) => (
-              <Box
-                flexDirection="row"
-                justifyContent="space-between"
-                alignItems="center"
-                height={70}
-                mb={4}
-                px={4}
-                backgroundColor="lightGrey"
-                borderRadius="m"
-              >
-                <Text fontWeight="bold" fontSize={16} color="darkGrey">
-                  ({mod.moduleId}) {mod.moduleType}
-                </Text>
-                {mod.moduleSynced ? (
-                  <FontAwesome name="check" size={24} color={palette.purple} />
-                ) : (
-                  <Entypo name="squared-cross" size={24} color={palette.red} />
-                )}
-              </Box>
-            ))}
+          <Box flex={1} justifyContent="flex-end" pb={6}>
+            <Button
+              testID="ContinueButton"
+              label="Sync Now"
+              variant="primary"
+              backgroundColor="coral"
+              disabled={!allModulesSynced}
+              opacity={allModulesSynced ? 0 : 1}
+              onPress={() => syncExperimentAnimated()}
+            />
+            <Button
+              variant="primary"
+              label="Complete Experiment"
+              disabled={!allModulesSynced}
+              opacity={allModulesSynced ? 1 : 0.5}
+              onPress={onExit}
+            />
           </Box>
-
-          {allModulesSynced && (
-            <Box flex={1} justifyContent="flex-end" pb={6}>
-              <Button
-                variant="primary"
-                label="Complete Experiment"
-                onPress={onExit}
-              />
-            </Box>
-          )}
         </Box>
       </SafeAreaView>
     </ScrollView>
