@@ -20,8 +20,7 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
 }) => {
   const [isSyncing, setIsSyncing] = useState<boolean>(false)
   const netInfo = useNetInfo()
-  const allModulesSynced =
-    modules.filter((modules) => !modules.moduleCompleted).length === 0
+  const allModulesSynced = false
 
   const syncExperimentAnimated = async () => {
     // Start animation
@@ -61,14 +60,14 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
               connection.
             </Text>
 
-            {isSyncing && !allModulesSynced ? (
+            {isSyncing ? (
               <Spinner
                 isVisible
                 size={100}
                 type="WanderingCubes"
                 color={palette.purple}
               />
-            ) : (
+            ) : allModulesSynced && (
               <AntDesign
                 name="checkcircle"
                 size={90}
