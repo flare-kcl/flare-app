@@ -1,12 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { ExperimentModule } from './ExperimentContainer'
 import { SafeAreaView, Stepper } from '@components'
 import { TextInstructionScreen } from '@screens'
 import { VolumeInstructionScreen } from '@screens/VolumeInstructionScreen'
 import { HeadphonesDetectionScreen } from '@screens/HeadphonesDetectionScreen'
-import { RatingExplainationScreen } from '@screens/RatingExplainationScreen'
-import { RatingPracticeScreen } from '@screens/RatingPracticeScreen'
-import { IntervalExplainationScreen } from '@screens/IntervalExplainationScreen'
 import { VolumeCalibrationScreen } from '@screens/VolumeCalibrationScreen'
 
 type InstructionScreenDefinition = {
