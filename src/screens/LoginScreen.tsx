@@ -303,6 +303,9 @@ async function loginWithID(participantID: string, dispatch) {
       ].filter((cs) => cs != null),
     }
 
+    // Save the experiment object to Sentry
+    Sentry.setContext('experiment', experiment)
+
     // Save modules to redux
     experiment.modules.map((mod) => {
       dispatch(
@@ -327,6 +330,7 @@ async function loginWithID(participantID: string, dispatch) {
     )
   } catch (err) {
     console.error(err)
+    Sentry.captureException(err)
     return Promise.reject('An unknown error occured, Please try again.')
   }
 }
