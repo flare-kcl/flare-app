@@ -25,7 +25,7 @@ export const BreakEndContainer: ExperimentModule<BreakEndModuleState> = ({
   updateExperiment,
 }) => {
   const timerRef = useRef<any>()
-  const [canContinue, setcanContinue] = useState(false)
+  const [canContinue, setCanContinue] = useState(false)
   const [timeRemaining, setTimeRemaining] = useState<string>()
   const [extendedTimeRemaining, setExtendedTimeRemaining] = useState<string>()
 
@@ -45,7 +45,7 @@ export const BreakEndContainer: ExperimentModule<BreakEndModuleState> = ({
 
   const onTimerTick = () => {
     const cancelCountdown = () => {
-      setcanContinue(true)
+      setCanContinue(true)
       clearInterval(timerRef.current)
     }
 
@@ -87,12 +87,12 @@ export const BreakEndContainer: ExperimentModule<BreakEndModuleState> = ({
 
   // Start countdown timer
   useEffect(() => {
-    // If we break has passed quit early...
+    // If the break has expired then quit early...
     if (
       breakEndDate == undefined ||
       isPast(Date.parse(experiment.breakEndDate))
     ) {
-      setcanContinue(true)
+      setCanContinue(true)
       return
     }
 
