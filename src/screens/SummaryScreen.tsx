@@ -20,7 +20,8 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
 }) => {
   const [isSyncing, setIsSyncing] = useState<boolean>(false)
   const netInfo = useNetInfo()
-  const allModulesSynced = false
+  const allModulesSynced =
+    modules.filter((modules) => !modules.moduleCompleted).length === 0
 
   const syncExperimentAnimated = async () => {
     // Start animation
@@ -62,7 +63,7 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
               connection.
             </Text>
 
-            {true ? (
+            {isSyncing ? (
               <Spinner
                 isVisible
                 size={100}
