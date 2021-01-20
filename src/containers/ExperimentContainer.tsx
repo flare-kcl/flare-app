@@ -36,6 +36,7 @@ import {
 import { BreakStartContainer } from './BreakStartContainer'
 import { BreakEndContainer } from './BreakEndContainer'
 import { TaskInstructionsContainer } from './TaskInstructionsContainer'
+import { NotificationsContainer } from './NotificationsContainer'
 
 const ExperimentModuleTypes = {
   BASIC_INFO: BasicInfoContainer,
@@ -50,6 +51,7 @@ const ExperimentModuleTypes = {
   TEXT: TextContainer,
   BREAK_START: BreakStartContainer,
   BREAK_END: BreakEndContainer,
+  NOTIFICATIONS: NotificationsContainer,
 }
 
 type ExperimentModuleConfig = {
@@ -96,7 +98,7 @@ export type ExperimentModule<
   ExtraProps & {
     module: ModuleState
     updateModule: (ModuleState) => void
-    updateExperiment: (Object) => void
+    updateExperiment: (experiment: Partial<ExperimentCache>) => void
     experiment: ExperimentCache
     onModuleComplete: () => void
     unconditionalStimulus?: UnconditionalStimulusRef

@@ -1,11 +1,15 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { AntDesign } from '@expo/vector-icons'
 import { useNetInfo } from '@react-native-community/netinfo'
 import Spinner from 'react-native-spinkit'
+import { addHours, addSeconds } from 'date-fns'
 import { Box, Text, Button, SafeAreaView, ScrollView } from '@components'
-import { ExperimentModule } from '@redux/reducers'
+import { ExperimentModule } from '@containers/ExperimentContainer'
 import { palette } from '@utils/theme'
-import { useEffect } from 'react'
+import {
+  cancelAllNotifications,
+  scheduleNotification,
+} from '@utils/notifications'
 
 type SummaryScreenProps = {
   modules: ExperimentModule[]
@@ -21,7 +25,7 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
   const [isSyncing, setIsSyncing] = useState<boolean>(false)
   const netInfo = useNetInfo()
   const allModulesSynced =
-    modules.filter((modules) => !modules.moduleCompleted).length === 0
+    modules.filter((modules) => modules.moduleSynced == false).length === 0
 
   const syncExperimentAnimated = async () => {
     // Start animation
@@ -32,14 +36,34 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
     setIsSyncing(false)
   }
 
-  // Trigger sync when connection is stable
   useEffect(() => {
+    // Trigger sync when connection is stable
     if (netInfo.isInternetReachable) {
-      if (isSyncing === false) {
+      if (isSyncing === false && allModulesSynced === false) {
         syncExperimentAnimated()
       }
+    } else {
+      // Clear all sync notifications
+      cancelAllNotifications('SYNC_REQUIRED')
+
+      // Add notifications in 2 & 24 Hours
+      scheduleNotification('SYNC_REQUIRED', addHours(new Date(), 2))
+      scheduleNotification('SYNC_REQUIRED', addHours(new Date(), 24))
     }
-  }, [netInfo.isInternetReachable])
+
+    if (allModulesSynced) {
+      // Cancel any future notifications once synced
+      cancelAllNotifications('SYNC_REQUIRED')
+    }
+  }, [netInfo.isInternetReachable, allModulesSynced])
+
+  const finishExperiment = () => {
+    // Cancel any future notifications once synced
+    cancelAllNotifications('SYNC_REQUIRED')
+
+    // Progress to next screen
+    onExit()
+  }
 
   return (
     <ScrollView>
@@ -116,7 +140,7 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
               label="Complete Experiment"
               disabled={!allModulesSynced}
               opacity={allModulesSynced ? 1 : 0.5}
-              onPress={onExit}
+              onPress={finishExperiment}
             />
           </Box>
         </Box>

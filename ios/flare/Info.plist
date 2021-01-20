@@ -49,7 +49,7 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Inter-Black.ttf</string>
@@ -79,6 +79,6 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>NSMicrophoneUsageDescription</key>
- 	<string>Allow $(PRODUCT_NAME) to access your microphone</string>
+	<string>Allow $(PRODUCT_NAME) to access your microphone</string>
 </dict>
 </plist>

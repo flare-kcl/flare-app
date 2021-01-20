@@ -21,6 +21,7 @@ export type ExperimentCache = {
   contactEmail?: string
   breakEndDate?: Date
   isComplete: boolean
+  notificationsEnabled: boolean
 }
 
 export const updateExperiment = createAction<ExperimentCache>(
