@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react'
 import { AntDesign } from '@expo/vector-icons'
 import { useNetInfo } from '@react-native-community/netinfo'
 import Spinner from 'react-native-spinkit'
-import { addHours, addSeconds } from 'date-fns'
+import { addHours } from 'date-fns'
 import { Box, Text, Button, SafeAreaView, ScrollView } from '@components'
 import { ExperimentModule } from '@containers/ExperimentContainer'
+import { ExperimentModuleCache } from '@redux/reducers'
 import { palette } from '@utils/theme'
 import {
   cancelAllNotifications,
@@ -12,7 +13,7 @@ import {
 } from '@utils/notifications'
 
 type SummaryScreenProps = {
-  modules: ExperimentModule[]
+  modules: ExperimentModuleCache[]
   syncExperiment: () => void
   onExit: () => void
 }
@@ -25,7 +26,8 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
   const [isSyncing, setIsSyncing] = useState<boolean>(false)
   const netInfo = useNetInfo()
   const allModulesSynced =
-    modules.filter((modules) => modules.moduleSynced == false).length === 0
+    modules.filter((mod: ExperimentModuleCache) => mod.moduleSynced === false)
+      .length === 0
 
   const syncExperimentAnimated = async () => {
     // Start animation

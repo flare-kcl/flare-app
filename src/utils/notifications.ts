@@ -36,7 +36,8 @@ export const registerNotifications = () => {
     {
       channelId: 'flare',
       channelName: 'FLARe Research',
-      channelDescription: 'A channel to categorise your notifications',
+      channelDescription:
+        'A channel to deliver reminder notifications to users.',
       playSound: true,
       soundName: 'default',
       importance: 4,
