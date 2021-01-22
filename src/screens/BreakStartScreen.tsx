@@ -1,22 +1,17 @@
 import { ScrollView } from 'react-native'
 import { Box, Text, Button, Markdown, SafeAreaView } from '@components'
 
-type BreakEndScreenProps = {
+type BreakStartScreenProps = {
   heading: string
   description: string
-  timerText: string
-  eta: string
-  extendedTimerText: string
+
   buttonDisabled: boolean
   actionLabel: string
   onNext: () => void
 }
 
-export const BreakEndScreen: React.FunctionComponent<BreakEndScreenProps> = ({
-  eta,
+export const BreakStartScreen: React.FunctionComponent<BreakStartScreenProps> = ({
   heading,
-  timerText,
-  extendedTimerText,
   description,
   actionLabel,
   buttonDisabled = false,
@@ -38,33 +33,7 @@ export const BreakEndScreen: React.FunctionComponent<BreakEndScreenProps> = ({
             </Text>
           )}
 
-          {description && (
-            <Markdown mb={16} textAlign="left">
-              {description}
-            </Markdown>
-          )}
-
-          <Text variant="caption2" fontWeight="600" pb={2}>
-            Time Left:
-          </Text>
-
-          {timerText && (
-            <Text fontWeight="800" textAlign="center" fontSize={45}>
-              {timerText}
-            </Text>
-          )}
-
-          {extendedTimerText && (
-            <Text fontWeight="800" textAlign="center" fontSize={20}>
-              {extendedTimerText}
-            </Text>
-          )}
-
-          {eta && (
-            <Text variant="caption2" fontWeight="600" pt={10}>
-              ETA: {eta}
-            </Text>
-          )}
+          {description && <Markdown mb={16}>{description}</Markdown>}
 
           <Box flex={1} justifyContent="flex-end" pb={6}>
             <Text variant="caption2" px={4} mb={3} textAlign="center">

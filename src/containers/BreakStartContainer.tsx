@@ -1,13 +1,13 @@
 import { useEffect } from 'react'
 import { subHours, addSeconds } from 'date-fns'
 import { ExperimentModule } from './ExperimentContainer'
-import { TextInstructionScreen } from '@screens'
+import { BreakStartScreen } from '@screens'
 import { scheduleNotification } from '@utils/notifications'
 import { brand } from 'expo-device'
 
 export type BreakStartModuleState = {
-  startTitle: number
-  startBody: number
+  startTitle: string
+  startBody: string
   duration: number
 }
 
@@ -33,10 +33,9 @@ export const BreakStartContainer: ExperimentModule<BreakStartModuleState> = ({
   }, [])
 
   return (
-    <TextInstructionScreen
+    <BreakStartScreen
       heading={mod.startTitle}
       description={mod.startBody}
-      textAlign="left"
       actionLabel="Select 'next' to start break tasks"
       onNext={() => onModuleComplete()}
     />

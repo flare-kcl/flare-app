@@ -57,8 +57,7 @@ export default class AppStateMonitor {
         currentModule?.moduleType === 'FEAR_CONDITIONING'
 
       // Trigger flag if the user had the app suspended for too long.
-      const breakExpired =
-        experiment.breakEndDate === undefined || isPast(experiment.breakEndDate)
+      const breakExpired = experiment.breakEndDate === undefined
       const timeoutTriggered =
         !experiment.isComplete &&
         (suspendedTime > SUSPENDED_TIMEOUT ||
