@@ -180,6 +180,7 @@ jobs:
           cd android/app
           echo "${{ secrets.KEY_STORE }}" | base64 --decode > release.keystore
           echo "${{ secrets.KEY_STORE_CONFIG }}" > keystore.properties
+          echo "${{ secrets.GOOGLE_SERVICES_JSON }}" > google-services.json
           cd ../fastlane
           echo "${{ secrets.ANDROID_API_KEY }}" | base64 --decode > api.json
           cd ../../
