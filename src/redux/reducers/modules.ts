@@ -1,6 +1,6 @@
 import { createAction, createReducer } from '@reduxjs/toolkit'
 
-export type ExperimentModule<StateType = any> = {
+export type ExperimentModuleCache<StateType = any> = {
   moduleId: string
   moduleType: string
   moduleState: StateType
@@ -8,8 +8,8 @@ export type ExperimentModule<StateType = any> = {
   moduleSynced?: boolean
 }
 
-export const updateModule = createAction<ExperimentModule>('module/update')
-export const clearAllModules = createAction<ExperimentModule>(
+export const updateModule = createAction<ExperimentModuleCache>('module/update')
+export const clearAllModules = createAction<ExperimentModuleCache>(
   'module/clear_all',
 )
 

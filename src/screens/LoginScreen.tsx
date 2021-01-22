@@ -206,6 +206,15 @@ async function loginWithID(participantID: string, dispatch) {
       definition: camelcaseKeys(config, { deep: true }),
     }))
 
+    // Add Notifications Permissions Screen
+    modules = [
+      {
+        id: 'NotificationsModule',
+        moduleType: 'NOTIFICATIONS',
+        definition: {},
+      },
+    ].concat(modules)
+
     // Add T&C's module dymanically if config exists
     if (experimentApiData.config) {
       modules = [

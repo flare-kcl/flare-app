@@ -4,7 +4,6 @@ import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import Config from 'react-native-config'
 import * as Sentry from '@sentry/react-native'
-import { Audio } from 'expo-av'
 
 import AssetCache from '@utils/AssetCache'
 import AppStateMonitor from '@utils/AppStateMonitor'
@@ -13,12 +12,19 @@ import { store, peristor } from '@redux/store'
 import { onStateHydrated } from '@redux/persist'
 import { ExperimentContainer } from 'containers/ExperimentContainer'
 import { AlertProvider } from '@utils/AlertProvider'
+import {
+  registerNotifications,
+  scheduleNotification,
+} from '@utils/notifications'
 
 // Link with Sentry
 Sentry.init({
   dsn: Config.SENTRY_DTN,
   enableAutoSessionTracking: true,
 })
+
+// Activate Notifications
+registerNotifications()
 
 // Base container for all screens
 export default function App() {
