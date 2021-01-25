@@ -4,8 +4,6 @@ import { useNetInfo } from '@react-native-community/netinfo'
 import Spinner from 'react-native-spinkit'
 import { addHours } from 'date-fns'
 import { Box, Text, Button, SafeAreaView, ScrollView } from '@components'
-import { ExperimentModule } from '@containers/ExperimentContainer'
-import { ExperimentModuleCache } from '@redux/reducers'
 import { palette } from '@utils/theme'
 import {
   cancelAllNotifications,
@@ -13,22 +11,18 @@ import {
 } from '@utils/notifications'
 
 type SummaryScreenProps = {
-  modules: ExperimentModuleCache[]
+  allModulesSynced: boolean
   syncExperiment: () => void
   onExit: () => void
 }
 
 export const SummaryScreen: React.FC<SummaryScreenProps> = ({
-  modules,
+  allModulesSynced,
   syncExperiment,
   onExit,
 }) => {
   const [isSyncing, setIsSyncing] = useState<boolean>(false)
   const netInfo = useNetInfo()
-  const allModulesSynced =
-    modules.filter((mod: ExperimentModuleCache) => mod.moduleSynced === false)
-      .length === 0
-
   const syncExperimentAnimated = async () => {
     // Start animation
     setIsSyncing(true)
@@ -133,7 +127,7 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
               label="Sync Now"
               variant="primary"
               backgroundColor="coral"
-              disabled={!allModulesSynced && !isSyncing}
+              disabled={allModulesSynced || isSyncing}
               opacity={allModulesSynced ? 0 : 1}
               onPress={() => syncExperimentAnimated()}
             />

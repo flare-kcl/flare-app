@@ -5,6 +5,7 @@ import {
   experimentSelector,
   currentModuleSelector,
   allModulesSelector,
+  allModulesSyncedSelector,
 } from '@redux/selectors'
 import {
   nextModule,
@@ -119,17 +120,28 @@ export const ExperimentContainer = () => {
   const experiment = useSelector(experimentSelector)
   const experimentModules = useSelector(allModulesSelector)
   const currentModule = useSelector(currentModuleSelector)
+  const allModulesSynced = useSelector(allModulesSyncedSelector)
   const usRef = useUnconditionalStimulus()
 
   // If the user has been 'screened out' then show respective screen
   if (experiment.rejectionReason) {
-    return (
-      <RejectionScreen
-        contactLink={experiment.contactEmail}
-        reason={experiment.rejectionReason}
-        onExit={() => terminateExperiment(false)}
-      />
-    )
+    if (allModulesSynced && !experiment.offlineOnly) {
+      return (
+        <RejectionScreen
+          contactLink={experiment.contactEmail}
+          reason={experiment.rejectionReason}
+          onExit={() => terminateExperiment(false)}
+        />
+      )
+    } else {
+      return (
+        <SummaryScreen
+          allModulesSynced={allModulesSynced}
+          syncExperiment={() => dispatch(syncExperiment)}
+          onExit={() => null}
+        />
+      )
+    }
   }
 
   // If all modules have been completed...
@@ -147,7 +159,7 @@ export const ExperimentContainer = () => {
     if (!experiment.offlineOnly) {
       return (
         <SummaryScreen
-          modules={experimentModules}
+          allModulesSynced={allModulesSynced}
           syncExperiment={() => dispatch(syncExperiment)}
           onExit={() => terminateExperiment(false)}
         />
@@ -220,6 +232,7 @@ export const ExperimentContainer = () => {
 
   // Function used to show the rejection screen
   function exitExperiment(rejectionReason: RejectionReason = 'UNKNOWN') {
+    dispatch(updateModule({ ...currentModule, moduleCompleted: true }))
     dispatch(rejectParticipant(rejectionReason))
   }
 
