@@ -65,6 +65,12 @@ export type VisualStimuli = {
   label: string
 }
 
+export type AnchorLabels = {
+  anchorLabelLeft?: string
+  anchorLabelCenter?: string
+  anchorLabelRight?: string
+}
+
 export type Experiment = {
   id: number
   name: string

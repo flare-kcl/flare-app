@@ -7,6 +7,7 @@ import {
   RatingPracticeScreen,
   IntervalExplainationScreen,
 } from '@screens'
+import { AnchorLabels } from '@containers/ExperimentContainer'
 
 type TaskInstructionsModuleDefinition = {
   // Screen 1
@@ -50,6 +51,12 @@ export const TaskInstructionsContainer: ExperimentModule<TaskInstructionsModuleS
   const onNextInstruction = () =>
     updateModule({ currentInstruction: mod.currentInstruction + 1 })
 
+  const anchorLabels: AnchorLabels = {
+    anchorLabelLeft: experiment.definition.ratingScaleAnchorLabelLeft,
+    anchorLabelCenter: experiment.definition.ratingScaleAnchorLabelCenter,
+    anchorLabelRight: experiment.definition.ratingScaleAnchorLabelRight,
+  }
+
   const taskInstructions = [
     (key) => (
       <TextInstructionScreen
@@ -66,6 +73,7 @@ export const TaskInstructionsContainer: ExperimentModule<TaskInstructionsModuleS
         key={key}
         heading={mod.ratingExplanationHeading}
         description={mod.ratingExplanationBody}
+        anchorLabels={anchorLabels}
         color="teal"
         textAlign="center"
         onNext={onNextInstruction}
@@ -75,6 +83,7 @@ export const TaskInstructionsContainer: ExperimentModule<TaskInstructionsModuleS
       <RatingPracticeScreen
         key={key}
         heading={mod.ratingPracticeHeading}
+        anchorLabels={anchorLabels}
         color="teal"
         onNext={onNextInstruction}
       />

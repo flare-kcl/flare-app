@@ -1,15 +1,18 @@
 import { useState } from 'react'
 import { Box, Text, Button, RatingScale, SafeAreaView } from '@components'
+import { AnchorLabels } from '@containers/ExperimentContainer'
 
 type RatingPracticeScreenProps = {
   heading: string
   color?: string
+  anchorLabels: AnchorLabels
   onNext: () => void
 }
 
 export const RatingPracticeScreen: React.FunctionComponent<RatingPracticeScreenProps> = ({
   heading,
   color = 'purple',
+  anchorLabels,
   onNext,
 }) => {
   const [showButton, setShowButton] = useState(false)
@@ -36,6 +39,7 @@ export const RatingPracticeScreen: React.FunctionComponent<RatingPracticeScreenP
         </Text>
 
         <RatingScale
+          {...anchorLabels}
           lockFirstRating
           onChange={() => {
             setShowButton(true)
