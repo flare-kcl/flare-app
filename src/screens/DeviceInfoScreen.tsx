@@ -96,7 +96,7 @@ export const DeviceInfoScreen: React.FunctionComponent<DeviceInfoScreenProps> = 
               disabled
             />
             <LabeledTextField label="Device Model" value={model} disabled />
-            {((shouldCollectDob && gender !== undefined) || true) && (
+            {(shouldCollectGender ? gender != undefined : true) && (
               <Button
                 variant="primary"
                 label="Next"
