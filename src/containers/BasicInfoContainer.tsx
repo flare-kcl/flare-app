@@ -30,6 +30,7 @@ enum BasicInfoScreens {
 
 // When updating this list, you also need to update the portal.
 const DEFAULT_GENDERS = [
+  { label: '', value: null },
   { label: 'Male', value: 'male' },
   { label: 'Female', value: 'female' },
   { label: 'Non-binary', value: 'non_binary' },
