@@ -1,10 +1,12 @@
 import { Box, Text, Button, RatingScale, SafeAreaView } from '@components'
+import { AnchorLabels } from '@containers/ExperimentContainer'
 
 type RatingExplainationScreenProps = {
   heading: string
   description: string
   actionLabel?: string
   color?: string
+  anchorLabels: AnchorLabels
   onNext: () => void
 }
 
@@ -13,6 +15,7 @@ export const RatingExplainationScreen: React.FunctionComponent<RatingExplainatio
   description,
   actionLabel,
   color = 'purple',
+  anchorLabels,
   onNext,
 }) => {
   return (
@@ -36,7 +39,7 @@ export const RatingExplainationScreen: React.FunctionComponent<RatingExplainatio
           {heading}
         </Text>
 
-        <RatingScale disabled />
+        <RatingScale disabled {...anchorLabels} />
 
         <Text
           variant="instructionDescription"
