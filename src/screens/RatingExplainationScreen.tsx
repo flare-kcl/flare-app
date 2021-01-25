@@ -1,7 +1,6 @@
 import { Box, Text, Button, RatingScale, SafeAreaView } from '@components'
 import { AnchorLabels } from '@containers/ExperimentContainer'
 
-
 type RatingExplainationScreenProps = {
   heading: string
   description: string
