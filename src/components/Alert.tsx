@@ -71,7 +71,7 @@ export const Alert: React.FC<AlertProps> = ({
               pb={6}
               zIndex={120}
             >
-              {actions.length > 0 ? (
+              {actions != undefined ? (
                 actions.map((props) => (
                   <AlertButton alertRef={alertRef} {...props} />
                 ))
