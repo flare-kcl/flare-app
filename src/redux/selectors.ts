@@ -1,5 +1,9 @@
 import { AppState } from '@redux/store'
-import { EventRecord, ExperimentCache, ExperimentModule } from '@redux/reducers'
+import {
+  EventRecord,
+  ExperimentCache,
+  ExperimentModuleCache,
+} from '@redux/reducers'
 
 export const experimentSelector = (state: AppState): ExperimentCache =>
   state.experiment
@@ -15,11 +19,17 @@ export const currentModuleSelector = (state: AppState) => {
 
 export const unsyncedModulesSelector = (state: AppState) =>
   Object.values(state.modules).filter(
-    (mod: ExperimentModule) => mod.moduleCompleted && !mod.moduleSynced,
+    (mod: ExperimentModuleCache) => mod.moduleCompleted && !mod.moduleSynced,
   )
 
-export const allModulesSelector = (state: AppState): ExperimentModule[] =>
+export const allModulesSelector = (state: AppState): ExperimentModuleCache[] =>
   Object.values(state.modules)
+
+export const allModulesSyncedSelector = (state: AppState): boolean =>
+  allModulesSelector(state).filter(
+    (mod: ExperimentModuleCache) =>
+      mod.moduleCompleted && mod.moduleSynced === false,
+  ).length === 0
 
 export const latestEventSelector = (state: AppState): EventRecord | undefined =>
   state.events[state.events.length - 1]
