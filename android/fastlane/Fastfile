@@ -25,7 +25,7 @@ platform :android do
     )
   end
 
-  desc "Submit already built app to Testflight"
+  desc "Submit already built app to Internal Track"
   lane :alpha do
     # Copy changelog for upload
     sh("mkdir -p ./metadata/android/en-GB/changelogs")
@@ -34,6 +34,20 @@ platform :android do
     # Upload to Alpha
     upload_to_play_store(
       track: 'internal',
+      version_code: android_get_version_code,
+      apk: "app/build/outputs/apk/release/app-release.apk"
+    )
+  end
+
+  desc "Submit already built app to Play Store"
+  lane :release do
+    # Copy changelog for upload
+    sh("mkdir -p ./metadata/android/en-GB/changelogs")
+    sh("cp ../../Changelog.txt ./metadata/android/en-GB/changelogs/#{android_get_version_code}.txt")
+
+    # Upload to Release
+    upload_to_play_store(
+      track: 'production',
       version_code: android_get_version_code,
       apk: "app/build/outputs/apk/release/app-release.apk"
     )

@@ -52,5 +52,18 @@ platform :ios do
       skip_waiting_for_build_processing: true
     )
   end
+
+  lane :release do |options|
+    # Run to fix CI bugs
+    setup_ci(provider: 'circleci')
+
+    # Deploy to test flight
+    deliver(
+      api_key_path: "./api.json",
+      ipa: './flare.ipa',
+      submit_for_review: true
+      automatic_release: true
+    )
+  end
 end
 

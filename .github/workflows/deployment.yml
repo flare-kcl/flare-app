@@ -2,7 +2,7 @@ name: Deployment
 
 on:
   push:
-    branches: [main]
+    branches: [main, develop]
 
 jobs:
   # Version Management
@@ -89,13 +89,24 @@ jobs:
         with:
           name: build-config
 
-      - name: Make .env file
+      - name: Generate Production .env file
+        if: github.ref == 'refs/heads/main'
         run: |
           pip install dump-env
-          dump-env  --template=./.env.template > .env
+          dump-env --template=./.env.template > .env
         env:
-          BASE_API_URL: ${{ secrets.BASE_API_URL }}
-          API_AUTH_TOKEN: ${{ secrets.API_AUTH_TOKEN }}
+          BASE_API_URL: ${{ secrets.PROD_API_URL }}
+          API_AUTH_TOKEN: ${{ secrets.PROD_AUTH_TOKEN }}
+          SENTRY_DTN: ${{ secrets.SENTRY_DTN }}
+
+      - name: Generate Develop .env file
+        if: github.ref == 'refs/heads/develop'
+        run: |
+          pip install dump-env
+          dump-env --template=./.env.template > .env
+        env:
+          BASE_API_URL: ${{ secrets.DEV_API_URL }}
+          API_AUTH_TOKEN: ${{ secrets.DEV_AUTH_TOKEN }}
           SENTRY_DTN: ${{ secrets.SENTRY_DTN }}
 
       - name: Install Dependencies
@@ -154,13 +165,24 @@ jobs:
         with:
           name: build-config
 
-      - name: Make .env file
+      - name: Generate Production .env file
+        if: github.ref == 'refs/heads/main'
         run: |
           pip install dump-env
-          dump-env  --template=./.env.template > .env
+          dump-env --template=./.env.template > .env
         env:
-          BASE_API_URL: ${{ secrets.BASE_API_URL }}
-          API_AUTH_TOKEN: ${{ secrets.API_AUTH_TOKEN }}
+          BASE_API_URL: ${{ secrets.PROD_API_URL }}
+          API_AUTH_TOKEN: ${{ secrets.PROD_AUTH_TOKEN }}
+          SENTRY_DTN: ${{ secrets.SENTRY_DTN }}
+
+      - name: Generate Develop .env file
+        if: github.ref == 'refs/heads/develop'
+        run: |
+          pip install dump-env
+          dump-env --template=./.env.template > .env
+        env:
+          BASE_API_URL: ${{ secrets.DEV_API_URL }}
+          API_AUTH_TOKEN: ${{ secrets.DEV_AUTH_TOKEN }}
           SENTRY_DTN: ${{ secrets.SENTRY_DTN }}
 
       - name: Install Dependencies
@@ -267,11 +289,21 @@ jobs:
       - name: Print version Changes (Debug)
         run: git --no-pager diff
 
-      - name: Deploy iOS App
+      - name: Deploy iOS App to Alpha Testers
+        if: github.ref == 'refs/heads/develop'
         run: cd ios && fastlane alpha --verbose && cd ..
 
-      - name: Deploy Android App
+      - name: Deploy iOS App to App Store
+        if: github.ref == 'refs/heads/main'
+        run: cd ios && fastlane release --verbose && cd ..
+
+      - name: Deploy Android App to Internal Track
+        if: github.ref == 'refs/heads/develop'
         run: cd android && fastlane alpha --verbose && cd ..
+
+      - name: Deploy Android App to Play Store
+        if: github.ref == 'refs/heads/main'
+        run: cd android && fastlane release --verbose && cd ..
 
       - name: Get Release Version
         id: version
@@ -292,13 +324,39 @@ jobs:
           git commit -m "Version Bump [skip-ci]"
           git tag -a "${{ steps.version.outputs.version }}" -m "${{ steps.version.outputs.version }}"
 
-      - name: Push Changes
-        id: commitPush
+      - name: Push Changes (Develop)
+        if: github.ref == 'refs/heads/develop'
+        run: |
+          git --no-pager push -u origin develop
+
+      - name: Push Changes (Main)
+        if: github.ref == 'refs/heads/main'
         run: |
           git --no-pager push -u origin main
-          echo ::set-output name=commit::$(git rev-parse HEAD)
+          git checkout develop
+          git merge --squash --no-pager main
+          git checkout main
 
-      - name: Create Release
+      - name: Get commit hash
+        id: commitPush
+        run: echo ::set-output name=commit::$(git rev-parse HEAD)
+
+      - name: Create Alpha Release
+        if: github.ref == 'refs/heads/develop'
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.version.outputs.version }}
+          release_name: Alpha ${{ steps.version.outputs.version }}
+          commitish: ${{ steps.commitPush.outputs.commit }}
+          body: ${{ steps.changelog.outputs.changelog }}
+          draft: true
+          prerelease: true
+
+      - name: Create Prod Release
+        if: github.ref == 'refs/heads/main'
         id: create_release
         uses: actions/create-release@v1
         env:
