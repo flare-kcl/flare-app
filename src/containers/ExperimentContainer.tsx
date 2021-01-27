@@ -125,20 +125,20 @@ export const ExperimentContainer = () => {
 
   // If the user has been 'screened out' then show respective screen
   if (experiment.rejectionReason) {
-    if (allModulesSynced && !experiment.offlineOnly) {
-      return (
-        <RejectionScreen
-          contactLink={experiment.contactEmail}
-          reason={experiment.rejectionReason}
-          onExit={() => terminateExperiment(false)}
-        />
-      )
-    } else {
+    if (!allModulesSynced && !experiment.offlineOnly) {
       return (
         <SummaryScreen
           allModulesSynced={allModulesSynced}
           syncExperiment={() => dispatch(syncExperiment)}
           onExit={() => null}
+        />
+      )
+    } else {
+      return (
+        <RejectionScreen
+          contactLink={experiment.contactEmail}
+          reason={experiment.rejectionReason}
+          onExit={() => terminateExperiment(false)}
         />
       )
     }

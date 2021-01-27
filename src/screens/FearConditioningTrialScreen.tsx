@@ -1,6 +1,6 @@
 import { memo, useState, useEffect, useRef } from 'react'
 import { EmitterSubscription, ImageSourcePropType, Image } from 'react-native'
-import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import {
   Box,
@@ -12,6 +12,7 @@ import {
 import AudioSensor from '@utils/AudioSensor'
 import { useAlert } from '@utils/AlertProvider'
 import { UnconditionalStimulusRef } from '@utils/hooks'
+import { PauseableTimer } from '@utils/timers'
 
 type FearConditioningTrialScreenProps = {
   contextImage: ImageSourcePropType
@@ -51,23 +52,42 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
     anchorLabelRight,
   }) => {
     const Alert = useAlert()
+    const focusState = useSelector((state) => state.appState)
     const [showTrial, setShowTrial] = useState<boolean>(false)
     const [showScale, setShowScale] = useState(false)
 
     // Keep reference of timers
     const startTimeRef = useRef<number>()
     const reactionTimeRef = useRef<number>()
-    const endTimerRef = useRef<any>()
-    const soundTimerRef = useRef<any>()
-    const scaleTimerRef = useRef<any>()
+    const endTimerRef = useRef<PauseableTimer>()
+    const soundTimerRef = useRef<PauseableTimer>()
+    const scaleTimerRef = useRef<PauseableTimer>()
+    const mountedTimerRef = useRef<PauseableTimer>()
     const ratingValueRef = useRef<any>()
-    const mountedTimerRef = useRef<any>(false)
     const headphoneSensorListener = useRef<EmitterSubscription>()
     const headphoneRef = useRef<AlertRef>()
 
+    const pauseTrial = () => {
+      soundTimerRef.current?.pause()
+      scaleTimerRef.current?.pause()
+      mountedTimerRef.current?.pause()
+      endTimerRef.current?.pause()
+    }
+
+    const resumeTrial = () => {
+      AudioSensor.isHeadphonesConnected().then((showHeadphoneAlert) => {
+        if (showHeadphoneAlert && focusState.type === 'active') {
+          soundTimerRef.current?.resume()
+          scaleTimerRef.current?.resume()
+          mountedTimerRef.current?.resume()
+          endTimerRef.current?.resume()
+        }
+      })
+    }
+
     const finishTrial = (delay: number) => {
       if (endTimerRef.current === undefined) {
-        endTimerRef.current = setTimeout(async () => {
+        endTimerRef.current = new PauseableTimer(async () => {
           onTrialEnd({
             rating: ratingValueRef.current,
             skipped: ratingValueRef.current === undefined,
@@ -82,27 +102,37 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
 
     const showHeadphoneAlert = (connected: boolean) => {
       // Show user a toast warning
-      if (headphoneRef.current === undefined && connected === false) {
-        headphoneRef.current = Alert.alert(
-          'Reconnect Headphones',
-          'Please reconnect your headphones to continue.',
-          [
-            {
-              label: 'Continue',
-              onPress: async () => {
-                // Reopen prompt if they have not been connected
-                headphoneRef.current = undefined
-                showHeadphoneAlert(await AudioSensor.isHeadphonesConnected())
-              },
-            },
-          ],
-        )
+      if (connected === false) {
+        // Stop the timers
+        pauseTrial()
+
+        if (headphoneRef.current === undefined) {
+          headphoneRef.current = Alert.alert(
+            'Reconnect Headphones',
+            'Please reconnect your headphones to continue.',
+            [
+              /* LEAVE BLANK */
+            ],
+          )
+        }
       } else if (connected) {
         // If we detect a reconnect then dismiss alert
         headphoneRef.current?.dismiss()
         headphoneRef.current = undefined
+
+        // Start timers again
+        resumeTrial()
       }
     }
+
+    // Pause trial on suspend
+    useEffect(() => {
+      if (focusState.type !== 'active') {
+        pauseTrial()
+      } else {
+        resumeTrial()
+      }
+    }, [focusState.type])
 
     useEffect(() => {
       // Setup Headphone Listening
@@ -111,9 +141,9 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
         showHeadphoneAlert,
       )
 
-      mountedTimerRef.current = setTimeout(() => {
+      mountedTimerRef.current = new PauseableTimer(() => {
         // Set timer for sound, 500ms before end
-        soundTimerRef.current = setTimeout(async () => {
+        soundTimerRef.current = new PauseableTimer(async () => {
           if (reinforced) {
             await unconditionalStimulus.playSound()
             finishTrial(0)
@@ -123,7 +153,7 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
         }, trialLength - unconditionalStimulus.duration)
 
         // Set timer for scale reveal
-        scaleTimerRef.current = setTimeout(() => {
+        scaleTimerRef.current = new PauseableTimer(() => {
           // Show scale
           setShowScale(true)
         }, ratingDelay)
@@ -137,10 +167,10 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
 
       return () => {
         // Delete timers
-        clearTimeout(mountedTimerRef.current)
-        clearTimeout(soundTimerRef.current)
-        clearTimeout(endTimerRef.current)
-        clearTimeout(scaleTimerRef.current)
+        endTimerRef.current?.destroy()
+        soundTimerRef.current?.destroy()
+        scaleTimerRef.current?.destroy()
+        mountedTimerRef.current?.destroy()
 
         // Disconnect volume listener
         headphoneSensorListener.current?.remove()
