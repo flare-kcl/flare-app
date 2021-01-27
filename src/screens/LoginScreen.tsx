@@ -216,7 +216,7 @@ async function loginWithID(participantID: string, dispatch) {
     ].concat(modules)
 
     // Add T&C's module dymanically if config exists
-    if (experimentApiData.config) {
+    if (experimentApiData.config?.terms_and_conditions) {
       modules = [
         {
           id: 'TermsModule',
@@ -226,6 +226,19 @@ async function loginWithID(participantID: string, dispatch) {
           },
         },
       ].concat(modules)
+    }
+
+    // Add reimbursement module dymanically if config exists
+    if (experimentApiData.config?.reimbursements) {
+      modules = modules.concat([
+        {
+          id: 'ReimbursementModule',
+          moduleType: 'REIMBURSEMENT',
+          definition: {
+            terms: experimentApiData.config.terms_and_conditions,
+          },
+        },
+      ])
     }
 
     // Check id user is locked out

@@ -141,7 +141,44 @@ export class PortalAPI {
       PortalAPI.reportValidationError(response)
     }
   }
+
+  // static async getVoucherCode(participantID: string) {
+  //   // Convert object to string
+  //   const jsonData = JSON.stringify({ participant: participantID })
+  //   const response = await PortalAPI.executeAPIRequest('vouchers', jsonData)
+
+  //   // If validation error
+  //   if (response.status === 400) {
+  //     return Promise.reject()
+  //   }
+
+  //   return await response.json()
+  // }
+
+  static async getVoucherCode(participantID: string): Promise<VoucherResponse>  {
+    // SUCESSS
+    return Promise.resolve({
+      status: "success",
+      body: copy,
+      voucher: "EXAMPLE-API-VOUCHER"
+    })
+
+    // LOADING
+    // return Promise.resolve({
+    //   status: 'error',
+    //   error_code: 405,
+    // })
+  }
 }
+
+const copy = `
+# Your Amazon Voucher!
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc in dui quis odio volutpat pulvinar eu id eros. In ut ipsum ac ipsum varius scelerisque.
+Pellentesque nec neque vel odio tempor aliquam. Aliquam rutrum vestibulum ligula, eget viverra mauris porta id.
+In elit est, aliquet et aliquet eu, blandit vitae erat. Curabitur finibus dapibus tellus, et scelerisque sem dictum quis.
+Praesent pellentesque rutrum libero, a ultrices ante molestie id. Etiam semper hendrerit feugiat.
+`
 
 type PortalTrialRatingSubmission = {
   module: string
@@ -191,4 +228,11 @@ type CalibratedVolumeSubmission = {
   module: string
   rating: number
   calibrated_volume_level: number
+}
+
+type VoucherResponse = {
+  body: string
+  status: string
+  voucher?: string
+  error_code?: string
 }

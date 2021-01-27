@@ -3,7 +3,7 @@ import { AntDesign } from '@expo/vector-icons'
 import { useNetInfo } from '@react-native-community/netinfo'
 import Spinner from 'react-native-spinkit'
 import { addHours } from 'date-fns'
-import { Box, Text, Button, SafeAreaView, ScrollView } from '@components'
+import { Box, Text, Button, SafeAreaView, ScrollView, NetworkError } from '@components'
 import { palette } from '@utils/theme'
 import {
   cancelAllNotifications,
@@ -103,22 +103,7 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
 
           {/* Show connection status */}
           {!netInfo.isInternetReachable && !allModulesSynced && (
-            <Box
-              flexDirection="row"
-              justifyContent="space-between"
-              alignItems="center"
-              mb={4}
-              p={4}
-              backgroundColor="white"
-              borderColor="red"
-              borderWidth={4}
-              borderRadius="m"
-            >
-              <Text variant="heading3" fontWeight="600" color="darkGrey">
-                You do not have internet access, Please come back when you have
-                a stable connection.
-              </Text>
-            </Box>
+            <NetworkError />
           )}
 
           <Box flex={1} justifyContent="flex-end" pb={6}>

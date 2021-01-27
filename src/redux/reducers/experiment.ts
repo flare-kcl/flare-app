@@ -8,6 +8,7 @@ export type RejectionReason =
   | 'TIMEOUT'
   | 'TRIAL_TIMEOUT'
   | 'CORRUPT_ASSETS'
+  | 'VOUCHER_ERROR'
   | 'UNKNOWN'
 
 export type ExperimentCache = {

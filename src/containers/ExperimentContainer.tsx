@@ -38,6 +38,7 @@ import { BreakStartContainer } from './BreakStartContainer'
 import { BreakEndContainer } from './BreakEndContainer'
 import { TaskInstructionsContainer } from './TaskInstructionsContainer'
 import { NotificationsContainer } from './NotificationsContainer'
+import { ReimbursmentContainer } from './ReimbursmentContainer'
 
 const ExperimentModuleTypes = {
   BASIC_INFO: BasicInfoContainer,
@@ -53,6 +54,7 @@ const ExperimentModuleTypes = {
   BREAK_START: BreakStartContainer,
   BREAK_END: BreakEndContainer,
   NOTIFICATIONS: NotificationsContainer,
+  REIMBURSEMENT: ReimbursmentContainer
 }
 
 type ExperimentModuleConfig = {
@@ -104,7 +106,7 @@ export type ExperimentModule<
 > = React.FunctionComponent<
   ExtraProps & {
     module: ModuleState
-    updateModule: (ModuleState) => void
+    updateModule: (module: Partial<ModuleState>) => void
     updateExperiment: (experiment: Partial<ExperimentCache>) => void
     experiment: ExperimentCache
     onModuleComplete: () => void
@@ -125,20 +127,20 @@ export const ExperimentContainer = () => {
 
   // If the user has been 'screened out' then show respective screen
   if (experiment.rejectionReason) {
-    if (allModulesSynced && !experiment.offlineOnly) {
-      return (
-        <RejectionScreen
-          contactLink={experiment.contactEmail}
-          reason={experiment.rejectionReason}
-          onExit={() => terminateExperiment(false)}
-        />
-      )
-    } else {
+    if (!allModulesSynced && !experiment.offlineOnly) {
       return (
         <SummaryScreen
           allModulesSynced={allModulesSynced}
           syncExperiment={() => dispatch(syncExperiment)}
           onExit={() => null}
+        />
+      )
+    } else {
+      return (
+        <RejectionScreen
+          contactLink={experiment.contactEmail}
+          reason={experiment.rejectionReason}
+          onExit={() => terminateExperiment(false)}
         />
       )
     }
