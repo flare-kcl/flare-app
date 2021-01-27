@@ -67,7 +67,7 @@ export const useAlert = (): AlertInterface => {
   const dispatch = useDispatch()
 
   return {
-    alert: (title, description, actions = [], color = 'red') => {
+    alert: (title, description, actions, color = 'red') => {
       // Create alert
       const alert: AlertRecord = {
         id: uuidv4(),
