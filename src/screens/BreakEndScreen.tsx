@@ -38,11 +38,9 @@ export const BreakEndScreen: React.FunctionComponent<BreakEndScreenProps> = ({
             </Text>
           )}
 
-          {description && (
-            <Markdown mb={16} textAlign="left">
-              {description}
-            </Markdown>
-          )}
+          <Markdown mb={16} textAlign="left">
+            {description}
+          </Markdown>
 
           <Text variant="caption2" fontWeight="600" pb={2}>
             Time Left:

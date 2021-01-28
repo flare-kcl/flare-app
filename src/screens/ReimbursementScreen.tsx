@@ -1,15 +1,31 @@
 import Clipboard from '@react-native-community/clipboard'
-import { ScrollView, SafeAreaView, Box, Markdown, Text, Button } from '@components'
+import {
+  ScrollView,
+  SafeAreaView,
+  Box,
+  Markdown,
+  Text,
+  Button,
+} from '@components'
 
 export const ReimbursementScreen = ({ body, code, onExit }) => {
   return (
     <ScrollView>
-      <SafeAreaView flex={1} backgroundColor='greenPrimary'>
+      <SafeAreaView flex={1} backgroundColor="greenPrimary">
         <Box flex={1} pt={10} px={6}>
           <Markdown>{body}</Markdown>
 
-          <Box backgroundColor='greenLight' mt={10} paddingVertical={5} borderRadius='m' borderWidth={4} borderColor='purple'>
-            <Text textAlign='center' fontSize={18} fontWeight='bold' selectable>{code}</Text>
+          <Box
+            backgroundColor="greenLight"
+            mt={10}
+            paddingVertical={5}
+            borderRadius="m"
+            borderWidth={4}
+            borderColor="purple"
+          >
+            <Text textAlign="center" fontSize={18} fontWeight="bold" selectable>
+              {code}
+            </Text>
           </Box>
 
           <Box
@@ -20,15 +36,13 @@ export const ReimbursementScreen = ({ body, code, onExit }) => {
             mt={6}
             pb={6}
           >
-            {code && (
-              <Button
-                testID="CopyButton"
-                label="Copy Code"
-                variant="primary"
-                backgroundColor="coral"
-                onPress={() => Clipboard.setString(code)}
-              />
-            )}
+            <Button
+              testID="CopyButton"
+              label="Copy Code"
+              variant="primary"
+              backgroundColor="coral"
+              onPress={() => Clipboard.setString(code)}
+            />
             <Button
               testID="ExitButton"
               label="Exit Experiment"

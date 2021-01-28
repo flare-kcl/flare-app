@@ -3,7 +3,14 @@ import { AntDesign } from '@expo/vector-icons'
 import { useNetInfo } from '@react-native-community/netinfo'
 import Spinner from 'react-native-spinkit'
 import { addHours } from 'date-fns'
-import { Box, Text, Button, SafeAreaView, ScrollView, NetworkError } from '@components'
+import {
+  Box,
+  Text,
+  Button,
+  SafeAreaView,
+  ScrollView,
+  NetworkError,
+} from '@components'
 import { palette } from '@utils/theme'
 import {
   cancelAllNotifications,
@@ -50,14 +57,22 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
     if (allModulesSynced) {
       // Cancel any future notifications once synced
       cancelAllNotifications('SYNC_REQUIRED')
+
+      // Submit end experiment time
+      syncExperiment()
     }
   }, [netInfo.isInternetReachable, allModulesSynced])
 
-  const finishExperiment = () => {
-    // Cancel any future notifications once synced
-    cancelAllNotifications('SYNC_REQUIRED')
+  const finishExperiment = async () => {
+    // Submit end experiment time
+    await syncExperiment()
 
-    // Progress to next screen
+    // Cancel any future notifications once synced
+    if (allModulesSynced) {
+      cancelAllNotifications('SYNC_REQUIRED')
+    }
+
+    // Progress
     onExit()
   }
 

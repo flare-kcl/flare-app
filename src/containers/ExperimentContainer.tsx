@@ -39,6 +39,7 @@ import { BreakEndContainer } from './BreakEndContainer'
 import { TaskInstructionsContainer } from './TaskInstructionsContainer'
 import { NotificationsContainer } from './NotificationsContainer'
 import { ReimbursmentContainer } from './ReimbursmentContainer'
+import { SummaryContainer } from './SummaryContainer'
 
 const ExperimentModuleTypes = {
   BASIC_INFO: BasicInfoContainer,
@@ -54,7 +55,8 @@ const ExperimentModuleTypes = {
   BREAK_START: BreakStartContainer,
   BREAK_END: BreakEndContainer,
   NOTIFICATIONS: NotificationsContainer,
-  REIMBURSEMENT: ReimbursmentContainer
+  REIMBURSEMENT: ReimbursmentContainer,
+  SUMMARY: SummaryContainer,
 }
 
 type ExperimentModuleConfig = {
@@ -79,6 +81,7 @@ export type Experiment = {
   name: string
   description: string
   contactEmail?: string
+  reimbursements: boolean
   modules: ExperimentModuleConfig[]
   ratingDelay: number
   trialLength: number
@@ -111,6 +114,7 @@ export type ExperimentModule<
     experiment: ExperimentCache
     onModuleComplete: () => void
     unconditionalStimulus?: UnconditionalStimulusRef
+    syncExperiment: () => void
     terminateExperiment: (boolean, RejectionReason) => void
     exitExperiment: (RejectionReason) => void
   }
@@ -119,9 +123,9 @@ export type ExperimentModule<
 export const ExperimentContainer = () => {
   // Get the experiment object and the index of the current module.
   const dispatch = useDispatch()
-  const experiment = useSelector(experimentSelector)
+  const experiment: ExperimentCache = useSelector(experimentSelector)
   const experimentModules = useSelector(allModulesSelector)
-  const currentModule = useSelector(currentModuleSelector)
+  let currentModule = useSelector(currentModuleSelector)
   const allModulesSynced = useSelector(allModulesSyncedSelector)
   const usRef = useUnconditionalStimulus()
 
@@ -147,30 +151,22 @@ export const ExperimentContainer = () => {
   }
 
   // If all modules have been completed...
-  if (experiment.currentModuleIndex === experiment.definition?.modules.length) {
+  if (
+    experiment.currentModuleIndex === experimentModules.length &&
+    experimentModules.length > 0
+  ) {
     // Mark experiment complete
-    if (!experiment.isComplete)
+    if (!experiment.isComplete) {
       dispatch(
         updateExperiment({
           ...experiment,
           isComplete: true,
         }),
       )
-
-    // Are all the modules synced?
-    if (!experiment.offlineOnly) {
-      return (
-        <SummaryScreen
-          allModulesSynced={allModulesSynced}
-          syncExperiment={() => dispatch(syncExperiment)}
-          onExit={() => terminateExperiment(false)}
-        />
-      )
-    } else {
-      terminateExperiment(false)
     }
 
     // Render nothing...
+    terminateExperiment(false)
     return null
   }
 
@@ -207,12 +203,6 @@ export const ExperimentContainer = () => {
 
     // Sync past screen data
     dispatch(syncExperiment)
-  }
-
-  // If no matching component then skip it (this avoids issues caused by upgrades)
-  if (ModuleComponent === undefined) {
-    onModuleComplete()
-    return null
   }
 
   // Function used to reset experiment state
@@ -271,6 +261,7 @@ export const ExperimentContainer = () => {
         updateExperiment={updateExperimentState}
         onModuleComplete={onModuleComplete}
         terminateExperiment={terminateExperiment}
+        syncExperiment={() => dispatch(syncExperiment)}
         unconditionalStimulus={usRef}
         exitExperiment={exitExperiment}
       />

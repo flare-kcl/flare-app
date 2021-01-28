@@ -13,8 +13,8 @@ export const NetworkError = () => (
     borderRadius="m"
   >
     <Text variant="heading3" fontWeight="600" color="darkGrey">
-      You do not have internet access, Please come back when you have
-      a stable connection.
+      You do not have internet access, Please come back when you have a stable
+      connection.
     </Text>
   </Box>
 )

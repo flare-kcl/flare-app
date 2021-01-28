@@ -199,6 +199,11 @@ async function loginWithID(participantID: string, dispatch) {
     // Parse the experiment data to typed structure
     const experimentApiData = await experimentRawData.json()
 
+    // Check if Participant ID is incorrect
+    if (experimentApiData.participant) {
+      return Promise.reject(experimentApiData.participant[0])
+    }
+
     // Parse experiment modules
     let modules = experimentApiData.modules.map(({ id, type, config }) => ({
       id,
@@ -228,15 +233,22 @@ async function loginWithID(participantID: string, dispatch) {
       ].concat(modules)
     }
 
+    // Add sync screen
+    modules = modules.concat([
+      {
+        id: 'SummaryModule',
+        moduleType: 'SUMMARY',
+        definition: {},
+      },
+    ])
+
     // Add reimbursement module dymanically if config exists
-    if (experimentApiData.config?.reimbursements) {
+    if (experimentApiData.experiment?.reimbursements) {
       modules = modules.concat([
         {
           id: 'ReimbursementModule',
           moduleType: 'REIMBURSEMENT',
-          definition: {
-            terms: experimentApiData.config.terms_and_conditions,
-          },
+          definition: {},
         },
       ])
     }
@@ -291,6 +303,7 @@ async function loginWithID(participantID: string, dispatch) {
     const experiment: Experiment = {
       id: experimentApiData.experiment.id,
       name: experimentApiData.experiment.name,
+      reimbursements: experimentApiData.experiment.reimbursements,
       description: experimentApiData.experiment.description,
       ratingScaleAnchorLabelLeft:
         experimentApiData.experiment.rating_scale_anchor_label_left,
@@ -348,6 +361,8 @@ async function loginWithID(participantID: string, dispatch) {
         definition: experiment,
         currentModuleIndex: 0,
         isComplete: false,
+        contactEmail: 'flare@email.com',
+        notificationsEnabled: false,
       }),
     )
   } catch (err) {
@@ -380,6 +395,7 @@ function demoLogin(dispatch) {
       offlineOnly: true,
       isComplete: false,
       contactEmail: exampleExperimentData.contactEmail,
+      notificationsEnabled: false,
     }),
   )
 }

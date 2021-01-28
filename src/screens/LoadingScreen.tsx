@@ -6,8 +6,16 @@ type LoadingScreenProps = {
   networkError?: boolean
 }
 
-export const LoadingScreen: React.FC<LoadingScreenProps> = ({ networkError }) => (
-  <Box flex={1} alignItems='center' justifyContent='center' backgroundColor='greenPrimary' pb={24}>
+export const LoadingScreen: React.FC<LoadingScreenProps> = ({
+  networkError,
+}) => (
+  <Box
+    flex={1}
+    alignItems="center"
+    justifyContent="center"
+    backgroundColor="greenPrimary"
+    pb={24}
+  >
     <Spinner
       isVisible
       size={100}
@@ -16,7 +24,7 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ networkError }) =>
     />
 
     {networkError && (
-      <Box position='absolute' paddingHorizontal={4} bottom={100}>
+      <Box position="absolute" paddingHorizontal={4} bottom={100}>
         <NetworkError />
       </Box>
     )}

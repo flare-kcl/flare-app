@@ -13,8 +13,7 @@ export const moduleSelector = (state: AppState, moduleId) =>
 
 export const currentModuleSelector = (state: AppState) => {
   const currentIndex = state.experiment.currentModuleIndex
-  const currentModule = state.experiment.definition?.modules[currentIndex]
-  return currentModule && moduleSelector(state, currentModule.id)
+  return Object.values(state.modules)[currentIndex]
 }
 
 export const unsyncedModulesSelector = (state: AppState) =>

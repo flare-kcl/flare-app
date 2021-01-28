@@ -11,47 +11,59 @@ export type ReimbursmentModuleState = {
   errorOccured?: boolean
 }
 
-export const ReimbursmentContainer: ExperimentModule<ReimbursmentModuleState> = ({ experiment, module: mod, updateExperiment, updateModule, onModuleComplete }) => {
+export const ReimbursmentContainer: ExperimentModule<ReimbursmentModuleState> = ({
+  experiment,
+  module: mod,
+  updateExperiment,
+  updateModule,
+  onModuleComplete,
+}) => {
   const netInfo = useNetInfo()
 
   useEffect(() => {
     if (netInfo.isInternetReachable) {
       // Setting 'breakEndDate' to null will cause infinite break period
       updateExperiment({
-        breakEndDate: null
+        breakEndDate: null,
       })
 
       // Request voucher code from Portal API
       if (mod.voucherCode === undefined) {
-        PortalAPI
-          .getVoucherCode(experiment.participantID)
-          .then(response => {
+        PortalAPI.getVoucherCode(experiment.participantID)
+          .then((response) => {
             if (response.voucher) {
               updateModule({
-                body: response.body,
+                body: response.success_message,
                 voucherCode: response.voucher,
-                errorOccured: false
+                errorOccured: false,
               })
             }
 
             if (response.error_code) {
               updateModule({
-                errorOccured: true
+                body: response.error_message,
+                errorOccured: true,
               })
             }
           })
-          .catch(() => updateModule({
-            errorOccured: true
-          }))
+          .catch(() =>
+            updateModule({
+              errorOccured: true,
+            }),
+          )
       }
     }
-  }, [ netInfo.isInternetReachable ])
+  }, [netInfo.isInternetReachable])
 
   return (
     <>
       {mod.errorOccured !== true && mod.voucherCode && (
         // If we have valid voucher response
-        <ReimbursementScreen body={mod.body} code={mod.voucherCode} onExit={() => onModuleComplete()} />
+        <ReimbursementScreen
+          body={mod.body}
+          code={mod.voucherCode}
+          onExit={() => onModuleComplete()}
+        />
       )}
 
       {mod.errorOccured !== true && mod.voucherCode === undefined && (
@@ -62,9 +74,11 @@ export const ReimbursmentContainer: ExperimentModule<ReimbursmentModuleState> = 
       {mod.errorOccured === true && (
         // If we enountered an error...
         <RejectionScreen
-          heading='Thank you for being a participant in our study!'
-          reason='VOUCHER_ERROR'
+          heading="Thank you for being a participant in our study!"
+          body={mod.body}
+          reason="VOUCHER_ERROR"
           contactLink={experiment.contactEmail}
+          onExit={() => onModuleComplete()}
         />
       )}
     </>

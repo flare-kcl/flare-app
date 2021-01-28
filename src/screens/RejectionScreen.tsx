@@ -5,6 +5,7 @@ import { palette } from '@utils/theme'
 
 type RejectionScreenParams = {
   heading?: string
+  body?: string
   reason: RejectionReason
   contactLink?: string
   onExit?: Function
@@ -22,11 +23,12 @@ const RejectionReasons = {
 
 export const RejectionScreen: React.FunctionComponent<RejectionScreenParams> = ({
   heading = 'Thank you for your interest in the FLARe app.',
+  body,
   reason,
   contactLink,
   onExit,
 }) => {
-  const reasonCopy = RejectionReasons[reason]
+  const reasonCopy = body ?? RejectionReasons[reason]
 
   return (
     <ScrollView

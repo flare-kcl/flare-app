@@ -25,7 +25,7 @@ export type ExperimentCache = {
   notificationsEnabled: boolean
 }
 
-export const updateExperiment = createAction<ExperimentCache>(
+export const updateExperiment = createAction<Partial<ExperimentCache>>(
   'experiment/update',
 )
 
