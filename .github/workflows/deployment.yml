@@ -28,6 +28,7 @@ jobs:
         run: |
           echo ::set-output name=rawTag::$(git --no-pager tag --points-at HEAD)
           echo ::set-output name=defaultTag::"ALPHA"
+          git --no-pager tag --points-at HEAD
 
       # Select 1.3.3 from "v1.3.3"
       - name: Extract version from tag
