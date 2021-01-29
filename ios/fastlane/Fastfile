@@ -61,7 +61,7 @@ platform :ios do
     deliver(
       api_key_path: "./api.json",
       ipa: './flare.ipa',
-      submit_for_review: true
+      submit_for_review: true,
       automatic_release: true
     )
   end

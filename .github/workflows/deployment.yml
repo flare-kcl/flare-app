@@ -18,10 +18,15 @@ jobs:
       DEVELOPER_DIR: /Applications/Xcode_12.app
 
     steps:
+      - name: Turnstyle
+        uses: softprops/turnstyle@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Checkout
         uses: actions/checkout@v1
         with:
-          fetch-depth: 1
+          fetch-depth: 0
 
       - name: Get tag from commit
         id: rawTag
@@ -77,7 +82,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
         with:
-          fetch-depth: 1
+          fetch-depth: 0
 
       - name: Node
         uses: actions/setup-node@v1
@@ -156,7 +161,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
         with:
-          fetch-depth: 1
+          fetch-depth: 0
 
       - uses: actions/setup-python@v2
         with:
@@ -236,8 +241,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
         with:
-          ref: main
-          fetch-depth: 1
+          fetch-depth: 0
 
       - name: Install Fastlane
         run: brew install fastlane
@@ -319,23 +323,27 @@ jobs:
           git config --global user.name 'Github Actions'
           git config --global user.email 'flare@torchbox.com'
 
-      - name: Commit Changes
+      - name: Commit Changes (Develop)
+        if: github.ref == 'refs/heads/develop'
         run: |
+          git checkout develop
+          git add ./ios/flare.xcodeproj ./ios/flare/Info.plist ./android/app/build.gradle
+          git commit -m "Version Bump [skip-ci]"
+          git tag -a "${{ steps.version.outputs.version }}" -m "${{ steps.version.outputs.version }}"
+          git --no-pager push -u origin develop
+
+      - name: Commit Changes (Main)
+        if: github.ref == 'refs/heads/main'
+        run: |
+          git checkout main
           git add ./ios/flare.xcodeproj ./ios/flare/Info.plist ./android/app/build.gradle
           git commit -m "Version Bump [skip-ci]"
           git tag -a "${{ steps.version.outputs.version }}" -m "${{ steps.version.outputs.version }}"
 
-      - name: Push Changes (Develop)
-        if: github.ref == 'refs/heads/develop'
-        run: |
-          git --no-pager push -u origin develop
-
-      - name: Push Changes (Main)
-        if: github.ref == 'refs/heads/main'
-        run: |
           git --no-pager push -u origin main
           git checkout develop
           git merge --squash --no-pager main
+          git --no-pager push -u origin develop
           git checkout main
 
       - name: Get commit hash
@@ -344,7 +352,7 @@ jobs:
 
       - name: Create Alpha Release
         if: github.ref == 'refs/heads/develop'
-        id: create_release
+        id: create_alpha_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -376,7 +384,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          upload_url: ${{ steps.create_release.outputs.upload_url || steps.create_alpha_release.outputs.upload_url }}
           asset_path: ./ios/flare.ipa
           asset_name: FLARe.ipa
           asset_content_type: application/zip
@@ -387,7 +395,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          upload_url: ${{ steps.create_release.outputs.upload_url || steps.create_alpha_release.outputs.upload_url }}
           asset_path: ./android/app/build/outputs/apk/release/app-release.apk
           asset_name: FLARe.apk
           asset_content_type: application/vnd.android.package-archive
