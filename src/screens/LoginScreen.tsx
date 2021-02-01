@@ -342,9 +342,10 @@ async function loginWithID(participantID: string, dispatch) {
     Sentry.setContext('experiment', experiment)
 
     // Save modules to redux
-    experiment.modules.map((mod) => {
+    experiment.modules.map((mod, index) => {
       dispatch(
         updateModule({
+          index,
           moduleId: mod.id,
           moduleType: mod.moduleType,
           moduleState: mod.definition,

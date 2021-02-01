@@ -1,6 +1,7 @@
 import { createAction, createReducer } from '@reduxjs/toolkit'
 
 export type ExperimentModuleCache<StateType = any> = {
+  index: number
   moduleId: string
   moduleType: string
   moduleState: StateType
