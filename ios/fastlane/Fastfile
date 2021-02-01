@@ -62,7 +62,9 @@ platform :ios do
       api_key_path: "./api.json",
       ipa: './flare.ipa',
       submit_for_review: true,
-      automatic_release: true
+      automatic_release: true,
+      precheck_include_in_app_purchases: false,
+      force: true
     )
   end
 end

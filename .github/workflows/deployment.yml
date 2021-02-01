@@ -2,7 +2,9 @@ name: Deployment
 
 on:
   push:
-    branches: [main, develop]
+    branches: [develop]
+  workflow_dispatch:
+    inputs:
 
 jobs:
   # Version Management
