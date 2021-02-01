@@ -4,6 +4,7 @@ import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import Config from 'react-native-config'
 import * as Sentry from '@sentry/react-native'
+import * as SplashScreen from 'expo-splash-screen'
 
 import AssetCache from '@utils/AssetCache'
 import AppStateMonitor from '@utils/AppStateMonitor'
@@ -12,10 +13,7 @@ import { store, peristor } from '@redux/store'
 import { onStateHydrated } from '@redux/persist'
 import { ExperimentContainer } from 'containers/ExperimentContainer'
 import { AlertProvider } from '@utils/AlertProvider'
-import {
-  registerNotifications,
-  scheduleNotification,
-} from '@utils/notifications'
+import { registerNotifications } from '@utils/notifications'
 
 // Link with Sentry
 Sentry.init({
@@ -31,6 +29,9 @@ export default function App() {
   const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
+    // Hide Splashscreen
+    SplashScreen.hideAsync()
+
     // Start AppState listening...
     onStateHydrated().then(() => {
       AppStateMonitor.startMonitoring()
