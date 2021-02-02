@@ -1,4 +1,9 @@
-import { ExperimentCache, ExperimentModule, updateModule } from './reducers'
+import {
+  ExperimentCache,
+  ExperimentModule,
+  updateExperiment,
+  updateModule,
+} from './reducers'
 import { AppState } from './store'
 import { FearConditioningModuleState } from '@containers/FearConditioningContainer'
 import { PortalAPI } from '@utils/PortalAPI'
@@ -20,7 +25,7 @@ export const syncExperiment = async (dispatch, getState: () => AppState) => {
   if (experiment.offlineOnly) return
 
   // If we have submitted all the modules thens let's flag the experiment as finished
-  if (modules.length == 0) syncExperimentEnd(experiment)
+  if (modules.length == 0) await syncExperimentEnd(experiment)
 
   // Get all modules that have been completed but not synced.
   for (const mod of modules) {

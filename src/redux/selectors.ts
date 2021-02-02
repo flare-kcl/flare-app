@@ -13,8 +13,9 @@ export const moduleSelector = (state: AppState, moduleId) =>
 
 export const currentModuleSelector = (state: AppState) => {
   const currentIndex = state.experiment.currentModuleIndex
-  const currentModule = state.experiment.definition?.modules[currentIndex]
-  return currentModule && moduleSelector(state, currentModule.id)
+  return Object.values(state.modules).find(
+    (mod: ExperimentModuleCache) => mod.index === currentIndex,
+  )
 }
 
 export const unsyncedModulesSelector = (state: AppState) =>
@@ -23,7 +24,9 @@ export const unsyncedModulesSelector = (state: AppState) =>
   )
 
 export const allModulesSelector = (state: AppState): ExperimentModuleCache[] =>
-  Object.values(state.modules)
+  Object.values(state.modules).sort(
+    (a: ExperimentModuleCache, b: ExperimentModuleCache) => a.index - b.index,
+  ) as ExperimentModuleCache[]
 
 export const allModulesSyncedSelector = (state: AppState): boolean =>
   allModulesSelector(state).filter(

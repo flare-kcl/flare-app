@@ -27,6 +27,11 @@ export const Markdown: React.FunctionComponent<MarkdownProps> = ({
     return true
   }
 
+  // Validate Markdown input
+  if (children == undefined && children != '') {
+    return null
+  }
+
   return (
     <Box {...props}>
       <MarkdownDisplay

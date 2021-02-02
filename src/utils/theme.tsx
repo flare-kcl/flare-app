@@ -113,7 +113,7 @@ export const theme = createTheme({
     buttonLabel: {
       fontFamily: 'Inter-SemiBold',
       fontSize: 20,
-      color: 'white',
+      color: 'pureWhite',
     },
     instructionHeading: {
       fontFamily: 'Inter',

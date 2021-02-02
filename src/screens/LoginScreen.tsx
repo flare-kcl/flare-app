@@ -140,7 +140,7 @@ export const LoginScreen = () => {
 
             <Text variant="caption2" textAlign="center" pt={5} px={3}>
               Please enter your Participant ID into the form above. You should
-              have recieved this in your experiment briefing.
+              have received this in your experiment briefing.
             </Text>
           </Box>
 
@@ -199,6 +199,11 @@ async function loginWithID(participantID: string, dispatch) {
     // Parse the experiment data to typed structure
     const experimentApiData = await experimentRawData.json()
 
+    // Check if Participant ID is incorrect
+    if (experimentApiData.participant) {
+      return Promise.reject(experimentApiData.participant[0])
+    }
+
     // Parse experiment modules
     let modules = experimentApiData.modules.map(({ id, type, config }) => ({
       id,
@@ -216,7 +221,7 @@ async function loginWithID(participantID: string, dispatch) {
     ].concat(modules)
 
     // Add T&C's module dymanically if config exists
-    if (experimentApiData.config) {
+    if (experimentApiData.config?.terms_and_conditions) {
       modules = [
         {
           id: 'TermsModule',
@@ -226,6 +231,26 @@ async function loginWithID(participantID: string, dispatch) {
           },
         },
       ].concat(modules)
+    }
+
+    // Add sync screen
+    modules = modules.concat([
+      {
+        id: 'SummaryModule',
+        moduleType: 'SUMMARY',
+        definition: {},
+      },
+    ])
+
+    // Add reimbursement module dymanically if config exists
+    if (experimentApiData.experiment?.reimbursements) {
+      modules = modules.concat([
+        {
+          id: 'ReimbursementModule',
+          moduleType: 'REIMBURSEMENT',
+          definition: {},
+        },
+      ])
     }
 
     // Check id user is locked out
@@ -278,6 +303,7 @@ async function loginWithID(participantID: string, dispatch) {
     const experiment: Experiment = {
       id: experimentApiData.experiment.id,
       name: experimentApiData.experiment.name,
+      reimbursements: experimentApiData.experiment.reimbursements,
       description: experimentApiData.experiment.description,
       ratingScaleAnchorLabelLeft:
         experimentApiData.experiment.rating_scale_anchor_label_left,
@@ -316,9 +342,10 @@ async function loginWithID(participantID: string, dispatch) {
     Sentry.setContext('experiment', experiment)
 
     // Save modules to redux
-    experiment.modules.map((mod) => {
+    experiment.modules.map((mod, index) => {
       dispatch(
         updateModule({
+          index,
           moduleId: mod.id,
           moduleType: mod.moduleType,
           moduleState: mod.definition,
@@ -335,6 +362,8 @@ async function loginWithID(participantID: string, dispatch) {
         definition: experiment,
         currentModuleIndex: 0,
         isComplete: false,
+        contactEmail: 'flare@email.com',
+        notificationsEnabled: false,
       }),
     )
   } catch (err) {
@@ -367,6 +396,7 @@ function demoLogin(dispatch) {
       offlineOnly: true,
       isComplete: false,
       contactEmail: exampleExperimentData.contactEmail,
+      notificationsEnabled: false,
     }),
   )
 }

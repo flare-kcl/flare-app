@@ -8,6 +8,7 @@ export type RejectionReason =
   | 'TIMEOUT'
   | 'TRIAL_TIMEOUT'
   | 'CORRUPT_ASSETS'
+  | 'VOUCHER_ERROR'
   | 'UNKNOWN'
 
 export type ExperimentCache = {
@@ -24,7 +25,7 @@ export type ExperimentCache = {
   notificationsEnabled: boolean
 }
 
-export const updateExperiment = createAction<ExperimentCache>(
+export const updateExperiment = createAction<Partial<ExperimentCache>>(
   'experiment/update',
 )
 

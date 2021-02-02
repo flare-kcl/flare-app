@@ -141,6 +141,19 @@ export class PortalAPI {
       PortalAPI.reportValidationError(response)
     }
   }
+
+  static async getVoucherCode(participantID: string): Promise<VoucherResponse> {
+    // Convert object to string
+    const jsonData = JSON.stringify({ participant: participantID })
+    const response = await PortalAPI.executeAPIRequest('vouchers', jsonData)
+
+    // If validation error
+    if (response.status === 400) {
+      return Promise.reject()
+    }
+
+    return await response.json()
+  }
 }
 
 type PortalTrialRatingSubmission = {
@@ -191,4 +204,12 @@ type CalibratedVolumeSubmission = {
   module: string
   rating: number
   calibrated_volume_level: number
+}
+
+type VoucherResponse = {
+  status: string
+  voucher?: string
+  error_code?: string
+  error_message?: string
+  success_message?: string
 }

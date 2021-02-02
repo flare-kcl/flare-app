@@ -4,6 +4,8 @@ import { RejectionReason } from '@redux/reducers'
 import { palette } from '@utils/theme'
 
 type RejectionScreenParams = {
+  heading?: string
+  body?: string
   reason: RejectionReason
   contactLink?: string
   onExit?: Function
@@ -15,15 +17,18 @@ const RejectionReasons = {
   TRIAL_TIMEOUT: `Unfortunately, you have left the app for too long during the experiment.`,
   TIMEOUT: `Unfortunately, your time to complete the experiment has expired.`,
   CORRUPT_ASSETS: `Unfortunately, we could not load the experiment correctly. Please contact your experiment administrator.`,
+  VOUCHER_ERROR: `To receive your reimbursement voucher please use the contact button below.`,
   UNKNOWN: `Unfortunately, you are not an ideal candiate for this study.`,
 }
 
 export const RejectionScreen: React.FunctionComponent<RejectionScreenParams> = ({
+  heading = 'Thank you for your interest in the FLARe app.',
+  body,
   reason,
   contactLink,
   onExit,
 }) => {
-  const reasonCopy = RejectionReasons[reason]
+  const reasonCopy = body ?? RejectionReasons[reason]
 
   return (
     <ScrollView
@@ -60,7 +65,7 @@ export const RejectionScreen: React.FunctionComponent<RejectionScreenParams> = (
           </Box>
 
           <Text variant="heading" mt={8}>
-            Thank you for your interest in the FLARe app.
+            {heading}
           </Text>
 
           <Box width="100%">

@@ -3,7 +3,6 @@ import { subHours, addSeconds } from 'date-fns'
 import { ExperimentModule } from './ExperimentContainer'
 import { BreakStartScreen } from '@screens'
 import { scheduleNotification } from '@utils/notifications'
-import { brand } from 'expo-device'
 
 export type BreakStartModuleState = {
   startTitle: string
