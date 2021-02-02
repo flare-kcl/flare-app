@@ -140,7 +140,7 @@ export const LoginScreen = () => {
 
             <Text variant="caption2" textAlign="center" pt={5} px={3}>
               Please enter your Participant ID into the form above. You should
-              have recieved this in your experiment briefing.
+              have received this in your experiment briefing.
             </Text>
           </Box>
 

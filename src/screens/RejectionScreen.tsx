@@ -17,7 +17,7 @@ const RejectionReasons = {
   TRIAL_TIMEOUT: `Unfortunately, you have left the app for too long during the experiment.`,
   TIMEOUT: `Unfortunately, your time to complete the experiment has expired.`,
   CORRUPT_ASSETS: `Unfortunately, we could not load the experiment correctly. Please contact your experiment administrator.`,
-  VOUCHER_ERROR: `To recieve your reimbursement voucher please use the contact button below.`,
+  VOUCHER_ERROR: `To receive your reimbursement voucher please use the contact button below.`,
   UNKNOWN: `Unfortunately, you are not an ideal candiate for this study.`,
 }
 
