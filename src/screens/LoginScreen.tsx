@@ -106,8 +106,8 @@ export const LoginScreen = () => {
           >
             <Image
               style={{
-                width: '60%',
-                height: '65%',
+                width: '80%',
+                height: '75%',
               }}
               resizeMode="contain"
               opacity={0.8}
