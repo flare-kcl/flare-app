@@ -376,9 +376,10 @@ async function loginWithID(participantID: string, dispatch) {
 // Demo Mode Activation
 function demoLogin(dispatch) {
   // Save modules to redux
-  exampleExperimentData.modules.map((mod) => {
+  exampleExperimentData.modules.map((mod, index) => {
     dispatch(
       updateModule({
+        index,
         moduleId: mod.id,
         moduleType: mod.moduleType,
         moduleState: mod.definition,

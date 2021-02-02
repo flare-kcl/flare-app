@@ -16,15 +16,20 @@ import {
   cancelAllNotifications,
   scheduleNotification,
 } from '@utils/notifications'
+import { addMinutes } from 'date-fns/esm'
 
 type SummaryScreenProps = {
   allModulesSynced: boolean
+  notificationsScheduled: boolean
   syncExperiment: () => void
+  setNotificationsScheduled: () => void
   onExit: () => void
 }
 
 export const SummaryScreen: React.FC<SummaryScreenProps> = ({
+  notificationsScheduled,
   allModulesSynced,
+  setNotificationsScheduled,
   syncExperiment,
   onExit,
 }) => {
@@ -46,12 +51,14 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
         syncExperimentAnimated()
       }
     } else {
-      // Clear all sync notifications
-      cancelAllNotifications('SYNC_REQUIRED')
+      if (!notificationsScheduled) {
+        // Add notifications in 2 & 24 Hours
+        scheduleNotification('SYNC_REQUIRED', addHours(new Date(), 2))
+        scheduleNotification('SYNC_REQUIRED', addHours(new Date(), 24))
 
-      // Add notifications in 2 & 24 Hours
-      scheduleNotification('SYNC_REQUIRED', addHours(new Date(), 2))
-      scheduleNotification('SYNC_REQUIRED', addHours(new Date(), 24))
+        // Set flag to stop duplicate notifications
+        setNotificationsScheduled()
+      }
     }
 
     if (allModulesSynced) {

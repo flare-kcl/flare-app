@@ -8,10 +8,12 @@ export type BreakStartModuleState = {
   startTitle: string
   startBody: string
   duration: number
+  notificationScheduled: boolean
 }
 
 export const BreakStartContainer: ExperimentModule<BreakStartModuleState> = ({
   module: mod,
+  updateModule,
   onModuleComplete,
   updateExperiment,
 }) => {
@@ -21,13 +23,18 @@ export const BreakStartContainer: ExperimentModule<BreakStartModuleState> = ({
     // Update State
     updateExperiment({ breakEndDate })
 
-    // Add notification alerts
-    scheduleNotification('BREAK_OVER', breakEndDate)
+    if (!mod.notificationScheduled) {
+      // Add notification alerts
+      scheduleNotification('BREAK_OVER', breakEndDate)
 
-    // Add warning notification 2 hours before end if break is over 4 hours
-    if (mod.duration >= 14400) {
-      const reminderDate = subHours(breakEndDate, 2)
-      scheduleNotification('BREAK_OVER_APPROACHING', reminderDate)
+      // Add warning notification 2 hours before end if break is over 4 hours
+      if (mod.duration >= 14400) {
+        const reminderDate = subHours(breakEndDate, 2)
+        scheduleNotification('BREAK_OVER_APPROACHING', reminderDate)
+      }
+
+      // Set flag to stop duplicate notifications
+      updateModule({ notificationScheduled: true })
     }
   }, [])
 
