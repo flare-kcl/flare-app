@@ -53,8 +53,8 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
     } else {
       if (!notificationsScheduled) {
         // Add notifications in 2 & 24 Hours
-        scheduleNotification('SYNC_REQUIRED', addMinutes(new Date(), 2))
-        scheduleNotification('SYNC_REQUIRED', addMinutes(new Date(), 24))
+        scheduleNotification('SYNC_REQUIRED', addHours(new Date(), 2))
+        scheduleNotification('SYNC_REQUIRED', addHours(new Date(), 24))
 
         // Set flag to stop duplicate notifications
         setNotificationsScheduled()
