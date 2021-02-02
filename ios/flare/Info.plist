@@ -62,8 +62,6 @@
 		<string>Inter-SemiBold.ttf</string>
 		<string>Inter-Thin.ttf</string>
 	</array>
-	<key>UILaunchStoryboardName</key>
-	<string>SplashScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

@@ -35,9 +35,6 @@ PODS:
   - EXPermissions (9.3.0):
     - UMCore
     - UMPermissionsInterface
-  - EXSplashScreen (0.6.2):
-    - React
-    - UMCore
   - EXSQLite (8.4.0):
     - UMCore
     - UMFileSystemInterface
@@ -411,7 +408,6 @@ DEPENDENCIES:
   - EXLinearGradient (from `../node_modules/expo-linear-gradient/ios`)
   - EXLocation (from `../node_modules/expo-location/ios`)
   - EXPermissions (from `../node_modules/expo-permissions/ios`)
-  - EXSplashScreen (from `../node_modules/expo-splash-screen/ios`)
   - EXSQLite (from `../node_modules/expo-sqlite/ios`)
   - EXUpdates (from `../node_modules/expo-updates/ios`)
   - EXWebBrowser (from `../node_modules/expo-web-browser/ios`)
@@ -532,8 +528,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo-location/ios"
   EXPermissions:
     :path: "../node_modules/expo-permissions/ios"
-  EXSplashScreen:
-    :path: "../node_modules/expo-splash-screen/ios"
   EXSQLite:
     :path: "../node_modules/expo-sqlite/ios"
   EXUpdates:
@@ -665,7 +659,6 @@ SPEC CHECKSUMS:
   EXLinearGradient: c7ca1c2933ac240ffbc805c014a72947e227ac75
   EXLocation: 90232c6f2773b04a3c146bfda9f181035722c10a
   EXPermissions: 30cbe5b72bd209b65c00884180ad058a60bb413d
-  EXSplashScreen: 7ea40b8524f27e7444e3892411c8a4782ab6b4ce
   EXSQLite: d0d8677c13e60d5db2812387f059c697be27d3fb
   EXUpdates: 74b39409f68eca207075d87b0077bdf37865a8bf
   EXWebBrowser: 1a3ff931f6e64592c70f5faa226e4802a344d664
@@ -734,6 +727,6 @@ SPEC CHECKSUMS:
   Yoga: 7d13633d129fd179e01b8953d38d47be90db185a
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 983670077552e51b3baddb90c848a55c25292cc6
+PODFILE CHECKSUM: 455a066d033ede554e4271bec18cdf101b847fe9
 
 COCOAPODS: 1.10.1
