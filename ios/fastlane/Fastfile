@@ -57,14 +57,22 @@ platform :ios do
     # Run to fix CI bugs
     setup_ci(provider: 'circleci')
 
+    sh("mkdir -p ./metadata/en-GB/")
+    sh("cp ../../Changelog.txt ./metadata/en-GB/release_notes.txt")
+
     # Deploy to test flight
     deliver(
-      api_key_path: "./api.json",
+      force: true,
       ipa: './flare.ipa',
+      api_key_path: "./api.json",
       submit_for_review: true,
       automatic_release: true,
+      skip_screenshots: true,
       precheck_include_in_app_purchases: false,
-      force: true
+      submission_information: {
+        add_id_info_uses_idfa: false,
+        export_compliance_uses_encryption: false,
+      }
     )
   end
 end
