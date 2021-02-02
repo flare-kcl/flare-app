@@ -3,7 +3,13 @@ import { SummaryScreen } from '@screens'
 import { ExperimentModule } from './ExperimentContainer'
 import { allModulesSyncedSelector } from '@redux/selectors'
 
-export const SummaryContainer: ExperimentModule = ({
+type SummaryContainerState = {
+  notificationsScheduled: boolean
+}
+
+export const SummaryContainer: ExperimentModule<SummaryContainerState> = ({
+  module: mod,
+  updateModule,
   onModuleComplete,
   syncExperiment,
 }) => {
@@ -12,6 +18,10 @@ export const SummaryContainer: ExperimentModule = ({
   return (
     <SummaryScreen
       allModulesSynced={allModulesSynced}
+      notificationsScheduled={mod.notificationsScheduled}
+      setNotificationsScheduled={() => updateModule({
+        notificationsScheduled: true
+      })}
       syncExperiment={syncExperiment}
       onExit={() => onModuleComplete()}
     />

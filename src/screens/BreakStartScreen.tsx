@@ -5,7 +5,7 @@ type BreakStartScreenProps = {
   heading: string
   description: string
 
-  buttonDisabled: boolean
+  buttonDisabled?: boolean
   actionLabel: string
   onNext: () => void
 }

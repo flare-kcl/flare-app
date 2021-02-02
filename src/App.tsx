@@ -12,10 +12,7 @@ import { store, peristor } from '@redux/store'
 import { onStateHydrated } from '@redux/persist'
 import { ExperimentContainer } from 'containers/ExperimentContainer'
 import { AlertProvider } from '@utils/AlertProvider'
-import {
-  registerNotifications,
-  scheduleNotification,
-} from '@utils/notifications'
+import { registerNotifications } from '@utils/notifications'
 
 // Link with Sentry
 Sentry.init({
