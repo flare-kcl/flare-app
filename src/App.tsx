@@ -4,7 +4,6 @@ import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import Config from 'react-native-config'
 import * as Sentry from '@sentry/react-native'
-import * as SplashScreen from 'expo-splash-screen'
 
 import AssetCache from '@utils/AssetCache'
 import AppStateMonitor from '@utils/AppStateMonitor'
@@ -29,9 +28,6 @@ export default function App() {
   const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
-    // Hide Splashscreen
-    SplashScreen.hideAsync()
-
     // Start AppState listening...
     onStateHydrated().then(() => {
       AppStateMonitor.startMonitoring()
