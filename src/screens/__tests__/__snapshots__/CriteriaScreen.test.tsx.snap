@@ -771,7 +771,7 @@ exports[`Text Renders Correctly 1`] = `
                 style={
                   Array [
                     Object {
-                      "color": "#F0F2F3",
+                      "color": "#FFFF",
                       "display": "flex",
                       "fontFamily": "Inter-SemiBold",
                       "fontSize": 20,
@@ -827,7 +827,7 @@ exports[`Text Renders Correctly 1`] = `
                 style={
                   Array [
                     Object {
-                      "color": "#F0F2F3",
+                      "color": "#FFFF",
                       "display": "flex",
                       "fontFamily": "Inter-SemiBold",
                       "fontSize": 20,
