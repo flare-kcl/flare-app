@@ -19,9 +19,11 @@ export const SummaryContainer: ExperimentModule<SummaryContainerState> = ({
     <SummaryScreen
       allModulesSynced={allModulesSynced}
       notificationsScheduled={mod.notificationsScheduled}
-      setNotificationsScheduled={() => updateModule({
-        notificationsScheduled: true
-      })}
+      setNotificationsScheduled={() =>
+        updateModule({
+          notificationsScheduled: true,
+        })
+      }
       syncExperiment={syncExperiment}
       onExit={() => onModuleComplete()}
     />

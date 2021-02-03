@@ -127,7 +127,9 @@ export const ExperimentContainer = () => {
   const experiment: ExperimentCache = useSelector(experimentSelector)
   const experimentModules = useSelector(allModulesSelector)
   let currentModule = useSelector(currentModuleSelector)
-  const summaryModule = useSelector(store => moduleSelector(store, 'SummaryModule'))
+  const summaryModule = useSelector((store) =>
+    moduleSelector(store, 'SummaryModule'),
+  )
   const allModulesSynced = useSelector(allModulesSyncedSelector)
   const usRef = useUnconditionalStimulus()
 
@@ -242,7 +244,9 @@ export const ExperimentContainer = () => {
   }
 
   // Function used to update the global defenition of the experiment
-  function updateExperimentState(updatedExperimentState: Partial<ExperimentCache>) {
+  function updateExperimentState(
+    updatedExperimentState: Partial<ExperimentCache>,
+  ) {
     dispatch(updateExperiment(updatedExperimentState))
   }
 
