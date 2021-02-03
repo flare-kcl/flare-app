@@ -30,7 +30,12 @@ Build release version of app
 ```
 fastlane android alpha
 ```
-Submit already built app to Testflight
+Submit already built app to Internal Track
+### android release
+```
+fastlane android release
+```
+Submit already built app to Play Store
 
 ----
 

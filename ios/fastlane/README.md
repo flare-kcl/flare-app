@@ -31,6 +31,11 @@ Build app using release scheme
 fastlane ios alpha
 ```
 Submit already built app to Testflight
+### ios release
+```
+fastlane ios release
+```
+
 
 ----
 
