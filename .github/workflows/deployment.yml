@@ -338,14 +338,22 @@ jobs:
         if: github.ref == 'refs/heads/main'
         run: |
           git checkout main
+
           git add ./ios/flare.xcodeproj ./ios/flare/Info.plist ./android/app/build.gradle
+          git stash
+
+          git stash apply
+          git add .
           git commit -m "Version Bump [skip-ci]"
           git tag -a "${{ steps.version.outputs.version }}" -m "${{ steps.version.outputs.version }}"
-
           git --no-pager push -u origin main
+
           git checkout develop
-          git merge --squash --no-pager main
+          git stash apply
+          git add .
+          git commit -m "Version Bump [skip-ci]"
           git --no-pager push -u origin develop
+
           git checkout main
 
       - name: Get commit hash
