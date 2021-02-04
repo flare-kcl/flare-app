@@ -62,11 +62,13 @@ export default class AppStateMonitor {
         !experiment.isComplete &&
         (suspendedTime > SUSPENDED_TIMEOUT ||
           (applyStrictTimeout && suspendedTime > STRICT_SUSPENED_TIMEOUT))
-      if (timeoutTriggered && breakExpired) {
-        store.dispatch(
-          rejectParticipant(applyStrictTimeout ? 'TRIAL_TIMEOUT' : 'TIMEOUT'),
-        )
-      }
+
+      // Timeout casued rejection has been removed for now...
+      // if (timeoutTriggered && breakExpired) {
+      //   store.dispatch(
+      //     rejectParticipant(applyStrictTimeout ? 'TRIAL_TIMEOUT' : 'TIMEOUT'),
+      //   )
+      // }
     }
 
     // Update internal recording of 'AppState'

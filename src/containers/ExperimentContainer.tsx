@@ -135,10 +135,14 @@ export const ExperimentContainer = () => {
 
   // If the user has been 'screened out' then show respective screen
   if (experiment.rejectionReason) {
-    if (!allModulesSynced && !experiment.offlineOnly) {
+    if (
+      !allModulesSynced &&
+      !experiment.offlineOnly &&
+      currentModule.index !== summaryModule.index
+    ) {
       // Set the sync as the next module
       updateExperimentState({ currentModuleIndex: summaryModule.index })
-      return
+      return null
     } else {
       return (
         <RejectionScreen
