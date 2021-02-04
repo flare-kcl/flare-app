@@ -252,5 +252,21 @@ export const exampleExperimentData: Experiment = {
         question: 'How unpleasent did you find the scream?',
       },
     },
+    {
+      id: '346612',
+      moduleType: 'POST_EXPERIMENT_QUESTIONS',
+      definition: {
+        heading: 'Review Questions',
+        questions: {
+          experimentUnpleasantRating: true,
+          didFollowInstructions: true,
+          didRemoveHeadphones: true,
+          didPayAttention: true,
+          taskEnvironment: true,
+          was_alone: true,
+          wasInterrupted: true,
+        },
+      },
+    },
   ],
 }

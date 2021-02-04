@@ -172,6 +172,22 @@ export class PortalAPI {
     }
   }
 
+  static async submitPostExperimentQuestions(
+    submission: PostExperimentQuestionSubmission,
+  ) {
+    // Convert object to string
+    const jsonData = JSON.stringify(submission)
+    const response = await PortalAPI.executeAPIRequest(
+      'post-experiment-questions-data',
+      jsonData,
+    )
+
+    // If validation error
+    if (response.status === 400) {
+      PortalAPI.reportValidationError(response)
+    }
+  }
+
   static async getVoucherCode(participantID: string): Promise<VoucherResponse> {
     // Convert object to string
     const jsonData = JSON.stringify({ participant: participantID })
@@ -248,6 +264,19 @@ type USUnpleasantnessSubmission = {
   participant: string
   module: string
   rating: number
+}
+
+type PostExperimentQuestionSubmission = {
+  participant: string
+  module: string
+  experiment_unpleasant_rating?: number
+  did_follow_instructions?: boolean
+  did_remove_headphones?: boolean
+  headphones_removal_reason?: string
+  did_pay_attention?: boolean
+  task_environment?: boolean
+  was_alone?: boolean
+  was_interrupted?: boolean
 }
 
 type VoucherResponse = {

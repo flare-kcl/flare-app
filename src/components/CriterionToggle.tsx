@@ -3,18 +3,31 @@ import { BoxProps } from '@shopify/restyle'
 import { Box, Button } from '@components'
 import { Theme } from '@utils/theme'
 
+type ButtonProps = {
+  label: string
+  value: any
+}
+
 type CriterionToggleProps = BoxProps<Theme> & {
-  id: number
-  name: string
+  id: number | string
   value: boolean
   onChange: Function
+  leftButton?: ButtonProps
+  rightButton?: ButtonProps
 }
 
 export const CriterionToggle: React.FunctionComponent<CriterionToggleProps> = ({
   id,
-  name,
   value,
   onChange,
+  leftButton = {
+    label: 'No',
+    value: false,
+  },
+  rightButton = {
+    label: 'Yes',
+    value: true,
+  },
   ...props
 }) => {
   const updateChoice = (value: boolean) => {
@@ -32,33 +45,33 @@ export const CriterionToggle: React.FunctionComponent<CriterionToggleProps> = ({
     >
       <Button
         flex={1}
-        label="No"
+        label={leftButton.label}
         textProps={{
-          color: value == false ? 'white' : 'purple',
+          color: value == leftButton.value ? 'white' : 'purple',
           fontWeight: '700',
         }}
-        backgroundColor={value == false ? 'purple' : 'purpleLight'}
+        backgroundColor={value == leftButton.value ? 'purple' : 'purpleLight'}
         width="100%"
         height={70}
-        accessibilityLabel="No"
+        accessibilityLabel={leftButton.label}
         borderRadius="m"
         marginRight={2}
-        onPress={() => updateChoice(false)}
+        onPress={() => updateChoice(leftButton.value)}
       />
       <Button
         flex={1}
-        label="Yes"
+        label={rightButton.label}
         textProps={{
-          color: value == true ? 'white' : 'purple',
+          color: value == rightButton.value ? 'white' : 'purple',
           fontWeight: '700',
         }}
-        backgroundColor={value == true ? 'purple' : 'purpleLight'}
+        backgroundColor={value == rightButton.value ? 'purple' : 'purpleLight'}
         width="100%"
         height={70}
-        accessibilityLabel="Yes"
+        accessibilityLabel={rightButton.label}
         borderRadius="m"
         marginLeft={2}
-        onPress={() => updateChoice(true)}
+        onPress={() => updateChoice(rightButton.value)}
       />
     </Box>
   )
