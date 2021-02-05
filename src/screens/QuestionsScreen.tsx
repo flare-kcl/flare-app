@@ -80,6 +80,9 @@ export const QuestionsScreen: React.FC<QuestionScreenProps> = ({
                   paddingBottom={0}
                   minAnchorHeight={60}
                   lockFirstRating={false}
+                  anchorLabelLeft="Not Unpleasent at all"
+                  anchorLabelCenter=""
+                  anchorLabelRight="Very Unpleasent"
                   onChange={(value) =>
                     answerQuestion('experimentUnpleasantRating', value)
                   }
