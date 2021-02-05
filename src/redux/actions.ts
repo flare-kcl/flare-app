@@ -1,7 +1,6 @@
 import {
   ExperimentCache,
-  ExperimentModule,
-  updateExperiment,
+  ExperimentModuleCache,
   updateModule,
 } from './reducers'
 import { AppState } from './store'
@@ -12,13 +11,14 @@ import { CriteriaModuleState } from '@containers/CriterionContainer'
 import { TermsModuleState } from '@containers/TermsContainer'
 import { AffectiveRatingModuleState } from '@containers/AffectiveRatingContainer'
 import { InstructionsModuleState } from '@containers/InstructionsContainer'
+import { ContingencyAwarenessModuleState } from '@containers/ContingencyAwarenessContainer'
 
 export const syncExperiment = async (dispatch, getState: () => AppState) => {
   // Get Latest State
   const state = getState()
   const experiment = state.experiment
-  const modules: ExperimentModule[] = Object.values(state.modules).filter(
-    (mod: ExperimentModule) => mod.moduleCompleted && !mod.moduleSynced,
+  const modules: ExperimentModuleCache[] = Object.values(state.modules).filter(
+    (mod: ExperimentModuleCache) => mod.moduleCompleted && !mod.moduleSynced,
   )
 
   // Finish early if experiment is offline-only
@@ -61,6 +61,9 @@ export const syncExperiment = async (dispatch, getState: () => AppState) => {
       case 'INSTRUCTIONS':
         await syncInstructionsModule(experiment, mod, onModuleSync)
 
+      case 'CONTINGENCY_AWARENESS':
+        await syncContingencyAwarenessModule(experiment, mod, onModuleSync)
+
       default:
         onModuleSync()
     }
@@ -71,7 +74,7 @@ type ModuleSyncCallback = () => void
 
 const syncFearConditioningModule = async (
   experiment: ExperimentCache,
-  mod: ExperimentModule<FearConditioningModuleState>,
+  mod: ExperimentModuleCache<FearConditioningModuleState>,
   onModuleSync: ModuleSyncCallback,
 ) => {
   // Perform POST request for each recordered trial
@@ -109,7 +112,7 @@ const syncFearConditioningModule = async (
 
 const syncCriterionModule = async (
   experiment: ExperimentCache,
-  mod: ExperimentModule<CriteriaModuleState>,
+  mod: ExperimentModuleCache<CriteriaModuleState>,
   onModuleSync: ModuleSyncCallback,
 ) => {
   // Perform POST request for each recordered question
@@ -135,7 +138,7 @@ const syncCriterionModule = async (
 
 const syncBasicInfoModule = async (
   experiment: ExperimentCache,
-  mod: ExperimentModule<BasicInfoContainerState>,
+  mod: ExperimentModuleCache<BasicInfoContainerState>,
   onModuleSync: ModuleSyncCallback,
 ) => {
   try {
@@ -168,7 +171,7 @@ const syncBasicInfoModule = async (
 
 const syncTermsModule = async (
   experiment: ExperimentCache,
-  mod: ExperimentModule<TermsModuleState>,
+  mod: ExperimentModuleCache<TermsModuleState>,
   onModuleSync: ModuleSyncCallback,
 ) => {
   try {
@@ -181,7 +184,7 @@ const syncTermsModule = async (
 
 const syncAffectiveRatingModule = async (
   experiment: ExperimentCache,
-  mod: ExperimentModule<AffectiveRatingModuleState>,
+  mod: ExperimentModuleCache<AffectiveRatingModuleState>,
   onModuleSync: ModuleSyncCallback,
 ) => {
   try {
@@ -204,7 +207,7 @@ const syncAffectiveRatingModule = async (
 
 const syncInstructionsModule = async (
   experiment: ExperimentCache,
-  mod: ExperimentModule<InstructionsModuleState>,
+  mod: ExperimentModuleCache<InstructionsModuleState>,
   onModuleSync: ModuleSyncCallback,
 ) => {
   try {
@@ -213,6 +216,26 @@ const syncInstructionsModule = async (
       module: mod.moduleId,
       rating: mod.moduleState.volumeRating,
       calibrated_volume_level: experiment.volume,
+    })
+
+    onModuleSync()
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+const syncContingencyAwarenessModule = async (
+  experiment: ExperimentCache,
+  mod: ExperimentModuleCache<ContingencyAwarenessModuleState>,
+  onModuleSync: ModuleSyncCallback,
+) => {
+  try {
+    await PortalAPI.submitContingencyAwareness({
+      participant: experiment.participantID,
+      module: mod.moduleId,
+      awareness_answer: mod.moduleState.awarenessAnswer,
+      confirmation_answer: mod.moduleState.confirmationAnswer,
+      is_aware: mod.moduleState.isAware,
     })
 
     onModuleSync()

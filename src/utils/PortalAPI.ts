@@ -131,6 +131,22 @@ export class PortalAPI {
     }
   }
 
+  static async submitContingencyAwareness(
+    submission: ContingencyAwarenessSubmission,
+  ) {
+    // Convert object to string
+    const jsonData = JSON.stringify(submission)
+    const response = await PortalAPI.executeAPIRequest(
+      'contingency-awareness-data',
+      jsonData,
+    )
+
+    // If validation error
+    if (response.status === 400) {
+      console.error('Contingency awareness data could not be processed.')
+    }
+  }
+
   static async submitExperimentEnd(participantID: string) {
     // Convert object to string
     const jsonData = JSON.stringify({ participant: participantID })
@@ -204,6 +220,14 @@ type CalibratedVolumeSubmission = {
   module: string
   rating: number
   calibrated_volume_level: number
+}
+
+type ContingencyAwarenessSubmission = {
+  participant: string
+  module: string
+  awareness_answer: boolean
+  confirmation_answer: string
+  is_aware: boolean
 }
 
 type VoucherResponse = {
