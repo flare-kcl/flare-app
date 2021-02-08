@@ -8,6 +8,7 @@ import {
   RatingScale,
   Interval,
   AlertRef,
+  SafeAreaView,
 } from '@components'
 import AudioSensor from '@utils/AudioSensor'
 import { useAlert } from '@utils/AlertProvider'
@@ -181,13 +182,13 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
     }, [])
 
     return (
-      <>
+      <SafeAreaView flex={1}>
         {/* Show marker when delaying trial */}
         {showTrial === false && <Interval />}
 
         {/* Set opacity to zero during inter-trial delay to enable loading of images */}
         <Box flex={1} opacity={showTrial ? 1 : 0}>
-          <Box height="55%" mt={8}>
+          <Box height="55%">
             <TrialImageStack
               contextImage={contextImage}
               stimulusImage={stimulusImage}
@@ -208,7 +209,7 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
             />
           )}
         </Box>
-      </>
+      </SafeAreaView>
     )
   },
 )
