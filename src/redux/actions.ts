@@ -12,6 +12,7 @@ import { TermsModuleState } from '@containers/TermsContainer'
 import { AffectiveRatingModuleState } from '@containers/AffectiveRatingContainer'
 import { InstructionsModuleState } from '@containers/InstructionsContainer'
 import { ContingencyAwarenessModuleState } from '@containers/ContingencyAwarenessContainer'
+import { USUnpleasantnessModuleState } from '@containers/USUnpleasantnessContainer'
 
 export const syncExperiment = async (dispatch, getState: () => AppState) => {
   // Get Latest State
@@ -57,9 +58,15 @@ export const syncExperiment = async (dispatch, getState: () => AppState) => {
 
       case 'AFFECTIVE_RATING':
         await syncAffectiveRatingModule(experiment, mod, onModuleSync)
+        break
 
       case 'INSTRUCTIONS':
         await syncInstructionsModule(experiment, mod, onModuleSync)
+        break
+
+      case 'US_UNPLEASANTNESS':
+        await syncUSUnpleasantnessModule(experiment, mod, onModuleSync)
+        break
 
       case 'CONTINGENCY_AWARENESS':
         await syncContingencyAwarenessModule(experiment, mod, onModuleSync)
@@ -236,6 +243,24 @@ const syncContingencyAwarenessModule = async (
       awareness_answer: mod.moduleState.awarenessAnswer,
       confirmation_answer: mod.moduleState.confirmationAnswer,
       is_aware: mod.moduleState.isAware,
+    })
+
+    onModuleSync()
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+const syncUSUnpleasantnessModule = async (
+  experiment: ExperimentCache,
+  mod: ExperimentModuleCache<USUnpleasantnessModuleState>,
+  onModuleSync: ModuleSyncCallback,
+) => {
+  try {
+    await PortalAPI.submitUSUnpleasantness({
+      participant: experiment.participantID,
+      module: mod.moduleId,
+      rating: mod.moduleState.rating,
     })
 
     onModuleSync()
