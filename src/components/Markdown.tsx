@@ -46,6 +46,8 @@ export const Markdown: React.FunctionComponent<MarkdownProps> = ({
           paragraph: {
             marginBottom: 10,
             fontSize: 16,
+            color: theme.colors.darkGrey,
+            fontWeight: '500',
           },
           list_item: {
             marginBottom: 20,

@@ -77,7 +77,7 @@ export const CriteriaScreen: React.FunctionComponent<CriteriaScreenParams> = ({
 
     // Check if any of the answers make participant incompatible
     const invalidCriterion = consentCriteria.find((criterion) =>
-      criterion.required === false
+      criterion.required === false || criterion.requiredAnswer === null
         ? false
         : criterion.value != criterion.requiredAnswer,
     )
@@ -102,9 +102,7 @@ export const CriteriaScreen: React.FunctionComponent<CriteriaScreenParams> = ({
             <Box key={`criterion-${criterion.id}`} pt={2} pb={8}>
               <Text variant="heading2">{criterion.questionText}</Text>
               {!!criterion.helpText && (
-                <Text fontSize={15} mb={4}>
-                  {criterion.helpText}
-                </Text>
+                <Markdown>{criterion.helpText}</Markdown>
               )}
               <CriterionToggle
                 id={criterion.id}
