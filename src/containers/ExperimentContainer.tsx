@@ -130,8 +130,17 @@ export const ExperimentContainer = () => {
   const summaryModule = useSelector((store) =>
     moduleSelector(store, 'SummaryModule'),
   )
+  const supportedModuleTypes = Object.keys(ExperimentModuleTypes)
   const allModulesSynced = useSelector(allModulesSyncedSelector)
   const usRef = useUnconditionalStimulus()
+
+  // Skip unknown modules
+  if (
+    currentModule &&
+    !supportedModuleTypes.includes(currentModule?.moduleType)
+  ) {
+    onModuleComplete()
+  }
 
   // If the user has been 'screened out' then show respective screen
   if (experiment.rejectionReason) {
@@ -144,13 +153,15 @@ export const ExperimentContainer = () => {
       updateExperimentState({ currentModuleIndex: summaryModule.index })
       return null
     } else {
-      return (
-        <RejectionScreen
-          contactLink={experiment.contactEmail}
-          reason={experiment.rejectionReason}
-          onExit={() => terminateExperiment(false)}
-        />
-      )
+      if (allModulesSynced) {
+        return (
+          <RejectionScreen
+            contactLink={experiment.contactEmail}
+            reason={experiment.rejectionReason}
+            onExit={() => terminateExperiment(false)}
+          />
+        )
+      }
     }
   }
 
