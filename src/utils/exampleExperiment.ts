@@ -245,5 +245,12 @@ export const exampleExperimentData: Experiment = {
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum dictum massa blandit nisi auctor placerat. Suspendisse fermentum enim non hendrerit elementum. In condimentum pharetra imperdiet. Fusce auctor eros eu finibus aliquam. Donec vel tortor tempus, condimentum augue ornare, molestie tortor.',
       },
     },
+    {
+      id: '346618',
+      moduleType: 'US_UNPLESENTNESS',
+      definition: {
+        question: 'How unpleasent did you find the scream?',
+      },
+    },
   ],
 }

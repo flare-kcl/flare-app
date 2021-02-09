@@ -41,6 +41,7 @@ import { NotificationsContainer } from './NotificationsContainer'
 import { ReimbursmentContainer } from './ReimbursmentContainer'
 import { SummaryContainer } from './SummaryContainer'
 import { ContingencyAwarenessContainer } from './ContingencyAwarenessContainer'
+import { USUnpleasantnessContainer } from './USUnpleasantnessContainer'
 
 const ExperimentModuleTypes = {
   BASIC_INFO: BasicInfoContainer,
@@ -59,6 +60,7 @@ const ExperimentModuleTypes = {
   REIMBURSEMENT: ReimbursmentContainer,
   SUMMARY: SummaryContainer,
   CONTINGENCY_AWARENESS: ContingencyAwarenessContainer,
+  US_UNPLEASANTNESS: USUnpleasantnessContainer,
 }
 
 type ExperimentModuleConfig = {

@@ -147,6 +147,20 @@ export class PortalAPI {
     }
   }
 
+  static async submitUSUnpleasantness(submission: USUnpleasantnessSubmission) {
+    // Convert object to string
+    const jsonData = JSON.stringify(submission)
+    const response = await PortalAPI.executeAPIRequest(
+      'us-unpleasantness-data',
+      jsonData,
+    )
+
+    // If validation error
+    if (response.status === 400) {
+      console.error('US rating could not be processed.')
+    }
+  }
+
   static async submitExperimentEnd(participantID: string) {
     // Convert object to string
     const jsonData = JSON.stringify({ participant: participantID })
@@ -228,6 +242,12 @@ type ContingencyAwarenessSubmission = {
   awareness_answer: boolean
   confirmation_answer: string
   is_aware: boolean
+}
+
+type USUnpleasantnessSubmission = {
+  participant: string
+  module: string
+  rating: number
 }
 
 type VoucherResponse = {
