@@ -59,9 +59,14 @@ export const BreakEndScreen: React.FunctionComponent<BreakEndScreenProps> = ({
           )}
 
           {eta && (
-            <Text variant="caption2" fontWeight="600" pt={10}>
-              ETA: {eta}
-            </Text>
+            <>
+              <Text variant="caption2" fontSize={12} pt={10}>
+                Break will end at:
+              </Text>
+              <Text variant="caption2" fontWeight="600" pt={4}>
+                {eta}
+              </Text>
+            </>
           )}
 
           <Box flex={1} justifyContent="flex-end" pb={6}>
