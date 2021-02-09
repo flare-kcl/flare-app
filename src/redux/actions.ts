@@ -13,6 +13,10 @@ import { AffectiveRatingModuleState } from '@containers/AffectiveRatingContainer
 import { InstructionsModuleState } from '@containers/InstructionsContainer'
 import { ContingencyAwarenessModuleState } from '@containers/ContingencyAwarenessContainer'
 import { USUnpleasantnessModuleState } from '@containers/USUnpleasantnessContainer'
+import {
+  PostExperimentAnswers,
+  PostExperimentQuestionsState,
+} from '@containers/PostExperimentQuestionsContainer'
 
 export const syncExperiment = async (dispatch, getState: () => AppState) => {
   // Get Latest State
@@ -70,6 +74,11 @@ export const syncExperiment = async (dispatch, getState: () => AppState) => {
 
       case 'CONTINGENCY_AWARENESS':
         await syncContingencyAwarenessModule(experiment, mod, onModuleSync)
+        break
+
+      case 'POST_EXPERIMENT_QUESTIONS':
+        await syncPostExperimentQuestions(experiment, mod, onModuleSync)
+        break
 
       default:
         onModuleSync()
@@ -261,6 +270,32 @@ const syncUSUnpleasantnessModule = async (
       participant: experiment.participantID,
       module: mod.moduleId,
       rating: mod.moduleState.rating,
+    })
+
+    onModuleSync()
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+const syncPostExperimentQuestions = async (
+  experiment: ExperimentCache,
+  mod: ExperimentModuleCache<PostExperimentQuestionsState>,
+  onModuleSync: ModuleSyncCallback,
+) => {
+  try {
+    const answers: PostExperimentAnswers = mod.moduleState.answers
+    await PortalAPI.submitPostExperimentQuestions({
+      participant: experiment.participantID,
+      module: mod.moduleId,
+      experiment_unpleasant_rating: answers.experimentUnpleasantRating,
+      did_follow_instructions: answers.didFollowInstructions,
+      did_remove_headphones: answers.didRemoveHeadphones,
+      headphones_removal_reason: answers.headphonesRemovalReason,
+      did_pay_attention: answers.didPayAttention,
+      task_environment: answers.taskEnvironment,
+      was_alone: answers.wasAlone,
+      was_interrupted: answers.wasInterrupted,
     })
 
     onModuleSync()

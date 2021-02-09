@@ -121,3 +121,26 @@ export const LabeledPickerField = ({
     </Box>
   )
 }
+
+export const PickerField = ({ value, options = [], onChange }) => {
+  return (
+    <Box
+      borderColor="purple"
+      borderWidth={2}
+      borderRadius="m"
+      alignItems="center"
+      justifyContent="center"
+      pl={1}
+    >
+      <Picker
+        style={{ width: '100%' }}
+        selectedValue={value}
+        onValueChange={(itemValue, _) => onChange(itemValue)}
+      >
+        {options.map((option) => (
+          <Picker.Item {...option} />
+        ))}
+      </Picker>
+    </Box>
+  )
+}

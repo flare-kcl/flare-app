@@ -10,6 +10,7 @@ import {
 } from 'react-native-gesture-handler'
 
 type RatingScaleProps = {
+  value: number
   anchorLabelLeft?: string
   anchorLabelCenter?: string
   anchorLabelRight?: string
@@ -17,20 +18,25 @@ type RatingScaleProps = {
   onChange?: (value: number) => void
   disabled?: boolean
   ratingOptions?: number[]
+  paddingBottom?: number
+  minAnchorHeight?: number
 }
 
 export const RatingScale: React.FunctionComponent<RatingScaleProps> = ({
+  value,
   anchorLabelLeft = 'Certain no scream',
   anchorLabelCenter = 'Uncertain',
   anchorLabelRight = 'Certain scream',
   onChange,
   disabled,
   lockFirstRating = true,
+  paddingBottom = 16,
+  minAnchorHeight = 100,
   ratingOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9],
 }) => {
   // Keep track of selected value
   const [locked, setLocked] = useState(false)
-  const [currentButton, setCurrentButton] = useState<number>()
+  const [currentButton, setCurrentButton] = useState<number>(value)
 
   // Calculate size of buttons
   const screenWidth = Dimensions.get('screen').width
@@ -82,7 +88,12 @@ export const RatingScale: React.FunctionComponent<RatingScaleProps> = ({
 
   return (
     <PanGestureHandler onGestureEvent={onSwipe}>
-      <Box flex={1} justifyContent="flex-start" flexDirection="column" pb={16}>
+      <Box
+        flex={1}
+        justifyContent="flex-start"
+        flexDirection="column"
+        pb={paddingBottom}
+      >
         {/* Trial rating scale */}
         <Box
           flexDirection="row"
@@ -117,7 +128,7 @@ export const RatingScale: React.FunctionComponent<RatingScaleProps> = ({
           alignItems="flex-start"
           px={1}
           pt={4}
-          minHeight={100}
+          minHeight={minAnchorHeight}
         >
           <Box width="25%">
             <Text textAlign="left" fontWeight="600">
