@@ -1,14 +1,13 @@
 import { useState } from 'react'
 import {
   Box,
-  Image,
   Text,
   Button,
+  ScrollView,
   SafeAreaView,
   RatingScale,
   TrialImageStack,
 } from '@components'
-import { AffectiveRatingModuleDefinition } from '@containers/AffectiveRatingContainer'
 import { ImageSourcePropType } from 'react-native'
 
 export type AffectiveRatingScreenProps = {
@@ -31,32 +30,34 @@ export const AffectiveRatingScreen: React.FunctionComponent<AffectiveRatingScree
   const [rating, setRating] = useState<number>()
 
   return (
-    <SafeAreaView flex={1}>
-      <Box flex={1} px={1} pt={10} alignItems="center">
-        <TrialImageStack stimulusImage={stimulusImage} />
-        <Text variant="heading2" mt={14} mb={24} px={2} textAlign="center">
-          {question}
-        </Text>
-        <RatingScale
-          lockFirstRating={false}
-          anchorLabelCenter={ratingScaleAnchorLabelCenter}
-          anchorLabelLeft={ratingScaleAnchorLabelLeft}
-          anchorLabelRight={ratingScaleAnchorLabelRight}
-          onChange={setRating}
-        />
+    <ScrollView>
+      <SafeAreaView flex={1}>
+        <Box flex={1} px={1} pt={4} alignItems="center">
+          <TrialImageStack stimulusImage={stimulusImage} />
+          <Text variant="heading2" mt={14} mb={24} px={2} textAlign="center">
+            {question}
+          </Text>
+          <RatingScale
+            lockFirstRating={false}
+            anchorLabelCenter={ratingScaleAnchorLabelCenter}
+            anchorLabelLeft={ratingScaleAnchorLabelLeft}
+            anchorLabelRight={ratingScaleAnchorLabelRight}
+            onChange={setRating}
+          />
 
-        <Box flex={1} justifyContent="flex-end" px={5} pb={4}>
-          {rating !== undefined && (
-            <Button
-              variant="primary"
-              label="Next"
-              onPress={() => {
-                onNext(rating)
-              }}
-            />
-          )}
+          <Box flex={1} justifyContent="flex-end" px={5} pb={4}>
+            {rating !== undefined && (
+              <Button
+                variant="primary"
+                label="Next"
+                onPress={() => {
+                  onNext(rating)
+                }}
+              />
+            )}
+          </Box>
         </Box>
-      </Box>
-    </SafeAreaView>
+      </SafeAreaView>
+    </ScrollView>
   )
 }
