@@ -121,5 +121,5 @@ export const useUnconditionalStimulus = ():
     }
   }, [experiment?.definition])
 
-  return audioRef.current
+  return loaded ? audioRef.current : undefined
 }

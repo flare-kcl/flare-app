@@ -19,7 +19,7 @@ export const TrialImageStack: React.FunctionComponent<TrialImageStackProps> = ({
 
   return (
     <Box
-      flex={1}
+      minHeight={imageSize}
       position="relative"
       alignItems="center"
       justifyContent="center"

@@ -22,7 +22,9 @@ export const IntervalExplainationScreen: React.FunctionComponent<IntervalExplain
         }}
         px={6}
       >
-        <Interval />
+        <Box height="25%">
+          <Interval />
+        </Box>
 
         <Text variant="instructionDescription" mt={26} mb={10} pt={24}>
           {description}

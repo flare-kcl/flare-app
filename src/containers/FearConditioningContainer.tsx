@@ -104,11 +104,6 @@ export const FearConditioningContainer: ExperimentModule<FearConditioningModuleS
             'You have not been rating trials in the designated time, Please try to answer them as fast as you can.',
             [
               {
-                label: 'Exit Experiment',
-                onPress: () => exitExperiment(),
-                style: 'cancel',
-              },
-              {
                 label: 'Continue',
                 onPress: () => {
                   // Continue with trials
