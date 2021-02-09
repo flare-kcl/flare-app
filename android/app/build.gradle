@@ -148,7 +148,7 @@ android {
         applicationId 'uk.ac.kcl.ioppn.flare'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 134
+        versionCode 135
         versionName "0.8.1"
         testBuildType System.getProperty('testBuildType', 'debug')  // This will later be used to control the test apk build type
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
