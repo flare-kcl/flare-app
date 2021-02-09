@@ -27,7 +27,6 @@ import { FearConditioningContainer } from './FearConditioningContainer'
 import { VolumeCalibrationContainer } from './VolumeCalibrationContainer'
 import { InstructionsContainer } from './InstructionsContainer'
 import { BasicInfoContainer } from './BasicInfoContainer'
-import { SummaryScreen } from '@screens/SummaryScreen'
 import { ExternalLinkContainer } from './ExternalLinkContainer'
 import { AffectiveRatingContainer } from './AffectiveRatingContainer'
 import { TextContainer } from './TextContainer'
@@ -41,6 +40,7 @@ import { TaskInstructionsContainer } from './TaskInstructionsContainer'
 import { NotificationsContainer } from './NotificationsContainer'
 import { ReimbursmentContainer } from './ReimbursmentContainer'
 import { SummaryContainer } from './SummaryContainer'
+import { ContingencyAwarenessContainer } from './ContingencyAwarenessContainer'
 
 const ExperimentModuleTypes = {
   BASIC_INFO: BasicInfoContainer,
@@ -58,6 +58,7 @@ const ExperimentModuleTypes = {
   NOTIFICATIONS: NotificationsContainer,
   REIMBURSEMENT: ReimbursmentContainer,
   SUMMARY: SummaryContainer,
+  CONTINGENCY_AWARENESS: ContingencyAwarenessContainer,
 }
 
 type ExperimentModuleConfig = {
@@ -113,7 +114,7 @@ export type ExperimentModule<
     updateModule: (module: Partial<ModuleState>) => void
     updateExperiment: (experiment: Partial<ExperimentCache>) => void
     experiment: ExperimentCache
-    onModuleComplete: () => void
+    onModuleComplete: (module?: Partial<ModuleState>) => void
     unconditionalStimulus?: UnconditionalStimulusRef
     syncExperiment: () => void
     terminateExperiment: (boolean, RejectionReason) => void

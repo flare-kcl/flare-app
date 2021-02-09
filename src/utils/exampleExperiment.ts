@@ -207,6 +207,15 @@ export const exampleExperimentData: Experiment = {
       },
     },
     {
+      id: '213265',
+      moduleType: 'CONTINGENCY_AWARENESS',
+      definition: {
+        awarenessQuestion:
+          'Did you happen to notice whether you heard the scream after seeing a certain circle?',
+        confirmationQuestion: 'Which circle did you associate with the scream?',
+      },
+    },
+    {
       id: '34684',
       moduleType: 'BREAK_START',
       definition: {
