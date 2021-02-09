@@ -303,6 +303,7 @@ async function loginWithID(participantID: string, dispatch) {
     const experiment: Experiment = {
       id: experimentApiData.experiment.id,
       name: experimentApiData.experiment.name,
+      contactEmail: experimentApiData.experiment.contact_email,
       reimbursements: experimentApiData.experiment.reimbursements,
       description: experimentApiData.experiment.description,
       ratingScaleAnchorLabelLeft:
@@ -362,7 +363,7 @@ async function loginWithID(participantID: string, dispatch) {
         definition: experiment,
         currentModuleIndex: 0,
         isComplete: false,
-        contactEmail: 'flare@email.com',
+        contactEmail: experiment.contactEmail,
         notificationsEnabled: false,
       }),
     )
