@@ -81,9 +81,10 @@ export const CAConfirmationQuestionScreen: React.FunctionComponent<CAConfirmatio
   onNext,
 }) => {
   let d = Dimensions.get('screen')
+  const size = d.width * 0.8
 
   return (
-    <ScrollView>
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <SafeAreaView flex={1}>
         <Box
           flex={1}
@@ -118,15 +119,14 @@ export const CAConfirmationQuestionScreen: React.FunctionComponent<CAConfirmatio
               delayPressOut={0}
               activeOpacity={0.8}
               style={{
-                minWidth: d.width * 0.8,
-                minHeight: d.width * 0.8,
+                width: size,
+                height: size,
                 marginBottom: 20,
               }}
               onPress={() => updateAnswer(stimulus.label)}
             >
               <Box
                 flex={1}
-                flexGrow={1}
                 p={1}
                 borderWidth={8}
                 borderColor={
@@ -134,12 +134,7 @@ export const CAConfirmationQuestionScreen: React.FunctionComponent<CAConfirmatio
                 }
                 borderRadius="l"
               >
-                <Box
-                  flex={1}
-                  flexDirection="row"
-                  flexGrow={1}
-                  backgroundColor="pureWhite"
-                >
+                <Box flex={1} flexDirection="row">
                   <TrialImageStack stimulusImage={stimulus.image} />
                 </Box>
               </Box>
@@ -147,7 +142,7 @@ export const CAConfirmationQuestionScreen: React.FunctionComponent<CAConfirmatio
           ))}
         </Box>
 
-        <Box flex={1} justifyContent="flex-end" px={5} pb={6}>
+        <Box flex={1} justifyContent="flex-end" pt={4} px={5} pb={6}>
           <Button
             variant="primary"
             label="Next"

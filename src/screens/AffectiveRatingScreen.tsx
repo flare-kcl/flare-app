@@ -62,17 +62,17 @@ export const AffectiveRatingScreen: React.FunctionComponent<AffectiveRatingScree
             minAnchorHeight={10}
           />
 
-          {rating !== undefined && (
-            <Box flex={1} justifyContent="flex-end" px={5} pb={4}>
-              <Button
-                variant="primary"
-                label="Next"
-                onPress={() => {
-                  onNext(rating)
-                }}
-              />
-            </Box>
-          )}
+          <Box flex={1} justifyContent="flex-end" px={5} pb={4}>
+            <Button
+              variant="primary"
+              label="Next"
+              opacity={rating === undefined ? 0 : 1}
+              disabled={rating === undefined}
+              onPress={() => {
+                onNext(rating)
+              }}
+            />
+          </Box>
         </Box>
       </SafeAreaView>
     </ScrollView>

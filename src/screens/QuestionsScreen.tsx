@@ -58,8 +58,6 @@ export const QuestionsScreen: React.FC<QuestionScreenProps> = ({
     return questionShouldBeAnswered === true && questionAnswer == undefined
   })
 
-  console.log(unansweredQuestions, answers)
-
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <SafeAreaView flex={1} justifyContent="flex-start">
