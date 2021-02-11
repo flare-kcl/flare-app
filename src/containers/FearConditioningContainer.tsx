@@ -1,6 +1,7 @@
 import { useEffect, useCallback, useState, useRef } from 'react'
 import { EmitterSubscription } from 'react-native'
 import shuffle from 'lodash/shuffle'
+import random from 'lodash/random'
 import { ExperimentModule, VisualStimuli } from './ExperimentContainer'
 import {
   FearConditioningTrialScreen,
@@ -194,6 +195,7 @@ export function generateTrials(
   // Create equal amounts of trials
   let positiveStimuliTrials: Trial[] = []
   let negativeStimuliTrials: Trial[] = []
+  let generalisationStimuliTrials: Trial[] = []
 
   // Store remaining CS in seperate array that concatonates with the head.
   let trials: Trial[] = []
@@ -224,7 +226,7 @@ export function generateTrials(
         gsd: gsCodingDescending ? 4 : 1,
       }
 
-      trials = trials.concat(
+      generalisationStimuliTrials = generalisationStimuliTrials.concat(
         generalisationStimuli.map((gs) => ({
           label: `${gs.label}/${gsCoding[gs.label]}`,
           stimulusImage: gs.image,
@@ -257,8 +259,11 @@ export function generateTrials(
     trials = trials.concat(tail)
   }
 
-  // Shuffle trial again
-  trials = shuffle(trials)
+  // Randomly insert GS
+  generalisationStimuliTrials.forEach((gs) => {
+    const randomIndex = random(0, trials.length)
+    trials.splice(randomIndex, 0, gs)
+  })
 
   // Return the generated trials.
   return trialsHead.concat(trials)
