@@ -148,26 +148,64 @@ exports[`Text Renders Correctly 1`] = `
           >
             1. Do you have a pre-existing heart condition?
           </Text>
-          <Text
+          <View
             style={
               Array [
                 Object {
                   "display": "flex",
-                  "fontSize": 15,
-                  "marginBottom": 16,
                 },
               ]
             }
           >
-            This question is required and must be 'No'.
-          </Text>
+            <View
+              style={
+                Object {
+                  "marginBottom": 10,
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "alignItems": "flex-start",
+                    "flexDirection": "row",
+                    "flexWrap": "wrap",
+                    "justifyContent": "flex-start",
+                    "marginBottom": 10,
+                    "marginTop": 10,
+                    "width": "100%",
+                  }
+                }
+              >
+                <Text
+                  style={Object {}}
+                >
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "color": "#212529",
+                          "fontFamily": "Inter",
+                          "fontSize": 16,
+                          "fontWeight": "500",
+                        },
+                        Object {},
+                      ]
+                    }
+                  >
+                    This question is required and must be ‘No’.
+                  </Text>
+                </Text>
+              </View>
+            </View>
+          </View>
           <View
+            name="1. Do you have a pre-existing heart condition?"
             style={
               Array [
                 Object {
                   "alignItems": "center",
                   "display": "flex",
-                  "flex": 1,
                   "flexDirection": "row",
                   "justifyContent": "space-between",
                   "marginTop": 16,
@@ -319,26 +357,64 @@ exports[`Text Renders Correctly 1`] = `
           >
             2. Do you suffer from PTSD?
           </Text>
-          <Text
+          <View
             style={
               Array [
                 Object {
                   "display": "flex",
-                  "fontSize": 15,
-                  "marginBottom": 16,
                 },
               ]
             }
           >
-            This question is not required and any response is valid.
-          </Text>
+            <View
+              style={
+                Object {
+                  "marginBottom": 10,
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "alignItems": "flex-start",
+                    "flexDirection": "row",
+                    "flexWrap": "wrap",
+                    "justifyContent": "flex-start",
+                    "marginBottom": 10,
+                    "marginTop": 10,
+                    "width": "100%",
+                  }
+                }
+              >
+                <Text
+                  style={Object {}}
+                >
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "color": "#212529",
+                          "fontFamily": "Inter",
+                          "fontSize": 16,
+                          "fontWeight": "500",
+                        },
+                        Object {},
+                      ]
+                    }
+                  >
+                    This question is not required and any response is valid.
+                  </Text>
+                </Text>
+              </View>
+            </View>
+          </View>
           <View
+            name="2. Do you suffer from PTSD?"
             style={
               Array [
                 Object {
                   "alignItems": "center",
                   "display": "flex",
-                  "flex": 1,
                   "flexDirection": "row",
                   "justifyContent": "space-between",
                   "marginTop": 16,
@@ -490,26 +566,64 @@ exports[`Text Renders Correctly 1`] = `
           >
             3. Do you have a diagnosed anxiety condtion?
           </Text>
-          <Text
+          <View
             style={
               Array [
                 Object {
                   "display": "flex",
-                  "fontSize": 15,
-                  "marginBottom": 16,
                 },
               ]
             }
           >
-            This question is not required but a 'Yes' response screens out the user.
-          </Text>
+            <View
+              style={
+                Object {
+                  "marginBottom": 10,
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "alignItems": "flex-start",
+                    "flexDirection": "row",
+                    "flexWrap": "wrap",
+                    "justifyContent": "flex-start",
+                    "marginBottom": 10,
+                    "marginTop": 10,
+                    "width": "100%",
+                  }
+                }
+              >
+                <Text
+                  style={Object {}}
+                >
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "color": "#212529",
+                          "fontFamily": "Inter",
+                          "fontSize": 16,
+                          "fontWeight": "500",
+                        },
+                        Object {},
+                      ]
+                    }
+                  >
+                    This question is not required but a ‘Yes’ response screens out the user.
+                  </Text>
+                </Text>
+              </View>
+            </View>
+          </View>
           <View
+            name="3. Do you have a diagnosed anxiety condtion?"
             style={
               Array [
                 Object {
                   "alignItems": "center",
                   "display": "flex",
-                  "flex": 1,
                   "flexDirection": "row",
                   "justifyContent": "space-between",
                   "marginTop": 16,
