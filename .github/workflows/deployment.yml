@@ -60,11 +60,26 @@ jobs:
       - name: Print Version Changes (Debug)
         run: git --no-pager diff
 
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Generate Production .env file
+        if: github.ref == 'refs/heads/main'
+        run: |
+          pip install dump-env
+          dump-env --template=./.env.template > .env
+        env:
+          BASE_API_URL: ${{ secrets.PROD_API_URL }}
+          API_AUTH_TOKEN: ${{ secrets.PROD_AUTH_TOKEN }}
+          SENTRY_DTN: ${{ secrets.SENTRY_DTN }}
+
       # Cache artifacts for future jobs
       - uses: actions/upload-artifact@v2
         with:
           name: build-config
           path: |
+            ./.env
             ./android/app/build.gradle
             ./ios/flare.xcodeproj/project.pbxproj
             ./ios/flare/Info.plist
