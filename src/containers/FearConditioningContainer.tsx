@@ -260,7 +260,7 @@ export function generateTrials(
   }
 
   // Randomly insert GS
-  generalisationStimuliTrials.forEach(gs => {
+  generalisationStimuliTrials.forEach((gs) => {
     const randomIndex = random(0, trials.length)
     trials.splice(randomIndex, 0, gs)
   })
