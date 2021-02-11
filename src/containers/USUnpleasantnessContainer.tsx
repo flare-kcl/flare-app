@@ -21,7 +21,7 @@ export const USUnpleasantnessContainer: ExperimentModule<USUnpleasantnessModuleS
       anchorLabels={{
         anchorLabelLeft: 'Not unpleasent at all',
         anchorLabelCenter: '',
-        anchorLabelRight: 'Very Unpleasent',
+        anchorLabelRight: 'Very unpleasant',
       }}
       onChange={(rating) => updateModule({ rating })}
       onNext={() => onModuleComplete()}
