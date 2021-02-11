@@ -11,7 +11,9 @@ export const experimentSelector = (state: AppState): ExperimentCache =>
 export const moduleSelector = (state: AppState, moduleId) =>
   state.modules[moduleId]
 
-export const currentModuleSelector = (state: AppState) => {
+export const currentModuleSelector = (
+  state: AppState,
+): ExperimentModuleCache => {
   const currentIndex = state.experiment.currentModuleIndex
   return Object.values(state.modules).find(
     (mod: ExperimentModuleCache) => mod.index === currentIndex,

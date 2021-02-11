@@ -19,7 +19,7 @@ import {
   ExperimentCache,
   RejectionReason,
 } from '@redux/reducers'
-import { syncExperiment } from '@redux/actions'
+import { syncExperiment, syncExperimentProgress } from '@redux/actions'
 import { LoginScreen, RejectionScreen } from '@screens'
 import { TermsContainer } from './TermsContainer'
 import { CriterionContainer } from './CriterionContainer'
@@ -121,6 +121,7 @@ export type ExperimentModule<
     onModuleComplete: (module?: Partial<ModuleState>) => void
     unconditionalStimulus?: UnconditionalStimulusRef
     syncExperiment: () => void
+    syncExperimentProgress: () => void
     terminateExperiment: (boolean, RejectionReason) => void
     exitExperiment: (RejectionReason) => void
   }
@@ -239,6 +240,7 @@ export const ExperimentContainer = () => {
     // Set variable to show the terminated screen
     if (redirect) {
       dispatch(rejectParticipant(rejectionReason))
+      dispatch(syncExperimentProgress)
     }
   }
 
@@ -285,6 +287,7 @@ export const ExperimentContainer = () => {
         onModuleComplete={onModuleComplete}
         terminateExperiment={terminateExperiment}
         syncExperiment={() => dispatch(syncExperiment)}
+        syncExperimentProgress={() => dispatch(syncExperimentProgress)}
         unconditionalStimulus={usRef}
         exitExperiment={exitExperiment}
       />
