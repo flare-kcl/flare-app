@@ -86,39 +86,6 @@ exports[`Text Renders Correctly 1`] = `
                 </Text>
               </Text>
             </View>
-            <View
-              style={
-                Object {
-                  "alignItems": "flex-start",
-                  "flexDirection": "row",
-                  "flexWrap": "wrap",
-                  "justifyContent": "flex-start",
-                  "marginBottom": 10,
-                  "marginTop": 10,
-                  "width": "100%",
-                }
-              }
-            >
-              <Text
-                style={Object {}}
-              >
-                <Text
-                  style={
-                    Array [
-                      Object {
-                        "color": "#212529",
-                        "fontFamily": "Inter",
-                        "fontSize": 16,
-                        "fontWeight": "500",
-                      },
-                      Object {},
-                    ]
-                  }
-                >
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ac magna ut neque auctor varius et eu lectus. Proin eget fringilla lectus. Donec feugiat, turpis sed blandit lacinia, dolor nulla pretium quam, quis cursus neque lorem et ipsum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus aliquam tortor at rhoncus condimentum. Maecenas gravida nibh et gravida pretium. Morbi quam nisl, tempor et auctor sit amet, convallis et dui. Duis luctus mollis dolor vitae rutrum. Cras dapibus congue neque sed sodales.
-                </Text>
-              </Text>
-            </View>
           </View>
         </View>
         <View
