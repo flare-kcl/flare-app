@@ -303,7 +303,7 @@ async function loginWithID(participantID: string, dispatch) {
     const experiment: Experiment = {
       id: experimentApiData.experiment.id,
       name: experimentApiData.experiment.name,
-      contactEmail: experimentApiData.experiment.contact_email,
+      contactEmail: `mailto:${experimentApiData.experiment.contact_email}`,
       reimbursements: experimentApiData.experiment.reimbursements,
       description: experimentApiData.experiment.description,
       ratingScaleAnchorLabelLeft:
