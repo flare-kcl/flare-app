@@ -291,7 +291,7 @@ const syncPostExperimentQuestions = async (
       experiment_unpleasant_rating: answers.experimentUnpleasantRating,
       did_follow_instructions: answers.didFollowInstructions,
       did_remove_headphones: answers.didRemoveHeadphones,
-      headphones_removal_reason: answers.headphonesRemovalReason,
+      headphones_removal_point: answers.headphonesRemovalReason,
       did_pay_attention: answers.didPayAttention,
       task_environment: answers.taskEnvironment,
       was_quiet: answers.wasQuiet,

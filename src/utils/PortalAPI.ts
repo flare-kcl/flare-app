@@ -35,6 +35,7 @@ export class PortalAPI {
     }
 
     // Report issue via Sentry
+    console.warn(response)
     const errMessage = 'Portal API sync validation issue'
     Sentry.captureMessage(errMessage, {
       contexts: {
@@ -127,7 +128,7 @@ export class PortalAPI {
 
     // If validation error
     if (response.status === 400) {
-      console.error('Calbrated volume could not be processed.')
+      PortalAPI.reportValidationError(response)
     }
   }
 
@@ -143,7 +144,7 @@ export class PortalAPI {
 
     // If validation error
     if (response.status === 400) {
-      console.error('Contingency awareness data could not be processed.')
+      PortalAPI.reportValidationError(response)
     }
   }
 
@@ -157,7 +158,7 @@ export class PortalAPI {
 
     // If validation error
     if (response.status === 400) {
-      console.error('US rating could not be processed.')
+      PortalAPI.reportValidationError(response)
     }
   }
 
@@ -195,7 +196,7 @@ export class PortalAPI {
 
     // If validation error
     if (response.status === 400) {
-      return Promise.reject()
+      PortalAPI.reportValidationError(response)
     }
 
     return await response.json()
