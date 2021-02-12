@@ -170,6 +170,16 @@ export const QuestionsScreen: React.FC<QuestionScreenProps> = ({
             </QuestionBox>
           )}
 
+          {questions.wasQuiet && (
+            <QuestionBox heading="Was the place where you did the task quiet?">
+              <CriterionToggle
+                id="wasQuiet"
+                value={answers.wasAlone}
+                onChange={answerQuestion}
+              />
+            </QuestionBox>
+          )}
+
           {questions.wasAlone && (
             <QuestionBox heading="Were there any other people in the room (or passing by) while you were doing the task?">
               <CriterionToggle

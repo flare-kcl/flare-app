@@ -272,9 +272,10 @@ type PostExperimentQuestionSubmission = {
   experiment_unpleasant_rating?: number
   did_follow_instructions?: boolean
   did_remove_headphones?: boolean
-  headphones_removal_reason?: string
+  headphones_removal_point?: string
   did_pay_attention?: boolean
   task_environment?: boolean
+  was_quiet?: boolean
   was_alone?: boolean
   was_interrupted?: boolean
 }

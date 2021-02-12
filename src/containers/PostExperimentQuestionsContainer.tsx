@@ -8,6 +8,7 @@ export type PostExperimentQuestions = {
   didRemoveHeadphones?: boolean
   didPayAttention?: boolean
   taskEnvironment?: boolean
+  wasQuiet?: boolean
   wasAlone?: boolean
   wasInterrupted?: boolean
 }
@@ -19,6 +20,7 @@ export type PostExperimentAnswers = {
   headphonesRemovalReason?: string
   didPayAttention?: boolean
   taskEnvironment?: boolean
+  wasQuiet?: boolean
   wasAlone?: boolean
   wasInterrupted?: boolean
 }

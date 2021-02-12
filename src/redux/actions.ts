@@ -294,6 +294,7 @@ const syncPostExperimentQuestions = async (
       headphones_removal_reason: answers.headphonesRemovalReason,
       did_pay_attention: answers.didPayAttention,
       task_environment: answers.taskEnvironment,
+      was_quiet: answers.wasQuiet,
       was_alone: answers.wasAlone,
       was_interrupted: answers.wasInterrupted,
     })
