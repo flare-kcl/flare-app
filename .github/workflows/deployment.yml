@@ -60,6 +60,10 @@ jobs:
       - name: Print Version Changes (Debug)
         run: git --no-pager diff
 
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
       # Cache artifacts for future jobs
       - uses: actions/upload-artifact@v2
         with:
@@ -341,6 +345,7 @@ jobs:
 
           git add ./ios/flare.xcodeproj ./ios/flare/Info.plist ./android/app/build.gradle
           git stash
+          git reset --hard
 
           git stash apply
           git add .
