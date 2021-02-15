@@ -19,7 +19,7 @@ export const USUnpleasantnessContainer: ExperimentModule<USUnpleasantnessModuleS
       heading={mod.question}
       value={mod.rating}
       anchorLabels={{
-        anchorLabelLeft: 'Not unpleasent at all',
+        anchorLabelLeft: 'Not unpleasant at all',
         anchorLabelCenter: '',
         anchorLabelRight: 'Very unpleasant',
       }}

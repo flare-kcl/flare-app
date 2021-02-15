@@ -112,7 +112,7 @@ export const BreakEndContainer: ExperimentModule<BreakEndModuleState> = ({
       timerText={canContinue ? 'Break Over' : timeRemaining}
       eta={format(breakEndDate, 'dd/MM/yyyy - HH:mm:ss')}
       extendedTimerText={extendedTimeRemaining}
-      actionLabel={canContinue && "Select 'next' to continue with experiment."}
+      actionLabel={canContinue && 'Select ‘Next’ to continue'}
       buttonDisabled={!canContinue}
       onNext={() => enableTimeout()}
     />

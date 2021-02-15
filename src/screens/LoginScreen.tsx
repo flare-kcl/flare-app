@@ -220,7 +220,7 @@ async function loginWithID(participantID: string, dispatch) {
       },
     ].concat(modules)
 
-    // Add T&C's module dymanically if config exists
+    // Add T&Cs module dymanically if config exists
     if (experimentApiData.config?.terms_and_conditions) {
       modules = [
         {

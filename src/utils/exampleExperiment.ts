@@ -115,7 +115,7 @@ export const exampleExperimentData: Experiment = {
         // Screen 1
         introHeading: 'Practice Time',
         introBody:
-          'Before you begin the experiment, we need to to practice using the rating interface.',
+          'Before you begin the experiment, we need to practice using the rating interface.',
         // Screen 2
         ratingExplanationHeading:
           'A few seconds after each circle appears, this scale will appear at the bottom of the screen.',
@@ -123,13 +123,14 @@ export const exampleExperimentData: Experiment = {
           'Each time the scale appears, press the corresponding number on the screen to rate how much you expect to hear a scream.',
         // Screen 3
         ratingPracticeHeading:
-          'Press any number to practice making a rating with the scaling below.',
+          'Press any number to practice making a rating with the scale below.',
         // Screen 4
         intervalExplanationBody:
           'Before each circle is presented, you will see a white screen with a cross in the middle like the one shown above. It is important that you keep looking at the cross and wait for the next circle to appear.',
         // Screen 5
         outroHeading: 'Instructions Complete',
-        outroBody: `The experiment will now begin.\n\n You may occasionaly hear a scream.\n\n Remember to rate how much you expect to hear a scream by pressing a number every time the scale appears.`,
+        outroBody: `The experiment will now begin.\n\n You may occasionally hear a scream. Remember to rate how much you expect to hear a scream by pressing a number every time the scale appears.
+        `,
       },
     },
     {
@@ -142,9 +143,9 @@ export const exampleExperimentData: Experiment = {
       moduleType: 'AFFECTIVE_RATING',
       definition: {
         question: 'Have you seen this circle before?',
-        ratingScaleAnchorLabelLeft: 'Definitely never seen before',
-        ratingScaleAnchorLabelCenter: 'Neutral',
-        ratingScaleAnchorLabelRight: 'Definitely have seen before',
+        ratingScaleAnchorLabelLeft: 'Definitely never seen it before',
+        ratingScaleAnchorLabelCenter: 'Not sure',
+        ratingScaleAnchorLabelRight: 'Definitely seen it before',
         generalisationStimuliEnabled: true,
       },
     },
@@ -201,7 +202,7 @@ export const exampleExperimentData: Experiment = {
       id: '346618',
       moduleType: 'US_UNPLESENTNESS',
       definition: {
-        question: 'How unpleasent did you find the scream?',
+        question: 'How unpleasant did you find the scream?',
       },
     },
     {

@@ -113,7 +113,7 @@ export const InstructionsContainer: ExperimentModule<InstructionsModuleState> = 
     <SafeAreaView flex={1}>
       <Stepper
         color="purple"
-        stageLabel="Set up instructions"
+        stageLabel="Setup instructions"
         numberOfSteps={introScreens.length}
         currentStep={currentInstruction}
       />

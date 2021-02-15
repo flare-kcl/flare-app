@@ -102,7 +102,7 @@ export const FearConditioningContainer: ExperimentModule<FearConditioningModuleS
         if (lastTrialSkipped && checkIfSkipped) {
           Alert.alert(
             'Attention Required',
-            'You have not been rating trials in the designated time, Please try to answer them as fast as you can.',
+            'You have not been rating trials in the designated time, please try to respond as fast as you can.',
             [
               {
                 label: 'Continue',

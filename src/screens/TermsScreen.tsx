@@ -28,7 +28,7 @@ export const TermsScreen: React.FunctionComponent<TermsScreenParams> = ({
 
           <Button
             testID="AcceptButton"
-            label="I Accept T&C's"
+            label="I Accept T&Cs"
             variant="primary"
             onPress={() => onAccept()}
           />

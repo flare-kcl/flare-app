@@ -88,7 +88,7 @@ exports[`Text Renders Correctly 1`] = `
                 ]
               }
             >
-              I Accept T&C's
+              I Accept T&Cs
             </Text>
           </View>
         </View>
