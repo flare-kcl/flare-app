@@ -1,2 +1,1 @@
-This is the initial test version of the app. It does not yet implement any features of the app.
-It's purpose is only to allow us to setup deployment systems.
+This version implements some fixes regarding trial generation and renabling the 'Contact Researcher' functionality.
