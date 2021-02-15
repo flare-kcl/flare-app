@@ -195,7 +195,8 @@ export function generateTrials(
   // Create equal amounts of trials
   let positiveStimuliTrials: Trial[] = []
   let negativeStimuliTrials: Trial[] = []
-  let generalisationStimuliTrials: Trial[] = []
+  let generalisationStimuliTrials: Trial[][] = []
+  const shouldAddGS = generalisationStimuli.length > 0
 
   // Store remaining CS in seperate array that concatonates with the head.
   let trials: Trial[] = []
@@ -216,7 +217,7 @@ export function generateTrials(
     })
 
     // Add GS if nessacery
-    if (generalisationStimuli.length > 0) {
+    if (shouldAddGS) {
       // We transform the label to it's GS identifier (i.e GSA) and it's coding id (i.e GS2, meaning 2 increments away from the CS+)
       const gsCodingDescending = positiveStimuli.label == 'csa'
       const gsCoding = {
@@ -226,22 +227,26 @@ export function generateTrials(
         gsd: gsCodingDescending ? 4 : 1,
       }
 
-      generalisationStimuliTrials = generalisationStimuliTrials.concat(
-        generalisationStimuli.map((gs) => ({
-          label: `${gs.label}/${gsCoding[gs.label]}`,
-          stimulusImage: gs.image,
-          reinforced: false,
-        })),
+      generalisationStimuliTrials.push(
+        shuffle(
+          generalisationStimuli.map((gs) => ({
+            label: `${gs.label}/${gsCoding[gs.label]}`,
+            stimulusImage: gs.image,
+            reinforced: false,
+          })),
+        ),
       )
+    } else {
+      generalisationStimuliTrials.push([])
     }
   }
 
   // Rule 1: First two trials must be one of each (in random order)
   // Rule 2: The first positive stimuli must be reinforced (hence the shift instead of pop)
-  let trialsHead = shuffle([
-    positiveStimuliTrials.shift(),
-    negativeStimuliTrials.shift(),
-  ])
+  let trialsHead = [
+    ...shuffle([positiveStimuliTrials.shift(), negativeStimuliTrials.shift()]),
+    ...generalisationStimuliTrials.shift(),
+  ]
 
   // Shuffle sets to mix reinforced trials
   trials = shuffle(trials)
@@ -254,16 +259,12 @@ export function generateTrials(
     let tail = shuffle([
       positiveStimuliTrials.shift(),
       negativeStimuliTrials.shift(),
+      ...generalisationStimuliTrials.shift(),
     ])
+
     // Append to end of our existing trials
     trials = trials.concat(tail)
   }
-
-  // Randomly insert GS
-  generalisationStimuliTrials.forEach((gs) => {
-    const randomIndex = random(0, trials.length)
-    trials.splice(randomIndex, 0, gs)
-  })
 
   // Return the generated trials.
   return trialsHead.concat(trials)
