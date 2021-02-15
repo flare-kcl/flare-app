@@ -343,8 +343,7 @@ jobs:
         run: |
           git checkout main
 
-          git add ./ios/flare.xcodeproj ./ios/flare/Info.plist ./android/app/build.gradle
-          git stash
+          git stash push -- ./ios/flare.xcodeproj ./ios/flare/Info.plist ./android/app/build.gradle
           git reset --hard
 
           git stash apply
