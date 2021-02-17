@@ -4,6 +4,7 @@ import {
   updateModule,
 } from './reducers'
 import { AppState } from './store'
+import { currentModuleSelector } from './selectors'
 import { FearConditioningModuleState } from '@containers/FearConditioningContainer'
 import { PortalAPI } from '@utils/PortalAPI'
 import { BasicInfoContainerState } from '@containers/BasicInfoContainer'
@@ -25,6 +26,9 @@ export const syncExperiment = async (dispatch, getState: () => AppState) => {
   const modules: ExperimentModuleCache[] = Object.values(state.modules).filter(
     (mod: ExperimentModuleCache) => mod.moduleCompleted && !mod.moduleSynced,
   )
+
+  // Send tracking data
+  syncExperimentProgress(dispatch, getState)
 
   // Finish early if experiment is offline-only
   if (experiment.offlineOnly) return
@@ -84,6 +88,27 @@ export const syncExperiment = async (dispatch, getState: () => AppState) => {
         onModuleSync()
     }
   }
+}
+
+export const syncExperimentProgress = async (
+  dispatch,
+  getState: () => AppState,
+) => {
+  // Get the current module
+  const state = getState()
+  const experiment = state.experiment
+  const mod = currentModuleSelector(state)
+
+  PortalAPI.submitProgress({
+    module: experiment.rejectionReason == undefined ? mod.moduleId : undefined,
+    participant: experiment.participantID,
+    rejection_reason: experiment.rejectionReason,
+    trial_index:
+      mod.moduleType === 'FEAR_CONDITIONING'
+        ? mod.moduleState.trials.filter((trial) => trial.response !== undefined)
+            .length + 1
+        : undefined,
+  })
 }
 
 type ModuleSyncCallback = () => void

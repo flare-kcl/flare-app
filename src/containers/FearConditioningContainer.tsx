@@ -33,8 +33,8 @@ export const FearConditioningContainer: ExperimentModule<FearConditioningModuleS
   experiment,
   module: mod,
   updateModule,
-  exitExperiment,
   onModuleComplete,
+  syncExperimentProgress,
   unconditionalStimulus,
 }) => {
   const Alert = useAlert()
@@ -157,6 +157,9 @@ export const FearConditioningContainer: ExperimentModule<FearConditioningModuleS
       Math.random() * (intervalBounds.max - intervalBounds.min + 1) +
         intervalBounds.min,
     ) * 1000
+
+  // Update tracking
+  syncExperimentProgress()
 
   // Render the current trial
   const currentTrial = mod.trials[mod.currentTrialIndex]

@@ -47,6 +47,17 @@ export class PortalAPI {
     throw new Error(errMessage)
   }
 
+  static async submitProgress(trackingSubmission: PortalTrackingSubmission) {
+    // Convert object to string
+    const jsonData = JSON.stringify(trackingSubmission)
+    const response = await PortalAPI.executeAPIRequest('tracking', jsonData)
+
+    // If validation error
+    if (response.status === 400) {
+      PortalAPI.reportValidationError(response)
+    }
+  }
+
   static async submitTrialRating(ratingResponse: PortalTrialRatingSubmission) {
     // Convert object to string
     const jsonData = JSON.stringify(ratingResponse)
@@ -201,6 +212,13 @@ export class PortalAPI {
 
     return await response.json()
   }
+}
+
+type PortalTrackingSubmission = {
+  module: string
+  participant: string
+  trial_index: number | undefined
+  rejection_reason: string | undefined
 }
 
 type PortalTrialRatingSubmission = {
