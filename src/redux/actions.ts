@@ -216,7 +216,10 @@ const syncTermsModule = async (
   onModuleSync: ModuleSyncCallback,
 ) => {
   try {
-    await PortalAPI.submitTermsAgree(experiment.participantID)
+    await PortalAPI.submitTermsAgree({
+      participant: experiment.participantID,
+      did_agree: mod.moduleState.agreed ?? false,
+    })
     onModuleSync()
   } catch (err) {
     console.error(err)
