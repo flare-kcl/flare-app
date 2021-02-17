@@ -174,7 +174,7 @@ export const QuestionsScreen: React.FC<QuestionScreenProps> = ({
             <QuestionBox heading="Was the place where you did the task quiet?">
               <CriterionToggle
                 id="wasQuiet"
-                value={answers.wasAlone}
+                value={answers.wasQuiet}
                 onChange={answerQuestion}
               />
             </QuestionBox>
