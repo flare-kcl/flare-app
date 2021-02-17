@@ -102,8 +102,8 @@ export class PortalAPI {
     }
   }
 
-  static async submitTermsAgree(participantID: string) {
-    const jsonData = JSON.stringify({ participant: participantID })
+  static async submitTermsAgree(submission: PortalTermsSubmission) {
+    const jsonData = JSON.stringify(submission)
     const response = await PortalAPI.executeAPIRequest(
       'terms-and-conditions',
       jsonData,
@@ -212,6 +212,11 @@ export class PortalAPI {
 
     return await response.json()
   }
+}
+
+type PortalTermsSubmission = {
+  participant: string
+  did_agree: boolean
 }
 
 type PortalTrackingSubmission = {
