@@ -1,4 +1,4 @@
-import { Box, Text, Button, SafeAreaView } from '@components'
+import { Box, Text, Button } from '@components'
 import { ThemeColors } from '@utils/theme'
 
 type TextInstructionScreenProps = {
@@ -27,17 +27,19 @@ export const TextInstructionScreen: React.FunctionComponent<TextInstructionScree
   onNext,
 }) => {
   return (
-    <SafeAreaView flex={1} backgroundColor={backgroundColor}>
-      <Box
-        flex={1}
-        alignItems="center"
-        justifyContent="flex-start"
-        backgroundColor={backgroundColor}
-        px={6}
-      >
+    <Box
+      flex={1}
+      alignItems="center"
+      justifyContent="flex-start"
+      backgroundColor={backgroundColor}
+      px={6}
+    >
+      {heading != null && (
         <Text variant="instructionHeading" mt={10} mb={5} color={textColor}>
           {heading}
         </Text>
+      )}
+      {description != null && (
         <Text
           variant="instructionDescription"
           mb={10}
@@ -46,33 +48,33 @@ export const TextInstructionScreen: React.FunctionComponent<TextInstructionScree
         >
           {description}
         </Text>
+      )}
 
-        <Box flex={1} justifyContent="flex-end" pb={6}>
-          {actionLabel && (
-            <Text
-              variant="caption2"
-              px={6}
-              mb={4}
-              color={textColor}
-              textAlign="center"
-            >
-              {actionLabel}
-            </Text>
-          )}
+      <Box flex={1} justifyContent="flex-end" pb={6}>
+        {actionLabel != null && (
+          <Text
+            variant="caption2"
+            px={6}
+            mb={4}
+            color={textColor}
+            textAlign="center"
+          >
+            {actionLabel}
+          </Text>
+        )}
 
-          <Button
-            variant="primary"
-            label="Next"
-            backgroundColor={color}
-            onPress={onNext}
-            opacity={buttonDisabled ? 0.4 : 1}
-            disabled={buttonDisabled}
-            textProps={{
-              color: linkColor,
-            }}
-          />
-        </Box>
+        <Button
+          variant="primary"
+          label="Next"
+          backgroundColor={color}
+          onPress={onNext}
+          opacity={buttonDisabled ? 0.4 : 1}
+          disabled={buttonDisabled}
+          textProps={{
+            color: linkColor,
+          }}
+        />
       </Box>
-    </SafeAreaView>
+    </Box>
   )
 }

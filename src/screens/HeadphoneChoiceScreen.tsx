@@ -1,12 +1,4 @@
-import {
-  Box,
-  Button,
-  Text,
-  Pressable,
-  Image,
-  SafeAreaView,
-  ScrollView,
-} from '@components'
+import { Box, Button, Text, Pressable, Image, ScrollView } from '@components'
 import { HeadphoneType } from '@containers/BasicInfoContainer'
 
 export type HeadphoneChoiceScreenProps = {
@@ -22,43 +14,41 @@ export const HeadphoneChoiceScreen: React.FunctionComponent<HeadphoneChoiceScree
 }) => {
   return (
     <ScrollView>
-      <SafeAreaView flex={1}>
-        <Box flex={1} pt={8} px={6}>
-          <Text variant="heading">Select headphones</Text>
-          <Text variant="heading3">
-            Select the type of headphones you are using
-          </Text>
-          <HeadphoneButton
-            active={headphoneType == 'in_ear'}
-            label="In-ear"
-            image={require('../assets/images/headphones/in-ear.jpg')}
-            onPress={() => updateHeadphoneType('in_ear')}
-          />
-          <HeadphoneButton
-            active={headphoneType == 'on_ear'}
-            label="On-ear"
-            image={require('../assets/images/headphones/on-ear.jpg')}
-            onPress={() => updateHeadphoneType('on_ear')}
-          />
-          <HeadphoneButton
-            active={headphoneType == 'over_ear'}
-            label="Over-ear"
-            image={require('../assets/images/headphones/over-ear.jpg')}
-            onPress={() => updateHeadphoneType('over_ear')}
-          />
+      <Box flex={1} pt={8} px={6}>
+        <Text variant="heading">Select headphones</Text>
+        <Text variant="heading3">
+          Select the type of headphones you are using
+        </Text>
+        <HeadphoneButton
+          active={headphoneType == 'in_ear'}
+          label="In-ear"
+          image={require('../assets/images/headphones/in-ear.jpg')}
+          onPress={() => updateHeadphoneType('in_ear')}
+        />
+        <HeadphoneButton
+          active={headphoneType == 'on_ear'}
+          label="On-ear"
+          image={require('../assets/images/headphones/on-ear.jpg')}
+          onPress={() => updateHeadphoneType('on_ear')}
+        />
+        <HeadphoneButton
+          active={headphoneType == 'over_ear'}
+          label="Over-ear"
+          image={require('../assets/images/headphones/over-ear.jpg')}
+          onPress={() => updateHeadphoneType('over_ear')}
+        />
 
-          {headphoneType && (
-            <Box flex={1} justifyContent="flex-end" pb={6}>
-              <Button
-                variant="primary"
-                label="Next"
-                marginTop={6}
-                onPress={onNext}
-              />
-            </Box>
-          )}
-        </Box>
-      </SafeAreaView>
+        {headphoneType && (
+          <Box flex={1} justifyContent="flex-end" pb={6}>
+            <Button
+              variant="primary"
+              label="Next"
+              marginTop={6}
+              onPress={onNext}
+            />
+          </Box>
+        )}
+      </Box>
     </ScrollView>
   )
 }

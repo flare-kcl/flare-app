@@ -1,5 +1,5 @@
 import { Linking } from 'react-native'
-import { Image, Box, Button, Text, SafeAreaView, ScrollView } from '@components'
+import { Image, Box, Button, Text, ScrollView } from '@components'
 import { RejectionReason } from '@redux/reducers'
 import { palette } from '@utils/theme'
 
@@ -36,70 +36,68 @@ export const RejectionScreen: React.FunctionComponent<RejectionScreenParams> = (
         backgroundColor: palette.greenPrimary,
       }}
     >
-      <SafeAreaView flex={1}>
+      <Box
+        flex={1}
+        flexDirection="column"
+        alignItems="center"
+        pt={{
+          s: 2,
+          m: 8,
+        }}
+        px={6}
+      >
+        <Box
+          flexDirection="row"
+          justifyContent="center"
+          alignItems="center"
+          width="100%"
+        >
+          <Image
+            width="100%"
+            height="100%"
+            maxWidth={150}
+            maxHeight={150}
+            resizeMode="contain"
+            opacity={0.8}
+            source={require('../assets/images/fireworks.png')}
+          />
+        </Box>
+
+        <Text variant="heading" mt={8}>
+          {heading}
+        </Text>
+
+        <Box width="100%">
+          <Text fontWeight="500" color="darkGrey" fontSize={18} mt={2} p={0}>
+            {reasonCopy}
+          </Text>
+        </Box>
+
         <Box
           flex={1}
+          height="100%"
           flexDirection="column"
-          alignItems="center"
-          pt={{
-            s: 2,
-            m: 8,
-          }}
-          px={6}
+          justifyContent="flex-end"
+          mt={6}
+          pb={6}
         >
-          <Box
-            flexDirection="row"
-            justifyContent="center"
-            alignItems="center"
-            width="100%"
-          >
-            <Image
-              width="100%"
-              height="100%"
-              maxWidth={150}
-              maxHeight={150}
-              resizeMode="contain"
-              opacity={0.8}
-              source={require('../assets/images/fireworks.png')}
-            />
-          </Box>
-
-          <Text variant="heading" mt={8}>
-            {heading}
-          </Text>
-
-          <Box width="100%">
-            <Text fontWeight="500" color="darkGrey" fontSize={18} mt={2} p={0}>
-              {reasonCopy}
-            </Text>
-          </Box>
-
-          <Box
-            flex={1}
-            height="100%"
-            flexDirection="column"
-            justifyContent="flex-end"
-            mt={6}
-            pb={6}
-          >
-            {contactLink && (
-              <Button
-                testID="ContinueButton"
-                label="Contact Researcher"
-                variant="primary"
-                backgroundColor="coral"
-                onPress={() => Linking.openURL(contactLink)}
-              />
-            )}
+          {contactLink && (
             <Button
-              testID="ExitButton"
-              label="Exit Experiment"
+              testID="ContinueButton"
+              label="Contact Researcher"
               variant="primary"
-              onPress={() => onExit?.()}
+              backgroundColor="coral"
+              onPress={() => Linking.openURL(contactLink)}
             />
-          </Box>
+          )}
+          <Button
+            testID="ExitButton"
+            label="Exit Experiment"
+            variant="primary"
+            onPress={() => onExit?.()}
+          />
         </Box>
-      </SafeAreaView>
+      </Box>
     </ScrollView>
   )
 }

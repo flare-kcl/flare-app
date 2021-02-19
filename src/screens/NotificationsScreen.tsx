@@ -1,5 +1,5 @@
 import { Entypo } from '@expo/vector-icons'
-import { Box, Text, Button, SafeAreaView, Pressable } from '@components'
+import { Box, Text, Button, ScrollView, Pressable } from '@components'
 import { palette } from '@utils/theme'
 
 type IntervalExplainationScreenProps = {
@@ -12,7 +12,7 @@ export const NotificationsScreen: React.FunctionComponent<IntervalExplainationSc
   onEnable,
 }) => {
   return (
-    <SafeAreaView flex={1}>
+    <ScrollView>
       <Box
         flex={1}
         alignItems="center"
@@ -49,6 +49,6 @@ export const NotificationsScreen: React.FunctionComponent<IntervalExplainationSc
           />
         </Box>
       </Box>
-    </SafeAreaView>
+    </ScrollView>
   )
 }

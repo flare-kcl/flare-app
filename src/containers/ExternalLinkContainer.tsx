@@ -1,5 +1,6 @@
 import { ExperimentModule } from './ExperimentContainer'
 import { ExternalLinkScreen, TextInstructionScreen } from '@screens'
+import { ScrollView } from '@components'
 
 type ExternalLinkModuleState = {
   url: string
@@ -25,20 +26,22 @@ export const ExternalLinkContainer: ExperimentModule<ExternalLinkModuleState> = 
   }
 
   return !mod.introShown ? (
-    <TextInstructionScreen
-      heading={mod.heading}
-      description={mod.description}
-      color="tealLight"
-      backgroundColor="purple"
-      textColor="white"
-      linkColor="purple"
-      textAlign="left"
-      onNext={() => {
-        updateModule({
-          introShown: true,
-        })
-      }}
-    />
+    <ScrollView backgroundColor="purple">
+      <TextInstructionScreen
+        heading={mod.heading}
+        description={mod.description}
+        backgroundColor="purple"
+        color="tealLight"
+        textColor="white"
+        linkColor="purple"
+        textAlign="left"
+        onNext={() => {
+          updateModule({
+            introShown: true,
+          })
+        }}
+      />
+    </ScrollView>
   ) : (
     <ExternalLinkScreen
       link={getFormattedURL()}

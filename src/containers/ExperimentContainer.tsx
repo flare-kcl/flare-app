@@ -159,7 +159,7 @@ export const ExperimentContainer = () => {
       updateExperimentState({ currentModuleIndex: summaryModule.index })
       return null
     } else {
-      if (allModulesSynced) {
+      if (allModulesSynced || experiment.offlineOnly) {
         return (
           <RejectionScreen
             contactLink={experiment.contactEmail}

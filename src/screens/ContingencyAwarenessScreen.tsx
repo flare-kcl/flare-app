@@ -24,43 +24,41 @@ export const CAQuestionScreen: React.FunctionComponent<CAQuestionScreenProps> = 
   onNext,
 }) => {
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-      <SafeAreaView flex={1}>
-        <Box
-          flex={1}
-          alignItems="center"
-          justifyContent="flex-start"
-          pt={{
-            s: 5,
-            m: 12,
-          }}
-          px={5}
-        >
-          <Box pb={0}>
-            {question && (
-              <Text variant="heading2" mb={10}>
-                {question}
-              </Text>
-            )}
+    <ScrollView>
+      <Box
+        flex={1}
+        alignItems="center"
+        justifyContent="flex-start"
+        pt={{
+          s: 5,
+          m: 12,
+        }}
+        px={5}
+      >
+        <Box pb={0}>
+          {question && (
+            <Text variant="heading2" mb={10}>
+              {question}
+            </Text>
+          )}
 
-            <CriterionToggle
-              id={null}
-              value={answer}
-              onChange={(_, value) => updateAnswer(value)}
-            />
-          </Box>
-
-          <Box flex={1} justifyContent="flex-end" pb={6}>
-            <Button
-              variant="primary"
-              label="Next"
-              onPress={onNext}
-              opacity={answer == undefined ? 0 : 1}
-              disabled={answer == undefined}
-            />
-          </Box>
+          <CriterionToggle
+            id={null}
+            value={answer}
+            onChange={(_, value) => updateAnswer(value)}
+          />
         </Box>
-      </SafeAreaView>
+
+        <Box flex={1} justifyContent="flex-end" pb={6}>
+          <Button
+            variant="primary"
+            label="Next"
+            onPress={onNext}
+            opacity={answer == undefined ? 0 : 1}
+            disabled={answer == undefined}
+          />
+        </Box>
+      </Box>
     </ScrollView>
   )
 }
@@ -84,74 +82,70 @@ export const CAConfirmationQuestionScreen: React.FunctionComponent<CAConfirmatio
   const size = d.width * 0.8
 
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-      <SafeAreaView flex={1}>
+    <ScrollView>
+      <Box
+        flex={1}
+        alignItems="center"
+        justifyContent="flex-start"
+        pt={{
+          s: 5,
+          m: 12,
+        }}
+      >
         <Box
-          flex={1}
-          alignItems="center"
+          pb={0}
+          px={5}
+          alignItems="flex-start"
           justifyContent="flex-start"
-          pt={{
-            s: 4,
-            m: 6,
-          }}
+          mb={8}
         >
-          <Box
-            pb={0}
-            px={5}
-            alignItems="flex-start"
-            justifyContent="flex-start"
-            mb={8}
-          >
-            <Text variant="heading" mb={4}>
-              {question}
+          <Text variant="heading" mb={4}>
+            {question}
+          </Text>
+
+          <Box alignSelf="flex-start">
+            <Text variant="caption2">
+              Tap image to select & press 'Next' to continue
             </Text>
-
-            <Box alignSelf="flex-start">
-              <Text variant="caption2">
-                Tap image to select & press 'Next' to continue
-              </Text>
-            </Box>
           </Box>
+        </Box>
 
-          {stimuli.map((stimulus) => (
-            <TouchableOpacity
-              delayPressIn={0}
-              delayPressOut={0}
-              activeOpacity={0.8}
-              style={{
-                width: size,
-                height: size,
-                marginBottom: 20,
-              }}
-              onPress={() => updateAnswer(stimulus.label)}
+        {stimuli.map((stimulus) => (
+          <TouchableOpacity
+            delayPressIn={0}
+            delayPressOut={0}
+            activeOpacity={0.8}
+            style={{
+              width: size,
+              height: size,
+              marginBottom: 20,
+            }}
+            onPress={() => updateAnswer(stimulus.label)}
+          >
+            <Box
+              flex={1}
+              p={1}
+              borderWidth={8}
+              borderColor={answer === stimulus.label ? 'purple' : 'purpleLight'}
+              borderRadius="l"
             >
-              <Box
-                flex={1}
-                p={1}
-                borderWidth={8}
-                borderColor={
-                  answer === stimulus.label ? 'purple' : 'purpleLight'
-                }
-                borderRadius="l"
-              >
-                <Box flex={1} flexDirection="row">
-                  <TrialImageStack stimulusImage={stimulus.image} />
-                </Box>
+              <Box flex={1} flexDirection="row">
+                <TrialImageStack stimulusImage={stimulus.image} />
               </Box>
-            </TouchableOpacity>
-          ))}
-        </Box>
+            </Box>
+          </TouchableOpacity>
+        ))}
+      </Box>
 
-        <Box flex={1} justifyContent="flex-end" pt={4} px={5} pb={6}>
-          <Button
-            variant="primary"
-            label="Next"
-            onPress={onNext}
-            opacity={answer == undefined ? 0 : 1}
-            disabled={answer == undefined}
-          />
-        </Box>
-      </SafeAreaView>
+      <Box flex={1} justifyContent="flex-end" pt={8} px={5} pb={6}>
+        <Button
+          variant="primary"
+          label="Next"
+          onPress={onNext}
+          opacity={answer == undefined ? 0 : 1}
+          disabled={answer == undefined}
+        />
+      </Box>
     </ScrollView>
   )
 }

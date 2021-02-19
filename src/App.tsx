@@ -4,6 +4,7 @@ import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import Config from 'react-native-config'
 import * as Sentry from '@sentry/react-native'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import AssetCache from '@utils/AssetCache'
 import AppStateMonitor from '@utils/AppStateMonitor'
@@ -40,13 +41,15 @@ export default function App() {
   return (
     loaded && (
       <FlareThemeProvider>
-        <StatusBar barStyle="dark-content" />
-        <Provider store={store}>
-          <PersistGate persistor={peristor}>
-            <AlertProvider />
-            <ExperimentContainer />
-          </PersistGate>
-        </Provider>
+        <SafeAreaProvider>
+          <StatusBar barStyle="dark-content" />
+          <Provider store={store}>
+            <PersistGate persistor={peristor}>
+              <AlertProvider />
+              <ExperimentContainer />
+            </PersistGate>
+          </Provider>
+        </SafeAreaProvider>
       </FlareThemeProvider>
     )
   )

@@ -20,33 +20,31 @@ export const TextScreen: React.FunctionComponent<TextScreenProps> = ({
 }) => {
   return (
     <ScrollView>
-      <SafeAreaView flex={1}>
-        <Box
-          flex={1}
-          alignItems="center"
-          justifyContent="flex-start"
-          pt={4}
-          px={6}
-        >
-          <Text variant="instructionHeading" mt={10} mb={5}>
-            {heading}
-          </Text>
+      <Box
+        flex={1}
+        alignItems="center"
+        justifyContent="flex-start"
+        pt={4}
+        px={6}
+      >
+        <Text variant="instructionHeading" mt={10} mb={5}>
+          {heading}
+        </Text>
 
-          <Markdown mb={4}>{description}</Markdown>
+        <Markdown mb={4}>{description}</Markdown>
 
-          <Box flex={1} justifyContent="flex-end" pb={6}>
-            <Button
-              variant="primary"
-              label="Next"
-              backgroundColor="purple"
-              onPress={onNext}
-              textProps={{
-                color: 'pureWhite',
-              }}
-            />
-          </Box>
+        <Box flex={1} justifyContent="flex-end" pb={6}>
+          <Button
+            variant="primary"
+            label="Next"
+            backgroundColor="purple"
+            onPress={onNext}
+            textProps={{
+              color: 'pureWhite',
+            }}
+          />
         </Box>
-      </SafeAreaView>
+      </Box>
     </ScrollView>
   )
 }

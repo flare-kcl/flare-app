@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Box, Text, Button, RatingScale, SafeAreaView } from '@components'
+import { Box, Text, Button, RatingScale, ScrollView } from '@components'
 import { AnchorLabels } from '@containers/ExperimentContainer'
 
 type RatingScreenProps = {
@@ -18,7 +18,7 @@ export const RatingScreen: React.FunctionComponent<RatingScreenProps> = ({
   onNext,
 }) => {
   return (
-    <SafeAreaView flex={1}>
+    <ScrollView>
       <Box
         flex={1}
         alignItems="center"
@@ -49,6 +49,6 @@ export const RatingScreen: React.FunctionComponent<RatingScreenProps> = ({
           </Box>
         )}
       </Box>
-    </SafeAreaView>
+    </ScrollView>
   )
 }

@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { ExperimentModule } from './ExperimentContainer'
-import { SafeAreaView, Stepper } from '@components'
+import { ScrollView, Stepper } from '@components'
 import {
   TextInstructionScreen,
   RatingExplainationScreen,
@@ -119,7 +119,7 @@ export const TaskInstructionsContainer: ExperimentModule<TaskInstructionsModuleS
   }
 
   return (
-    <SafeAreaView flex={1}>
+    <ScrollView>
       <Stepper
         color="teal"
         stageLabel="Task Instructions"
@@ -127,6 +127,6 @@ export const TaskInstructionsContainer: ExperimentModule<TaskInstructionsModuleS
         currentStep={currentInstruction}
       />
       {Screen}
-    </SafeAreaView>
+    </ScrollView>
   )
 }

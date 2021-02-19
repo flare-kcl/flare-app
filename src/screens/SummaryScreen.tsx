@@ -85,69 +85,64 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
 
   return (
     <ScrollView>
-      <SafeAreaView flex={1}>
-        <Box
-          flex={1}
-          width="100%"
-          alignItems="center"
-          justifyContent="center"
-          pt={8}
-          px={5}
-        >
-          <Box alignItems="center" mb={24}>
-            <Text variant="heading" mb={5}>
-              Experiment Upload
-            </Text>
+      <Box
+        flex={1}
+        width="100%"
+        alignItems="center"
+        justifyContent="center"
+        pt={8}
+        px={5}
+      >
+        <Box alignItems="center" mb={24}>
+          <Text variant="heading" mb={5}>
+            Experiment Upload
+          </Text>
 
-            <Text variant="instructionDescription" textAlign="left" mb={24}>
-              We need to upload your response data before you can continue,
-              please make sure you are connected to a stable internet
-              connection.
-            </Text>
+          <Text variant="instructionDescription" textAlign="left" mb={24}>
+            We need to upload your response data before you can continue, please
+            make sure you are connected to a stable internet connection.
+          </Text>
 
-            {isSyncing ? (
-              <Spinner
-                isVisible
-                size={100}
-                type="WanderingCubes"
-                color={palette.purple}
+          {isSyncing ? (
+            <Spinner
+              isVisible
+              size={100}
+              type="WanderingCubes"
+              color={palette.purple}
+            />
+          ) : (
+            allModulesSynced && (
+              <AntDesign
+                name="checkcircle"
+                size={90}
+                color={palette.greenCorrect}
               />
-            ) : (
-              allModulesSynced && (
-                <AntDesign
-                  name="checkcircle"
-                  size={90}
-                  color={palette.greenCorrect}
-                />
-              )
-            )}
-          </Box>
-
-          {/* Show connection status */}
-          {!netInfo.isInternetReachable && !allModulesSynced && (
-            <NetworkError />
+            )
           )}
-
-          <Box flex={1} justifyContent="flex-end" pb={6}>
-            <Button
-              testID="ContinueButton"
-              label="Sync Now"
-              variant="primary"
-              backgroundColor="coral"
-              disabled={allModulesSynced || isSyncing}
-              opacity={allModulesSynced ? 0 : 1}
-              onPress={() => syncExperimentAnimated()}
-            />
-            <Button
-              variant="primary"
-              label="Complete Experiment"
-              disabled={!allModulesSynced}
-              opacity={allModulesSynced ? 1 : 0.5}
-              onPress={finishExperiment}
-            />
-          </Box>
         </Box>
-      </SafeAreaView>
+
+        {/* Show connection status */}
+        {!netInfo.isInternetReachable && !allModulesSynced && <NetworkError />}
+
+        <Box flex={1} justifyContent="flex-end" pb={6}>
+          <Button
+            testID="ContinueButton"
+            label="Sync Now"
+            variant="primary"
+            backgroundColor="coral"
+            disabled={allModulesSynced || isSyncing}
+            opacity={allModulesSynced ? 0 : 1}
+            onPress={() => syncExperimentAnimated()}
+          />
+          <Button
+            variant="primary"
+            label="Complete Experiment"
+            disabled={!allModulesSynced}
+            opacity={allModulesSynced ? 1 : 0.5}
+            onPress={finishExperiment}
+          />
+        </Box>
+      </Box>
     </ScrollView>
   )
 }

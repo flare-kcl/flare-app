@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { Box, Text, Button, Image, SafeAreaView } from '@components'
+import { Box, Text, Button, Image } from '@components'
 import { useEffect } from 'react'
 import AudioSensor from '@utils/AudioSensor'
-import { Entypo, AntDesign } from '@expo/vector-icons'
+import { AntDesign } from '@expo/vector-icons'
 import { useRef } from 'react'
 import { EmitterSubscription } from 'react-native'
 import { palette } from '@utils/theme'
@@ -42,56 +42,50 @@ export const HeadphonesDetectionScreen: React.FunctionComponent<HeadphonesDetect
   }, [])
 
   return (
-    <SafeAreaView flex={1}>
-      <Box
-        flex={1}
-        alignItems="center"
-        justifyContent="flex-start"
-        pt={7}
-        px={5}
+    <Box
+      flex={1}
+      alignItems="center"
+      justifyContent="flex-start"
+      pt={14}
+      px={5}
+    >
+      <Image
+        source={HeadphoneImages[headphoneType]}
+        width={100}
+        height={100}
+        maxWidth={100}
+        maxHeight={100}
+        marginBottom={4}
+      />
+
+      <Text
+        fontWeight="700"
+        fontSize={22}
+        color="darkGrey"
+        textAlign="center"
+        mb={8}
       >
-        <Image
-          source={HeadphoneImages[headphoneType]}
-          width={100}
-          height={100}
-          maxWidth={100}
-          maxHeight={100}
-          marginBottom={4}
-        />
+        Please ensure you're wearing headphones.
+      </Text>
 
-        <Text
-          fontWeight="700"
-          fontSize={22}
-          color="darkGrey"
-          textAlign="center"
-          mb={8}
-        >
-          Please ensure you're wearing headphones.
-        </Text>
+      {connected == true && (
+        <AntDesign name="checkcircle" size={70} color={palette.greenCorrect} />
+      )}
 
-        {connected == true && (
-          <AntDesign
-            name="checkcircle"
-            size={70}
-            color={palette.greenCorrect}
-          />
-        )}
+      {connected == false && (
+        <>
+          <AntDesign name="closecircle" size={70} color={palette.red} />
+          <Text variant="caption2" fontWeight="500" mt={8}>
+            Plug in your headphones to continue.
+          </Text>
+        </>
+      )}
 
-        {connected == false && (
-          <>
-            <AntDesign name="closecircle" size={70} color={palette.red} />
-            <Text variant="caption2" fontWeight="500" mt={8}>
-              Plug in your headphones to continue.
-            </Text>
-          </>
-        )}
-
-        {connected && (
-          <Box flex={1} justifyContent="flex-end" pb={6}>
-            <Button variant="primary" label="Next" onPress={onNext} />
-          </Box>
-        )}
-      </Box>
-    </SafeAreaView>
+      {connected && (
+        <Box flex={1} justifyContent="flex-end" pb={6}>
+          <Button variant="primary" label="Next" onPress={onNext} />
+        </Box>
+      )}
+    </Box>
   )
 }

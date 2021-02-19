@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { ExperimentModule } from './ExperimentContainer'
-import { SafeAreaView, Stepper } from '@components'
+import { ScrollView, Stepper } from '@components'
 import { TextInstructionScreen } from '@screens'
 import { VolumeInstructionScreen } from '@screens/VolumeInstructionScreen'
 import { HeadphonesDetectionScreen } from '@screens/HeadphonesDetectionScreen'
@@ -110,7 +110,7 @@ export const InstructionsContainer: ExperimentModule<InstructionsModuleState> = 
   }
 
   return (
-    <SafeAreaView flex={1}>
+    <ScrollView>
       <Stepper
         color="purple"
         stageLabel="Setup instructions"
@@ -118,6 +118,6 @@ export const InstructionsContainer: ExperimentModule<InstructionsModuleState> = 
         currentStep={currentInstruction}
       />
       {Screen}
-    </SafeAreaView>
+    </ScrollView>
   )
 }

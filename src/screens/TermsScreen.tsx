@@ -22,24 +22,21 @@ export const TermsScreen: React.FunctionComponent<TermsScreenParams> = ({
       }}
     >
       {/* Terms and Condition Text */}
-      <SafeAreaView flex={1}>
-        <Box pt={10} px={6} pb={6}>
-          <Markdown mb={4}>{terms}</Markdown>
-
-          <Button
-            testID="AcceptButton"
-            label="I Accept T&Cs"
-            variant="primary"
-            onPress={() => onAccept()}
-          />
-          <Button
-            testID="ExitButton"
-            label="Decline and Exit"
-            variant="exit"
-            onPress={() => onExit()}
-          />
-        </Box>
-      </SafeAreaView>
+      <Box pt={10} px={6} pb={6}>
+        <Markdown mb={4}>{terms}</Markdown>
+        <Button
+          testID="AcceptButton"
+          label="I Accept T&Cs"
+          variant="primary"
+          onPress={() => onAccept()}
+        />
+        <Button
+          testID="ExitButton"
+          label="Decline and Exit"
+          variant="exit"
+          onPress={() => onExit()}
+        />
+      </Box>
     </ScrollView>
   )
 }

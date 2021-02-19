@@ -92,46 +92,50 @@ export const CriteriaScreen: React.FunctionComponent<CriteriaScreenParams> = ({
 
   return (
     <ScrollView>
-      <SafeAreaView flex={1}>
-        <Box flex={1} px={6} pt={10}>
-          {/* Experiment introText */}
-          <Markdown mb={4}>{introText}</Markdown>
+      <Box flex={1} px={6} pt={10}>
+        {/* Experiment introText */}
+        <Markdown mb={4}>{introText}</Markdown>
 
-          {/* Loop over each consent criteria */}
-          {consentCriteria.map((criterion) => (
-            <Box key={`criterion-${criterion.id}`} pt={2} pb={8}>
-              <Text variant="heading2">{criterion.questionText}</Text>
-              {!!criterion.helpText && (
-                <Markdown>{criterion.helpText}</Markdown>
-              )}
-              <CriterionToggle
-                id={criterion.id}
-                name={criterion.questionText}
-                value={criterion.value}
-                onChange={updateCriteria}
-                mt={4}
-              />
-            </Box>
-          ))}
-
-          <Box borderTopColor="lightGrey" borderTopWidth={2} pt={6} pb={6}>
-            {/* Small feature text to remined them to check answers */}
-            <Markdown pb={4}>{outroText}</Markdown>
-            <Button
-              testID="ContinueButton"
-              label="Continue"
-              variant="primary"
-              onPress={() => onContinue()}
-            />
-            <Button
-              testID="ExitButton"
-              label="Exit Experiment"
-              variant="exit"
-              onPress={() => onExit()}
+        {/* Loop over each consent criteria */}
+        {consentCriteria.map((criterion) => (
+          <Box key={`criterion-${criterion.id}`} pt={2} pb={8}>
+            <Text variant="heading2">{criterion.questionText}</Text>
+            {!!criterion.helpText && <Markdown>{criterion.helpText}</Markdown>}
+            <CriterionToggle
+              id={criterion.id}
+              name={criterion.questionText}
+              value={criterion.value}
+              onChange={updateCriteria}
+              mt={4}
             />
           </Box>
+        ))}
+
+        <Box
+          flex={1}
+          justifyContent="flex-end"
+          borderTopColor="lightGrey"
+          borderTopWidth={2}
+          pt={8}
+          mt={4}
+          pb={6}
+        >
+          {/* Small feature text to remined them to check answers */}
+          {!!outroText && <Markdown pb={4}>{outroText}</Markdown>}
+          <Button
+            testID="ContinueButton"
+            label="Continue"
+            variant="primary"
+            onPress={() => onContinue()}
+          />
+          <Button
+            testID="ExitButton"
+            label="Exit Experiment"
+            variant="exit"
+            onPress={() => onExit()}
+          />
         </Box>
-      </SafeAreaView>
+      </Box>
     </ScrollView>
   )
 }

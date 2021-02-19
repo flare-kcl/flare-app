@@ -55,58 +55,50 @@ export const DeviceInfoScreen: React.FunctionComponent<DeviceInfoScreenProps> = 
   }, [dobValue, genderValue])
 
   return (
-    <>
-      <ScrollView>
-        <SafeAreaView flex={1}>
-          <Box flex={1} pt={10} px={6} pb={6}>
-            <Text variant="heading">Your information</Text>
-            <Text variant="heading3">Please enter your details below</Text>
-            {shouldCollectDob && (
-              <LabeledDateField
-                label="Date of birth"
-                value={
-                  dob
-                    ? new Date(dob)
-                    : dobValue
-                    ? new Date(dobValue)
-                    : new Date()
-                }
-                onChange={setDobValue}
-                disabled
-              />
-            )}
-            {shouldCollectGender && (
-              <LabeledPickerField
-                label="Gender"
-                value={genderValue}
-                options={genders}
-                onChange={setGenderValue}
-                placeholder="Select your gender..."
-              />
-            )}
-            <LabeledTextField
-              label="Operating System"
-              value={operatingSystem}
-              disabled
-            />
-            <LabeledTextField label="OS Version" value={version} disabled />
-            <LabeledTextField
-              label="Device Manufacturer"
-              value={manufacturer}
-              disabled
-            />
-            <LabeledTextField label="Device Model" value={model} disabled />
-            {(shouldCollectGender ? gender != undefined : true) && (
-              <Button
-                variant="primary"
-                label="Next"
-                marginTop={4}
-                onPress={onNext}
-              />
-            )}
-          </Box>
-        </SafeAreaView>
-      </ScrollView>
-    </>
+    <ScrollView>
+      <Box flex={1} pt={10} px={6} pb={6}>
+        <Text variant="heading">Your information</Text>
+        <Text variant="heading3">Please enter your details below</Text>
+        {shouldCollectDob && (
+          <LabeledDateField
+            label="Date of birth"
+            value={
+              dob ? new Date(dob) : dobValue ? new Date(dobValue) : new Date()
+            }
+            onChange={setDobValue}
+            disabled
+          />
+        )}
+        {shouldCollectGender && (
+          <LabeledPickerField
+            label="Gender"
+            value={genderValue}
+            options={genders}
+            onChange={setGenderValue}
+            placeholder="Select your gender..."
+          />
+        )}
+        <LabeledTextField
+          label="Operating System"
+          value={operatingSystem}
+          disabled
+        />
+        <LabeledTextField label="OS Version" value={version} disabled />
+        <LabeledTextField
+          label="Device Manufacturer"
+          value={manufacturer}
+          disabled
+        />
+        <LabeledTextField label="Device Model" value={model} disabled />
+        {(shouldCollectGender ? gender != undefined : true) && (
+          <Button
+            variant="primary"
+            label="Next"
+            marginTop={4}
+            onPress={onNext}
+          />
+        )}
+      </Box>
+    </ScrollView>
   )
 }

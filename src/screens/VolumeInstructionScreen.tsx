@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from 'react'
-import { Dimensions, EmitterSubscription } from 'react-native'
-import { Box, Text, Button, SafeAreaView } from '@components'
+import { EmitterSubscription } from 'react-native'
+import { Box, Text, Button, ScrollView } from '@components'
 import AudioSensor from '@utils/AudioSensor'
 
 type VolumeInstructionScreenProps = {
@@ -34,37 +34,35 @@ export const VolumeInstructionScreen: React.FunctionComponent<VolumeInstructionS
   }, [])
 
   return (
-    <SafeAreaView flex={1}>
-      <Box
-        flex={1}
-        alignItems="center"
-        justifyContent="flex-start"
-        pt={{ s: 8, m: 12 }}
-        px={5}
-      >
-        <Text variant="instructionHeading" mb={10}>
-          Increase your volume to 100%
-        </Text>
+    <Box
+      flex={1}
+      alignItems="center"
+      justifyContent="flex-start"
+      pt={{ s: 8, m: 12 }}
+      px={5}
+    >
+      <Text variant="instructionHeading" mb={10}>
+        Increase your volume to 100%
+      </Text>
 
-        <Text variant="instructionDescription" mb={10}>
-          Make sure your device is not in silent mode.
-        </Text>
+      <Text variant="instructionDescription" mb={10}>
+        Make sure your device is not in silent mode.
+      </Text>
 
-        {volume !== undefined && (
-          <Text fontWeight="bold" fontSize={60} color="purple">
-            {(volume * 100).toFixed(0)}%
-          </Text>
+      {volume !== undefined && (
+        <Text fontWeight="bold" fontSize={60} color="purple">
+          {(volume * 100).toFixed(0)}%
+        </Text>
+      )}
+
+      <Box flex={1} justifyContent="flex-end" pb={6}>
+        <Text variant="caption2" px={6} mb={3} textAlign="center">
+          Set your volume to 100% to continue
+        </Text>
+        {volume === 1 && (
+          <Button variant="primary" label="Next" onPress={onNext} />
         )}
-
-        <Box flex={1} justifyContent="flex-end" pb={6}>
-          <Text variant="caption2" px={6} mb={3} textAlign="center">
-            Set your volume to 100% to continue
-          </Text>
-          {volume === 1 && (
-            <Button variant="primary" label="Next" onPress={onNext} />
-          )}
-        </Box>
       </Box>
-    </SafeAreaView>
+    </Box>
   )
 }
