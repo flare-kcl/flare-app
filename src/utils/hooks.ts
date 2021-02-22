@@ -53,7 +53,8 @@ export const useUnconditionalStimulus = ():
           const playSound = async (): Promise<Boolean> => {
             return new Promise(async (resolve, reject) => {
               // Play sound file from begining
-              await sound.playFromPositionAsync(0)
+              await sound.setPositionAsync(0)
+              await sound.playAsync()
 
               const onSoundFinished = async () => {
                 // Stop any playback
@@ -71,12 +72,12 @@ export const useUnconditionalStimulus = ():
                 }
 
                 // Resolve if audio has suprassed 1000ms
-                if (
-                  update.positionMillis >= 1000 &&
-                  status.durationMillis > 1000
-                ) {
-                  onSoundFinished()
-                }
+                // if (
+                //   update.positionMillis >= 1000 &&
+                //   status.durationMillis > 1000
+                // ) {
+                //   onSoundFinished()
+                // }
               })
             })
           }
@@ -98,7 +99,6 @@ export const useUnconditionalStimulus = ():
           // Record error
           Sentry.captureMessage(err)
           console.error(err)
-          Alert.alert('DEBUG: Audio file failed to load.')
 
           // Return invalid sound object
           return resolve({

@@ -28,6 +28,11 @@ export default class AppStateMonitor {
     AppStateMonitor.onStateChange(NativeAppState.currentState as RNAppStateType)
   }
 
+  static manualUpdate() {
+    // Manually trigger update
+    AppStateMonitor.onStateChange(NativeAppState.currentState as RNAppStateType)
+  }
+
   private static onStateChange(nextStateType: RNAppStateType) {
     const currentTime = Date.now()
     const previousState = AppStateMonitor.getLatestState()

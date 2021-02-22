@@ -12,7 +12,7 @@ import { Experiment } from '@containers/ExperimentContainer'
 import { Box, Text, Button, Image, TextField, SafeAreaView } from '@components'
 import { palette } from '@utils/theme'
 import { exampleExperimentData } from '@utils/exampleExperiment'
-import { updateExperiment, updateModule } from '@redux/reducers'
+import { setExperiment, updateModule } from '@redux/reducers'
 import { useAlert } from '@utils/AlertProvider'
 import AssetCache from '@utils/AssetCache'
 
@@ -358,7 +358,7 @@ async function loginWithID(participantID: string, dispatch) {
 
     // Save experiment to redux
     dispatch(
-      updateExperiment({
+      setExperiment({
         participantID,
         definition: experiment,
         currentModuleIndex: 0,
@@ -392,7 +392,7 @@ function demoLogin(dispatch) {
 
   // Save experiment to redux
   dispatch(
-    updateExperiment({
+    setExperiment({
       definition: exampleExperimentData,
       currentModuleIndex: 0,
       offlineOnly: true,

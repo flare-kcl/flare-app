@@ -1,4 +1,4 @@
-import { ImageSourcePropType } from 'react-native'
+import { ImageSourcePropType, Alert } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { AVPlaybackSource } from 'expo-av/build/AV'
 import {
@@ -197,7 +197,8 @@ export const ExperimentContainer = () => {
   }
 
   // If the sound file is corrupt then terminate
-  if (usRef !== undefined && usRef?.duration === 0) {
+  if (usRef !== undefined && usRef.sound === null) {
+    Alert.alert(JSON.stringify(usRef))
     terminateExperiment(true, 'CORRUPT_ASSETS')
   }
 

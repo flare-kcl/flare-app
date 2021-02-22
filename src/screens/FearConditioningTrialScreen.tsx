@@ -12,6 +12,7 @@ import {
 } from '@components'
 import AudioSensor from '@utils/AudioSensor'
 import { useAlert } from '@utils/AlertProvider'
+import AppStateMonitor from '@utils/AppStateMonitor'
 import { UnconditionalStimulusRef } from '@utils/hooks'
 import { PauseableTimer } from '@utils/timers'
 
@@ -136,6 +137,10 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
     }, [focusState.type])
 
     useEffect(() => {
+      // Check if app state is correct
+      // Fixes bug where ITI can get stuck by spam suspending app
+      AppStateMonitor.manualUpdate()
+
       // Setup Headphone Listening
       AudioSensor.isHeadphonesConnected().then(showHeadphoneAlert)
       headphoneSensorListener.current = AudioSensor.addHeadphonesListener(

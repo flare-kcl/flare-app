@@ -25,6 +25,8 @@ export type ExperimentCache = {
   notificationsEnabled: boolean
 }
 
+export const setExperiment = createAction<ExperimentCache>('experiment/set')
+
 export const updateExperiment = createAction<Partial<ExperimentCache>>(
   'experiment/update',
 )
@@ -41,11 +43,16 @@ const initialState: ExperimentCache = {
   volume: 1,
   currentModuleIndex: 0,
   isComplete: false,
+  notificationsEnabled: false,
 }
 
 export const experimentReducer = createReducer<ExperimentCache>(
   initialState,
   (builder) => {
+    builder.addCase(setExperiment, (_, action) => {
+      return action.payload
+    })
+
     builder.addCase(updateExperiment, (state, action) => {
       return {
         ...state,
