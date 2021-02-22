@@ -1,13 +1,13 @@
 import { render, fireEvent } from '@testing-library/react-native'
-import { FlareThemeProvider } from '@utils/theme'
 import { exampleCriteriaDefinition } from '@utils/exampleExperiment'
 import { CriteriaScreen } from '@screens'
+import { TestProvider } from '@utils/TestProvider'
 
 test('Text Renders Correctly', () => {
   const tree = render(
-    <FlareThemeProvider>
+    <TestProvider>
       <CriteriaScreen {...exampleCriteriaDefinition} />
-    </FlareThemeProvider>,
+    </TestProvider>,
   ).toJSON()
 
   expect(tree).toMatchSnapshot()
@@ -21,14 +21,14 @@ test('Calls Props on button press', () => {
 
   // Render screen
   const { queryByTestId, queryAllByA11yLabel } = render(
-    <FlareThemeProvider>
+    <TestProvider>
       <CriteriaScreen
         {...exampleCriteriaDefinition}
         onPassCriteria={onPass}
         onFailCriteria={onFail}
         onExit={onExit}
       />
-    </FlareThemeProvider>,
+    </TestProvider>,
   )
 
   // Capture all elements

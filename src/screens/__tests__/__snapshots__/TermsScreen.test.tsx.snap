@@ -1,28 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Text Renders Correctly 1`] = `
-<RCTScrollView
-  collapsable={false}
-  contentInsetAdjustmentBehavior="automatic"
-  onGestureHandlerEvent={[Function]}
-  onGestureHandlerStateChange={[Function]}
+<RNCSafeAreaProvider
+  onInsetsChange={[Function]}
   style={
-    Object {
-      "height": "100%",
-      "position": "absolute",
-    }
+    Array [
+      Object {
+        "flex": 1,
+      },
+      undefined,
+    ]
   }
 >
-  <View>
-    <RCTSafeAreaView
-      emulateUnlessSupported={true}
-      flex={1}
-      style={
-        Array [
-          Object {},
-        ]
+  <RCTScrollView
+    collapsable={false}
+    contentInsetAdjustmentBehavior="automatic"
+    onGestureHandlerEvent={[Function]}
+    onGestureHandlerStateChange={[Function]}
+    style={
+      Object {
+        "height": "100%",
+        "position": "absolute",
       }
-    >
+    }
+  >
+    <View>
       <View
         style={
           Array [
@@ -149,7 +151,7 @@ exports[`Text Renders Correctly 1`] = `
           </View>
         </View>
       </View>
-    </RCTSafeAreaView>
-  </View>
-</RCTScrollView>
+    </View>
+  </RCTScrollView>
+</RNCSafeAreaProvider>
 `;

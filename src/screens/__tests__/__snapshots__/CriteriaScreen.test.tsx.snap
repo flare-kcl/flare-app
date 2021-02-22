@@ -1,33 +1,145 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Text Renders Correctly 1`] = `
-<RCTScrollView
-  alwaysBounceVertical={false}
-  bounces={false}
-  bouncesZoom={false}
-  contentContainerStyle={
-    Object {
-      "flexGrow": 1,
-    }
-  }
-  contentInsetAdjustmentBehavior="automatic"
+<RNCSafeAreaProvider
+  onInsetsChange={[Function]}
   style={
-    Object {
-      "flex": 1,
-      "height": "100%",
-    }
+    Array [
+      Object {
+        "flex": 1,
+      },
+      undefined,
+    ]
   }
 >
-  <View>
-    <RCTSafeAreaView
-      emulateUnlessSupported={true}
-      flex={1}
-      style={
-        Array [
-          Object {},
-        ]
+  <RCTScrollView
+    alwaysBounceHorizontal={false}
+    alwaysBounceVertical={false}
+    automaticallyAdjustContentInsets={false}
+    contentContainerStyle={
+      Object {
+        "children": <ForwardRef
+          flex={1}
+          pt={10}
+          px={6}
+        >
+          <Markdown
+            mb={4}
+          >
+            # What is this experiment?
+          </Markdown>
+          <ForwardRef
+            pb={8}
+            pt={2}
+          >
+            <ForwardRef
+              variant="heading2"
+            >
+              1. Do you have a pre-existing heart condition?
+            </ForwardRef>
+            <Markdown>
+              This question is required and must be 'No'.
+            </Markdown>
+            <CriterionToggle
+              id={8798}
+              mt={4}
+              name="1. Do you have a pre-existing heart condition?"
+              onChange={[Function]}
+            />
+          </ForwardRef>
+          <ForwardRef
+            pb={8}
+            pt={2}
+          >
+            <ForwardRef
+              variant="heading2"
+            >
+              2. Do you suffer from PTSD?
+            </ForwardRef>
+            <Markdown>
+              This question is not required and any response is valid.
+            </Markdown>
+            <CriterionToggle
+              id={4511}
+              mt={4}
+              name="2. Do you suffer from PTSD?"
+              onChange={[Function]}
+            />
+          </ForwardRef>
+          <ForwardRef
+            pb={8}
+            pt={2}
+          >
+            <ForwardRef
+              variant="heading2"
+            >
+              3. Do you have a diagnosed anxiety condtion?
+            </ForwardRef>
+            <Markdown>
+              This question is not required but a 'Yes' response screens out the user.
+            </Markdown>
+            <CriterionToggle
+              id={9813}
+              mt={4}
+              name="3. Do you have a diagnosed anxiety condtion?"
+              onChange={[Function]}
+            />
+          </ForwardRef>
+          <ForwardRef
+            borderTopColor="lightGrey"
+            borderTopWidth={2}
+            flex={1}
+            justifyContent="flex-end"
+            mt={4}
+            pb={6}
+            pt={8}
+          >
+            <Markdown
+              pb={4}
+            >
+              ### Ready to continue? 
+ Please make sure all of the above criteria are answered correctly. This is essential to the integreity of the your data.
+            </Markdown>
+            <Button
+              label="Continue"
+              onPress={[Function]}
+              testID="ContinueButton"
+              variant="primary"
+            />
+            <Button
+              label="Exit Experiment"
+              onPress={[Function]}
+              testID="ExitButton"
+              variant="exit"
+            />
+          </ForwardRef>
+        </ForwardRef>,
+        "minHeight": "100%",
+        "paddingBottom": 0,
+        "paddingTop": 0,
+        "style": Array [
+          Object {
+            "display": "flex",
+          },
+        ],
       }
-    >
+    }
+    contentInset={
+      Object {
+        "bottom": 0,
+        "top": 0,
+      }
+    }
+    contentInsetAdjustmentBehavior="never"
+    style={
+      Array [
+        Object {
+          "display": "flex",
+        },
+      ]
+    }
+  >
+    <View>
       <View
         style={
           Array [
@@ -722,8 +834,11 @@ exports[`Text Renders Correctly 1`] = `
                 "borderTopColor": "#e4e9ed",
                 "borderTopWidth": 2,
                 "display": "flex",
+                "flex": 1,
+                "justifyContent": "flex-end",
+                "marginTop": 16,
                 "paddingBottom": 24,
-                "paddingTop": 24,
+                "paddingTop": 32,
               },
             ]
           }
@@ -922,7 +1037,7 @@ exports[`Text Renders Correctly 1`] = `
           </View>
         </View>
       </View>
-    </RCTSafeAreaView>
-  </View>
-</RCTScrollView>
+    </View>
+  </RCTScrollView>
+</RNCSafeAreaProvider>
 `;

@@ -1,13 +1,13 @@
 import { render, fireEvent } from '@testing-library/react-native'
-import { FlareThemeProvider } from '@utils/theme'
 import { TermsScreen } from '@screens'
 import { exampleTermsDefinition } from '@utils/exampleExperiment'
+import { TestProvider } from '@utils/TestProvider'
 
 test('Text Renders Correctly', () => {
   const tree = render(
-    <FlareThemeProvider>
+    <TestProvider>
       <TermsScreen {...exampleTermsDefinition} />
-    </FlareThemeProvider>,
+    </TestProvider>,
   ).toJSON()
 
   expect(tree).toMatchSnapshot()
@@ -20,13 +20,13 @@ test('Calls Props on button press', () => {
 
   // Render screen
   const { queryByTestId } = render(
-    <FlareThemeProvider>
+    <TestProvider>
       <TermsScreen
         {...exampleTermsDefinition}
         onAccept={onAccept}
         onExit={onExit}
       />
-    </FlareThemeProvider>,
+    </TestProvider>,
   )
 
   // Capture all elements

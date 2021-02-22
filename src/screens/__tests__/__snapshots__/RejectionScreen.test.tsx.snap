@@ -1,34 +1,110 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Text Renders Correctly 1`] = `
-<RCTScrollView
-  alwaysBounceVertical={false}
-  bounces={false}
-  bouncesZoom={false}
-  contentContainerStyle={
-    Object {
-      "flexGrow": 1,
-    }
-  }
-  contentInsetAdjustmentBehavior="automatic"
+<RNCSafeAreaProvider
+  onInsetsChange={[Function]}
   style={
-    Object {
-      "backgroundColor": "#70C1B3",
-      "flex": 1,
-      "height": "100%",
-    }
+    Array [
+      Object {
+        "flex": 1,
+      },
+      undefined,
+    ]
   }
 >
-  <View>
-    <RCTSafeAreaView
-      emulateUnlessSupported={true}
-      flex={1}
-      style={
-        Array [
-          Object {},
-        ]
+  <RCTScrollView
+    alwaysBounceHorizontal={false}
+    alwaysBounceVertical={false}
+    automaticallyAdjustContentInsets={false}
+    contentContainerStyle={
+      Object {
+        "children": <ForwardRef
+          alignItems="center"
+          flex={1}
+          flexDirection="column"
+          pt={
+            Object {
+              "m": 8,
+              "s": 2,
+            }
+          }
+          px={6}
+        >
+          <ForwardRef
+            alignItems="center"
+            flexDirection="row"
+            justifyContent="center"
+            width="100%"
+          >
+            <ForwardRef
+              height="100%"
+              maxHeight={150}
+              maxWidth={150}
+              opacity={0.8}
+              resizeMode="contain"
+              source={1}
+              width="100%"
+            />
+          </ForwardRef>
+          <ForwardRef
+            mt={8}
+            variant="heading"
+          >
+            Thank you for your interest in the FLARe app.
+          </ForwardRef>
+          <ForwardRef
+            width="100%"
+          >
+            <ForwardRef
+              color="darkGrey"
+              fontSize={18}
+              fontWeight="500"
+              mt={2}
+              p={0}
+            />
+          </ForwardRef>
+          <ForwardRef
+            flex={1}
+            flexDirection="column"
+            height="100%"
+            justifyContent="flex-end"
+            mt={6}
+            pb={6}
+          >
+            <Button
+              label="Exit Experiment"
+              onPress={[Function]}
+              testID="ExitButton"
+              variant="primary"
+            />
+          </ForwardRef>
+        </ForwardRef>,
+        "minHeight": "100%",
+        "paddingBottom": 0,
+        "paddingTop": 0,
+        "style": Array [
+          Object {
+            "display": "flex",
+          },
+        ],
       }
-    >
+    }
+    contentInset={
+      Object {
+        "bottom": 0,
+        "top": 0,
+      }
+    }
+    contentInsetAdjustmentBehavior="never"
+    style={
+      Array [
+        Object {
+          "display": "flex",
+        },
+      ]
+    }
+  >
+    <View>
       <View
         style={
           Array [
@@ -188,7 +264,7 @@ exports[`Text Renders Correctly 1`] = `
           </View>
         </View>
       </View>
-    </RCTSafeAreaView>
-  </View>
-</RCTScrollView>
+    </View>
+  </RCTScrollView>
+</RNCSafeAreaProvider>
 `;
