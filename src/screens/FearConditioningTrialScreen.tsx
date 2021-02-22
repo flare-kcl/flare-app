@@ -150,6 +150,10 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
       mountedTimerRef.current = new PauseableTimer(() => {
         // Set timer for sound, 500ms before end
         soundTimerRef.current = new PauseableTimer(async () => {
+          // Hide scale
+          setShowScale(false)
+
+          // Play sound
           if (reinforced) {
             await unconditionalStimulus.playSound()
             finishTrial(0)
