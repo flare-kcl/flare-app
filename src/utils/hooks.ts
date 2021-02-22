@@ -4,6 +4,7 @@ import { Audio } from 'expo-av'
 import * as Sentry from '@sentry/react-native'
 import { experimentSelector } from '@redux/selectors'
 import AudioSensor from './AudioSensor'
+import { Alert } from 'react-native'
 
 Audio.setAudioModeAsync({
   allowsRecordingIOS: false,
@@ -56,7 +57,7 @@ export const useUnconditionalStimulus = ():
 
               const onSoundFinished = async () => {
                 // Stop any playback
-                sound.stopAsync()
+                await sound.stopAsync()
                 // Regain focus to audio sensor
                 AudioSensor.focus()
                 // Resolve function
@@ -70,7 +71,10 @@ export const useUnconditionalStimulus = ():
                 }
 
                 // Resolve if audio has suprassed 1000ms
-                if (update.positionMillis >= 1000) {
+                if (
+                  update.positionMillis >= 1000 &&
+                  status.durationMillis > 1000
+                ) {
                   onSoundFinished()
                 }
               })
@@ -94,6 +98,7 @@ export const useUnconditionalStimulus = ():
           // Record error
           Sentry.captureMessage(err)
           console.error(err)
+          Alert.alert('DEBUG: Audio file failed to load.')
 
           // Return invalid sound object
           return resolve({
