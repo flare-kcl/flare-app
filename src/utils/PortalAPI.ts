@@ -216,14 +216,14 @@ export class PortalAPI {
 
 type PortalTermsSubmission = {
   participant: string
-  did_agree: boolean
+  agreed: boolean
 }
 
 type PortalTrackingSubmission = {
   module: string
   participant: string
   trial_index: number | undefined
-  rejection_reason: string | undefined
+  lock_reason: string | undefined
 }
 
 type PortalTrialRatingSubmission = {

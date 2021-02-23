@@ -102,7 +102,7 @@ export const syncExperimentProgress = async (
   PortalAPI.submitProgress({
     module: experiment.rejectionReason == undefined ? mod.moduleId : undefined,
     participant: experiment.participantID,
-    rejection_reason: experiment.rejectionReason,
+    lock_reason: experiment.rejectionReason,
     trial_index:
       mod.moduleType === 'FEAR_CONDITIONING'
         ? mod.moduleState.trials.filter((trial) => trial.response !== undefined)
@@ -218,7 +218,7 @@ const syncTermsModule = async (
   try {
     await PortalAPI.submitTermsAgree({
       participant: experiment.participantID,
-      did_agree: mod.moduleState.agreed ?? false,
+      agreed: mod.moduleState.agreed ?? false,
     })
     onModuleSync()
   } catch (err) {

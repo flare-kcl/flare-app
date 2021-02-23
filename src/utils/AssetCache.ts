@@ -67,6 +67,11 @@ export default class AssetCache {
         return
       }
 
+      // Check if file exists
+      if (AssetCache.fileMap[url] != null) {
+        return AssetCache.fileMap[url]
+      }
+
       // Download file async
       const { uri } = await FileSystem.downloadAsync(
         url,
