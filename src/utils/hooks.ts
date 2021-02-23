@@ -11,8 +11,8 @@ Audio.setAudioModeAsync({
   staysActiveInBackground: true,
   interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_MIX_WITH_OTHERS,
   playsInSilentModeIOS: true,
-  shouldDuckAndroid: false,
-  interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DUCK_OTHERS,
+  shouldDuckAndroid: true,
+  interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
   playThroughEarpieceAndroid: false,
 })
 
@@ -42,13 +42,14 @@ export const useUnconditionalStimulus = ():
             {
               volume: volume,
               shouldPlay: false,
+              androidImplementation: 'MediaPlayer',
+              progressUpdateIntervalMillis: 10,
             },
           )
 
           // Get Duration of sound (max 1000ms)
           const status = await sound.getStatusAsync()
-          const duration =
-            status.durationMillis <= 1000 ? status.durationMillis : 1000
+          const duration = status.durationMillis <= 1000 ? status.durationMillis : 1000
 
           const playSound = async (): Promise<Boolean> => {
             return new Promise(async (resolve, reject) => {
@@ -72,12 +73,12 @@ export const useUnconditionalStimulus = ():
                 }
 
                 // Resolve if audio has suprassed 1000ms
-                // if (
-                //   update.positionMillis >= 1000 &&
-                //   status.durationMillis > 1000
-                // ) {
-                //   onSoundFinished()
-                // }
+                if (
+                  update.positionMillis >= 1000 &&
+                  status.durationMillis > 1000
+                ) {
+                  onSoundFinished()
+                }
               })
             })
           }
@@ -118,7 +119,7 @@ export const useUnconditionalStimulus = ():
     }
 
     // Create Audio Refernece
-    if (experiment.definition != null) {
+    if (experiment.definition != null && !loaded) {
       getAudioRef().then((ref) => {
         audioRef.current = ref
         setLoaded(true)
