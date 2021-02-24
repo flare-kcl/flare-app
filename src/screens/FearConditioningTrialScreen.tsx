@@ -193,7 +193,13 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
     return (
       <SafeAreaView flex={1}>
         {/* Show marker when delaying trial */}
-        {showTrial === false && <Interval />}
+        {showTrial === false && (
+          <Box height="55%">
+            <TrialImageStack
+              stimulusImage={require('../assets/images/ITI.png')}
+            />
+          </Box>
+        )}
 
         {/* Set opacity to zero during inter-trial delay to enable loading of images */}
         <Box flex={1} opacity={showTrial ? 1 : 0}>

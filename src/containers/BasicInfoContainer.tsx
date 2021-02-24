@@ -37,7 +37,6 @@ const DEFAULT_GENDERS = [
   { label: 'Prefer to self-define', value: 'self_define' },
   { label: "Don't know", value: 'dont_know' },
   { label: 'Prefer not to answer', value: 'no_answer' },
-  { label: 'Other', value: 'other' },
 ]
 
 export const BasicInfoContainer: ExperimentModule<BasicInfoContainerState> = ({

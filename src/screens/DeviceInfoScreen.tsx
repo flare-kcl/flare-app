@@ -56,7 +56,7 @@ export const DeviceInfoScreen: React.FunctionComponent<DeviceInfoScreenProps> = 
 
   return (
     <ScrollView>
-      <Box flex={1} pt={10} px={6} pb={6}>
+      <Box flex={1} pt={10} px={{ s: 3, m: 6 }} pb={6}>
         <Text variant="heading">Your information</Text>
         <Text variant="heading3">Please enter your details below</Text>
         {shouldCollectDob && (

@@ -98,17 +98,25 @@ export const syncExperimentProgress = async (
   const state = getState()
   const experiment = state.experiment
   const mod = currentModuleSelector(state)
+  const moduleIsLocal = !!experiment.definition.modules.find(
+    ({ id }) => id == mod.moduleId,
+  )
 
-  PortalAPI.submitProgress({
-    module: experiment.rejectionReason == undefined ? mod.moduleId : undefined,
-    participant: experiment.participantID,
-    lock_reason: experiment.rejectionReason,
-    trial_index:
-      mod.moduleType === 'FEAR_CONDITIONING'
-        ? mod.moduleState.trials.filter((trial) => trial.response !== undefined)
-            .length + 1
-        : undefined,
-  })
+  // Submit module data aslong as it has a real ID.
+  if (moduleIsLocal) {
+    PortalAPI.submitProgress({
+      module:
+        experiment.rejectionReason == undefined ? mod.moduleId : undefined,
+      participant: experiment.participantID,
+      lock_reason: experiment.rejectionReason,
+      trial_index:
+        mod?.moduleType === 'FEAR_CONDITIONING'
+          ? mod?.moduleState.trials.filter(
+              (trial) => trial.response !== undefined,
+            ).length + 1
+          : undefined,
+    })
+  }
 }
 
 type ModuleSyncCallback = () => void

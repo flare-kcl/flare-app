@@ -17,7 +17,7 @@ export const NotificationsScreen: React.FunctionComponent<IntervalExplainationSc
         flex={1}
         alignItems="center"
         justifyContent="flex-start"
-        pt={{ s: 8 }}
+        pt={{ s: 0, m: 8 }}
         px={6}
       >
         <Text variant="instructionHeading" mt={10} mb={5}>

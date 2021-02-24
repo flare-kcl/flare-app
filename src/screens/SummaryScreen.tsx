@@ -93,7 +93,7 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
         pt={8}
         px={5}
       >
-        <Box alignItems="center" mb={24}>
+        <Box alignItems="center" mb={8}>
           <Text variant="heading" mb={5}>
             Experiment Upload
           </Text>
@@ -119,10 +119,12 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
               />
             )
           )}
-        </Box>
 
-        {/* Show connection status */}
-        {!netInfo.isInternetReachable && !allModulesSynced && <NetworkError />}
+          {/* Show connection status */}
+          {!netInfo.isInternetReachable && !allModulesSynced && (
+            <NetworkError />
+          )}
+        </Box>
 
         <Box flex={1} justifyContent="flex-end" pb={6}>
           <Button

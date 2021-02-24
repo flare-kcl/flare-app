@@ -16,8 +16,7 @@ export const palette = {
   darkGrey: '#212529',
   lightGrey: '#e4e9ed',
   black: '#0B0B0B',
-  white: '#F0F2F3',
-  pureWhite: '#FFFF',
+  white: '#FFFF',
 }
 
 export const theme = createTheme({
@@ -113,7 +112,7 @@ export const theme = createTheme({
     buttonLabel: {
       fontFamily: 'Inter-SemiBold',
       fontSize: 20,
-      color: 'pureWhite',
+      color: 'white',
     },
     instructionHeading: {
       fontFamily: 'Inter',

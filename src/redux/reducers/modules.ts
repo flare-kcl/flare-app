@@ -7,6 +7,7 @@ export type ExperimentModuleCache<StateType = any> = {
   moduleState: StateType
   moduleCompleted?: boolean
   moduleSynced?: boolean
+  offlineOnly?: boolean
 }
 
 export const updateModule = createAction<ExperimentModuleCache>('module/update')

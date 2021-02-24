@@ -201,7 +201,7 @@ async function loginWithID(participantID: string, dispatch) {
 
     // Check if Participant ID is incorrect
     if (experimentApiData.participant) {
-      return Promise.reject(experimentApiData.participant[0])
+      return Promise.reject(experimentApiData.participant)
     }
 
     // Parse experiment modules

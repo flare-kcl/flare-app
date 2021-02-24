@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from 'react'
 import { EmitterSubscription } from 'react-native'
-import { Box, Text, Button, ScrollView } from '@components'
+import { Box, Text, Button } from '@components'
 import AudioSensor from '@utils/AudioSensor'
 
 type VolumeInstructionScreenProps = {
@@ -59,9 +59,13 @@ export const VolumeInstructionScreen: React.FunctionComponent<VolumeInstructionS
         <Text variant="caption2" px={6} mb={3} textAlign="center">
           Set your volume to 100% to continue
         </Text>
-        {volume === 1 && (
-          <Button variant="primary" label="Next" onPress={onNext} />
-        )}
+        <Button
+          variant="primary"
+          label="Next"
+          onPress={onNext}
+          opacity={volume === 1 ? 1 : 0}
+          disabled={volume < 1}
+        />
       </Box>
     </Box>
   )

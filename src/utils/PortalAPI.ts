@@ -17,7 +17,7 @@ export class PortalAPI {
     })
   }
 
-  static async reportValidationError(rawResponse: Response) {
+  static async reportValidationError(submissionData, rawResponse: Response) {
     // Decode response to JSON, and if not encodeable text
     let response = null
     try {
@@ -27,7 +27,7 @@ export class PortalAPI {
         Object.keys(response).length == 1 &&
         response['non_field_errors'] !== undefined
       ) {
-        console.warn('Duplicate object exists')
+        console.warn(response)
         return
       }
     } catch {
@@ -35,11 +35,14 @@ export class PortalAPI {
     }
 
     // Report issue via Sentry
-    console.warn(response)
     const errMessage = 'Portal API sync validation issue'
     Sentry.captureMessage(errMessage, {
       contexts: {
+        request: {
+          url: rawResponse.url,
+        },
         response,
+        submissionData,
       },
     })
 
@@ -54,7 +57,7 @@ export class PortalAPI {
 
     // If validation error
     if (response.status === 400) {
-      PortalAPI.reportValidationError(response)
+      PortalAPI.reportValidationError(jsonData, response)
     }
   }
 
@@ -68,7 +71,7 @@ export class PortalAPI {
 
     // If validation error
     if (response.status === 400) {
-      PortalAPI.reportValidationError(response)
+      PortalAPI.reportValidationError(jsonData, response)
     }
   }
 
@@ -82,7 +85,7 @@ export class PortalAPI {
 
     // If validation error
     if (response.status === 400) {
-      PortalAPI.reportValidationError(response)
+      PortalAPI.reportValidationError(jsonData, response)
     }
   }
 
@@ -98,7 +101,7 @@ export class PortalAPI {
 
     // If validation error
     if (response.status === 400) {
-      PortalAPI.reportValidationError(response)
+      PortalAPI.reportValidationError(jsonData, response)
     }
   }
 
@@ -111,7 +114,7 @@ export class PortalAPI {
 
     // If validation error
     if (response.status === 400) {
-      PortalAPI.reportValidationError(response)
+      PortalAPI.reportValidationError(jsonData, response)
     }
   }
 
@@ -125,7 +128,7 @@ export class PortalAPI {
 
     // If validation error
     if (response.status === 400) {
-      PortalAPI.reportValidationError(response)
+      PortalAPI.reportValidationError(jsonData, response)
     }
   }
 
@@ -139,7 +142,7 @@ export class PortalAPI {
 
     // If validation error
     if (response.status === 400) {
-      PortalAPI.reportValidationError(response)
+      PortalAPI.reportValidationError(jsonData, response)
     }
   }
 
@@ -155,7 +158,7 @@ export class PortalAPI {
 
     // If validation error
     if (response.status === 400) {
-      PortalAPI.reportValidationError(response)
+      PortalAPI.reportValidationError(jsonData, response)
     }
   }
 
@@ -169,7 +172,7 @@ export class PortalAPI {
 
     // If validation error
     if (response.status === 400) {
-      PortalAPI.reportValidationError(response)
+      PortalAPI.reportValidationError(jsonData, response)
     }
   }
 
@@ -180,7 +183,7 @@ export class PortalAPI {
 
     // If validation error
     if (response.status === 400) {
-      PortalAPI.reportValidationError(response)
+      PortalAPI.reportValidationError(jsonData, response)
     }
   }
 
@@ -196,7 +199,7 @@ export class PortalAPI {
 
     // If validation error
     if (response.status === 400) {
-      PortalAPI.reportValidationError(response)
+      PortalAPI.reportValidationError(jsonData, response)
     }
   }
 
@@ -207,7 +210,7 @@ export class PortalAPI {
 
     // If validation error
     if (response.status === 400) {
-      PortalAPI.reportValidationError(response)
+      PortalAPI.reportValidationError(jsonData, response)
     }
 
     return await response.json()

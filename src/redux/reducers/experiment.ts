@@ -80,6 +80,7 @@ export const experimentReducer = createReducer<ExperimentCache>(
     builder.addCase(clearExperiment, (state) => {
       return {
         ...initialState,
+        participantID: state.participantID,
         contactEmail: state.contactEmail,
       }
     })

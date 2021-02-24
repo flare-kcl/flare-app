@@ -68,7 +68,7 @@ const HeadphoneButton = ({ active, image, label, onPress }) => {
     >
       <Box
         borderRadius="s"
-        backgroundColor="pureWhite"
+        backgroundColor="white"
         height={60}
         width={60}
         alignItems="center"

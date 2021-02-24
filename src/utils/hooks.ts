@@ -34,7 +34,7 @@ export const useUnconditionalStimulus = ():
 
   useEffect(() => {
     const getAudioRef = (): Promise<UnconditionalStimulusRef> => {
-      return new Promise(async (resolve, _) => {
+      return new Promise(async (resolve, reject) => {
         try {
           // Load sound with stored volume
           const { sound } = await Audio.Sound.createAsync(
@@ -49,7 +49,8 @@ export const useUnconditionalStimulus = ():
 
           // Get Duration of sound (max 1000ms)
           const status = await sound.getStatusAsync()
-          const duration = status.durationMillis <= 1000 ? status.durationMillis : 1000
+          const duration =
+            status.durationMillis <= 1000 ? status.durationMillis : 1000
 
           const playSound = async (): Promise<Boolean> => {
             return new Promise(async (resolve, reject) => {
@@ -99,7 +100,7 @@ export const useUnconditionalStimulus = ():
         } catch (err) {
           // Record error
           Sentry.captureMessage(err)
-          console.error(err)
+          reject(err)
 
           // Return invalid sound object
           return resolve({

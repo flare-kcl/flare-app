@@ -40,7 +40,7 @@ export const TextScreen: React.FunctionComponent<TextScreenProps> = ({
             backgroundColor="purple"
             onPress={onNext}
             textProps={{
-              color: 'pureWhite',
+              color: 'white',
             }}
           />
         </Box>

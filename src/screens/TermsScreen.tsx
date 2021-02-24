@@ -1,6 +1,4 @@
-import { ScrollView } from 'react-native-gesture-handler'
-
-import { Box, Button, Markdown, SafeAreaView } from '@components'
+import { Box, Button, Markdown, ScrollView } from '@components'
 
 export type TermsScreenParams = {
   terms: string
@@ -14,28 +12,27 @@ export const TermsScreen: React.FunctionComponent<TermsScreenParams> = ({
   onExit,
 }) => {
   return (
-    <ScrollView
-      contentInsetAdjustmentBehavior="automatic"
-      style={{
-        position: 'absolute',
-        height: '100%',
-      }}
-    >
+    <ScrollView>
       {/* Terms and Condition Text */}
-      <Box pt={10} px={6} pb={6}>
-        <Markdown mb={4}>{terms}</Markdown>
-        <Button
-          testID="AcceptButton"
-          label="I Accept T&Cs"
-          variant="primary"
-          onPress={() => onAccept()}
-        />
-        <Button
-          testID="ExitButton"
-          label="Decline and Exit"
-          variant="exit"
-          onPress={() => onExit()}
-        />
+      <Box flex={1} pt={10} px={6}>
+        <Box>
+          <Markdown mb={4}>{terms}</Markdown>
+        </Box>
+
+        <Box flex={1} justifyContent="flex-end" pb={6}>
+          <Button
+            testID="AcceptButton"
+            label="I Accept T&Cs"
+            variant="primary"
+            onPress={() => onAccept()}
+          />
+          <Button
+            testID="ExitButton"
+            label="Decline and Exit"
+            variant="exit"
+            onPress={() => onExit()}
+          />
+        </Box>
       </Box>
     </ScrollView>
   )

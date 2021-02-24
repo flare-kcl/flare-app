@@ -1,4 +1,11 @@
-import { Box, Text, Button, Interval, ScrollView } from '@components'
+import {
+  Box,
+  Text,
+  Button,
+  Interval,
+  ScrollView,
+  TrialImageStack,
+} from '@components'
 
 type IntervalExplainationScreenProps = {
   description: string
@@ -21,11 +28,9 @@ export const IntervalExplainationScreen: React.FunctionComponent<IntervalExplain
       }}
       px={6}
     >
-      <Box height="25%" alignItems="center" justifyContent="center">
-        <Interval />
-      </Box>
+      <TrialImageStack stimulusImage={require('../assets/images/ITI.png')} />
 
-      <Text variant="instructionDescription" mt={24}>
+      <Text variant="instructionDescription" mt={0}>
         {description}
       </Text>
 
