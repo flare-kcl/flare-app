@@ -110,7 +110,7 @@ export const InstructionsContainer: ExperimentModule<InstructionsModuleState> = 
   }
 
   return (
-    <ScrollView>
+    <ScrollView backgroundColor="white">
       <Stepper
         color="purple"
         stageLabel="Setup instructions"

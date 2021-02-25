@@ -119,7 +119,7 @@ export const TaskInstructionsContainer: ExperimentModule<TaskInstructionsModuleS
   }
 
   return (
-    <ScrollView>
+    <ScrollView backgroundColor="white">
       <Stepper
         color="teal"
         stageLabel="Task Instructions"
