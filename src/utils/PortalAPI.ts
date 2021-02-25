@@ -47,7 +47,8 @@ export class PortalAPI {
     })
 
     // Raise error to stop module sync flag being incorrect
-    throw new Error(errMessage)
+    console.error(JSON.stringify(response))
+    throw new Error(response)
   }
 
   static async submitProgress(trackingSubmission: PortalTrackingSubmission) {
@@ -233,8 +234,11 @@ type PortalTrialRatingSubmission = {
   module: string
   participant: string
   trial: number
+  trial_by_stimulus: number
   rating: number
-  conditional_stimulus: string
+  stimulus: string
+  normalised_stimulus: string
+  reinforced_stimulus: string
   unconditional_stimulus: boolean
   trial_started_at: string
   response_recorded_at: string
@@ -270,6 +274,7 @@ type AffectiveRatingSubmission = {
   module: string
   rating: number
   stimulus: string
+  normalised_stimulus: string
 }
 
 type CalibratedVolumeSubmission = {

@@ -49,6 +49,7 @@ export const QuestionsScreen: React.FC<QuestionScreenProps> = ({
 
     if (
       id === 'didRemoveHeadphones' &&
+      answers.didRemoveHeadphones == true &&
       answers.headphonesRemovalReason == null
     ) {
       return true
