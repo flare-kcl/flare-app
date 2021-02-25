@@ -99,7 +99,7 @@ export const syncExperimentProgress = async (
   const experiment = state.experiment
   const mod = currentModuleSelector(state)
   const moduleIsLocal = !!Object.values(state.modules).find(
-    (mod: ExperimentModuleCache) => mod.shouldSyncProgress
+    (mod: ExperimentModuleCache) => mod.shouldSyncProgress,
   )
 
   // Submit module data aslong as it has a real ID.
@@ -142,7 +142,8 @@ const syncFearConditioningModule = async (
           rating: trial.response?.rating,
           stimulus: trial.label,
           normalised_stimulus: trial.normalisedLabel,
-          reinforced_stimulus: experiment.definition.conditionalStimuli['cs+'].label,
+          reinforced_stimulus:
+            experiment.definition.conditionalStimuli['cs+'].label,
           unconditional_stimulus: trial.reinforced,
           trial_started_at: new Date(trial.response?.startTime).toISOString(),
           response_recorded_at:
@@ -250,7 +251,7 @@ const syncAffectiveRatingModule = async (
           module: mod.moduleId,
           rating: stimuli.response?.rating,
           stimulus: stimuli.label,
-          normalised_stimulus: stimuli.normalisedLabel
+          normalised_stimulus: stimuli.normalisedLabel,
         })
       }),
     )

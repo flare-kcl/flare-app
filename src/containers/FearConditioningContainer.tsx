@@ -24,8 +24,8 @@ export type FearConditioningModuleState = {
 
 export type Trial = {
   label: string
-  stimulusIndex: number,
-  normalisedLabel: string,
+  stimulusIndex: number
+  normalisedLabel: string
   stimulusImage: any
   reinforced: boolean
   response?: FearConditioningTrialResponse
@@ -280,15 +280,15 @@ export function generateTrials(
   // Add 'trial_by_stimulus' label
   // Keep index references of each stimulus label
   let trialIndex = {
-    'csa': 0,
-    'csb': 0,
-    'gsa': 0,
-    'gsb': 0,
-    'gsc': 0,
-    'gsd': 0,
+    csa: 0,
+    csb: 0,
+    gsa: 0,
+    gsb: 0,
+    gsc: 0,
+    gsd: 0,
   }
 
-  orderedTrials = orderedTrials.map(trial => {
+  orderedTrials = orderedTrials.map((trial) => {
     // Calculate index for each trial
     const stimulusIndex = trialIndex[trial.label]
     trialIndex[trial.label] = trialIndex[trial.label] + 1

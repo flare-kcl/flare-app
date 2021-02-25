@@ -27,11 +27,12 @@ export const AffectiveRatingContainer: ExperimentModule<AffectiveRatingModuleSta
       updateModule({
         currentStimuliIndex: 0,
         stimuli: generateTrials(
-          1, 0,
+          1,
+          0,
           experiment.definition.conditionalStimuli['cs+'],
           experiment.definition.conditionalStimuli['cs-'],
-          experiment.definition.generalisationStimuli
-        )
+          experiment.definition.generalisationStimuli,
+        ),
       })
     }
   }, [])
@@ -43,20 +44,18 @@ export const AffectiveRatingContainer: ExperimentModule<AffectiveRatingModuleSta
   const stimulus = mod.stimuli[mod.currentStimuliIndex]
   function onRatingComplete(rating: number) {
     // Update array with response
-    const updatedStimuli = mod.stimuli.map(
-      (stimuli, index) => {
-        if (index === mod.currentStimuliIndex) {
-          return {
-            ...stimuli,
-            response: {
-              rating
-            }
-          } as Trial
-        }
+    const updatedStimuli = mod.stimuli.map((stimuli, index) => {
+      if (index === mod.currentStimuliIndex) {
+        return {
+          ...stimuli,
+          response: {
+            rating,
+          },
+        } as Trial
+      }
 
-        return stimuli
-      },
-    )
+      return stimuli
+    })
 
     // Increment until the end of stimuli
     if (mod.currentStimuliIndex === mod.stimuli.length - 1) {
