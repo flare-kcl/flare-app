@@ -13,15 +13,63 @@ exports[`Text Renders Correctly 1`] = `
   }
 >
   <RCTScrollView
-    collapsable={false}
-    contentInsetAdjustmentBehavior="automatic"
-    onGestureHandlerEvent={[Function]}
-    onGestureHandlerStateChange={[Function]}
-    style={
+    alwaysBounceHorizontal={false}
+    alwaysBounceVertical={false}
+    automaticallyAdjustContentInsets={false}
+    contentContainerStyle={
       Object {
-        "height": "100%",
-        "position": "absolute",
+        "children": <ForwardRef
+          flex={1}
+          pt={10}
+          px={6}
+        >
+          <ForwardRef>
+            <Markdown
+              mb={4}
+            />
+          </ForwardRef>
+          <ForwardRef
+            flex={1}
+            justifyContent="flex-end"
+            pb={6}
+          >
+            <Button
+              label="I Accept T&Cs"
+              onPress={[Function]}
+              testID="AcceptButton"
+              variant="primary"
+            />
+            <Button
+              label="Decline and Exit"
+              onPress={[Function]}
+              testID="ExitButton"
+              variant="exit"
+            />
+          </ForwardRef>
+        </ForwardRef>,
+        "minHeight": "100%",
+        "paddingBottom": 0,
+        "paddingTop": 0,
+        "style": Array [
+          Object {
+            "display": "flex",
+          },
+        ],
       }
+    }
+    contentInset={
+      Object {
+        "bottom": 0,
+        "top": 0,
+      }
+    }
+    contentInsetAdjustmentBehavior="never"
+    style={
+      Array [
+        Object {
+          "display": "flex",
+        },
+      ]
     }
   >
     <View>
@@ -30,7 +78,7 @@ exports[`Text Renders Correctly 1`] = `
           Array [
             Object {
               "display": "flex",
-              "paddingBottom": 24,
+              "flex": 1,
               "paddingHorizontal": 24,
               "paddingTop": 40,
             },
@@ -38,116 +86,138 @@ exports[`Text Renders Correctly 1`] = `
         }
       >
         <View
-          accessible={true}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
           style={
-            Object {
-              "flex": 0,
-              "flexDirection": "row",
-              "opacity": 1,
-              "width": "100%",
-            }
+            Array [
+              Object {
+                "display": "flex",
+              },
+            ]
           }
-          testID="AcceptButton"
-        >
-          <View
-            style={
-              Array [
-                Object {
-                  "alignItems": "center",
-                  "display": "flex",
-                  "justifyContent": "center",
-                  "width": "100%",
-                },
-                Array [
-                  Object {
-                    "backgroundColor": "#5E44AE",
-                    "borderRadius": 8,
-                    "height": 60,
-                    "marginTop": 8,
-                    "paddingVertical": 16,
-                  },
-                ],
-              ]
-            }
-          >
-            <Text
-              style={
-                Array [
-                  Object {
-                    "color": "#FFFF",
-                    "display": "flex",
-                    "fontFamily": "Inter-SemiBold",
-                    "fontSize": 20,
-                  },
-                ]
-              }
-            >
-              I Accept T&Cs
-            </Text>
-          </View>
-        </View>
+        />
         <View
-          accessible={true}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
           style={
-            Object {
-              "flex": 0,
-              "flexDirection": "row",
-              "opacity": 1,
-              "width": "100%",
-            }
+            Array [
+              Object {
+                "display": "flex",
+                "flex": 1,
+                "justifyContent": "flex-end",
+                "paddingBottom": 24,
+              },
+            ]
           }
-          testID="ExitButton"
         >
           <View
+            accessible={true}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
             style={
-              Array [
-                Object {
-                  "alignItems": "center",
-                  "display": "flex",
-                  "justifyContent": "center",
-                  "width": "100%",
-                },
-                Array [
-                  Object {
-                    "backgroundColor": "#ff4757",
-                    "borderRadius": 8,
-                    "marginTop": 8,
-                    "paddingVertical": 16,
-                  },
-                ],
-              ]
+              Object {
+                "flex": 0,
+                "flexDirection": "row",
+                "opacity": 1,
+                "width": "100%",
+              }
             }
+            testID="AcceptButton"
           >
-            <Text
+            <View
               style={
                 Array [
                   Object {
-                    "color": "#FFFF",
+                    "alignItems": "center",
                     "display": "flex",
-                    "fontFamily": "Inter-SemiBold",
-                    "fontSize": 20,
+                    "justifyContent": "center",
+                    "width": "100%",
                   },
+                  Array [
+                    Object {
+                      "backgroundColor": "#5E44AE",
+                      "borderRadius": 8,
+                      "height": 60,
+                      "marginTop": 8,
+                      "paddingVertical": 16,
+                    },
+                  ],
                 ]
               }
             >
-              Decline and Exit
-            </Text>
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "color": "#FFFF",
+                      "display": "flex",
+                      "fontFamily": "Inter-SemiBold",
+                      "fontSize": 20,
+                    },
+                  ]
+                }
+              >
+                I Accept T&Cs
+              </Text>
+            </View>
+          </View>
+          <View
+            accessible={true}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "flex": 0,
+                "flexDirection": "row",
+                "opacity": 1,
+                "width": "100%",
+              }
+            }
+            testID="ExitButton"
+          >
+            <View
+              style={
+                Array [
+                  Object {
+                    "alignItems": "center",
+                    "display": "flex",
+                    "justifyContent": "center",
+                    "width": "100%",
+                  },
+                  Array [
+                    Object {
+                      "backgroundColor": "#ff4757",
+                      "borderRadius": 8,
+                      "marginTop": 8,
+                      "paddingVertical": 16,
+                    },
+                  ],
+                ]
+              }
+            >
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "color": "#FFFF",
+                      "display": "flex",
+                      "fontFamily": "Inter-SemiBold",
+                      "fontSize": 20,
+                    },
+                  ]
+                }
+              >
+                Decline and Exit
+              </Text>
+            </View>
           </View>
         </View>
       </View>
