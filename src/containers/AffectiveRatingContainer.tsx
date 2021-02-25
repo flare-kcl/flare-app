@@ -1,11 +1,7 @@
 import { ExperimentModule, VisualStimuli } from './ExperimentContainer'
 import { AffectiveRatingScreen } from '@screens'
-import shuffle from 'lodash/shuffle'
+import { generateTrials, Trial } from '@containers/FearConditioningContainer'
 import { useEffect } from 'react'
-
-export type AffectiveRatingResponse = VisualStimuli & {
-  rating?: number
-}
 
 export type AffectiveRatingModuleDefinition = {
   question: string
@@ -16,7 +12,7 @@ export type AffectiveRatingModuleDefinition = {
 }
 
 export type AffectiveRatingModuleState = AffectiveRatingModuleDefinition & {
-  stimuli?: AffectiveRatingResponse[]
+  stimuli?: Trial[]
   currentStimuliIndex?: number
 }
 
@@ -30,13 +26,12 @@ export const AffectiveRatingContainer: ExperimentModule<AffectiveRatingModuleSta
     if (mod.stimuli === undefined) {
       updateModule({
         currentStimuliIndex: 0,
-        stimuli: shuffle(
-          mod.generalisationStimuliEnabled
-            ? [
-                ...Object.values(experiment.definition.conditionalStimuli),
-                ...experiment.definition.generalisationStimuli,
-              ]
-            : experiment.definition.conditionalStimuli,
+        stimuli: generateTrials(
+          1,
+          0,
+          experiment.definition.conditionalStimuli['cs+'],
+          experiment.definition.conditionalStimuli['cs-'],
+          experiment.definition.generalisationStimuli,
         ),
       })
     }
@@ -46,22 +41,21 @@ export const AffectiveRatingContainer: ExperimentModule<AffectiveRatingModuleSta
   if (mod.stimuli === undefined) return null
 
   // Get the current stimuli
-  const stimulus: AffectiveRatingResponse = mod.stimuli[mod.currentStimuliIndex]
-
+  const stimulus = mod.stimuli[mod.currentStimuliIndex]
   function onRatingComplete(rating: number) {
     // Update array with response
-    const updatedStimuli = mod.stimuli.map(
-      (stimuli: AffectiveRatingResponse, index) => {
-        if (index === mod.currentStimuliIndex) {
-          return {
-            ...stimuli,
+    const updatedStimuli = mod.stimuli.map((stimuli, index) => {
+      if (index === mod.currentStimuliIndex) {
+        return {
+          ...stimuli,
+          response: {
             rating,
-          }
-        }
+          },
+        } as Trial
+      }
 
-        return stimuli
-      },
-    )
+      return stimuli
+    })
 
     // Increment until the end of stimuli
     if (mod.currentStimuliIndex === mod.stimuli.length - 1) {
@@ -80,7 +74,7 @@ export const AffectiveRatingContainer: ExperimentModule<AffectiveRatingModuleSta
     <AffectiveRatingScreen
       key={`af-trial-${stimulus.label}`}
       question={mod.question}
-      stimulusImage={stimulus.image}
+      stimulusImage={stimulus.stimulusImage}
       ratingScaleAnchorLabelCenter={mod.ratingScaleAnchorLabelCenter}
       ratingScaleAnchorLabelLeft={mod.ratingScaleAnchorLabelLeft}
       ratingScaleAnchorLabelRight={mod.ratingScaleAnchorLabelRight}

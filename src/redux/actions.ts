@@ -98,8 +98,8 @@ export const syncExperimentProgress = async (
   const state = getState()
   const experiment = state.experiment
   const mod = currentModuleSelector(state)
-  const moduleIsLocal = !!experiment.definition.modules.find(
-    ({ id }) => id == mod.moduleId,
+  const moduleIsLocal = !!Object.values(state.modules).find(
+    (mod: ExperimentModuleCache) => mod.shouldSyncProgress,
   )
 
   // Submit module data aslong as it has a real ID.
@@ -136,17 +136,21 @@ const syncFearConditioningModule = async (
         // Submit data to portal
         await PortalAPI.submitTrialRating({
           trial: index + 1,
+          trial_by_stimulus: trial.stimulusIndex + 1,
           module: mod.moduleId,
           participant: experiment.participantID,
           rating: trial.response?.rating,
-          conditional_stimulus: trial.label,
+          stimulus: trial.label,
+          normalised_stimulus: trial.normalisedLabel,
+          reinforced_stimulus:
+            experiment.definition.conditionalStimuli['cs+'].label,
           unconditional_stimulus: trial.reinforced,
           trial_started_at: new Date(trial.response?.startTime).toISOString(),
           response_recorded_at:
             trial.response?.decisionTime &&
             new Date(trial.response?.decisionTime).toISOString(),
-          volume_level: trial.response?.volume.toFixed(2),
-          calibrated_volume_level: experiment.volume.toFixed(2),
+          volume_level: trial.response?.volume?.toFixed(2),
+          calibrated_volume_level: experiment.volume?.toFixed(2),
           headphones: trial.response?.headphonesConnected,
         })
       }),
@@ -245,8 +249,9 @@ const syncAffectiveRatingModule = async (
         return PortalAPI.submitAffectiveRating({
           participant: experiment.participantID,
           module: mod.moduleId,
-          rating: stimuli.rating,
+          rating: stimuli.response?.rating,
           stimulus: stimuli.label,
+          normalised_stimulus: stimuli.normalisedLabel,
         })
       }),
     )

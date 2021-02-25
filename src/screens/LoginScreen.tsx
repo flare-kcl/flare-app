@@ -208,6 +208,7 @@ async function loginWithID(participantID: string, dispatch) {
     let modules = experimentApiData.modules.map(({ id, type, config }) => ({
       id,
       moduleType: type,
+      shouldSyncProgress: true,
       definition: camelcaseKeys(config, { deep: true }),
     }))
 
@@ -365,6 +366,7 @@ async function loginWithID(participantID: string, dispatch) {
         isComplete: false,
         contactEmail: experiment.contactEmail,
         notificationsEnabled: false,
+        volume: 1,
       }),
     )
   } catch (err) {

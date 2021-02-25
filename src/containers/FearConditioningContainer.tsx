@@ -22,8 +22,10 @@ export type FearConditioningModuleState = {
   currentTrialIndex: number
 }
 
-type Trial = {
+export type Trial = {
   label: string
+  stimulusIndex: number
+  normalisedLabel: string
   stimulusImage: any
   reinforced: boolean
   response?: FearConditioningTrialResponse
@@ -208,6 +210,7 @@ export function generateTrials(
     // Generate positive stimulus trial
     positiveStimuliTrials.push({
       label: positiveStimuli.label,
+      normalisedLabel: 'cs+',
       stimulusImage: positiveStimuli.image,
       reinforced: i < reinforcementRate,
     })
@@ -215,6 +218,7 @@ export function generateTrials(
     // Generate negative stimulus trial
     negativeStimuliTrials.push({
       label: negativeStimuli.label,
+      normalisedLabel: 'cs-',
       stimulusImage: negativeStimuli.image,
       reinforced: false,
     })
@@ -233,7 +237,8 @@ export function generateTrials(
       generalisationStimuliTrials.push(
         shuffle(
           generalisationStimuli.map((gs) => ({
-            label: `${gs.label}/${gsCoding[gs.label]}`,
+            label: gs.label,
+            normalisedLabel: 'gs' + gsCoding[gs.label],
             stimulusImage: gs.image,
             reinforced: false,
           })),
@@ -270,5 +275,29 @@ export function generateTrials(
   }
 
   // Return the generated trials.
-  return trialsHead.concat(trials)
+  let orderedTrials = trialsHead.concat(trials)
+
+  // Add 'trial_by_stimulus' label
+  // Keep index references of each stimulus label
+  let trialIndex = {
+    csa: 0,
+    csb: 0,
+    gsa: 0,
+    gsb: 0,
+    gsc: 0,
+    gsd: 0,
+  }
+
+  orderedTrials = orderedTrials.map((trial) => {
+    // Calculate index for each trial
+    const stimulusIndex = trialIndex[trial.label]
+    trialIndex[trial.label] = trialIndex[trial.label] + 1
+
+    return {
+      ...trial,
+      stimulusIndex,
+    }
+  })
+
+  return orderedTrials
 }
