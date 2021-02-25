@@ -7,7 +7,7 @@ export const Stepper = ({
   color = 'purple',
 }) => {
   return (
-    <Box paddingTop={5}>
+    <Box paddingTop={5} backgroundColor='white'>
       {/* Top Dots */}
       <Box flexDirection="row" alignItems="center" justifyContent="center">
         {new Array(numberOfSteps).fill(0).map((_, index) => (
