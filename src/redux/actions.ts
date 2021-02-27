@@ -152,6 +152,8 @@ const syncFearConditioningModule = async (
           volume_level: trial.response?.volume?.toFixed(2),
           calibrated_volume_level: experiment.volume?.toFixed(2),
           headphones: trial.response?.headphonesConnected,
+          did_leave_iti: trial.response?.didLeaveIti,
+          did_leave_task: trial.response?.didLeaveTask,
         })
       }),
     )

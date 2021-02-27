@@ -37,6 +37,8 @@ export type FearConditioningTrialResponse = {
   decisionTime: number
   volume: number
   headphonesConnected: boolean
+  didLeaveIti: boolean
+  didLeaveTask: boolean
 }
 
 export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioningTrialScreenProps> = memo(
@@ -61,6 +63,8 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
     // Keep reference of timers
     const startTimeRef = useRef<number>()
     const reactionTimeRef = useRef<number>()
+    const itiLeaveRef = useRef<boolean>(false)
+    const taskLeaveRef = useRef<boolean>(false)
     const endTimerRef = useRef<PauseableTimer>()
     const soundTimerRef = useRef<PauseableTimer>()
     const scaleTimerRef = useRef<PauseableTimer>()
@@ -97,6 +101,8 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
             decisionTime: reactionTimeRef.current,
             volume: await AudioSensor.getCurrentVolume(),
             headphonesConnected: await AudioSensor.isHeadphonesConnected(),
+            didLeaveIti: itiLeaveRef.current,
+            didLeaveTask: taskLeaveRef.current,
           })
         }, delay)
       }
@@ -131,6 +137,13 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
     useEffect(() => {
       if (focusState.type !== 'active') {
         pauseTrial()
+
+        // Set the suspension flags
+        if (showTrial) {
+          itiLeaveRef.current = true
+        } else {
+          taskLeaveRef.current = true
+        }
       } else {
         resumeTrial()
       }

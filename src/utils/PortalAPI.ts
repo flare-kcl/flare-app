@@ -245,6 +245,8 @@ type PortalTrialRatingSubmission = {
   volume_level: string
   calibrated_volume_level: string
   headphones: boolean
+  did_leave_iti: boolean
+  did_leave_task: boolean
 }
 
 type PortalBasicInfoSubmission = {
