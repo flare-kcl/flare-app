@@ -99,7 +99,7 @@ export const syncExperimentProgress = async (
   const experiment = state.experiment
   const mod = currentModuleSelector(state)
   const moduleIsLocal = !!Object.values(state.modules).find(
-    (mod: ExperimentModuleCache) => mod.shouldSyncProgress,
+    (mod: ExperimentModuleCache) => mod.shouldSyncProgress === true,
   )
 
   // Submit module data aslong as it has a real ID.

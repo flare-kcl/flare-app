@@ -353,6 +353,7 @@ async function loginWithID(participantID: string, dispatch) {
           moduleState: mod.definition,
           moduleCompleted: false,
           moduleSynced: false,
+          shouldSyncProgress: mod.shouldSyncProgress,
         }),
       )
     })
