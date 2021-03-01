@@ -8,7 +8,6 @@ import {
   LabeledDateField,
   LabeledTextField,
   LabeledPickerField,
-  SafeAreaView,
 } from '@components'
 
 import { BasicInfoContainerState } from '@containers/BasicInfoContainer'
@@ -62,6 +61,7 @@ export const DeviceInfoScreen: React.FunctionComponent<DeviceInfoScreenProps> = 
         {shouldCollectDob && (
           <LabeledDateField
             label="Date of birth"
+            mb={2}
             value={
               dob ? new Date(dob) : dobValue ? new Date(dobValue) : new Date()
             }
@@ -74,6 +74,7 @@ export const DeviceInfoScreen: React.FunctionComponent<DeviceInfoScreenProps> = 
             label="Gender"
             value={genderValue}
             options={genders}
+            mb={2}
             onChange={setGenderValue}
             placeholder="Select your gender..."
           />
@@ -81,15 +82,17 @@ export const DeviceInfoScreen: React.FunctionComponent<DeviceInfoScreenProps> = 
         <LabeledTextField
           label="Operating System"
           value={operatingSystem}
+          mb={2}
           disabled
         />
-        <LabeledTextField label="OS Version" value={version} disabled />
+        <LabeledTextField label="OS Version" value={version} mb={2} disabled />
         <LabeledTextField
           label="Device Manufacturer"
           value={manufacturer}
+          mb={2}
           disabled
         />
-        <LabeledTextField label="Device Model" value={model} disabled />
+        <LabeledTextField label="Device Model" value={model} mb={2} disabled />
         {(shouldCollectGender ? gender != undefined : true) && (
           <Button
             variant="primary"

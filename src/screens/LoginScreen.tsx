@@ -123,7 +123,7 @@ export const LoginScreen = () => {
             pt={10}
           >
             <Box width="100%" px={4}>
-              <Text fontWeight="bold" color="darkGrey" pb={2}>
+              <Text fontFamily="Inter-SemiBold" color="darkGrey" pb={2}>
                 Participant ID
               </Text>
               <TextField

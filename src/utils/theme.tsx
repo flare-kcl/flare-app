@@ -17,6 +17,7 @@ export const palette = {
   lightGrey: '#e4e9ed',
   black: '#0B0B0B',
   white: '#FFFF',
+  offWhite: '#F0F2F3',
 }
 
 export const theme = createTheme({
@@ -68,16 +69,15 @@ export const theme = createTheme({
       marginBottom: 3,
     },
     heading2: {
-      fontFamily: 'Inter',
+      fontFamily: 'Inter-SemiBold',
       fontSize: 20,
       fontWeight: '600',
       color: 'darkGrey',
       marginBottom: 2,
     },
     heading3: {
-      fontFamily: 'Inter',
+      fontFamily: 'Inter-Medium',
       fontSize: 16,
-      fontWeight: '500',
       color: 'darkGrey',
       marginBottom: 2,
     },
@@ -115,18 +115,17 @@ export const theme = createTheme({
       color: 'white',
     },
     instructionHeading: {
-      fontFamily: 'Inter',
-      fontWeight: '700',
+      fontFamily: 'Inter-Bold',
       fontSize: {
         s: 22,
         m: 25,
       },
       color: 'darkGrey',
       textAlign: 'center',
+
     },
     instructionDescription: {
-      fontFamily: 'Inter',
-      fontWeight: '500',
+      fontFamily: 'Inter-Medium',
       fontSize: {
         s: 16,
         m: 18,
@@ -135,11 +134,15 @@ export const theme = createTheme({
       textAlign: 'center',
     },
     instructionActionLabel: {
-      fontFamily: 'Inter',
-      fontWeight: '300',
+      fontFamily: 'Inter-Light',
       fontSize: 15,
       color: 'darkGrey',
       textAlign: 'center',
+    },
+    selectLabel: {
+      fontFamily: 'Inter-Medium',
+      fontSize: 15,
+      color: 'darkGrey',
     },
   },
   buttonVariants: {

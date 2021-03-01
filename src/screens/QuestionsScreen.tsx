@@ -4,7 +4,7 @@ import {
   Text,
   RatingScale,
   CriterionToggle,
-  PickerField,
+  LabeledPickerField,
   Button,
 } from '@components'
 import {
@@ -20,15 +20,13 @@ type QuestionScreenProps = {
   onContinue: () => void
 }
 
-const headphoneOptions = [{ label: '', value: undefined }].concat(
-  [
-    "I hadn't heard any loud noises",
-    'After I heard one loud noise',
-    'After I heard a few loud noises',
-    'After I reached a break',
-    'During questionnaires',
-  ].map((q) => ({ label: q, value: q })),
-)
+const headphoneOptions = [
+  "I hadn't heard any loud noises",
+  'After I heard one loud noise',
+  'After I heard a few loud noises ya know?',
+  'After I reached a break',
+  'During questionnaires',
+].map((q) => ({ label: q, value: q }))
 
 export const QuestionsScreen: React.FC<QuestionScreenProps> = ({
   heading,
@@ -127,8 +125,10 @@ export const QuestionsScreen: React.FC<QuestionScreenProps> = ({
         )}
 
         {answers.didRemoveHeadphones && (
-          <QuestionBox heading="At what point did you remove your headphones?">
-            <PickerField
+          <QuestionBox>
+            <LabeledPickerField
+              label="At what point did you remove your headphones?"
+              placeholder="Pick an option..."
               options={headphoneOptions}
               value={answers.headphonesRemovalReason}
               onChange={(value) =>
@@ -209,9 +209,11 @@ export const QuestionsScreen: React.FC<QuestionScreenProps> = ({
 const QuestionBox = ({ heading, children }) => (
   <Box>
     <Box mt={4} px={6} pb={4}>
-      <Text variant="heading3" mb={6}>
-        {heading}
-      </Text>
+      {!!heading && (
+        <Text variant="heading3" mb={5}>
+          {heading}
+        </Text>
+      )}
 
       {children}
       <Box opacity={0.1} borderTopColor="darkGrey" borderTopWidth={2} mt={8} />

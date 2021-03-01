@@ -47,7 +47,7 @@ export const Alert: React.FC<AlertProps> = ({
         >
           <SafeAreaView flex={1}>
             {/* Alert Heading */}
-            <Text color="darkGrey" fontSize={28} fontFamily="Inter-Bold">
+            <Text color="darkGrey" fontSize={28} fontFamily="Inter-SemiBold">
               {title}
             </Text>
 

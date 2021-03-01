@@ -114,7 +114,7 @@ export const RatingScale: React.FunctionComponent<RatingScaleProps> = ({
               onPress={() => (!locked ? setSelectionOption(value) : null)}
               disabled={disabled}
             >
-              <Text fontSize={20} fontWeight="bold" color="white">
+              <Text fontSize={20} fontFamily="Inter-SemiBold" color="white">
                 {value}
               </Text>
             </Pressable>
@@ -131,17 +131,17 @@ export const RatingScale: React.FunctionComponent<RatingScaleProps> = ({
           minHeight={minAnchorHeight}
         >
           <Box width="25%">
-            <Text textAlign="left" fontWeight="600">
+            <Text textAlign="left" fontFamily="Inter-SemiBold">
               {anchorLabelLeft}
             </Text>
           </Box>
           <Box width="33%">
-            <Text textAlign="center" fontWeight="600">
+            <Text textAlign="center" fontFamily="Inter-SemiBold">
               {anchorLabelCenter}
             </Text>
           </Box>
           <Box width="25%">
-            <Text textAlign="right" fontWeight="600">
+            <Text textAlign="right" fontFamily="Inter-SemiBold">
               {anchorLabelRight}
             </Text>
           </Box>

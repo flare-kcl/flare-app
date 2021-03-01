@@ -38,7 +38,7 @@ export const Toast: React.FC<ToastProps> = ({ id, title, description }) => {
           shadowColor="black"
         >
           {/* Toast Heading */}
-          <Text color="darkGrey" fontSize={20} fontFamily="Inter-Bold">
+          <Text color="darkGrey" fontSize={20} fontFamily="Inter-SemiBold">
             {title}
           </Text>
 

@@ -38,7 +38,7 @@ export const NotificationsScreen: React.FunctionComponent<IntervalExplainationSc
             paddingVertical={3}
             opacity={0.8}
           >
-            <Text fontWeight="600" fontSize={18} textAlign="center">
+            <Text fontFamily="Inter-SemiBold" fontSize={18} textAlign="center">
               Skip Notifications
             </Text>
           </Pressable>

@@ -54,7 +54,7 @@ export const HeadphonesDetectionScreen: React.FunctionComponent<HeadphonesDetect
         />
 
         <Text
-          fontWeight="700"
+          fontFamily="Inter-Bold"
           fontSize={22}
           color="darkGrey"
           textAlign="center"
@@ -74,7 +74,7 @@ export const HeadphonesDetectionScreen: React.FunctionComponent<HeadphonesDetect
         {connected == false && (
           <>
             <AntDesign name="closecircle" size={70} color={palette.red} />
-            <Text variant="caption2" fontWeight="500" mt={8}>
+            <Text variant="caption2" fontFamily="Inter" mt={8}>
               Plug in your headphones to continue.
             </Text>
           </>
