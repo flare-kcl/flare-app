@@ -122,7 +122,6 @@ export const theme = createTheme({
       },
       color: 'darkGrey',
       textAlign: 'center',
-
     },
     instructionDescription: {
       fontFamily: 'Inter-Medium',

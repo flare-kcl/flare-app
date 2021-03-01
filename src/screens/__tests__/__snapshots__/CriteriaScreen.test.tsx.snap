@@ -217,7 +217,7 @@ exports[`Text Renders Correctly 1`] = `
                 Object {
                   "color": "#212529",
                   "display": "flex",
-                  "fontFamily": "Inter",
+                  "fontFamily": "Inter-SemiBold",
                   "fontSize": 20,
                   "fontWeight": "600",
                   "marginBottom": 8,
@@ -426,7 +426,7 @@ exports[`Text Renders Correctly 1`] = `
                 Object {
                   "color": "#212529",
                   "display": "flex",
-                  "fontFamily": "Inter",
+                  "fontFamily": "Inter-SemiBold",
                   "fontSize": 20,
                   "fontWeight": "600",
                   "marginBottom": 8,
@@ -635,7 +635,7 @@ exports[`Text Renders Correctly 1`] = `
                 Object {
                   "color": "#212529",
                   "display": "flex",
-                  "fontFamily": "Inter",
+                  "fontFamily": "Inter-SemiBold",
                   "fontSize": 20,
                   "fontWeight": "600",
                   "marginBottom": 8,

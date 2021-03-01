@@ -1,9 +1,5 @@
 import { useRef } from 'react'
-import {
-  Dimensions,
-  TextInput,
-  TextInputProps,
-} from 'react-native'
+import { Dimensions, TextInput, TextInputProps } from 'react-native'
 import { Picker } from '@react-native-picker/picker'
 import DatePicker from 'react-native-date-picker'
 import ActionSheet from 'react-native-actions-sheet'
@@ -82,7 +78,12 @@ export const LabeledTextField: React.FC<FormFieldProps> = ({
   </Box>
 )
 
-export const LabeledDateField: React.FC<FormFieldProps> = ({ label, value, onChange, ...props }) => (
+export const LabeledDateField: React.FC<FormFieldProps> = ({
+  label,
+  value,
+  onChange,
+  ...props
+}) => (
   <Box width="100%" py={4} {...props}>
     <Text variant="heading3" pb={1}>
       {label}
@@ -102,13 +103,12 @@ export const LabeledDateField: React.FC<FormFieldProps> = ({ label, value, onCha
   </Box>
 )
 
-
 type PickerFieldProps = FormFieldProps & {
-  options: { value: string, label: string }[]
+  options: { value: string; label: string }[]
   placeholder?: string
 }
 
-export const LabeledPickerField: React.FC<PickerFieldProps>  = ({
+export const LabeledPickerField: React.FC<PickerFieldProps> = ({
   label,
   value,
   placeholder,
@@ -132,14 +132,27 @@ export const LabeledPickerField: React.FC<PickerFieldProps>  = ({
               </Text>
             )}
 
-            <Box height={50} flex={1} flexDirection='row' alignItems='center' borderWidth={2} borderColor='purple' paddingLeft={4} borderRadius='m'>
+            <Box
+              height={50}
+              flex={1}
+              flexDirection="row"
+              alignItems="center"
+              borderWidth={2}
+              borderColor="purple"
+              paddingLeft={4}
+              borderRadius="m"
+            >
               <Text fontSize={14}> {selectedLabel ?? placeholder} </Text>
             </Box>
           </Box>
         </Pressable>
       </Box>
 
-      <ActionSheet ref={actionSheetRef} defaultOverlayOpacity={0.8} delayActionSheetDraw={false}>
+      <ActionSheet
+        ref={actionSheetRef}
+        defaultOverlayOpacity={0.8}
+        delayActionSheetDraw={false}
+      >
         <Box px={{ s: 4, m: 6 }}>
           <Box
             flexDirection="row"
@@ -158,23 +171,23 @@ export const LabeledPickerField: React.FC<PickerFieldProps>  = ({
           </Box>
 
           {/* <ScrollView> */}
-            <Box minHeight={300} pb={10} maxHeight={maxHeight}>
-              {options.map((option) => (
-                <Pressable onPress={() => onChange(option.value)}>
-                  <Box
-                    backgroundColor="offWhite"
-                    borderRadius="s"
-                    mb={3}
-                    px={2}
-                    py={3}
-                    borderColor={option.value == value ? 'purple' : 'offWhite'}
-                    borderWidth={3}
-                  >
-                    <Text variant="selectLabel">{option.label}</Text>
-                  </Box>
-                </Pressable>
-              ))}
-            </Box>
+          <Box minHeight={300} pb={10} maxHeight={maxHeight}>
+            {options.map((option) => (
+              <Pressable onPress={() => onChange(option.value)}>
+                <Box
+                  backgroundColor="offWhite"
+                  borderRadius="s"
+                  mb={3}
+                  px={2}
+                  py={3}
+                  borderColor={option.value == value ? 'purple' : 'offWhite'}
+                  borderWidth={3}
+                >
+                  <Text variant="selectLabel">{option.label}</Text>
+                </Box>
+              </Pressable>
+            ))}
+          </Box>
           {/* </ScrollView> */}
         </Box>
       </ActionSheet>

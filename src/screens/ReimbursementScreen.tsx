@@ -22,7 +22,12 @@ export const ReimbursementScreen = ({ body, code, onExit }) => {
           borderWidth={4}
           borderColor="purple"
         >
-          <Text textAlign="center" fontSize={18} fontFamily="Inter-SemiBold" selectable>
+          <Text
+            textAlign="center"
+            fontSize={18}
+            fontFamily="Inter-SemiBold"
+            selectable
+          >
             {code}
           </Text>
         </Box>

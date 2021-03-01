@@ -68,7 +68,13 @@ export const RejectionScreen: React.FunctionComponent<RejectionScreenParams> = (
         </Text>
 
         <Box width="100%">
-          <Text fontFamily="Inter-Medium" color="darkGrey" fontSize={18} mt={2} p={0}>
+          <Text
+            fontFamily="Inter-Medium"
+            color="darkGrey"
+            fontSize={18}
+            mt={2}
+            p={0}
+          >
             {reasonCopy}
           </Text>
         </Box>
