@@ -23,7 +23,7 @@ type QuestionScreenProps = {
 const headphoneOptions = [
   "I hadn't heard any loud noises",
   'After I heard one loud noise',
-  'After I heard a few loud noises ya know?',
+  'After I heard a few loud noises',
   'After I reached a break',
   'During questionnaires',
 ].map((q) => ({ label: q, value: q }))
