@@ -1,5 +1,5 @@
-import { ExperimentModule } from './ExperimentContainer'
-import { TermsScreen } from '@screens'
+import { ExperimentModule, VisualStimuli } from './ExperimentContainer'
+import shuffle from 'lodash/shuffle'
 import {
   CAQuestionScreen,
   CAConfirmationQuestionScreen,
@@ -13,6 +13,7 @@ export type ContingencyAwarenessModuleDefinition = {
 }
 
 export type ContingencyAwarenessModuleState = ContingencyAwarenessModuleDefinition & {
+  stimuli: VisualStimuli[]
   awarenessAnswer?: boolean
   confirmationAnswer?: string
   isAware?: boolean
@@ -35,7 +36,12 @@ export const ContingencyAwarenessContainer: ExperimentModule<ContingencyAwarenes
         updateAnswer={(awarenessAnswer) => updateModule({ awarenessAnswer })}
         onNext={() => {
           if (mod.awarenessAnswer === true) {
-            updateModule({ currentScreen: 'CONFIRMATION_QUESTION' })
+            updateModule({
+              currentScreen: 'CONFIRMATION_QUESTION',
+              stimuli: shuffle(
+                Object.values(experiment.definition.conditionalStimuli),
+              ),
+            })
           } else {
             onModuleComplete({ isAware: false })
           }
@@ -52,7 +58,7 @@ export const ContingencyAwarenessContainer: ExperimentModule<ContingencyAwarenes
         updateAnswer={(confirmationAnswer) =>
           updateModule({ confirmationAnswer })
         }
-        stimuli={Object.values(experiment.definition.conditionalStimuli)}
+        stimuli={mod.stimuli}
         onNext={() => {
           onModuleComplete({
             isAware:

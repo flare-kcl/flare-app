@@ -4,7 +4,6 @@ import {
   Text,
   Button,
   TrialImageStack,
-  SafeAreaView,
   ScrollView,
   CriterionToggle,
 } from '@components'
