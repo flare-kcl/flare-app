@@ -29,6 +29,7 @@ export type Trial = {
   stimulusImage: any
   reinforced: boolean
   response?: FearConditioningTrialResponse
+  synced?: boolean
 }
 
 export const FearConditioningContainer: ExperimentModule<FearConditioningModuleState> = ({
@@ -36,6 +37,7 @@ export const FearConditioningContainer: ExperimentModule<FearConditioningModuleS
   module: mod,
   updateModule,
   onModuleComplete,
+  syncExperiment,
   syncExperimentProgress,
   unconditionalStimulus,
 }) => {
@@ -140,6 +142,9 @@ export const FearConditioningContainer: ExperimentModule<FearConditioningModuleS
         currentTrialIndex: mod.currentTrialIndex + 1,
         trials: updatedTrials,
       })
+
+      // Sync experiment after each trial
+      syncExperiment()
     },
     [mod, lastTrialSkipped],
   )
@@ -213,6 +218,7 @@ export function generateTrials(
       normalisedLabel: 'cs+',
       stimulusImage: positiveStimuli.image,
       reinforced: i < reinforcementRate,
+      stimulusIndex: 0,
     })
 
     // Generate negative stimulus trial
@@ -221,6 +227,7 @@ export function generateTrials(
       normalisedLabel: 'cs-',
       stimulusImage: negativeStimuli.image,
       reinforced: false,
+      stimulusIndex: 0,
     })
 
     // Add GS if nessacery
@@ -296,6 +303,7 @@ export function generateTrials(
     return {
       ...trial,
       stimulusIndex,
+      synced: false,
     }
   })
 

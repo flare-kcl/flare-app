@@ -23,8 +23,11 @@ export const syncExperiment = async (dispatch, getState: () => AppState) => {
   // Get Latest State
   const state = getState()
   const experiment = state.experiment
-  const modules: ExperimentModuleCache[] = Object.values(state.modules).filter(
-    (mod: ExperimentModuleCache) => mod.moduleCompleted && !mod.moduleSynced,
+  const allModules = Object.values(state.modules)
+  const modules: ExperimentModuleCache[] = allModules.filter(
+    (mod: ExperimentModuleCache) =>
+      (mod.moduleCompleted || mod.moduleType === 'FEAR_CONDITIONING') &&
+      !mod.moduleSynced,
   )
 
   // Send tracking data
@@ -34,16 +37,17 @@ export const syncExperiment = async (dispatch, getState: () => AppState) => {
   if (experiment.offlineOnly) return
 
   // If we have submitted all the modules thens let's flag the experiment as finished
-  if (modules.length == 0) await syncExperimentEnd(experiment)
+  if (modules.length == allModules.length) await syncExperimentEnd(experiment)
 
   // Get all modules that have been completed but not synced.
   for (const mod of modules) {
     // Call the specific syncing method and then update the module
-    const onModuleSync = () =>
+    const onModuleSync = (updatedMod = {}) =>
       dispatch(
         updateModule({
           ...mod,
           moduleSynced: true,
+          ...updatedMod,
         }),
       )
 
@@ -119,47 +123,67 @@ export const syncExperimentProgress = async (
   }
 }
 
-type ModuleSyncCallback = () => void
+type ModuleSyncCallback<StateType = Object> = (
+  state?: Partial<StateType>,
+) => void
 
 const syncFearConditioningModule = async (
   experiment: ExperimentCache,
   mod: ExperimentModuleCache<FearConditioningModuleState>,
-  onModuleSync: ModuleSyncCallback,
+  onModuleSync: ModuleSyncCallback<
+    ExperimentModuleCache<FearConditioningModuleState>
+  >,
 ) => {
   // Perform POST request for each recordered trial
   try {
-    await Promise.all(
-      mod.moduleState.trials.map(async (trial, index) => {
+    let trials = mod.moduleState.trials
+    trials = await Promise.all(
+      trials.map(async (trial, index) => {
         // Don't attempt sync if no response
-        if (trial.response === undefined) return
+        if (trial.response === undefined || trial.synced === true) return trial
 
-        // Submit data to portal
-        await PortalAPI.submitTrialRating({
-          trial: index + 1,
-          trial_by_stimulus: trial.stimulusIndex + 1,
-          module: mod.moduleId,
-          participant: experiment.participantID,
-          rating: trial.response?.rating,
-          stimulus: trial.label,
-          normalised_stimulus: trial.normalisedLabel,
-          reinforced_stimulus:
-            experiment.definition.conditionalStimuli['cs+'].label,
-          unconditional_stimulus: trial.reinforced,
-          trial_started_at: new Date(trial.response?.startTime).toISOString(),
-          response_recorded_at:
-            trial.response?.decisionTime &&
-            new Date(trial.response?.decisionTime).toISOString(),
-          volume_level: trial.response?.volume?.toFixed(2),
-          calibrated_volume_level: experiment.volume?.toFixed(2),
-          headphones: trial.response?.headphonesConnected,
-          did_leave_iti: trial.response?.didLeaveIti,
-          did_leave_task: trial.response?.didLeaveTask,
-        })
+        try {
+          // Submit data to portal
+          await PortalAPI.submitTrialRating({
+            trial: index + 1,
+            trial_by_stimulus: trial.stimulusIndex + 1,
+            module: mod.moduleId,
+            participant: experiment.participantID,
+            rating: trial.response?.rating,
+            stimulus: trial.label,
+            normalised_stimulus: trial.normalisedLabel,
+            reinforced_stimulus:
+              experiment.definition.conditionalStimuli['cs+'].label,
+            unconditional_stimulus: trial.reinforced,
+            trial_started_at: new Date(trial.response?.startTime).toISOString(),
+            response_recorded_at:
+              trial.response?.decisionTime &&
+              new Date(trial.response?.decisionTime).toISOString(),
+            volume_level: trial.response?.volume?.toFixed(2),
+            calibrated_volume_level: experiment.volume?.toFixed(2),
+            headphones: trial.response?.headphonesConnected,
+            did_leave_iti: trial.response?.didLeaveIti,
+            did_leave_task: trial.response?.didLeaveTask,
+          })
+        } catch (err) {
+          console.error(err)
+          return trial
+        }
+
+        // Set synced flag
+        return {
+          ...trial,
+          synced: true,
+        }
       }),
     )
 
-    // If synced all trials then mark module synec
-    onModuleSync()
+    // If synced all trials then mark module sync
+    const unsyncedTrials = trials.filter((trial) => !trial.synced)
+    onModuleSync({
+      moduleSynced: unsyncedTrials.length === 0,
+      moduleState: { ...mod.moduleState, trials },
+    })
   } catch (err) {
     console.error('Could not sync all trials', err)
   }
