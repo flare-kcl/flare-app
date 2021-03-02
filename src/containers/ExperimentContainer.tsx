@@ -197,7 +197,6 @@ export const ExperimentContainer = () => {
   }
 
   // If the sound file is corrupt then terminate
-  console.log(usRef)
   if (usRef !== undefined && usRef.sound === null) {
     Alert.alert(JSON.stringify(usRef))
     terminateExperiment(true, 'CORRUPT_ASSETS')

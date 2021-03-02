@@ -43,7 +43,7 @@ export const TextField = createRestyleComponent<Props, Theme>(
 
 type FormFieldProps = BoxProps<Theme> & {
   label: string
-  value: any
+  value: string | number
   onChange?: (string) => void
   onTap?: () => void
   labelProps?: TextProps<Theme>
