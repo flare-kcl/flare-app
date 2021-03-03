@@ -336,7 +336,7 @@ jobs:
           git add ./ios/flare.xcodeproj ./ios/flare/Info.plist ./android/app/build.gradle
           git commit -m "Version Bump [skip-ci]"
           git tag -a "${{ steps.version.outputs.version }}" -m "${{ steps.version.outputs.version }}"
-          git --no-pager push -u origin develop
+          git push
 
       - name: Commit Changes (Main)
         if: github.ref == 'refs/heads/main'
