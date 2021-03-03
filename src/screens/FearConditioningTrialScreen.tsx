@@ -140,9 +140,9 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
 
         // Set the suspension flags
         if (showTrial) {
-          itiLeaveRef.current = true
-        } else {
           taskLeaveRef.current = true
+        } else {
+          itiLeaveRef.current = true
         }
       } else {
         resumeTrial()

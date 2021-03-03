@@ -102,12 +102,9 @@ export const syncExperimentProgress = async (
   const state = getState()
   const experiment = state.experiment
   const mod = currentModuleSelector(state)
-  const moduleIsLocal = !!Object.values(state.modules).find(
-    (mod: ExperimentModuleCache) => mod.shouldSyncProgress === true,
-  )
 
   // Submit module data aslong as it has a real ID.
-  if (moduleIsLocal) {
+  if (mod.shouldSyncProgress) {
     PortalAPI.submitProgress({
       module:
         experiment.rejectionReason == undefined ? mod.moduleId : undefined,
