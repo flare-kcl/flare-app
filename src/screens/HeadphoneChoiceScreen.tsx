@@ -74,7 +74,11 @@ const HeadphoneButton = ({ active, image, label, onPress }) => {
         alignItems="center"
         justifyContent="center"
       >
-        <Image source={image} maxWidth={54} maxHeight={54} />
+        <Image
+          source={image}
+          style={{ width: 54, height: 54 }}
+          resizeMode="contain"
+        />
       </Box>
       <Text
         fontSize={16}

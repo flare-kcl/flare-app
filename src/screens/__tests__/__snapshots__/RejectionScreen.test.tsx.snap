@@ -132,20 +132,45 @@ exports[`Text Renders Correctly 1`] = `
             ]
           }
         >
-          <Image
-            height="100%"
-            maxHeight={150}
-            maxWidth={150}
-            opacity={0.8}
-            resizeMode="contain"
-            source={1}
+          <View
             style={
               Array [
-                Object {},
+                Object {
+                  "overflow": "hidden",
+                },
+                Array [
+                  Object {},
+                ],
               ]
             }
-            width="100%"
-          />
+          >
+            <FastImageView
+              height="100%"
+              maxHeight={150}
+              maxWidth={150}
+              opacity={0.8}
+              resizeMode="contain"
+              source={
+                Object {
+                  "__packager_asset": true,
+                  "height": 1,
+                  "scale": 1,
+                  "uri": "uri",
+                  "width": 1,
+                }
+              }
+              style={
+                Object {
+                  "bottom": 0,
+                  "left": 0,
+                  "position": "absolute",
+                  "right": 0,
+                  "top": 0,
+                }
+              }
+              width="100%"
+            />
+          </View>
         </View>
         <Text
           style={

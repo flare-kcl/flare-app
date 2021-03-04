@@ -11,7 +11,7 @@ export const TrialImageStack: React.FunctionComponent<TrialImageStackProps> = ({
   stimulusImage,
 }) => {
   const { width } = Dimensions.get('window')
-  const imageSize = width > 750 ? width * 0.8 : width * 0.6
+  const imageSize = width > 640 ? width * 0.8 : width * 0.6
   const imageStyles = {
     position: 'absolute',
     width: imageSize,

@@ -1,4 +1,4 @@
-import { Image as NativeImage, ImageProps } from 'react-native'
+import FastImage, { FastImageProps } from 'react-native-fast-image'
 import {
   spacing,
   border,
@@ -13,7 +13,7 @@ import {
 
 import { Theme } from '@utils/theme'
 
-type Props = ImageProps &
+type Props = FastImageProps &
   SpacingProps<Theme> &
   BackgroundColorProps<Theme> &
   OpacityProps<Theme> &
@@ -22,5 +22,5 @@ type Props = ImageProps &
 
 export const Image = createRestyleComponent<Props, Theme>(
   [spacing, border, backgroundColor],
-  NativeImage,
+  FastImage,
 )
