@@ -20,7 +20,7 @@ export const Interval = () => {
         justifyContent="center"
         alignItems="center"
       >
-        <Text fontWeight="bold" fontSize={120}>
+        <Text fontFamily="Inter-SemiBold" fontSize={120}>
           +
         </Text>
       </Box>

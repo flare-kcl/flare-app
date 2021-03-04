@@ -83,9 +83,9 @@ export const exampleExperimentData: Experiment = {
       id: '387484',
       moduleType: 'INSTRUCTIONS',
       definition: {
-        includeVolumeCalibration: true,
-        endScreenTitle: 'Hello, World',
-        endScreenBody: '',
+        includeVolumeCalibration: false,
+        endScreenTitle: 'Time to start the experiment.',
+        endScreenBody: "Press 'Next' to start the experiment.",
         screens: [
           {
             title: 'Check your surroundings',

@@ -50,7 +50,7 @@ export const VolumeInstructionScreen: React.FunctionComponent<VolumeInstructionS
       </Text>
 
       {volume !== undefined && (
-        <Text fontWeight="bold" fontSize={60} color="purple">
+        <Text fontFamily="Inter-SemiBold" fontSize={60} color="purple">
           {(volume * 100).toFixed(0)}%
         </Text>
       )}

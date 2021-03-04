@@ -80,7 +80,7 @@ export const ExternalLinkScreen: React.FunctionComponent<ExternalLinkScreenProps
           </TouchableOpacity>
         </Box>
         <Box width="50%" alignItems="center">
-          <Text color="white" fontSize={16} fontWeight="600">
+          <Text color="white" fontSize={16} fontFamily="Inter-SemiBold">
             {title}
           </Text>
         </Box>

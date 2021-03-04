@@ -1,6 +1,8 @@
-import { TextInput, TextInputProps } from 'react-native'
+import { useRef } from 'react'
+import { Dimensions, TextInput, TextInputProps } from 'react-native'
 import { Picker } from '@react-native-picker/picker'
 import DatePicker from 'react-native-date-picker'
+import ActionSheet from 'react-native-actions-sheet'
 import { format } from 'date-fns'
 import {
   createRestyleComponent,
@@ -12,10 +14,13 @@ import {
   BorderProps,
   BackgroundColorProps,
   createVariant,
+  TextProps,
+  BoxProps,
 } from '@shopify/restyle'
 
 import { Text } from './Text'
 import { Box } from './Box'
+import { Pressable } from './Pressable'
 import { Theme } from '@utils/theme'
 
 const restyleFunctions = [
@@ -36,42 +41,51 @@ export const TextField = createRestyleComponent<Props, Theme>(
   TextInput,
 )
 
-type LabeledTextField = {
+type FormFieldProps = BoxProps<Theme> & {
   label: string
-  value: string
+  value: string | number
   onChange?: (string) => void
   onTap?: () => void
+  labelProps?: TextProps<Theme>
   disabled?: boolean
 }
 
-export const LabeledTextField: React.FC<LabeledTextField> = ({
+export const LabeledTextField: React.FC<FormFieldProps> = ({
   label,
   value,
   onChange,
   onTap,
   disabled,
+  labelProps = {},
   ...props
 }) => (
-  <Box width="100%" py={4}>
-    <Text fontWeight="bold" color="darkGrey" pb={2}>
-      {label}
-    </Text>
+  <Box width="100%" py={4} {...props}>
+    {!!label && (
+      <Text variant="heading3" pb={1} {...labelProps}>
+        {label}
+      </Text>
+    )}
+
     <TextField
       variant="login"
       autoCapitalize="none"
       autoCorrect={false}
       onChangeText={(text) => onChange?.(text)}
-      onTouchEnd={() => onTap?.()}
       value={value}
+      onTouchEnd={() => onTap?.()}
       editable={disabled !== true}
-      {...props}
     />
   </Box>
 )
 
-export const LabeledDateField = ({ label, value, onChange, ...props }) => (
-  <Box width="100%" py={4}>
-    <Text fontWeight="bold" color="darkGrey" pb={2}>
+export const LabeledDateField: React.FC<FormFieldProps> = ({
+  label,
+  value,
+  onChange,
+  ...props
+}) => (
+  <Box width="100%" py={4} {...props}>
+    <Text variant="heading3" pb={1}>
       {label}
     </Text>
     <Box
@@ -89,58 +103,94 @@ export const LabeledDateField = ({ label, value, onChange, ...props }) => (
   </Box>
 )
 
-export const LabeledPickerField = ({
-  label,
-  value,
-  options = [],
-  onChange,
-}) => {
-  return (
-    <Box width="100%" py={4}>
-      <Text fontWeight="bold" color="darkGrey" pb={2}>
-        {label}
-      </Text>
-      <Box
-        borderColor="purple"
-        borderWidth={2}
-        borderRadius="m"
-        alignItems="center"
-        justifyContent="center"
-        pl={1}
-      >
-        <Picker
-          style={{ width: '100%' }}
-          selectedValue={value}
-          onValueChange={(itemValue, _) => onChange(itemValue)}
-        >
-          {options.map((option) => (
-            <Picker.Item {...option} />
-          ))}
-        </Picker>
-      </Box>
-    </Box>
-  )
+type PickerFieldProps = FormFieldProps & {
+  options: { value: string; label: string }[]
+  placeholder?: string
 }
 
-export const PickerField = ({ value, options = [], onChange }) => {
+export const LabeledPickerField: React.FC<PickerFieldProps> = ({
+  label,
+  value,
+  placeholder,
+  options = [],
+  onChange,
+  ...props
+}) => {
+  const actionSheetRef = useRef<ActionSheet>(null)
+  const setModal = (open) => actionSheetRef.current?.setModalVisible(open)
+  const selectedLabel = options.find((option) => option.value == value)?.label
+  const maxHeight = Dimensions.get('screen').height * 0.7
+
   return (
-    <Box
-      borderColor="purple"
-      borderWidth={2}
-      borderRadius="m"
-      alignItems="center"
-      justifyContent="center"
-      pl={1}
-    >
-      <Picker
-        style={{ width: '100%' }}
-        selectedValue={value}
-        onValueChange={(itemValue, _) => onChange(itemValue)}
+    <>
+      <Box {...props}>
+        <Pressable onPress={() => setModal(true)} {...props}>
+          <Box width="100%">
+            {!!label && (
+              <Text variant="heading3" pb={2}>
+                {label}
+              </Text>
+            )}
+
+            <Box
+              height={50}
+              flex={1}
+              flexDirection="row"
+              alignItems="center"
+              borderWidth={2}
+              borderColor="purple"
+              paddingLeft={4}
+              borderRadius="m"
+            >
+              <Text fontSize={14}> {selectedLabel ?? placeholder} </Text>
+            </Box>
+          </Box>
+        </Pressable>
+      </Box>
+
+      <ActionSheet
+        ref={actionSheetRef}
+        defaultOverlayOpacity={0.8}
+        delayActionSheetDraw={false}
       >
-        {options.map((option) => (
-          <Picker.Item {...option} />
-        ))}
-      </Picker>
-    </Box>
+        <Box px={{ s: 4, m: 6 }}>
+          <Box
+            flexDirection="row"
+            justifyContent="space-between"
+            alignItems="flex-start"
+            py={6}
+          >
+            <Box maxWidth="75%">
+              <Text variant="heading2">{label}</Text>
+            </Box>
+            <Pressable mt={2} onPress={() => setModal(false)}>
+              <Text variant="buttonLabel" color="purple" fontSize={16}>
+                Done
+              </Text>
+            </Pressable>
+          </Box>
+
+          {/* <ScrollView> */}
+          <Box minHeight={300} pb={10} maxHeight={maxHeight}>
+            {options.map((option) => (
+              <Pressable onPress={() => onChange(option.value)}>
+                <Box
+                  backgroundColor="offWhite"
+                  borderRadius="s"
+                  mb={3}
+                  px={2}
+                  py={3}
+                  borderColor={option.value == value ? 'purple' : 'offWhite'}
+                  borderWidth={3}
+                >
+                  <Text variant="selectLabel">{option.label}</Text>
+                </Box>
+              </Pressable>
+            ))}
+          </Box>
+          {/* </ScrollView> */}
+        </Box>
+      </ActionSheet>
+    </>
   )
 }

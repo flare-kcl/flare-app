@@ -80,7 +80,7 @@ const HeadphoneButton = ({ active, image, label, onPress }) => {
         fontSize={16}
         pl={6}
         color={active ? 'white' : 'purple'}
-        fontWeight="bold"
+        fontFamily="Inter-SemiBold"
       >
         {label}
       </Text>

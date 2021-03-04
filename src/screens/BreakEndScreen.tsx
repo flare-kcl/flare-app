@@ -40,18 +40,18 @@ export const BreakEndScreen: React.FunctionComponent<BreakEndScreenProps> = ({
           {description}
         </Markdown>
 
-        <Text variant="caption2" fontWeight="600" pb={2}>
+        <Text variant="caption2" fontFamily="Inter-SemiBold" pb={2}>
           Time Left:
         </Text>
 
         {timerText && (
-          <Text fontWeight="800" textAlign="center" fontSize={45}>
+          <Text fontFamily="Inter-ExtraBold" textAlign="center" fontSize={45}>
             {timerText}
           </Text>
         )}
 
         {extendedTimerText && (
-          <Text fontWeight="800" textAlign="center" fontSize={20}>
+          <Text fontFamily="Inter-ExtraBold" textAlign="center" fontSize={20}>
             {extendedTimerText}
           </Text>
         )}
@@ -61,7 +61,7 @@ export const BreakEndScreen: React.FunctionComponent<BreakEndScreenProps> = ({
             <Text variant="caption2" fontSize={12} pt={10}>
               Break will end at:
             </Text>
-            <Text variant="caption2" fontWeight="600" pt={4}>
+            <Text variant="caption2" fontFamily="Inter-SemiBold" pt={4}>
               {eta}
             </Text>
           </>

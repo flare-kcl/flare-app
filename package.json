@@ -33,6 +33,7 @@
     "react": "^16.14.0",
     "react-dom": "~16.13.0",
     "react-native": "~0.63.3",
+    "react-native-actions-sheet": "^0.4.2",
     "react-native-config": "^1.4.0",
     "react-native-date-picker": "^3.2.5",
     "react-native-dotenv": "^2.4.1",

@@ -213,7 +213,7 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
         {/* Stimuli Countdown */}
         {stage == VolumeCalibrationStages.Countdown && countdown > 0 && (
           <Text
-            fontWeight="500"
+            fontFamily="Inter-Medium"
             width="100%"
             fontSize={80}
             mt={10}

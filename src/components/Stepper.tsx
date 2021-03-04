@@ -28,7 +28,7 @@ export const Stepper = ({
       {/* Description Label */}
       <Box alignItems="center" marginTop={5}>
         <Text fontSize={16}>
-          <Text fontWeight="bold">{stageLabel}: </Text>
+          <Text fontFamily="Inter-SemiBold">{stageLabel}: </Text>
           Step {currentStep + 1} of {numberOfSteps}
         </Text>
       </Box>

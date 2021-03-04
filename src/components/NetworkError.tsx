@@ -12,7 +12,7 @@ export const NetworkError = () => (
     borderWidth={4}
     borderRadius="m"
   >
-    <Text variant="heading3" fontWeight="600" color="darkGrey">
+    <Text variant="heading3" fontFamily="Inter-SemiBold" color="darkGrey">
       You do not have internet access, Please come back when you have a stable
       connection.
     </Text>
