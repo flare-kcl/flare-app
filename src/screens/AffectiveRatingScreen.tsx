@@ -29,7 +29,7 @@ export const AffectiveRatingScreen: React.FunctionComponent<AffectiveRatingScree
   const [rating, setRating] = useState<number>()
 
   return (
-    <ScrollView>
+    <ScrollView backgroundColor="white">
       <Box flex={1} px={1} pt={4} alignItems="center">
         <TrialImageStack stimulusImage={stimulusImage} />
         <Text

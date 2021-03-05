@@ -114,7 +114,7 @@ export const CriteriaScreen: React.FunctionComponent<CriteriaScreenParams> = ({
         <Box
           flex={1}
           justifyContent="flex-end"
-          borderTopColor="lightGrey"
+          borderTopColor="darkGrey"
           borderTopWidth={2}
           pt={8}
           mt={4}

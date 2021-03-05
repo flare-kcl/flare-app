@@ -61,7 +61,7 @@ export const LoginScreen = () => {
   }
 
   return (
-    <SafeAreaView flex={1} backgroundColor="greenPrimary">
+    <SafeAreaView flex={1} backgroundColor="greenLight">
       <Box
         flex={1}
         flexGrow={1}
@@ -69,7 +69,7 @@ export const LoginScreen = () => {
         flexDirection={'column'}
         alignItems="center"
         justifyContent="flex-start"
-        backgroundColor="greenPrimary"
+        backgroundColor="greenLight"
       >
         <Box position="absolute" top={3}>
           <Text>

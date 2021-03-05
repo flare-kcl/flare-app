@@ -125,6 +125,7 @@ export const CAConfirmationQuestionScreen: React.FunctionComponent<CAConfirmatio
               flex={1}
               p={1}
               borderWidth={8}
+              backgroundColor="white"
               borderColor={answer === stimulus.label ? 'purple' : 'purpleLight'}
               borderRadius="l"
             >

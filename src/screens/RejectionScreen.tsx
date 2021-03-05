@@ -33,7 +33,7 @@ export const RejectionScreen: React.FunctionComponent<RejectionScreenParams> = (
   return (
     <ScrollView
       style={{
-        backgroundColor: palette.greenPrimary,
+        backgroundColor: palette.greenLight,
       }}
     >
       <Box

@@ -20,7 +20,7 @@ export const TextInstructionScreen: React.FunctionComponent<TextInstructionScree
   actionLabel,
   color = { s: 'purple' },
   textColor = 'darkGrey',
-  backgroundColor = 'white',
+  backgroundColor = 'greenLight',
   linkColor = 'white',
   textAlign = 'center',
   buttonDisabled = false,

@@ -64,16 +64,34 @@ export const HeadphonesDetectionScreen: React.FunctionComponent<HeadphonesDetect
         </Text>
 
         {connected == true && (
-          <AntDesign
-            name="checkcircle"
-            size={70}
-            color={palette.greenCorrect}
-          />
+          <Box
+            backgroundColor="white"
+            height={80}
+            width={80}
+            borderRadius="round"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <AntDesign
+              name="checkcircle"
+              size={70}
+              color={palette.greenCorrect}
+            />
+          </Box>
         )}
 
         {connected == false && (
           <>
-            <AntDesign name="closecircle" size={70} color={palette.red} />
+            <Box
+              backgroundColor="white"
+              height={80}
+              width={80}
+              borderRadius="round"
+              alignItems="center"
+              justifyContent="center"
+            >
+              <AntDesign name="closecircle" size={70} color={palette.red} />
+            </Box>
             <Text variant="caption2" fontFamily="Inter" mt={8}>
               Plug in your headphones to continue.
             </Text>

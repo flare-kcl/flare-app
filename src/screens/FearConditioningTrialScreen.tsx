@@ -204,7 +204,7 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
     }, [])
 
     return (
-      <SafeAreaView flex={1}>
+      <SafeAreaView flex={1} backgroundColor="white">
         {/* Show marker when delaying trial */}
         {showTrial === false && (
           <Box height="55%">

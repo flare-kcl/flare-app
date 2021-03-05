@@ -50,7 +50,7 @@ export const CriterionToggle: React.FunctionComponent<CriterionToggleProps> = ({
           color: value == leftButton.value ? 'white' : 'purple',
           fontWeight: '700',
         }}
-        backgroundColor={value == leftButton.value ? 'purple' : 'purpleLight'}
+        backgroundColor={value == leftButton.value ? 'purple' : 'white'}
         width="100%"
         height={70}
         accessibilityLabel={leftButton.label}
@@ -65,7 +65,7 @@ export const CriterionToggle: React.FunctionComponent<CriterionToggleProps> = ({
           color: value == rightButton.value ? 'white' : 'purple',
           fontWeight: '700',
         }}
-        backgroundColor={value == rightButton.value ? 'purple' : 'purpleLight'}
+        backgroundColor={value == rightButton.value ? 'purple' : 'white'}
         width="100%"
         height={70}
         accessibilityLabel={rightButton.label}

@@ -12,284 +12,296 @@ exports[`Text Renders Correctly 1`] = `
     ]
   }
 >
-  <RCTScrollView
-    alwaysBounceHorizontal={false}
-    alwaysBounceVertical={false}
-    automaticallyAdjustContentInsets={false}
-    contentContainerStyle={
-      Object {
-        "children": <ForwardRef
-          alignItems="center"
-          flex={1}
-          flexDirection="column"
-          pt={
-            Object {
-              "m": 8,
-              "s": 2,
-            }
-          }
-          px={6}
-        >
-          <ForwardRef
-            alignItems="center"
-            flexDirection="row"
-            justifyContent="center"
-            width="100%"
-          >
-            <ForwardRef
-              height="100%"
-              maxHeight={150}
-              maxWidth={150}
-              opacity={0.8}
-              resizeMode="contain"
-              source={1}
-              width="100%"
-            />
-          </ForwardRef>
-          <ForwardRef
-            mt={8}
-            variant="heading"
-          >
-            Thank you for your interest in the FLARe app.
-          </ForwardRef>
-          <ForwardRef
-            width="100%"
-          >
-            <ForwardRef
-              color="darkGrey"
-              fontFamily="Inter-Medium"
-              fontSize={18}
-              mt={2}
-              p={0}
-            />
-          </ForwardRef>
-          <ForwardRef
-            flex={1}
-            flexDirection="column"
-            height="100%"
-            justifyContent="flex-end"
-            mt={6}
-            pb={6}
-          >
-            <Button
-              label="Exit Experiment"
-              onPress={[Function]}
-              testID="ExitButton"
-              variant="primary"
-            />
-          </ForwardRef>
-        </ForwardRef>,
-        "minHeight": "100%",
-        "paddingBottom": 0,
-        "paddingTop": 0,
-        "style": Array [
-          Object {
-            "display": "flex",
-          },
-        ],
-      }
-    }
-    contentInset={
-      Object {
-        "bottom": 0,
-        "top": 0,
-      }
-    }
-    contentInsetAdjustmentBehavior="never"
+  <View
     style={
       Array [
         Object {
+          "backgroundColor": "#B2DBBF",
           "display": "flex",
+          "flex": 1,
         },
       ]
     }
   >
-    <View>
-      <View
-        style={
-          Array [
+    <RCTScrollView
+      alwaysBounceHorizontal={false}
+      alwaysBounceVertical={false}
+      automaticallyAdjustContentInsets={false}
+      contentContainerStyle={
+        Object {
+          "children": <ForwardRef
+            alignItems="center"
+            flex={1}
+            flexDirection="column"
+            pt={
+              Object {
+                "m": 8,
+                "s": 2,
+              }
+            }
+            px={6}
+          >
+            <ForwardRef
+              alignItems="center"
+              flexDirection="row"
+              justifyContent="center"
+              width="100%"
+            >
+              <ForwardRef
+                height="100%"
+                maxHeight={150}
+                maxWidth={150}
+                opacity={0.8}
+                resizeMode="contain"
+                source={1}
+                width="100%"
+              />
+            </ForwardRef>
+            <ForwardRef
+              mt={8}
+              variant="heading"
+            >
+              Thank you for your interest in the FLARe app.
+            </ForwardRef>
+            <ForwardRef
+              width="100%"
+            >
+              <ForwardRef
+                color="darkGrey"
+                fontFamily="Inter-Medium"
+                fontSize={18}
+                mt={2}
+                p={0}
+              />
+            </ForwardRef>
+            <ForwardRef
+              flex={1}
+              flexDirection="column"
+              height="100%"
+              justifyContent="flex-end"
+              mt={6}
+              pb={6}
+            >
+              <Button
+                label="Exit Experiment"
+                onPress={[Function]}
+                testID="ExitButton"
+                variant="primary"
+              />
+            </ForwardRef>
+          </ForwardRef>,
+          "minHeight": "100%",
+          "paddingBottom": 0,
+          "paddingTop": 0,
+          "style": Array [
             Object {
-              "alignItems": "center",
               "display": "flex",
-              "flex": 1,
-              "flexDirection": "column",
-              "paddingHorizontal": 24,
-              "paddingTop": 32,
             },
-          ]
+          ],
         }
-      >
+      }
+      contentInset={
+        Object {
+          "bottom": 0,
+          "top": 0,
+        }
+      }
+      contentInsetAdjustmentBehavior="never"
+      style={
+        Array [
+          Object {
+            "display": "flex",
+          },
+        ]
+      }
+    >
+      <View>
         <View
           style={
             Array [
               Object {
                 "alignItems": "center",
                 "display": "flex",
-                "flexDirection": "row",
-                "justifyContent": "center",
-                "width": "100%",
-              },
-            ]
-          }
-        >
-          <View
-            style={
-              Array [
-                Object {
-                  "overflow": "hidden",
-                },
-                Array [
-                  Object {},
-                ],
-              ]
-            }
-          >
-            <FastImageView
-              height="100%"
-              maxHeight={150}
-              maxWidth={150}
-              opacity={0.8}
-              resizeMode="contain"
-              source={
-                Object {
-                  "__packager_asset": true,
-                  "height": 1,
-                  "scale": 1,
-                  "uri": "uri",
-                  "width": 1,
-                }
-              }
-              style={
-                Object {
-                  "bottom": 0,
-                  "left": 0,
-                  "position": "absolute",
-                  "right": 0,
-                  "top": 0,
-                }
-              }
-              width="100%"
-            />
-          </View>
-        </View>
-        <Text
-          style={
-            Array [
-              Object {
-                "alignSelf": "flex-start",
-                "color": "#212529",
-                "display": "flex",
-                "fontFamily": "Inter-Light",
-                "fontSize": 26,
-                "fontWeight": "bold",
-                "marginBottom": 12,
-                "marginTop": 32,
-              },
-            ]
-          }
-        >
-          Thank you for your interest in the FLARe app.
-        </Text>
-        <View
-          style={
-            Array [
-              Object {
-                "display": "flex",
-                "width": "100%",
-              },
-            ]
-          }
-        >
-          <Text
-            style={
-              Array [
-                Object {
-                  "color": "#212529",
-                  "display": "flex",
-                  "fontFamily": "Inter-Medium",
-                  "fontSize": 18,
-                  "marginTop": 8,
-                  "padding": 0,
-                },
-              ]
-            }
-          />
-        </View>
-        <View
-          style={
-            Array [
-              Object {
-                "display": "flex",
                 "flex": 1,
                 "flexDirection": "column",
-                "height": "100%",
-                "justifyContent": "flex-end",
-                "marginTop": 24,
-                "paddingBottom": 24,
+                "paddingHorizontal": 24,
+                "paddingTop": 32,
               },
             ]
           }
         >
           <View
-            accessible={true}
-            focusable={true}
-            onClick={[Function]}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
             style={
-              Object {
-                "flex": 0,
-                "flexDirection": "row",
-                "opacity": 1,
-                "width": "100%",
-              }
+              Array [
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "flexDirection": "row",
+                  "justifyContent": "center",
+                  "width": "100%",
+                },
+              ]
             }
-            testID="ExitButton"
           >
             <View
               style={
                 Array [
                   Object {
-                    "alignItems": "center",
-                    "display": "flex",
-                    "justifyContent": "center",
-                    "width": "100%",
+                    "overflow": "hidden",
                   },
                   Array [
-                    Object {
-                      "backgroundColor": "#5E44AE",
-                      "borderRadius": 8,
-                      "height": 60,
-                      "marginTop": 8,
-                      "paddingVertical": 16,
-                    },
+                    Object {},
                   ],
                 ]
               }
             >
-              <Text
+              <FastImageView
+                height="100%"
+                maxHeight={150}
+                maxWidth={150}
+                opacity={0.8}
+                resizeMode="contain"
+                source={
+                  Object {
+                    "__packager_asset": true,
+                    "height": 1,
+                    "scale": 1,
+                    "uri": "uri",
+                    "width": 1,
+                  }
+                }
+                style={
+                  Object {
+                    "bottom": 0,
+                    "left": 0,
+                    "position": "absolute",
+                    "right": 0,
+                    "top": 0,
+                  }
+                }
+                width="100%"
+              />
+            </View>
+          </View>
+          <Text
+            style={
+              Array [
+                Object {
+                  "alignSelf": "flex-start",
+                  "color": "#212529",
+                  "display": "flex",
+                  "fontFamily": "Inter-Light",
+                  "fontSize": 26,
+                  "fontWeight": "bold",
+                  "marginBottom": 12,
+                  "marginTop": 32,
+                },
+              ]
+            }
+          >
+            Thank you for your interest in the FLARe app.
+          </Text>
+          <View
+            style={
+              Array [
+                Object {
+                  "display": "flex",
+                  "width": "100%",
+                },
+              ]
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "color": "#212529",
+                    "display": "flex",
+                    "fontFamily": "Inter-Medium",
+                    "fontSize": 18,
+                    "marginTop": 8,
+                    "padding": 0,
+                  },
+                ]
+              }
+            />
+          </View>
+          <View
+            style={
+              Array [
+                Object {
+                  "display": "flex",
+                  "flex": 1,
+                  "flexDirection": "column",
+                  "height": "100%",
+                  "justifyContent": "flex-end",
+                  "marginTop": 24,
+                  "paddingBottom": 24,
+                },
+              ]
+            }
+          >
+            <View
+              accessible={true}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                Object {
+                  "flex": 0,
+                  "flexDirection": "row",
+                  "opacity": 1,
+                  "width": "100%",
+                }
+              }
+              testID="ExitButton"
+            >
+              <View
                 style={
                   Array [
                     Object {
-                      "color": "#FFFF",
+                      "alignItems": "center",
                       "display": "flex",
-                      "fontFamily": "Inter-SemiBold",
-                      "fontSize": 20,
+                      "justifyContent": "center",
+                      "width": "100%",
                     },
+                    Array [
+                      Object {
+                        "backgroundColor": "#5E44AE",
+                        "borderRadius": 8,
+                        "height": 60,
+                        "marginTop": 8,
+                        "paddingVertical": 16,
+                      },
+                    ],
                   ]
                 }
               >
-                Exit Experiment
-              </Text>
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "color": "#FFFF",
+                        "display": "flex",
+                        "fontFamily": "Inter-SemiBold",
+                        "fontSize": 20,
+                      },
+                    ]
+                  }
+                >
+                  Exit Experiment
+                </Text>
+              </View>
             </View>
           </View>
         </View>
       </View>
-    </View>
-  </RCTScrollView>
+    </RCTScrollView>
+  </View>
 </RNCSafeAreaProvider>
 `;

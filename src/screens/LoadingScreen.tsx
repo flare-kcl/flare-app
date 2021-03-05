@@ -13,7 +13,7 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({
     flex={1}
     alignItems="center"
     justifyContent="center"
-    backgroundColor="greenPrimary"
+    backgroundColor="greenLight"
     pb={24}
   >
     <Spinner

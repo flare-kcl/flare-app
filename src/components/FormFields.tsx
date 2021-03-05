@@ -93,6 +93,7 @@ export const LabeledDateField: React.FC<FormFieldProps> = ({
       borderWidth={2}
       borderRadius="m"
       alignItems="center"
+      backgroundColor="white"
     >
       <DatePicker
         mode="date"
@@ -141,6 +142,7 @@ export const LabeledPickerField: React.FC<PickerFieldProps> = ({
               borderColor="purple"
               paddingLeft={4}
               borderRadius="m"
+              backgroundColor="white"
             >
               <Text fontSize={14}> {selectedLabel ?? placeholder} </Text>
             </Box>
