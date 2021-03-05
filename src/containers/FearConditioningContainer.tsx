@@ -7,7 +7,7 @@ import {
   FearConditioningTrialScreen,
   FearConditioningTrialResponse,
 } from '@screens'
-import { ToastRef } from '@components'
+import { ToastRef, AlertRef } from '@components'
 import { useAlert } from '@utils/AlertProvider'
 import AudioSensor from '@utils/AudioSensor'
 
@@ -42,8 +42,9 @@ export const FearConditioningContainer: ExperimentModule<FearConditioningModuleS
   unconditionalStimulus,
 }) => {
   const Alert = useAlert()
-  const [lastTrialSkipped, setLastTrialSkipped] = useState(false)
+  const [trialSkipCount, setTrialSkipCount] = useState(0)
   const toastRef = useRef<ToastRef>()
+  const alertRef = useRef<AlertRef>()
   const volumeSensorListener = useRef<EmitterSubscription>()
 
   // Build the trials sequence on first render
@@ -100,30 +101,11 @@ export const FearConditioningContainer: ExperimentModule<FearConditioningModuleS
 
   const onTrialEnd = useCallback(
     (trialResponse: FearConditioningTrialResponse, checkIfSkipped = true) => {
-      // Record if the response was skipped
+      // Record if the response was skipped, if not reset counter
       if (trialResponse.skipped) {
-        // Warn user...
-        if (lastTrialSkipped && checkIfSkipped) {
-          Alert.alert(
-            'Attention Required',
-            'You have not been rating trials in the designated time, please try to respond as fast as you can.',
-            [
-              {
-                label: 'Continue',
-                onPress: () => {
-                  // Continue with trials
-                  if (experiment.rejectionReason === undefined) {
-                    onTrialEnd(trialResponse, false)
-                  }
-                },
-              },
-            ],
-          )
-          return
-        } else {
-          // Set flag
-          setLastTrialSkipped(true)
-        }
+        setTrialSkipCount(trialSkipCount + 1)
+      } else if (trialSkipCount == 1) {
+        setTrialSkipCount(0)
       }
 
       // Update trials array with response
@@ -146,7 +128,7 @@ export const FearConditioningContainer: ExperimentModule<FearConditioningModuleS
       // Sync experiment after each trial
       syncExperiment()
     },
-    [mod, lastTrialSkipped],
+    [mod, trialSkipCount],
   )
 
   // Don't render until trials generated...
@@ -165,8 +147,29 @@ export const FearConditioningContainer: ExperimentModule<FearConditioningModuleS
         intervalBounds.min,
     ) * 1000
 
-  // Update tracking
-  syncExperimentProgress()
+  // Show alert if two consecutive trial skips
+  if (trialSkipCount > 1) {
+    if (alertRef.current == undefined) {
+      alertRef.current = Alert.alert(
+        'Attention Required',
+        'You have not been rating trials in the designated time, please try to respond as fast as you can.',
+        [
+          {
+            label: 'Continue',
+            onPress: () => {
+              // Continue with trials
+              setTrialSkipCount(1)
+              alertRef.current.dismiss()
+              alertRef.current = undefined
+            },
+          },
+        ],
+      )
+    }
+
+    // Show blank/white screen
+    return null
+  }
 
   // Render the current trial
   const currentTrial = mod.trials[mod.currentTrialIndex]
