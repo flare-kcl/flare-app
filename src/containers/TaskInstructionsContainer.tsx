@@ -64,7 +64,8 @@ export const TaskInstructionsContainer: ExperimentModule<TaskInstructionsModuleS
         heading={mod.introHeading}
         description={mod.introBody}
         actionLabel="Please select ‘next’ to confirm."
-        color="coral"
+        color="teal"
+        backgroundColor="white"
         onNext={onNextInstruction}
       />
     ),
@@ -74,7 +75,7 @@ export const TaskInstructionsContainer: ExperimentModule<TaskInstructionsModuleS
         heading={mod.ratingExplanationHeading}
         description={mod.ratingExplanationBody}
         anchorLabels={anchorLabels}
-        color="coral"
+        color="teal"
         textAlign="center"
         onNext={onNextInstruction}
       />
@@ -84,7 +85,7 @@ export const TaskInstructionsContainer: ExperimentModule<TaskInstructionsModuleS
         key={key}
         heading={mod.ratingPracticeHeading}
         anchorLabels={anchorLabels}
-        color="coral"
+        color="teal"
         onNext={onNextInstruction}
       />
     ),
@@ -92,7 +93,7 @@ export const TaskInstructionsContainer: ExperimentModule<TaskInstructionsModuleS
       <IntervalExplainationScreen
         key={key}
         description={mod.intervalExplanationBody}
-        color="coral"
+        color="teal"
         onNext={onNextInstruction}
       />
     ),
@@ -101,7 +102,8 @@ export const TaskInstructionsContainer: ExperimentModule<TaskInstructionsModuleS
         key={key}
         heading={mod.outroHeading}
         description={mod.outroBody}
-        color="coral"
+        color="teal"
+        backgroundColor="white"
         onNext={onNextInstruction}
       />
     ),
@@ -119,9 +121,9 @@ export const TaskInstructionsContainer: ExperimentModule<TaskInstructionsModuleS
   }
 
   return (
-    <ScrollView>
+    <ScrollView backgroundColor="white">
       <Stepper
-        color="coral"
+        color="teal"
         stageLabel="Task Instructions"
         numberOfSteps={taskInstructions.length}
         currentStep={currentInstruction}
