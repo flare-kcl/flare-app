@@ -31,7 +31,7 @@ export const syncExperiment = async (dispatch, getState: () => AppState) => {
   )
 
   // Send tracking data
-  syncExperimentProgress(dispatch, getState)
+  await syncExperimentProgress(dispatch, getState)
 
   // Finish early if experiment is offline-only
   if (experiment.offlineOnly) return
@@ -104,10 +104,9 @@ export const syncExperimentProgress = async (
   const mod = currentModuleSelector(state)
 
   // Submit module data aslong as it has a real ID.
-  if (mod.shouldSyncProgress) {
-    PortalAPI.submitProgress({
-      module:
-        experiment.rejectionReason == undefined ? mod.moduleId : undefined,
+  if (mod.shouldSyncProgress || experiment.rejectionReason) {
+    await PortalAPI.submitProgress({
+      module: experiment.rejectionReason ? undefined : mod.moduleId,
       participant: experiment.participantID,
       lock_reason: experiment.rejectionReason,
       trial_index:

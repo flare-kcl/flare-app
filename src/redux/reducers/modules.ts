@@ -2,7 +2,7 @@ import { createAction, createReducer } from '@reduxjs/toolkit'
 
 export type ExperimentModuleCache<StateType = any> = {
   index: number
-  moduleId: string
+  moduleId: number
   moduleType: string
   moduleState: StateType
   moduleCompleted?: boolean

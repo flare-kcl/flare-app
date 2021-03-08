@@ -112,11 +112,20 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
             />
           ) : (
             allModulesSynced && (
-              <AntDesign
-                name="checkcircle"
-                size={90}
-                color={palette.greenCorrect}
-              />
+              <Box
+                backgroundColor="white"
+                height={80}
+                width={80}
+                borderRadius="round"
+                alignItems="center"
+                justifyContent="center"
+              >
+                <AntDesign
+                  name="checkcircle"
+                  size={70}
+                  color={palette.greenCorrect}
+                />
+              </Box>
             )
           )}
 

@@ -224,14 +224,14 @@ type PortalTermsSubmission = {
 }
 
 type PortalTrackingSubmission = {
-  module: string
+  module: number | undefined
   participant: string
   trial_index: number | undefined
   lock_reason: string | undefined
 }
 
 type PortalTrialRatingSubmission = {
-  module: string
+  module: number
   participant: string
   trial: number
   trial_by_stimulus: number
@@ -251,7 +251,7 @@ type PortalTrialRatingSubmission = {
 
 type PortalBasicInfoSubmission = {
   participant: string
-  module: string
+  module: number
   date_of_birth: string
   gender: string
   headphone_type: string
@@ -266,14 +266,14 @@ type PortalBasicInfoSubmission = {
 
 type PortalCriterionSubmission = {
   participant: string
-  module: string
+  module: number
   question: number
   answer: boolean
 }
 
 type AffectiveRatingSubmission = {
   participant: string
-  module: string
+  module: number
   rating: number
   stimulus: string
   normalised_stimulus: string
@@ -281,14 +281,14 @@ type AffectiveRatingSubmission = {
 
 type CalibratedVolumeSubmission = {
   participant: string
-  module: string
+  module: number
   rating: number
   calibrated_volume_level: number
 }
 
 type ContingencyAwarenessSubmission = {
   participant: string
-  module: string
+  module: number
   awareness_answer: boolean
   confirmation_answer: string
   is_aware: boolean
@@ -296,13 +296,13 @@ type ContingencyAwarenessSubmission = {
 
 type USUnpleasantnessSubmission = {
   participant: string
-  module: string
+  module: number
   rating: number
 }
 
 type PostExperimentQuestionSubmission = {
   participant: string
-  module: string
+  module: number
   experiment_unpleasant_rating?: number
   did_follow_instructions?: boolean
   did_remove_headphones?: boolean
