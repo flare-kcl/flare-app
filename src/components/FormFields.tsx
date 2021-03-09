@@ -41,16 +41,16 @@ export const TextField = createRestyleComponent<Props, Theme>(
   TextInput,
 )
 
-type FormFieldProps = BoxProps<Theme> & {
+type FormFieldProps<ValueType> = BoxProps<Theme> & {
   label: string
-  value: string | number
-  onChange?: (string) => void
+  value: ValueType
+  onChange?: (ValueType) => void
   onTap?: () => void
   labelProps?: TextProps<Theme>
   disabled?: boolean
 }
 
-export const LabeledTextField: React.FC<FormFieldProps> = ({
+export const LabeledTextField: React.FC<FormFieldProps<string>> = ({
   label,
   value,
   onChange,
@@ -70,6 +70,7 @@ export const LabeledTextField: React.FC<FormFieldProps> = ({
       variant="login"
       autoCapitalize="none"
       autoCorrect={false}
+      backgroundColor={disabled ? 'offWhite' : 'white'}
       onChangeText={(text) => onChange?.(text)}
       value={value}
       onTouchEnd={() => onTap?.()}
@@ -78,7 +79,7 @@ export const LabeledTextField: React.FC<FormFieldProps> = ({
   </Box>
 )
 
-export const LabeledDateField: React.FC<FormFieldProps> = ({
+export const LabeledDateField: React.FC<FormFieldProps<Date>> = ({
   label,
   value,
   onChange,
@@ -104,7 +105,7 @@ export const LabeledDateField: React.FC<FormFieldProps> = ({
   </Box>
 )
 
-type PickerFieldProps = FormFieldProps & {
+type PickerFieldProps = FormFieldProps<string> & {
   options: { value: string; label: string }[]
   placeholder?: string
 }

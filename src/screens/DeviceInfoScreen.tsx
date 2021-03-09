@@ -93,14 +93,14 @@ export const DeviceInfoScreen: React.FunctionComponent<DeviceInfoScreenProps> = 
           disabled
         />
         <LabeledTextField label="Device Model" value={model} mb={2} disabled />
-        {(shouldCollectGender ? gender != undefined : true) && (
-          <Button
-            variant="primary"
-            label="Next"
-            marginTop={4}
-            onPress={onNext}
-          />
-        )}
+        <Button
+          variant="primary"
+          label="Next"
+          disabled={gender == undefined}
+          opacity={gender == undefined ? 0.4 : 1}
+          marginTop={4}
+          onPress={onNext}
+        />
       </Box>
     </ScrollView>
   )
