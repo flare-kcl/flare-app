@@ -12,21 +12,21 @@ export const exampleCriteriaDefinition = {
       id: 8798,
       questionText: `1. Do you have a pre-existing heart condition?`,
       helpText: `This question is required and must be 'No'.`,
-      requiredAnswer: false,
+      correctAnswer: false,
       required: true,
     },
     {
       id: 4511,
       questionText: `2. Do you suffer from PTSD?`,
       helpText: `This question is not required and any response is valid.`,
-      requiredAnswer: null,
+      correctAnswer: null,
       required: false,
     },
     {
       id: 9813,
       questionText: `3. Do you have a diagnosed anxiety condtion?`,
       helpText: `This question is not required but a 'Yes' response screens out the user.`,
-      requiredAnswer: false,
+      correctAnswer: false,
       required: false,
     },
   ],
@@ -129,8 +129,7 @@ export const exampleExperimentData: Experiment = {
           'Before each circle is presented, you will see a white screen with a cross in the middle like the one shown above. It is important that you keep looking at the cross and wait for the next circle to appear.',
         // Screen 5
         outroHeading: 'Instructions Complete',
-        outroBody: `The experiment will now begin.\n\n You may occasionally hear a scream. Remember to rate how much you expect to hear a scream by pressing a number every time the scale appears.
-        `,
+        outroBody: `The experiment will now begin.\n\nYou may occasionally hear a scream.\n\nRemember to rate how much you expect to hear a scream by pressing a number every time the scale appears.`,
       },
     },
     {

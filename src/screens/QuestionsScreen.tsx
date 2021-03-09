@@ -22,10 +22,10 @@ type QuestionScreenProps = {
 
 const headphoneOptions = [
   'Never during any timed trials',
-  'During timed trials, but i hadnt heard any loud noises',
-  'During timed trials, after i had heard one loud noise',
+  "During timed trials, but I hadn't heard any loud noises",
+  'During timed trials, after I had heard one loud noise',
   'During timed trials, after I had heard a few loud noises',
-  'During timed trials, because I hadnt heard anything for a long time',
+  "During timed trials, because I hadn't heard anything for a long time",
 ].map((q) => ({ label: q, value: q }))
 
 export const QuestionsScreen: React.FC<QuestionScreenProps> = ({

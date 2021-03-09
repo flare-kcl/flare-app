@@ -209,7 +209,7 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
         {showTrial === false && (
           <Box height="55%" backgroundColor="white">
             <TrialImageStack
-              key='iti-image'
+              key="iti-image"
               stimulusImage={require('../assets/images/ITI.png')}
             />
           </Box>
@@ -219,7 +219,7 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
         <Box flex={1} opacity={showTrial ? 1 : 0}>
           <Box height="55%">
             <TrialImageStack
-              key='stimulus-image'
+              key="stimulus-image"
               contextImage={contextImage}
               stimulusImage={stimulusImage}
             />

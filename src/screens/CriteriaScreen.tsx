@@ -16,7 +16,7 @@ type ExperimentCriterion = {
   questionText: string
   helpText: string
   value?: boolean
-  requiredAnswer?: boolean
+  correctAnswer?: boolean
   required: boolean
 }
 
@@ -69,7 +69,7 @@ export const CriteriaScreen: React.FunctionComponent<CriteriaScreenParams> = ({
       )
     ) {
       Alert.alert(
-        'Check your answers!',
+        'Check your answers',
         "It looks like you haven't answered all the questions.",
       )
       return null
@@ -77,9 +77,9 @@ export const CriteriaScreen: React.FunctionComponent<CriteriaScreenParams> = ({
 
     // Check if any of the answers make participant incompatible
     const invalidCriterion = consentCriteria.find((criterion) =>
-      criterion.required === false || criterion.requiredAnswer === null
+      criterion.required === false || criterion.correctAnswer === null
         ? false
-        : criterion.value != criterion.requiredAnswer,
+        : criterion.value != criterion.correctAnswer,
     )
 
     // Proceed or redirect

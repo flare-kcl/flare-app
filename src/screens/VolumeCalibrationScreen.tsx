@@ -136,7 +136,7 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
     // User finds volume painful, let's verify they want to continue
     else if (volumeRating === 9) {
       Alert.alert(
-        'Are you sure',
+        'Are you sure?',
         'You may hear sounds at this volume multiple times during the experiment. Do you think you can tolerate this volume?',
         [
           {

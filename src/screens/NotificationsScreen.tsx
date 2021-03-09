@@ -21,7 +21,7 @@ export const NotificationsScreen: React.FunctionComponent<IntervalExplainationSc
         px={6}
       >
         <Text variant="instructionHeading" mt={10} mb={5}>
-          Enable Notification
+          Enable Notifications
         </Text>
 
         <Text variant="instructionDescription" mb={24}>
@@ -39,7 +39,7 @@ export const NotificationsScreen: React.FunctionComponent<IntervalExplainationSc
             opacity={0.8}
           >
             <Text fontFamily="Inter-SemiBold" fontSize={18} textAlign="center">
-              Skip Notifications
+              Enable Notifications
             </Text>
           </Pressable>
           <Button
