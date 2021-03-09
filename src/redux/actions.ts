@@ -104,14 +104,14 @@ export const syncExperimentProgress = async (
   const mod = currentModuleSelector(state)
 
   // Submit module data aslong as it has a real ID.
-  if (mod.shouldSyncProgress || experiment.rejectionReason) {
+  if (mod?.shouldSyncProgress || experiment.rejectionReason) {
     await PortalAPI.submitProgress({
       module: experiment.rejectionReason ? undefined : mod.moduleId,
       participant: experiment.participantID,
       lock_reason: experiment.rejectionReason,
       trial_index:
         mod?.moduleType === 'FEAR_CONDITIONING'
-          ? mod?.moduleState.trials.filter(
+          ? mod?.moduleState.trials?.filter(
               (trial) => trial.response !== undefined,
             ).length + 1
           : undefined,
@@ -133,6 +133,8 @@ const syncFearConditioningModule = async (
   // Perform POST request for each recordered trial
   try {
     let trials = mod.moduleState.trials
+    if (!trials) return
+
     trials = await Promise.all(
       trials.map(async (trial, index) => {
         // Don't attempt sync if no response
@@ -162,7 +164,7 @@ const syncFearConditioningModule = async (
             did_leave_task: trial.response?.didLeaveTask,
           })
         } catch (err) {
-          console.error(err)
+          console.error(err, trial)
           return trial
         }
 

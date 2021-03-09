@@ -64,7 +64,7 @@ export const AffectiveRatingScreen: React.FunctionComponent<AffectiveRatingScree
           <Button
             variant="primary"
             label="Next"
-            opacity={rating === undefined ? 0 : 1}
+            opacity={rating === undefined ? 0.4 : 1}
             disabled={rating === undefined}
             onPress={() => {
               onNext(rating)

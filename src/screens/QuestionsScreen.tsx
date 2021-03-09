@@ -41,20 +41,21 @@ export const QuestionsScreen: React.FC<QuestionScreenProps> = ({
     })
   }
 
-  const unansweredQuestions = Object.keys(questions).filter((id) => {
-    const questionShouldBeAnswered = questions[id]
-    const questionAnswer = answers[id]
+  const canContinue =
+    Object.keys(questions).filter((id) => {
+      const questionShouldBeAnswered = questions[id]
+      const questionAnswer = answers[id]
 
-    if (
-      id === 'didRemoveHeadphones' &&
-      answers.didRemoveHeadphones == true &&
-      answers.headphonesRemovalReason == null
-    ) {
-      return true
-    }
+      if (
+        id === 'didRemoveHeadphones' &&
+        answers.didRemoveHeadphones == true &&
+        answers.headphonesRemovalReason == null
+      ) {
+        return true
+      }
 
-    return questionShouldBeAnswered === true && questionAnswer == undefined
-  })
+      return questionShouldBeAnswered === true && questionAnswer == undefined
+    }).length === 0
 
   return (
     <ScrollView>
@@ -197,11 +198,15 @@ export const QuestionsScreen: React.FC<QuestionScreenProps> = ({
         )}
       </Box>
 
-      {unansweredQuestions.length === 0 && (
-        <Box mt={4} px={6} pb={6}>
-          <Button variant="primary" label="Continue" onPress={onContinue} />
-        </Box>
-      )}
+      <Box mt={4} px={6} pb={6}>
+        <Button
+          variant="primary"
+          label="Continue"
+          disabled={!canContinue}
+          opacity={canContinue ? 1 : 0.4}
+          onPress={onContinue}
+        />
+      </Box>
     </ScrollView>
   )
 }

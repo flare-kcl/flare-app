@@ -63,7 +63,7 @@ export const VolumeInstructionScreen: React.FunctionComponent<VolumeInstructionS
           variant="primary"
           label="Next"
           onPress={onNext}
-          opacity={volume === 1 ? 1 : 0}
+          opacity={volume === 1 ? 1 : 0.4}
           disabled={volume < 1}
         />
       </Box>

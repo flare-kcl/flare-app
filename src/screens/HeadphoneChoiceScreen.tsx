@@ -38,16 +38,16 @@ export const HeadphoneChoiceScreen: React.FunctionComponent<HeadphoneChoiceScree
           onPress={() => updateHeadphoneType('over_ear')}
         />
 
-        {headphoneType && (
-          <Box flex={1} justifyContent="flex-end" pb={6}>
-            <Button
-              variant="primary"
-              label="Next"
-              marginTop={6}
-              onPress={onNext}
-            />
-          </Box>
-        )}
+        <Box flex={1} justifyContent="flex-end" pb={6}>
+          <Button
+            variant="primary"
+            label="Next"
+            marginTop={6}
+            opacity={headphoneType != undefined ? 1 : 0.4}
+            disabled={!headphoneType}
+            onPress={onNext}
+          />
+        </Box>
       </Box>
     </ScrollView>
   )

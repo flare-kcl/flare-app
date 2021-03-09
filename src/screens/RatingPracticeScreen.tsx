@@ -40,19 +40,19 @@ export const RatingPracticeScreen: React.FunctionComponent<RatingPracticeScreenP
         }}
       />
 
-      {showButton && (
-        <Box flex={1} justifyContent="flex-end" pb={6} px={5}>
-          <Text variant="caption2" textAlign="center" pb={4}>
-            Notice how you cannot change your rating once it has been made.
-          </Text>
-          <Button
-            variant="primary"
-            label="Next"
-            backgroundColor={color}
-            onPress={onNext}
-          />
-        </Box>
-      )}
+      <Box flex={1} justifyContent="flex-end" pb={6} px={5}>
+        <Text variant="caption2" textAlign="center" pb={4}>
+          Notice how you cannot change your rating once it has been made.
+        </Text>
+        <Button
+          variant="primary"
+          label="Next"
+          opacity={showButton ? 1 : 0.4}
+          disabled={!showButton}
+          backgroundColor={color}
+          onPress={onNext}
+        />
+      </Box>
     </Box>
   )
 }

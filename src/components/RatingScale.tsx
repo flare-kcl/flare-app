@@ -87,66 +87,66 @@ export const RatingScale: React.FunctionComponent<RatingScaleProps> = ({
   }
 
   return (
-    <PanGestureHandler onGestureEvent={onSwipe}>
+    // <PanGestureHandler onGestureEvent={onSwipe}>
+    <Box
+      flex={1}
+      justifyContent="flex-start"
+      flexDirection="column"
+      pb={paddingBottom}
+    >
+      {/* Trial rating scale */}
       <Box
-        flex={1}
-        justifyContent="flex-start"
-        flexDirection="column"
-        pb={paddingBottom}
+        flexDirection="row"
+        justifyContent="space-between"
+        alignItems="flex-end"
+        width="100%"
+        p={1}
+        height={1.3 * boxSize}
       >
-        {/* Trial rating scale */}
-        <Box
-          flexDirection="row"
-          justifyContent="space-between"
-          alignItems="flex-end"
-          width="100%"
-          p={1}
-          height={1.3 * boxSize}
-        >
-          {ratingOptions.map((value) => (
-            <Pressable
-              key={`rating-button-${value}`}
-              width={value == currentButton ? 1.3 * boxSize : boxSize}
-              height={value == currentButton ? 1.3 * boxSize : boxSize}
-              backgroundColor={value == currentButton ? 'purple' : 'darkGrey'}
-              alignItems="center"
-              justifyContent="center"
-              onPress={() => (!locked ? setSelectionOption(value) : null)}
-              disabled={disabled}
-            >
-              <Text fontSize={20} fontFamily="Inter-SemiBold" color="white">
-                {value}
-              </Text>
-            </Pressable>
-          ))}
-        </Box>
+        {ratingOptions.map((value) => (
+          <Pressable
+            key={`rating-button-${value}`}
+            width={value == currentButton ? 1.3 * boxSize : boxSize}
+            height={value == currentButton ? 1.3 * boxSize : boxSize}
+            backgroundColor={value == currentButton ? 'purple' : 'darkGrey'}
+            alignItems="center"
+            justifyContent="center"
+            onPress={() => (!locked ? setSelectionOption(value) : null)}
+            disabled={disabled}
+          >
+            <Text fontSize={20} fontFamily="Inter-SemiBold" color="white">
+              {value}
+            </Text>
+          </Pressable>
+        ))}
+      </Box>
 
-        {/* Helper labels */}
-        <Box
-          flexDirection="row"
-          justifyContent="space-between"
-          alignItems="flex-start"
-          px={1}
-          pt={4}
-          minHeight={minAnchorHeight}
-        >
-          <Box width="25%">
-            <Text textAlign="left" fontFamily="Inter-SemiBold">
-              {anchorLabelLeft}
-            </Text>
-          </Box>
-          <Box width="33%">
-            <Text textAlign="center" fontFamily="Inter-SemiBold">
-              {anchorLabelCenter}
-            </Text>
-          </Box>
-          <Box width="25%">
-            <Text textAlign="right" fontFamily="Inter-SemiBold">
-              {anchorLabelRight}
-            </Text>
-          </Box>
+      {/* Helper labels */}
+      <Box
+        flexDirection="row"
+        justifyContent="space-between"
+        alignItems="flex-start"
+        px={1}
+        pt={4}
+        minHeight={minAnchorHeight}
+      >
+        <Box width="25%">
+          <Text textAlign="left" fontFamily="Inter-SemiBold">
+            {anchorLabelLeft}
+          </Text>
+        </Box>
+        <Box width="33%">
+          <Text textAlign="center" fontFamily="Inter-SemiBold">
+            {anchorLabelCenter}
+          </Text>
+        </Box>
+        <Box width="25%">
+          <Text textAlign="right" fontFamily="Inter-SemiBold">
+            {anchorLabelRight}
+          </Text>
         </Box>
       </Box>
-    </PanGestureHandler>
+    </Box>
+    // </PanGestureHandler>
   )
 }

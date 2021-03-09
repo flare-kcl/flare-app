@@ -48,7 +48,7 @@ export const DeviceInfoScreen: React.FunctionComponent<DeviceInfoScreenProps> = 
       manufacturer: Device.manufacturer,
       version: Device.osVersion,
       operatingSystem: Device.osName,
-      gender: shouldCollectGender ? genderValue ?? genders[0].value : null,
+      gender: shouldCollectGender ? genderValue : null,
       dob: shouldCollectDob ? dobValue : null,
     })
   }, [dobValue, genderValue])

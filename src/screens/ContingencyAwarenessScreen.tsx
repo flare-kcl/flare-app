@@ -53,7 +53,7 @@ export const CAQuestionScreen: React.FunctionComponent<CAQuestionScreenProps> = 
             variant="primary"
             label="Next"
             onPress={onNext}
-            opacity={answer == undefined ? 0 : 1}
+            opacity={answer == undefined ? 0.4 : 1}
             disabled={answer == undefined}
           />
         </Box>
@@ -142,7 +142,7 @@ export const CAConfirmationQuestionScreen: React.FunctionComponent<CAConfirmatio
           variant="primary"
           label="Next"
           onPress={onNext}
-          opacity={answer == undefined ? 0 : 1}
+          opacity={answer == undefined ? 0.4 : 1}
           disabled={answer == undefined}
         />
       </Box>

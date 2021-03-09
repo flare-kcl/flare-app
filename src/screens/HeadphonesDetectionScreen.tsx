@@ -105,7 +105,7 @@ export const HeadphonesDetectionScreen: React.FunctionComponent<HeadphonesDetect
           label="Next"
           onPress={onNext}
           disabled={!connected}
-          opacity={connected ? 1 : 0}
+          opacity={connected ? 1 : 0.4}
         />
       </Box>
     </Box>
