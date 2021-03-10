@@ -75,12 +75,13 @@ export const FearConditioningContainer: ExperimentModule<FearConditioningModuleS
   useEffect(() => {
     const showVolumeToast = (volume: number) => {
       // Show user a toast warning
-      if (toastRef.current === undefined && volume < 1) {
+      const minVolume = experiment.definition.minimumVolume
+      if (toastRef.current === undefined && volume < minVolume) {
         toastRef.current = Alert.toast(
           'Volume Change Detected',
-          'Please increase volume back to 100%',
+          `Please increase volume back to ${(minVolume * 100).toFixed(0)}%`,
         )
-      } else if (volume === 1) {
+      } else if (volume >= minVolume) {
         // Hide Toast since we restored volume
         toastRef.current?.dismiss()
         toastRef.current = undefined

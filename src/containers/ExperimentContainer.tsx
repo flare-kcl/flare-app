@@ -91,6 +91,7 @@ export type Experiment = {
   modules: ExperimentModuleConfig[]
   ratingDelay: number
   trialLength: number
+  minimumVolume: number
   ratingScaleAnchorLabelLeft: string
   ratingScaleAnchorLabelCenter: string
   ratingScaleAnchorLabelRight: string

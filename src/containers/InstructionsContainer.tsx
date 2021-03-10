@@ -64,7 +64,13 @@ export const InstructionsContainer: ExperimentModule<InstructionsModuleState> = 
           onNext={onNextInstruction}
         />
       ),
-      (key) => <VolumeInstructionScreen key={key} onNext={onNextInstruction} />,
+      (key) => (
+        <VolumeInstructionScreen
+          key={key}
+          minimumVolume={experiment.definition.minimumVolume}
+          onNext={onNextInstruction}
+        />
+      ),
     ])
 
   // Append Volume Calibration if configured
