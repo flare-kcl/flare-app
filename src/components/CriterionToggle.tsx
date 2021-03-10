@@ -47,10 +47,10 @@ export const CriterionToggle: React.FunctionComponent<CriterionToggleProps> = ({
         flex={1}
         label={leftButton.label}
         textProps={{
-          color: value == leftButton.value ? 'white' : 'purple',
+          color: value == leftButton.value ? 'purpleLight' : 'purple',
           fontWeight: '700',
         }}
-        backgroundColor={value == leftButton.value ? 'purple' : 'white'}
+        backgroundColor={value == leftButton.value ? 'purple' : 'purpleLight'}
         width="100%"
         height={70}
         accessibilityLabel={leftButton.label}
@@ -62,10 +62,10 @@ export const CriterionToggle: React.FunctionComponent<CriterionToggleProps> = ({
         flex={1}
         label={rightButton.label}
         textProps={{
-          color: value == rightButton.value ? 'white' : 'purple',
+          color: value == rightButton.value ? 'purpleLight' : 'purple',
           fontWeight: '700',
         }}
-        backgroundColor={value == rightButton.value ? 'purple' : 'white'}
+        backgroundColor={value == rightButton.value ? 'purple' : 'purpleLight'}
         width="100%"
         height={70}
         accessibilityLabel={rightButton.label}
