@@ -132,6 +132,7 @@ export const LoginScreen = () => {
                 autoCorrect={false}
                 autoCompleteType="username"
                 placeholder="Example: ANIXETY-jBSkjbckjb"
+                placeholderTextColor={palette.grey}
                 onChangeText={(text) => onChangeText(text)}
                 onSubmitEditing={() => setScrollStage(stage + 1)}
                 value={value}
@@ -316,6 +317,7 @@ async function loginWithID(participantID: string, dispatch) {
       trialLength: experimentApiData.experiment.trial_length * 1000,
       ratingDelay: experimentApiData.experiment.rating_delay * 1000,
       modules,
+      minimumVolume: experimentApiData.experiment.minimum_volume,
       intervalTimeBounds: {
         min: experimentApiData.experiment.iti_min_delay,
         max: experimentApiData.experiment.iti_max_delay,

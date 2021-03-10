@@ -48,6 +48,7 @@ export const exampleExperimentData: Experiment = {
   ratingScaleAnchorLabelLeft: 'Certain no scream',
   ratingScaleAnchorLabelCenter: 'Uncertain',
   ratingScaleAnchorLabelRight: 'Certain scream',
+  minimumVolume: 0.5,
   intervalTimeBounds: {
     min: 1,
     max: 3,

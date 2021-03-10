@@ -4,10 +4,12 @@ import { Box, Text, Button } from '@components'
 import AudioSensor from '@utils/AudioSensor'
 
 type VolumeInstructionScreenProps = {
+  minimumVolume: number
   onNext: () => void
 }
 
 export const VolumeInstructionScreen: React.FunctionComponent<VolumeInstructionScreenProps> = ({
+  minimumVolume,
   onNext,
 }) => {
   const [volume, setVolume] = useState<number>()
@@ -42,7 +44,7 @@ export const VolumeInstructionScreen: React.FunctionComponent<VolumeInstructionS
       px={5}
     >
       <Text variant="instructionHeading" mb={10}>
-        Increase your volume to 100%
+        Increase your volume to {(minimumVolume * 100).toFixed(0)}%
       </Text>
 
       <Text variant="instructionDescription" mb={10}>
@@ -63,8 +65,8 @@ export const VolumeInstructionScreen: React.FunctionComponent<VolumeInstructionS
           variant="primary"
           label="Next"
           onPress={onNext}
-          opacity={volume === 1 ? 1 : 0.4}
-          disabled={volume < 1}
+          opacity={volume >= minimumVolume ? 1 : 0.4}
+          disabled={volume < minimumVolume}
         />
       </Box>
     </Box>
