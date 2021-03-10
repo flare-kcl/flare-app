@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "291997699639",
+    "project_id": "flare-research",
+    "storage_bucket": "flare-research.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:291997699639:android:8690dbb027e06065be79b2",
+        "android_client_info": {
+          "package_name": "uk.ac.kcl.ioppn.flare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "291997699639-9n1ffr5sgo4bhqm7ga9hl4h88lds8gvo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcri8lPSaoOV5i93g_m56_djBlzw6dS9I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "291997699639-9n1ffr5sgo4bhqm7ga9hl4h88lds8gvo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
