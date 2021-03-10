@@ -199,7 +199,7 @@ export const exampleExperimentData: Experiment = {
     },
     {
       id: '346618',
-      moduleType: 'US_UNPLESENTNESS',
+      moduleType: 'US_UNPLEASANTNESS',
       definition: {
         question: 'How unpleasant did you find the scream?',
       },
