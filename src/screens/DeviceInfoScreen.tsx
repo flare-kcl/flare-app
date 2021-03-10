@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import * as Device from 'expo-device'
+import { isPast, isToday } from 'date-fns'
 import {
   Box,
   Button,
@@ -41,6 +42,9 @@ export const DeviceInfoScreen: React.FunctionComponent<DeviceInfoScreenProps> = 
 }) => {
   const [genderValue, setGenderValue] = useState<string>()
   const [dobValue, setDobValue] = useState<string>()
+  const dobDate = Date.parse(dobValue)
+  const canContinue =
+    gender != undefined && isPast(dobDate) && !isToday(dobDate)
 
   useEffect(() => {
     updateModule({
@@ -96,8 +100,8 @@ export const DeviceInfoScreen: React.FunctionComponent<DeviceInfoScreenProps> = 
         <Button
           variant="primary"
           label="Next"
-          disabled={gender == undefined}
-          opacity={gender == undefined ? 0.4 : 1}
+          disabled={!canContinue}
+          opacity={canContinue ? 1 : 0.4}
           marginTop={4}
           onPress={onNext}
         />

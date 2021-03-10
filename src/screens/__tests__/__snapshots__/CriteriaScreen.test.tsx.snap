@@ -112,8 +112,10 @@ exports[`Text Renders Correctly 1`] = `
  Please make sure all of the above criteria are answered correctly. This is essential to the integreity of the your data.
               </Markdown>
               <Button
+                disabled={true}
                 label="Continue"
                 onPress={[Function]}
+                opacity={0.4}
                 testID="ContinueButton"
                 variant="primary"
               />
@@ -960,6 +962,7 @@ exports[`Text Renders Correctly 1`] = `
                       "alignItems": "center",
                       "display": "flex",
                       "justifyContent": "center",
+                      "opacity": 0.4,
                       "width": "100%",
                     },
                     Array [
