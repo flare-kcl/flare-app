@@ -338,7 +338,7 @@ exports[`Text Renders Correctly 1`] = `
                       },
                       Array [
                         Object {
-                          "backgroundColor": "#FFFF",
+                          "backgroundColor": "#EAE3FF",
                           "borderRadius": 8,
                           "marginRight": 8,
                         },
@@ -395,7 +395,7 @@ exports[`Text Renders Correctly 1`] = `
                       },
                       Array [
                         Object {
-                          "backgroundColor": "#FFFF",
+                          "backgroundColor": "#EAE3FF",
                           "borderRadius": 8,
                           "marginLeft": 8,
                         },
@@ -547,7 +547,7 @@ exports[`Text Renders Correctly 1`] = `
                       },
                       Array [
                         Object {
-                          "backgroundColor": "#FFFF",
+                          "backgroundColor": "#EAE3FF",
                           "borderRadius": 8,
                           "marginRight": 8,
                         },
@@ -604,7 +604,7 @@ exports[`Text Renders Correctly 1`] = `
                       },
                       Array [
                         Object {
-                          "backgroundColor": "#FFFF",
+                          "backgroundColor": "#EAE3FF",
                           "borderRadius": 8,
                           "marginLeft": 8,
                         },
@@ -756,7 +756,7 @@ exports[`Text Renders Correctly 1`] = `
                       },
                       Array [
                         Object {
-                          "backgroundColor": "#FFFF",
+                          "backgroundColor": "#EAE3FF",
                           "borderRadius": 8,
                           "marginRight": 8,
                         },
@@ -813,7 +813,7 @@ exports[`Text Renders Correctly 1`] = `
                       },
                       Array [
                         Object {
-                          "backgroundColor": "#FFFF",
+                          "backgroundColor": "#EAE3FF",
                           "borderRadius": 8,
                           "marginLeft": 8,
                         },
