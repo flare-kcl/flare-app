@@ -2,6 +2,7 @@
 title: 'Fear Learning and Anxiety Response (FLARe): Open-source software for remote human fear conditioning experiments.'
 tags:
   - Fear conditioning
+  - Psychology
   - Research
   - App
   - Portal
@@ -38,7 +39,7 @@ authors:
     orcid: 0000-0001-6458-0700
     affiliation: “1, 3”
 affiliations:
-  - name: King’s College London; Social, Genetic and Developmental Psychiatry Centre; Institute of Psychiatry, Psychology & Neuroscience; London, UK.
+  - name: Social, Genetic and Developmental Psychiatry Centre; Institute of Psychiatry, Psychology & Neuroscience; King’s College London; London, UK.
     index: 1
   - name: Torchbox Ltd; Charlbury, UK
     index: 2
@@ -62,7 +63,7 @@ A number of studies have already been conducted using an earlier version of the 
 
 # Software information
 
-FLARe software consists of two parts, a database/experiment management portal built using Python/Django and a native mobile application built with Typescript & React Native that participants install on their phone to complete experiments. We chose Django as our backend infrastructure because it allowed us to quickly iterate and build a versatile module framework on top of Django’s Model-Template-View (MTV) structure. This means, for ongoing development or expansion, a developer only needs to write two model classes (a module definition model and a data collection model) to add their own custom modules to the FLARe portal without the need to write any custom API endpoints. On the frontend, we chose to use React Native because it allowed us to build the app cross-platform while also having the ability to write native Java or Swift code to capture more raw data for analysis post-experiment. Instead of relying solely on Javascript for our app code, we decided to use Typescript as a way of giving our codebase a more formal structure. The provided typings should allow new developers to quickly understand the module framework and prototype new features without getting confused in the data flow of the application.
+FLARe software consists of two parts, a database/experiment management portal built using Python and Django while the native mobile application was built using Typescript and React Native that participants install on their phone to complete experiments. We chose Django as our backend infrastructure because it allowed us to quickly iterate and build a versatile module framework on top of Django’s Model-Template-View (MTV) structure. This means, for ongoing development or expansion, a developer only needs to write two model classes (a module definition model and a data collection model) to add their own custom modules to the FLARe portal without the need to write any custom API endpoints. On the frontend, we chose to use React Native because it allowed us to build the app cross-platform while also having the ability to write native Java or Swift code to capture more raw data for analysis post-experiment. Instead of relying solely on Javascript for our app code, we decided to use Typescript as a way of giving our codebase a more formal structure. The provided typings should allow new developers to quickly understand the module framework and prototype new features without getting confused in the data flow of the application.
 
 A more in-depth technical description can be found: [here](https://docs.google.com/document/d/11GBzLfQ3bPkZqHHJNA9wDgRUs89Na2V7oKZGWzhvfDw/edit?usp=sharing).
 
