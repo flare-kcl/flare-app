@@ -44,7 +44,8 @@ export const DeviceInfoScreen: React.FunctionComponent<DeviceInfoScreenProps> = 
   const [dobValue, setDobValue] = useState<string>()
   const dobDate = Date.parse(dobValue)
   const canContinue =
-    gender != undefined && isPast(dobDate) && !isToday(dobDate)
+    (shouldCollectGender ? gender != undefined : true) &&
+    (shouldCollectDob ? isPast(dobDate) && !isToday(dobDate) : true)
 
   useEffect(() => {
     updateModule({

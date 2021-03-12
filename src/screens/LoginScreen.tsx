@@ -131,7 +131,7 @@ export const LoginScreen = () => {
                 autoCapitalize="none"
                 autoCorrect={false}
                 autoCompleteType="username"
-                placeholder="Example: ANIXETY-jBSkjbckjb"
+                placeholder="Example: ID.A1B2C3"
                 placeholderTextColor={palette.grey}
                 onChangeText={(text) => onChangeText(text)}
                 onSubmitEditing={() => setScrollStage(stage + 1)}

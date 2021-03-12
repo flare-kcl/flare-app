@@ -14,6 +14,7 @@ export const VolumeInstructionScreen: React.FunctionComponent<VolumeInstructionS
 }) => {
   const [volume, setVolume] = useState<number>()
   const volumeSensorRef = useRef<EmitterSubscription>()
+  const minVolumeLabel = `${(minimumVolume * 100).toFixed(0)}%`
 
   // Continuously attach to AV focus
   useEffect(() => {
@@ -44,7 +45,7 @@ export const VolumeInstructionScreen: React.FunctionComponent<VolumeInstructionS
       px={5}
     >
       <Text variant="instructionHeading" mb={10}>
-        Increase your volume to {(minimumVolume * 100).toFixed(0)}%
+        Increase your volume to {minVolumeLabel}
       </Text>
 
       <Text variant="instructionDescription" mb={10}>
@@ -59,7 +60,7 @@ export const VolumeInstructionScreen: React.FunctionComponent<VolumeInstructionS
 
       <Box flex={1} justifyContent="flex-end" pb={6}>
         <Text variant="caption2" px={6} mb={3} textAlign="center">
-          Set your volume to 100% to continue
+          Set your volume to {minVolumeLabel} to continue
         </Text>
         <Button
           variant="primary"

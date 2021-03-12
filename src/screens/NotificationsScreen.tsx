@@ -21,7 +21,7 @@ export const NotificationsScreen: React.FunctionComponent<IntervalExplainationSc
         px={6}
       >
         <Text variant="instructionHeading" mt={10} mb={5}>
-          Enable Notifications
+          Notifications
         </Text>
 
         <Text variant="instructionDescription" mb={24}>
@@ -44,7 +44,7 @@ export const NotificationsScreen: React.FunctionComponent<IntervalExplainationSc
           </Pressable>
           <Button
             variant="primary"
-            label="Enable Permissions"
+            label="Enable Notifications"
             onPress={onEnable}
           />
         </Box>

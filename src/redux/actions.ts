@@ -37,7 +37,7 @@ export const syncExperiment = async (dispatch, getState: () => AppState) => {
   if (experiment.offlineOnly) return
 
   // If we have submitted all the modules thens let's flag the experiment as finished
-  if (modules.length == allModules.length) await syncExperimentEnd(experiment)
+  if (modules.length == 0) await syncExperimentEnd(experiment)
 
   // Get all modules that have been completed but not synced.
   for (const mod of modules) {
@@ -105,17 +105,21 @@ export const syncExperimentProgress = async (
 
   // Submit module data aslong as it has a real ID.
   if (mod?.shouldSyncProgress || experiment.rejectionReason) {
-    await PortalAPI.submitProgress({
+    const completedTrials =
+      mod?.moduleState.trials?.filter((trial) => trial.response !== undefined)
+        .length ?? 0
+
+    const update = {
       module: experiment.rejectionReason ? undefined : mod.moduleId,
       participant: experiment.participantID,
       lock_reason: experiment.rejectionReason,
       trial_index:
         mod?.moduleType === 'FEAR_CONDITIONING'
-          ? mod?.moduleState.trials?.filter(
-              (trial) => trial.response !== undefined,
-            ).length + 1
+          ? completedTrials + 1
           : undefined,
-    })
+    }
+
+    await PortalAPI.submitProgress(update)
   }
 }
 
@@ -161,7 +165,7 @@ const syncFearConditioningModule = async (
             calibrated_volume_level: experiment.volume?.toFixed(2),
             headphones: trial.response?.headphonesConnected,
             did_leave_iti: trial.response?.didLeaveIti,
-            did_leave_task: trial.response?.didLeaveTask,
+            did_leave_trial: trial.response?.didLeaveTrial,
           })
         } catch (err) {
           console.error(err, trial)
@@ -196,7 +200,7 @@ const syncCriterionModule = async (
   try {
     await Promise.all(
       mod.moduleState.questions.map(async (question, index) => {
-        await PortalAPI.submitCriterionAnswer({
+        return PortalAPI.submitCriterionAnswer({
           module: mod.moduleId,
           participant: experiment.participantID,
           question: question.id,
@@ -292,12 +296,14 @@ const syncInstructionsModule = async (
   onModuleSync: ModuleSyncCallback,
 ) => {
   try {
-    await PortalAPI.submitCalibratedVolume({
-      participant: experiment.participantID,
-      module: mod.moduleId,
-      rating: mod.moduleState.volumeRating,
-      calibrated_volume_level: experiment.volume,
-    })
+    if (mod.moduleState.includeVolumeCalibration) {
+      await PortalAPI.submitCalibratedVolume({
+        participant: experiment.participantID,
+        module: mod.moduleId,
+        rating: mod.moduleState.volumeRating,
+        calibrated_volume_level: experiment.volume,
+      })
+    }
 
     onModuleSync()
   } catch (err) {
