@@ -55,7 +55,7 @@ export const LoginScreen = () => {
       // Attempt Login & reset UI state if fails
       loginWithID(value, dispatch).catch((err) => {
         setScrollStage(Stages.Login)
-        Alert.alert('Something Happened...', err)
+        Alert.alert('An error occurred...', err)
       })
     }
   }
@@ -140,7 +140,7 @@ export const LoginScreen = () => {
             </Box>
 
             <Text variant="caption2" textAlign="center" pt={5} px={3}>
-              Please enter your Participant ID into the form above. You should
+              Please enter your Participant ID into the field above. You should
               have received this in your experiment briefing.
             </Text>
           </Box>
@@ -305,7 +305,9 @@ async function loginWithID(participantID: string, dispatch) {
     const experiment: Experiment = {
       id: experimentApiData.experiment.id,
       name: experimentApiData.experiment.name,
-      contactEmail: `mailto:${experimentApiData.experiment.contact_email}`,
+      contactEmail:
+        experimentApiData.experiment.contact_email &&
+        `mailto:${experimentApiData.experiment.contact_email}`,
       reimbursements: experimentApiData.experiment.reimbursements,
       description: experimentApiData.experiment.description,
       ratingScaleAnchorLabelLeft:
