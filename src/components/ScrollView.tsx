@@ -11,8 +11,8 @@ import { Theme, palette } from '@utils/theme'
 
 const restyleFunctions = boxRestyleFunctions
 type Props = BoxProps<Theme> & {
-  style: StyleProp<any>
-  scroll: ScrollViewProps
+  style?: StyleProp<any>
+  scroll?: ScrollViewProps
 }
 
 export const ScrollView: React.FC<Props> = ({

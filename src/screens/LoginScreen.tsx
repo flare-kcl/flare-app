@@ -12,7 +12,7 @@ import { Experiment } from '@containers/ExperimentContainer'
 import { Box, Text, Button, Image, TextField, SafeAreaView } from '@components'
 import { palette } from '@utils/theme'
 import { exampleExperimentData } from '@utils/exampleExperiment'
-import { setExperiment, updateModule } from '@redux/reducers'
+import { setExperiment, updateModule, clearAllModules } from '@redux/reducers'
 import { useAlert } from '@utils/AlertProvider'
 import AssetCache from '@utils/AssetCache'
 
@@ -348,6 +348,7 @@ async function loginWithID(participantID: string, dispatch) {
     Sentry.setContext('experiment', experiment)
 
     // Save modules to redux
+    dispatch(clearAllModules())
     experiment.modules.map((mod, index) => {
       dispatch(
         updateModule({
@@ -384,6 +385,7 @@ async function loginWithID(participantID: string, dispatch) {
 // Demo Mode Activation
 function demoLogin(dispatch) {
   // Save modules to redux
+  dispatch(clearAllModules())
   exampleExperimentData.modules.map((mod, index) => {
     dispatch(
       updateModule({

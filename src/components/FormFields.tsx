@@ -141,11 +141,13 @@ export const LabeledPickerField: React.FC<PickerFieldProps> = ({
               alignItems="center"
               borderWidth={2}
               borderColor="purple"
-              paddingLeft={4}
+              paddingLeft={3}
               borderRadius="m"
               backgroundColor="white"
             >
-              <Text fontSize={14}> {selectedLabel ?? placeholder} </Text>
+              <Text fontSize={14} numberOfLines={1} ellipsizeMode="tail">
+                {selectedLabel ?? placeholder}
+              </Text>
             </Box>
           </Box>
         </Pressable>
