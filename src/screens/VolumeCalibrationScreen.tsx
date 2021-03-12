@@ -117,18 +117,9 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
 
   const validateRating = () => {
     const volume = volumeScale[volumeIndex.current]
-    // Respond if no rating selected
-    if (volumeRating === undefined) {
-      Alert.alert(
-        'Rate the volume',
-        'Please use the rating scale to describe how you felt about the played sound',
-        [],
-        'yellow',
-      )
-    }
 
     // If sound is painful then decrement one step and repeat calibration
-    else if (volumeRating == 10) {
+    if (volumeRating == 10) {
       decrementVolume()
       setStage(VolumeCalibrationStages.Error)
     }
@@ -179,7 +170,7 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
 
   return (
     <SafeAreaView flex={1}>
-      <Box flex={1} alignItems="center" pt={10}>
+      <Box flex={1} alignItems="center" pt={{ s: 5, m: 10 }}>
         <Entypo name="sound" size={80} color={palette.darkGrey} />
 
         <Text mt={8} variant="caption" textAlign="center" px={6}>
@@ -247,9 +238,16 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
               lockFirstRating={false}
               onChange={(rating) => setVolumeRating(rating)}
               ratingOptions={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+              minAnchorHeight={0}
             />
             <Box px={5}>
-              <Button variant="primary" label="Next" onPress={validateRating} />
+              <Button
+                variant="primary"
+                label="Next"
+                disabled={volumeRating === undefined}
+                opacity={volumeRating === undefined ? 0.4 : 1}
+                onPress={validateRating}
+              />
             </Box>
           </Box>
         )}

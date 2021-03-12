@@ -12,7 +12,7 @@ import { Experiment } from '@containers/ExperimentContainer'
 import { Box, Text, Button, Image, TextField, SafeAreaView } from '@components'
 import { palette } from '@utils/theme'
 import { exampleExperimentData } from '@utils/exampleExperiment'
-import { setExperiment, updateModule } from '@redux/reducers'
+import { setExperiment, updateModule, clearAllModules } from '@redux/reducers'
 import { useAlert } from '@utils/AlertProvider'
 import AssetCache from '@utils/AssetCache'
 
@@ -55,7 +55,7 @@ export const LoginScreen = () => {
       // Attempt Login & reset UI state if fails
       loginWithID(value, dispatch).catch((err) => {
         setScrollStage(Stages.Login)
-        Alert.alert('Something Happened...', err)
+        Alert.alert('An error occurred...', err)
       })
     }
   }
@@ -131,7 +131,8 @@ export const LoginScreen = () => {
                 autoCapitalize="none"
                 autoCorrect={false}
                 autoCompleteType="username"
-                placeholder="Example: ANIXETY-jBSkjbckjb"
+                placeholder="Example: ID.A1B2C3"
+                placeholderTextColor={palette.grey}
                 onChangeText={(text) => onChangeText(text)}
                 onSubmitEditing={() => setScrollStage(stage + 1)}
                 value={value}
@@ -139,7 +140,7 @@ export const LoginScreen = () => {
             </Box>
 
             <Text variant="caption2" textAlign="center" pt={5} px={3}>
-              Please enter your Participant ID into the form above. You should
+              Please enter your Participant ID into the field above. You should
               have received this in your experiment briefing.
             </Text>
           </Box>
@@ -304,7 +305,9 @@ async function loginWithID(participantID: string, dispatch) {
     const experiment: Experiment = {
       id: experimentApiData.experiment.id,
       name: experimentApiData.experiment.name,
-      contactEmail: `mailto:${experimentApiData.experiment.contact_email}`,
+      contactEmail:
+        experimentApiData.experiment.contact_email &&
+        `mailto:${experimentApiData.experiment.contact_email}`,
       reimbursements: experimentApiData.experiment.reimbursements,
       description: experimentApiData.experiment.description,
       ratingScaleAnchorLabelLeft:
@@ -316,6 +319,7 @@ async function loginWithID(participantID: string, dispatch) {
       trialLength: experimentApiData.experiment.trial_length * 1000,
       ratingDelay: experimentApiData.experiment.rating_delay * 1000,
       modules,
+      minimumVolume: experimentApiData.experiment.minimum_volume,
       intervalTimeBounds: {
         min: experimentApiData.experiment.iti_min_delay,
         max: experimentApiData.experiment.iti_max_delay,
@@ -344,6 +348,7 @@ async function loginWithID(participantID: string, dispatch) {
     Sentry.setContext('experiment', experiment)
 
     // Save modules to redux
+    dispatch(clearAllModules())
     experiment.modules.map((mod, index) => {
       dispatch(
         updateModule({
@@ -380,6 +385,7 @@ async function loginWithID(participantID: string, dispatch) {
 // Demo Mode Activation
 function demoLogin(dispatch) {
   // Save modules to redux
+  dispatch(clearAllModules())
   exampleExperimentData.modules.map((mod, index) => {
     dispatch(
       updateModule({

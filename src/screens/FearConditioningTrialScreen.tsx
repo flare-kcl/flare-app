@@ -38,7 +38,7 @@ export type FearConditioningTrialResponse = {
   volume: number
   headphonesConnected: boolean
   didLeaveIti: boolean
-  didLeaveTask: boolean
+  didLeaveTrial: boolean
 }
 
 export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioningTrialScreenProps> = memo(
@@ -102,7 +102,7 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
             volume: await AudioSensor.getCurrentVolume(),
             headphonesConnected: await AudioSensor.isHeadphonesConnected(),
             didLeaveIti: itiLeaveRef.current,
-            didLeaveTask: taskLeaveRef.current,
+            didLeaveTrial: taskLeaveRef.current,
           })
         }, delay)
       }

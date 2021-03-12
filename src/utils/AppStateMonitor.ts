@@ -10,6 +10,7 @@ import {
 } from '@redux/reducers'
 import { isPast } from 'date-fns'
 import { currentModuleSelector, experimentSelector } from '@redux/selectors'
+import AudioSensor from './AudioSensor'
 
 const SUSPENDED_TIMEOUT = 60000
 const STRICT_SUSPENED_TIMEOUT = 30000
@@ -43,6 +44,9 @@ export default class AppStateMonitor {
         previousState.type === 'inactive') &&
       nextStateType == 'active'
     ) {
+      // Trigger AudioSensor to update
+      AudioSensor.focus()
+
       // Calculate suspened time in seconds
       const suspendedTime = currentTime - previousState.lastUpdated
 

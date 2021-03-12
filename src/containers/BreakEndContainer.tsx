@@ -13,8 +13,8 @@ import { BreakEndScreen } from '@screens/BreakEndScreen'
 import { format } from 'date-fns/esm'
 
 export type BreakEndModuleState = {
-  endTitle: number
-  endBody: number
+  endTitle: string
+  endBody: string
   duration: number
 }
 

@@ -48,6 +48,7 @@ export const exampleExperimentData: Experiment = {
   ratingScaleAnchorLabelLeft: 'Certain no scream',
   ratingScaleAnchorLabelCenter: 'Uncertain',
   ratingScaleAnchorLabelRight: 'Certain scream',
+  minimumVolume: 0.5,
   intervalTimeBounds: {
     min: 1,
     max: 3,
@@ -199,7 +200,7 @@ export const exampleExperimentData: Experiment = {
     },
     {
       id: '346618',
-      moduleType: 'US_UNPLESENTNESS',
+      moduleType: 'US_UNPLEASANTNESS',
       definition: {
         question: 'How unpleasant did you find the scream?',
       },

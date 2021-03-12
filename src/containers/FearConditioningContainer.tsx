@@ -1,13 +1,12 @@
 import { useEffect, useCallback, useState, useRef } from 'react'
 import { EmitterSubscription } from 'react-native'
 import shuffle from 'lodash/shuffle'
-import random from 'lodash/random'
 import { ExperimentModule, VisualStimuli } from './ExperimentContainer'
 import {
   FearConditioningTrialScreen,
   FearConditioningTrialResponse,
 } from '@screens'
-import { ToastRef, AlertRef } from '@components'
+import { Box, ToastRef, AlertRef } from '@components'
 import { useAlert } from '@utils/AlertProvider'
 import AudioSensor from '@utils/AudioSensor'
 
@@ -75,12 +74,13 @@ export const FearConditioningContainer: ExperimentModule<FearConditioningModuleS
   useEffect(() => {
     const showVolumeToast = (volume: number) => {
       // Show user a toast warning
-      if (toastRef.current === undefined && volume < 1) {
+      const minVolume = experiment.definition.minimumVolume
+      if (toastRef.current === undefined && volume < minVolume) {
         toastRef.current = Alert.toast(
           'Volume Change Detected',
-          'Please increase volume back to 100%',
+          `Please increase volume back to ${(minVolume * 100).toFixed(0)}%`,
         )
-      } else if (volume === 1) {
+      } else if (volume >= minVolume) {
         // Hide Toast since we restored volume
         toastRef.current?.dismiss()
         toastRef.current = undefined
@@ -168,7 +168,7 @@ export const FearConditioningContainer: ExperimentModule<FearConditioningModuleS
     }
 
     // Show blank/white screen
-    return null
+    return <Box flex={1} backgroundColor="white" />
   }
 
   // Render the current trial

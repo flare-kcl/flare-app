@@ -21,31 +21,28 @@ export const NotificationsScreen: React.FunctionComponent<IntervalExplainationSc
         px={6}
       >
         <Text variant="instructionHeading" mt={10} mb={5}>
-          Enable Notifications
+          Notifications
         </Text>
 
         <Text variant="instructionDescription" mb={24}>
           We use notifications to keep you informed about break periods and
-          uploading your data for the study.
+          uploading your data for the study. Once you have completed the
+          experiment and your data has been uploaded you will no longer receive
+          any notifications.
         </Text>
 
         <Entypo name="notification" size={90} color={palette.purple} />
 
         <Box flex={1} justifyContent="flex-end" pb={6}>
-          <Pressable
-            onPress={onSkip}
-            marginBottom={2}
-            paddingVertical={3}
-            opacity={0.8}
-          >
-            <Text fontFamily="Inter-SemiBold" fontSize={18} textAlign="center">
-              Enable Notifications
-            </Text>
-          </Pressable>
           <Button
             variant="primary"
-            label="Enable Permissions"
+            label="Enable Notifications"
             onPress={onEnable}
+          />
+          <Button
+            variant="exit"
+            label="Ignore Notifications"
+            onPress={onSkip}
           />
         </Box>
       </Box>

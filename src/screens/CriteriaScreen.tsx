@@ -60,14 +60,15 @@ export const CriteriaScreen: React.FunctionComponent<CriteriaScreenParams> = ({
     )
   }
 
+  // Get an required questions that haven't been answered
+  const unansweredQuestions = consentCriteria.filter(
+    (criterion) => criterion.value === undefined && criterion.required,
+  )
+
   // Utility function to check the validity of consent data
   const onContinue = () => {
     // Check if any questions are unanswered
-    if (
-      consentCriteria.find(
-        (criterion) => criterion.value === undefined && criterion.required,
-      )
-    ) {
+    if (unansweredQuestions.length > 0) {
       Alert.alert(
         'Check your answers',
         "It looks like you haven't answered all the questions.",
@@ -126,6 +127,8 @@ export const CriteriaScreen: React.FunctionComponent<CriteriaScreenParams> = ({
             testID="ContinueButton"
             label="Continue"
             variant="primary"
+            disabled={unansweredQuestions.length > 0}
+            opacity={unansweredQuestions.length > 0 ? 0.4 : 1}
             onPress={() => onContinue()}
           />
           <Button

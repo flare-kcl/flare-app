@@ -24,7 +24,16 @@ export default class AudioSensor {
   }
 
   static async focus(): Promise<boolean> {
-    return await AudioSensorModule.focus()
+    const canFocus = await AudioSensorModule.focus()
+    if (canFocus) {
+      AudioSensorEmitter.emit('VolumeChange', await this.getCurrentVolume())
+      AudioSensorEmitter.emit(
+        'OutputChange',
+        await this.isHeadphonesConnected(),
+      )
+    }
+
+    return canFocus
   }
 
   static addVolumeListener(cb: (volume: number) => void): EmitterSubscription {

@@ -81,7 +81,7 @@ export const QuestionsScreen: React.FC<QuestionScreenProps> = ({
             <Box px={1}>
               <RatingScale
                 value={answers.experimentUnpleasantRating}
-                ratingOptions={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+                ratingOptions={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
                 paddingBottom={0}
                 minAnchorHeight={60}
                 lockFirstRating={false}

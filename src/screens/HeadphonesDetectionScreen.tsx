@@ -93,7 +93,7 @@ export const HeadphonesDetectionScreen: React.FunctionComponent<HeadphonesDetect
               <AntDesign name="closecircle" size={70} color={palette.red} />
             </Box>
             <Text variant="caption2" fontFamily="Inter" mt={8}>
-              Plug in your headphones to continue.
+              Connect your headphones to continue.
             </Text>
           </>
         )}

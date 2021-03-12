@@ -34,6 +34,7 @@ import {
   useUnconditionalStimulus,
   UnconditionalStimulusRef,
 } from '@utils/hooks'
+import { cancelAllNotifications } from '@utils/notifications'
 import { BreakStartContainer } from './BreakStartContainer'
 import { BreakEndContainer } from './BreakEndContainer'
 import { TaskInstructionsContainer } from './TaskInstructionsContainer'
@@ -91,6 +92,7 @@ export type Experiment = {
   modules: ExperimentModuleConfig[]
   ratingDelay: number
   trialLength: number
+  minimumVolume: number
   ratingScaleAnchorLabelLeft: string
   ratingScaleAnchorLabelCenter: string
   ratingScaleAnchorLabelRight: string
@@ -238,6 +240,8 @@ export const ExperimentContainer = () => {
     dispatch(clearAllModules())
     // Delete the experiment cache
     dispatch(clearExperiment())
+    // Clear all notifications
+    cancelAllNotifications()
     // Set variable to show the terminated screen
     if (redirect) {
       dispatch(rejectParticipant(rejectionReason))
