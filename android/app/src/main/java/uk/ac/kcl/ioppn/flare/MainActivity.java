@@ -1,5 +1,6 @@
 package uk.ac.kcl.ioppn.flare;
 
+import android.media.AudioManager;
 import android.os.Bundle;
 
 import com.facebook.react.ReactActivity;
@@ -17,6 +18,11 @@ public class MainActivity extends ReactActivity {
       super.onCreate(savedInstanceState);
   }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
+    }
 
     /**
      * Returns the name of the main component registered from JavaScript.

@@ -32,20 +32,15 @@ export const NotificationsScreen: React.FunctionComponent<IntervalExplainationSc
         <Entypo name="notification" size={90} color={palette.purple} />
 
         <Box flex={1} justifyContent="flex-end" pb={6}>
-          <Pressable
-            onPress={onSkip}
-            marginBottom={2}
-            paddingVertical={3}
-            opacity={0.8}
-          >
-            <Text fontFamily="Inter-SemiBold" fontSize={18} textAlign="center">
-              Enable Notifications
-            </Text>
-          </Pressable>
           <Button
             variant="primary"
             label="Enable Notifications"
             onPress={onEnable}
+          />
+          <Button
+            variant="exit"
+            label="Ignore Notifications"
+            onPress={onSkip}
           />
         </Box>
       </Box>

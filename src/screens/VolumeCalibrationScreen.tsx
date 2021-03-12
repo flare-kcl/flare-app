@@ -249,7 +249,13 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
               ratingOptions={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
             />
             <Box px={5}>
-              <Button variant="primary" label="Next" onPress={validateRating} />
+              <Button
+                variant="primary"
+                label="Next"
+                disabled={volumeRating === undefined}
+                opacity={volumeRating === undefined ? 0.4 : 1}
+                onPress={validateRating}
+              />
             </Box>
           </Box>
         )}
