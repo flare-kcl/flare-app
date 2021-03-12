@@ -25,8 +25,7 @@ export const NotificationsScreen: React.FunctionComponent<IntervalExplainationSc
         </Text>
 
         <Text variant="instructionDescription" mb={24}>
-          We use notifications to keep you informed about break periods and
-          uploading your data for the study.
+          We use notifications to keep you informed about break periods and uploading your data for the study. Once you have completed the experiment you will not receive further notifications.
         </Text>
 
         <Entypo name="notification" size={90} color={palette.purple} />
