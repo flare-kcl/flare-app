@@ -34,10 +34,10 @@ authors:
     affiliation: 1
   - name: Gerome Breen
     orcid: 0000-0003-2053-1792
-    affiliation: “1, 3”
+    affiliation: "1, 3"
   - name: Thalia C. Eley^[Corresponding author]
     orcid: 0000-0001-6458-0700
-    affiliation: “1, 3”
+    affiliation: "1, 3"
 affiliations:
   - name: Social, Genetic and Developmental Psychiatry Centre; Institute of Psychiatry, Psychology & Neuroscience; King’s College London; London, UK.
     index: 1
