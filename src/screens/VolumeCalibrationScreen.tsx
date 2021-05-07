@@ -8,7 +8,7 @@ import { UnconditionalStimulusRef } from '@utils/hooks'
 
 type VolumeCalibrationScreenProps = {
   unconditionalStimulus?: UnconditionalStimulusRef
-  volumeIncrements: [number]
+  volumeIncrements: number[]
   onFinishCalibration: (volume: number, volumeRating: number) => void
 }
 

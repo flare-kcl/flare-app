@@ -14,7 +14,7 @@ type InstructionScreenDefinition = {
 
 type InstructionsModuleDefenition = {
   includeVolumeCalibration: boolean
-  volumeIncrements: [number]
+  volumeIncrements: number[]
   endScreenTitle: string
   endScreenBody: string
   screens: InstructionScreenDefinition[]
