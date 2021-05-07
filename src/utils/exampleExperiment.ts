@@ -49,6 +49,7 @@ export const exampleExperimentData: Experiment = {
   ratingScaleAnchorLabelCenter: 'Uncertain',
   ratingScaleAnchorLabelRight: 'Certain scream',
   minimumVolume: 0.5,
+  usFileVolume: 0.8,
   intervalTimeBounds: {
     min: 1,
     max: 3,
@@ -85,6 +86,7 @@ export const exampleExperimentData: Experiment = {
       moduleType: 'INSTRUCTIONS',
       definition: {
         includeVolumeCalibration: false,
+        volumeIncrements: [0.1, 0.12, 0.15, 0.8, 0.9, 1],
         endScreenTitle: 'Time to start the experiment.',
         endScreenBody: "Press 'Next' to start the experiment.",
         screens: [
