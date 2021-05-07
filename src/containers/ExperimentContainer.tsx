@@ -93,6 +93,7 @@ export type Experiment = {
   ratingDelay: number
   trialLength: number
   minimumVolume: number
+  usFileVolume: number
   ratingScaleAnchorLabelLeft: string
   ratingScaleAnchorLabelCenter: string
   ratingScaleAnchorLabelRight: string

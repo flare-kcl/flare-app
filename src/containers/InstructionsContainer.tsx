@@ -14,6 +14,7 @@ type InstructionScreenDefinition = {
 
 type InstructionsModuleDefenition = {
   includeVolumeCalibration: boolean
+  volumeIncrements: number[]
   endScreenTitle: string
   endScreenBody: string
   screens: InstructionScreenDefinition[]
@@ -38,6 +39,10 @@ export const InstructionsContainer: ExperimentModule<InstructionsModuleState> = 
       updateModule({ currentInstruction: 0 })
     }
   }, [])
+
+  if (!mod.includeVolumeCalibration) {
+    unconditionalStimulus.setVolume(experiment.definition.usFileVolume)
+  }
 
   // Use zero on first render
   const currentInstruction = mod.currentInstruction ?? 0
@@ -88,6 +93,7 @@ export const InstructionsContainer: ExperimentModule<InstructionsModuleState> = 
         key={key}
         unconditionalStimulus={unconditionalStimulus}
         onFinishCalibration={onFinishCalibration}
+        volumeIncrements={mod.volumeIncrements}
       />
     ))
   }

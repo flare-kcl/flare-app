@@ -320,6 +320,7 @@ async function loginWithID(participantID: string, dispatch) {
       ratingDelay: experimentApiData.experiment.rating_delay * 1000,
       modules,
       minimumVolume: experimentApiData.experiment.minimum_volume,
+      usFileVolume: experimentApiData.experiment.us_file_volume,
       intervalTimeBounds: {
         min: experimentApiData.experiment.iti_min_delay,
         max: experimentApiData.experiment.iti_max_delay,

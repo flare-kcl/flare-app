@@ -8,6 +8,7 @@ import { UnconditionalStimulusRef } from '@utils/hooks'
 
 type VolumeCalibrationScreenProps = {
   unconditionalStimulus?: UnconditionalStimulusRef
+  volumeIncrements: number[]
   onFinishCalibration: (volume: number, volumeRating: number) => void
 }
 
@@ -20,11 +21,12 @@ enum VolumeCalibrationStages {
 
 export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationScreenProps> = ({
   unconditionalStimulus,
+  volumeIncrements,
   onFinishCalibration,
 }) => {
   const Alert = useAlert()
   const volumeIndex = useRef(0)
-  const volumeScale = [0.5, 0.65, 0.8, 0.9, 0.95, 1]
+  const volumeScale = volumeIncrements
   const [stage, setStage] = useState(VolumeCalibrationStages.Intro)
   const [countdown, setCountdown] = useState(3)
   const [volumeRating, setVolumeRating] = useState(undefined)
