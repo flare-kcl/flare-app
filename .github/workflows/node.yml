@@ -27,6 +27,6 @@ jobs:
       working-directory: .github/workflows/
       env:
         TEMP_BASIC_AUTH: ${{ secrets.TEMP_BASIC_AUTH }}
-        TEMP_DUMMY_KEY: ${{ secrets.TEMP_DUMMY_KEY }}
+        TEMP_DUMMY_KEY: ${{ secrets.MATCH_PASSWORD }}
       run: |
         python getkeys.py

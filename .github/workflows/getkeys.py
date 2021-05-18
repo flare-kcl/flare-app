@@ -15,4 +15,3 @@ if __name__ == "__main__":
     data = f"secret={TEMP_DUMMY_KEY}&ttl=1800&passphrase=abc"
     resp = requests.post(url, headers=headers, data=data)
     print(resp.status_code)
-    print(resp.json())
