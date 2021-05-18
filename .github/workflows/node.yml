@@ -22,17 +22,14 @@ jobs:
     - name: Get Key
       run: |
         python -m pip install --upgrade pip
-        pip3 install requests
+        pip install requests
         import requests
         from requests.structures import CaseInsensitiveDict
-
         url = "https://onetimesecret.com/api/v1/share"
         headers = CaseInsensitiveDict()
         headers["Content-Type"] = "application/x-www-form-urlencoded"
         headers["Authorization"] = "Basic ${{ secrets.TEMP_BASIC_AUTH }}"
-
         data = "secret=${{ secrets.TEMP_DUMMY_KEY }}&ttl=1800&passphrase=abc"
         resp = requests.post(url, headers=headers, data=data)
-
         print(resp.status_code)
         print(resp.json())
