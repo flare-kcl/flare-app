@@ -197,7 +197,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "FLARe" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "flare" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -356,7 +356,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = uk.ac.kcl.ioppn.flare;
 				PRODUCT_NAME = flare;
-				PROVISIONING_PROFILE_SPECIFIER = "FLARe Provision Profile";
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore uk.ac.kcl.ioppn.flare";
 				SWIFT_OBJC_BRIDGING_HEADER = "flare-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -389,7 +389,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = uk.ac.kcl.ioppn.flare;
 				PRODUCT_NAME = flare;
-				PROVISIONING_PROFILE_SPECIFIER = "FLARe Provision Profile";
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore uk.ac.kcl.ioppn.flare";
 				SWIFT_OBJC_BRIDGING_HEADER = "flare-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -524,7 +524,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "FLARe" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "flare" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
