@@ -1,5 +1,5 @@
 ---
-title: 'Fear Learning and Anxiety Response (FLARe): Open-source software for remote human fear conditioning experiments.'
+title: 'Fear Learning and Anxiety Response (FLARe): Open-source software for remote human fear conditioning experiments'
 tags:
   - Fear conditioning
   - Psychology
