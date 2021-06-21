@@ -20,9 +20,9 @@ FLARe is a native mobile app that allows researchers to deliver fear conditionin
 ## Connecting App to portal
 
 - The app can connect to any FLARe portal hosted on an accesible domain. This can be done by changing the `BASE_API_URL` and `BASE_MEDIA_URL` urls
-in the `.env` file of the project. Once you make these changes you must recompile the app using XCode or Android Studio.
+  in the `.env` file of the project. Once you make these changes you must recompile the app using XCode or Android Studio.
 
-*** Note: If you are hosting the portal on your local machine and testing the app on a physical device then you must make that connection accesible to the device by using a local IP address aswell as [reversing any ports](https://blog.grio.com/2015 07/android-tip-adb-reverse.html) on Android ***
+**_ Note: If you are hosting the portal on your local machine and testing the app on a physical device then you must make that connection accesible to the device by using a local IP address aswell as [reversing any ports](https://blog.grio.com/2015 07/android-tip-adb-reverse.html) on Android _**
 
 ## 📱 Running app using simulator
 
@@ -34,12 +34,14 @@ for iOS or Android respectively. You can also refer to the React Native docs: ht
 
 To open app in XCode (from terminal): `xed ./ios`
 To open app in XCode:
- - Open XCode
- - File > Open > `{NAVIGATE TO FLARE REPO}/ios/FLARE.xcworkspace`
+
+- Open XCode
+- File > Open > `{NAVIGATE TO FLARE REPO}/ios/FLARE.xcworkspace`
 
 To open app in Android Studio:
- - Open Android Studio
- - File > Open > `{NAVIGATE TO FLARE REPO}/android`
+
+- Open Android Studio
+- File > Open > `{NAVIGATE TO FLARE REPO}/android`
 
 When running the app on android you will need to reverse the port number 8081 so that the app can communicate with the debugger: `adb reverse tcp:8081 tcp:8081`
 
