@@ -366,7 +366,7 @@ const syncPostExperimentQuestions = async (
       did_pay_attention: answers.didPayAttention,
       task_environment: answers.taskEnvironment,
       was_quiet: answers.wasQuiet,
-      was_alone: answers.wasAlone,
+      was_not_alone: answers.wasNotAlone,
       was_interrupted: answers.wasInterrupted,
     })
 

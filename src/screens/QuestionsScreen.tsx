@@ -177,11 +177,11 @@ export const QuestionsScreen: React.FC<QuestionScreenProps> = ({
           </QuestionBox>
         )}
 
-        {questions.wasAlone && (
+        {questions.wasNotAlone && (
           <QuestionBox heading="Were there any other people in the room (or passing by) while you were doing the task?">
             <CriterionToggle
-              id="wasAlone"
-              value={answers.wasAlone}
+              id="wasNotAlone"
+              value={answers.wasNotAlone}
               onChange={answerQuestion}
             />
           </QuestionBox>
