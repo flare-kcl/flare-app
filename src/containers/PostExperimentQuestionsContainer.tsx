@@ -9,7 +9,7 @@ export type PostExperimentQuestions = {
   didPayAttention?: boolean
   taskEnvironment?: boolean
   wasQuiet?: boolean
-  wasAlone?: boolean
+  wasNotAlone?: boolean
   wasInterrupted?: boolean
 }
 
@@ -21,7 +21,7 @@ export type PostExperimentAnswers = {
   didPayAttention?: boolean
   taskEnvironment?: boolean
   wasQuiet?: boolean
-  wasAlone?: boolean
+  wasNotAlone?: boolean
   wasInterrupted?: boolean
 }
 

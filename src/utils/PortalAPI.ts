@@ -310,7 +310,7 @@ type PostExperimentQuestionSubmission = {
   did_pay_attention?: boolean
   task_environment?: boolean
   was_quiet?: boolean
-  was_alone?: boolean
+  was_not_alone?: boolean
   was_interrupted?: boolean
 }
 

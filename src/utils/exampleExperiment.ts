@@ -217,7 +217,7 @@ export const exampleExperimentData: Experiment = {
           didPayAttention: true,
           taskEnvironment: true,
           wasQuiet: true,
-          wasAlone: true,
+          wasNotAlone: true,
           wasInterrupted: true,
         },
       },
