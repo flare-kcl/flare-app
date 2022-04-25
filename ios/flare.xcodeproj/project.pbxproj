@@ -20,6 +20,7 @@
 		96905EF65AED1B983A6B3ABC /* libPods-flare.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58EEBF8E8E6FB1BC6CAF49B5 /* libPods-flare.a */; };
 		9CCDB6E98C204C8CBC67AA2D /* Inter-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5F602175C1714180BFD80376 /* Inter-ExtraBold.ttf */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
+		C709CAC77FF656108B79E385 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE0DE9A31587761E04D8B06 /* ExpoModulesProvider.swift */; };
 		D4E552FB3D8947BEA321F359 /* Inter-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FC3E8FC98593475AB8BD91BE /* Inter-Regular.ttf */; };
 		E23CDA0646734281B55E154D /* Inter-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D2F881CE6FA84DB88545BFF7 /* Inter-Bold.ttf */; };
 		FA46D433DB8C4E66945C1F2C /* Inter-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7AD92660B5504A3CBE6D1843 /* Inter-Thin.ttf */; };
@@ -35,6 +36,7 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = flare/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = flare/main.m; sourceTree = "<group>"; };
 		325D40795B0D42308226F460 /* Inter-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Black.ttf"; path = "../src/assets/fonts/Inter/Inter-Black.ttf"; sourceTree = "<group>"; };
+		3EE0DE9A31587761E04D8B06 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-flare/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		58EEBF8E8E6FB1BC6CAF49B5 /* libPods-flare.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-flare.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F602175C1714180BFD80376 /* Inter-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-ExtraBold.ttf"; path = "../src/assets/fonts/Inter/Inter-ExtraBold.ttf"; sourceTree = "<group>"; };
 		63BD3405256D77800053EC4D /* AudioSensor-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AudioSensor-Bridging-Header.h"; path = "FLARe/AudioSensor-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -84,6 +86,14 @@
 			name = flare;
 			sourceTree = "<group>";
 		};
+		175370B2F1DDF606640B31E6 /* ExpoModulesProviders */ = {
+			isa = PBXGroup;
+			children = (
+				8F27960919733FAFDDA667F7 /* flare */,
+			);
+			name = ExpoModulesProviders;
+			sourceTree = "<group>";
+		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -126,6 +136,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				D65327D7A22EEC0BE12398D9 /* Pods */,
 				62CF6DAE29504D35A103DFBA /* Resources */,
+				175370B2F1DDF606640B31E6 /* ExpoModulesProviders */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -138,6 +149,14 @@
 				13B07F961A680F5B00A75B9A /* flare.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		8F27960919733FAFDDA667F7 /* flare */ = {
+			isa = PBXGroup;
+			children = (
+				3EE0DE9A31587761E04D8B06 /* ExpoModulesProvider.swift */,
+			);
+			name = flare;
 			sourceTree = "<group>";
 		};
 		BB2F792B24A3F905000567C9 /* Supporting */ = {
@@ -172,6 +191,7 @@
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */,
+				FA162A0D84D6044A2DBC5A33 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -280,15 +300,37 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-flare/Pods-flare-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/EXConstants/EXConstants.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/EXUpdates/EXUpdates.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EXConstants.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EXUpdates.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-flare/Pods-flare-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FA162A0D84D6044A2DBC5A33 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-flare/Pods-flare-frameworks.sh",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL-Universal/OpenSSL.framework/OpenSSL",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OpenSSL.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-flare/Pods-flare-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -321,6 +363,7 @@
 				63BD3409256D77800053EC4D /* AudioSensor.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				C709CAC77FF656108B79E385 /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
