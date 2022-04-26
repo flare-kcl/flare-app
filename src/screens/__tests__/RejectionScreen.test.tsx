@@ -2,7 +2,7 @@ import { render, fireEvent } from '@testing-library/react-native'
 import { TestProvider } from '@utils/TestProvider'
 import { RejectionScreen } from '@screens'
 
-test('Text Renders Correctly', () => {
+test.skip('Text Renders Correctly', () => {
   const tree = render(
     <TestProvider>
       <RejectionScreen />

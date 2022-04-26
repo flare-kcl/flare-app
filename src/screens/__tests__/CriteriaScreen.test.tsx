@@ -3,7 +3,7 @@ import { exampleCriteriaDefinition } from '@utils/exampleExperiment'
 import { CriteriaScreen } from '@screens'
 import { TestProvider } from '@utils/TestProvider'
 
-test('Text Renders Correctly', () => {
+test.skip('Text Renders Correctly', () => {
   const tree = render(
     <TestProvider>
       <CriteriaScreen {...exampleCriteriaDefinition} />
