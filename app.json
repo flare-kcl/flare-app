@@ -6,11 +6,7 @@
     "updates": {
       "enabled": "false"
     },
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
+    "platforms": ["ios", "android", "web"],
     "android": {
       "package": "uk.ac.kcl.ioppn.flare"
     },
@@ -18,7 +14,8 @@
       "bundleIdentifier": "uk.ac.kcl.ioppn.flare"
     }
   },
-  "assets": [
-    "./src/assets/fonts/Inter/"
-  ]
+  "assets": ["./src/assets/fonts/Inter/"],
+  "splash": {
+    "image": "./assets/splash.png"
+  }
 }
