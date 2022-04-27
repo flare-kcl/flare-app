@@ -3,7 +3,7 @@ import { TermsScreen } from '@screens'
 import { exampleTermsDefinition } from '@utils/exampleExperiment'
 import { TestProvider } from '@utils/TestProvider'
 
-test('Text Renders Correctly', () => {
+test.skip('Text Renders Correctly', () => {
   const tree = render(
     <TestProvider>
       <TermsScreen {...exampleTermsDefinition} />

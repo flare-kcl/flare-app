@@ -7,23 +7,19 @@
     "noEmit": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    // Setup module alias
     "baseUrl": "./src",
     "paths": {
       "@screens": ["./screens"],
       "@screens/*": ["./screens/*"],
-
       "@components": ["./components"],
       "@components/*": ["./components/*"],
-
       "@utils": ["./utils"],
       "@utils/*": ["./utils/*"],
-
       "@redux": ["./redux"],
       "@redux/*": ["./redux/*"],
-
       "@containers": ["./containers"],
       "@containers/*": ["./containers/*"]
     }
-  }
+  },
+  "extends": "expo/tsconfig.base"
 }

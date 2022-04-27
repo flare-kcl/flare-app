@@ -3,7 +3,6 @@
     "name": "FLARe",
     "slug": "FLARe",
     "version": "0.1.0",
-    "sdkVersion": "39.0.0",
     "updates": {
       "enabled": "false"
     },
@@ -15,5 +14,8 @@
       "bundleIdentifier": "uk.ac.kcl.ioppn.flare"
     }
   },
-  "assets": ["./src/assets/fonts/Inter/"]
+  "assets": ["./src/assets/fonts/Inter/"],
+  "splash": {
+    "image": "./assets/splash.png"
+  }
 }

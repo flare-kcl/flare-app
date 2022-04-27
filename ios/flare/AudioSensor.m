@@ -1,5 +1,4 @@
 #import <React/RCTBridgeModule.h>
-#import "AudioSensor-Bridging-Header.h"
 
 @interface RCT_EXTERN_MODULE(AudioSensor, NSObject)
 

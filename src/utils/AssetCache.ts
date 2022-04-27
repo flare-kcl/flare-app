@@ -1,5 +1,5 @@
 import * as FileSystem from 'expo-file-system'
-import AsyncStorage from '@react-native-community/async-storage'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { hashCode } from './hash'
 
 // Base directory where all cached files are kept
