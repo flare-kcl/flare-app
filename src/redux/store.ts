@@ -2,7 +2,6 @@ import { useDispatch } from 'react-redux'
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import { persistStore, persistReducer } from 'redux-persist'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import logger from 'redux-logger'
 import thunk from 'redux-thunk'
 
 import {
@@ -29,7 +28,7 @@ const persistConfig = {
 
 export const store = configureStore({
   reducer: persistReducer(persistConfig, reducers),
-  middleware: [thunk, logger],
+  middleware: [thunk],
 })
 
 export const peristor = persistStore(store)
