@@ -74,6 +74,12 @@ This is to ensure that CocoaPods is installed with the compatible architecture.
 The audio file might be failing to load. Run `sudo pkill -9 coreaudiod` and
 restart the simulator.
 
+**XCode build failing on M1 Mac**
+
+Check that node is accessible at `/usr/local/bin/node`. For some reason, XCode
+looks for node there specifically. Ensure it's the same version you're using to
+run `npm run` commands.
+
 ## 📝 Notes
 
 - [Expo TypeScript guide](https://docs.expo.io/versions/latest/guides/typescript/)
