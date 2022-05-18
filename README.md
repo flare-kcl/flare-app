@@ -56,7 +56,9 @@ to the codebase please continue to follow this methodology. Tests are written in
 [RNTL](https://github.com/callstack/react-native-testing-library). An example snapshot test can be seen here:
 [Text Component Test](https://github.com/flare-kcl/flare-app/tree/main/src/components/__tests__/Text.test.tsx)
 
-## Troubleshooting issues with M1 Macs
+## Troubleshooting
+
+**Working on an M1 Mac**
 
 Make sure CocoaPods is installed with Homebrew:
 
@@ -66,6 +68,17 @@ brew install cocoapods
 ```
 
 This is to ensure that CocoaPods is installed with the compatible architecture.
+
+**Blank/green screen**
+
+The audio file might be failing to load. Run `sudo pkill -9 coreaudiod` and
+restart the simulator.
+
+**XCode build failing on M1 Mac**
+
+Check that node is accessible at `/usr/local/bin/node`. For some reason, XCode
+looks for node there specifically. Ensure it's the same version you're using to
+run `npm run` commands.
 
 ## 📝 Notes
 
