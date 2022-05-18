@@ -207,7 +207,6 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
         {stage == VolumeCalibrationStages.Countdown && countdown > 0 && (
           <Text
             fontFamily="Inter-Medium"
-            width="100%"
             fontSize={80}
             mt={10}
             textAlign="center"

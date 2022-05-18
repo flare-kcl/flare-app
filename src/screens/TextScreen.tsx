@@ -31,7 +31,7 @@ export const TextScreen: React.FunctionComponent<TextScreenProps> = ({
           {heading}
         </Text>
 
-        <Markdown mb={4}>{description}</Markdown>
+        <Markdown mb={4} markdown={description} />
 
         <Box flex={1} justifyContent="flex-end" pb={6}>
           <Button
