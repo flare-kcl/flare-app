@@ -95,13 +95,13 @@ export const CriteriaScreen: React.FunctionComponent<CriteriaScreenParams> = ({
     <ScrollView>
       <Box flex={1} px={6} pt={10}>
         {/* Experiment introText */}
-        <Markdown mb={4}>{introText}</Markdown>
+        <Markdown mb={4} markdown={introText} />
 
         {/* Loop over each consent criteria */}
         {consentCriteria.map((criterion) => (
           <Box key={`criterion-${criterion.id}`} pt={2} pb={8}>
             <Text variant="heading2">{criterion.questionText}</Text>
-            {!!criterion.helpText && <Markdown>{criterion.helpText}</Markdown>}
+            {!!criterion.helpText && <Markdown markdown={criterion.helpText} />}
             <CriterionToggle
               id={criterion.id}
               name={criterion.questionText}
@@ -122,7 +122,7 @@ export const CriteriaScreen: React.FunctionComponent<CriteriaScreenParams> = ({
           pb={6}
         >
           {/* Small feature text to remined them to check answers */}
-          {!!outroText && <Markdown pb={4}>{outroText}</Markdown>}
+          {!!outroText && <Markdown pb={4} markdown={outroText} />}
           <Button
             testID="ContinueButton"
             label="Continue"

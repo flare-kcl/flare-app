@@ -8,6 +8,8 @@ import {
   PanGestureHandler,
   PanGestureHandlerGestureEvent,
 } from 'react-native-gesture-handler'
+import { BoxProps } from '@shopify/restyle'
+import { Theme } from '@utils/theme'
 
 type RatingScaleProps = {
   value: number
@@ -18,7 +20,7 @@ type RatingScaleProps = {
   onChange?: (value: number) => void
   disabled?: boolean
   ratingOptions?: number[]
-  paddingBottom?: number
+  paddingBottom?: BoxProps<Theme>['paddingBottom']
   minAnchorHeight?: number
 }
 

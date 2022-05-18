@@ -49,6 +49,11 @@ export const useUnconditionalStimulus = ():
 
           // Get Duration of sound (max 1000ms)
           const status = await sound.getStatusAsync()
+
+          if (!status.isLoaded) {
+            throw new Error('Sound not loaded')
+          }
+
           const duration =
             status.durationMillis <= 1000 ? status.durationMillis : 1000
 
@@ -68,6 +73,8 @@ export const useUnconditionalStimulus = ():
               }
 
               sound.setOnPlaybackStatusUpdate(async (update) => {
+                if (!update.isLoaded) return
+
                 // Resolve promise when audio is finished
                 if (update.didJustFinish) {
                   onSoundFinished()
@@ -84,7 +91,7 @@ export const useUnconditionalStimulus = ():
             })
           }
 
-          const setVolume = async (volume) => {
+          const setVolume = async (volume: number) => {
             // Update ref and sound object
             audioRef.current.volume = volume
             await audioRef.current.sound.setVolumeAsync(volume)

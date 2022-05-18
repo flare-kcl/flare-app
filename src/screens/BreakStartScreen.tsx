@@ -31,7 +31,7 @@ export const BreakStartScreen: React.FunctionComponent<BreakStartScreenProps> = 
           </Text>
         )}
 
-        <Markdown mb={16}>{description}</Markdown>
+        <Markdown mb={16} markdown={description} />
 
         <Box flex={1} justifyContent="flex-end" pb={6}>
           <Text variant="caption2" px={4} mb={3} textAlign="center">
