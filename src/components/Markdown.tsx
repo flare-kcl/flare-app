@@ -85,6 +85,11 @@ const createHtml = (markdown: string) => {
         color: ${palette.greenDark};
       }
 
+      hr {
+        border: 1px solid ${palette.darkGrey};
+        margin: 0 0 1.5rem;
+      }
+
     </style>
   </head>
   <body>
@@ -113,6 +118,7 @@ export const Markdown: React.FunctionComponent<MarkdownProps> = ({
     <Box height={height} {...props}>
       <AutoHeightWebView
         style={{ width: Dimensions.get('window').width - 48 }}
+        scrollEnabled={false}
         originWhitelist={['*']}
         source={{ html: createHtml(markdown), baseUrl: '' }}
         onShouldStartLoadWithRequest={(event) => {

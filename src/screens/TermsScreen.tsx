@@ -12,26 +12,26 @@ export const TermsScreen: React.FunctionComponent<TermsScreenParams> = ({
   onExit,
 }) => {
   return (
-    <Box flex={1} pt={10} px={6}>
-      {/* Terms and Condition Text */}
-      <Box flex={1}>
+    <ScrollView>
+      <Box flex={1} pt={10} px={6}>
+        {/* Terms and Condition Text */}
         <Markdown my={4} markdown={terms} borderRadius="m" overflow="hidden" />
-      </Box>
 
-      <Box justifyContent="flex-end" pb={6}>
-        <Button
-          testID="AcceptButton"
-          label="I Accept T&Cs"
-          variant="primary"
-          onPress={() => onAccept()}
-        />
-        <Button
-          testID="ExitButton"
-          label="Decline and Exit"
-          variant="exit"
-          onPress={() => onExit()}
-        />
+        <Box justifyContent="flex-end" pb={6}>
+          <Button
+            testID="AcceptButton"
+            label="I Accept T&Cs"
+            variant="primary"
+            onPress={() => onAccept()}
+          />
+          <Button
+            testID="ExitButton"
+            label="Decline and Exit"
+            variant="exit"
+            onPress={() => onExit()}
+          />
+        </Box>
       </Box>
-    </Box>
+    </ScrollView>
   )
 }
