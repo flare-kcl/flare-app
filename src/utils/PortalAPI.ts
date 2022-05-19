@@ -24,7 +24,7 @@ export class PortalAPI {
       response = await rawResponse.json()
       // Check if there is a duplication object issue
       if (
-        Object.keys(response).length == 1 &&
+        Object.keys(response).length === 1 &&
         response['non_field_errors'] !== undefined
       ) {
         console.warn(response)

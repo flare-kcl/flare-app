@@ -178,7 +178,10 @@ export const LabeledPickerField: React.FC<PickerFieldProps> = ({
           {/* <ScrollView> */}
           <Box minHeight={300} pb={10} maxHeight={maxHeight}>
             {options.map((option) => (
-              <Pressable onPress={() => onChange(option.value)}>
+              <Pressable
+                key={option.value}
+                onPress={() => onChange(option.value)}
+              >
                 <Box
                   backgroundColor="offWhite"
                   borderRadius="s"
