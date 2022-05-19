@@ -1,11 +1,13 @@
 import * as WebBrowser from 'expo-web-browser'
 import { BoxProps } from '@shopify/restyle'
-import { Linking, Platform, View } from 'react-native'
+import { Dimensions, Linking, Platform, View } from 'react-native'
 import { marked } from 'marked'
 
 import { Box, Text } from '@components'
 import theme, { Theme, palette } from '@utils/theme'
 import { WebView } from 'react-native-webview'
+import AutoHeightWebView from 'react-native-autoheight-webview'
+import { useState } from 'react'
 
 const createFontFace = (
   fontFamily: string,
@@ -43,7 +45,7 @@ const createHtml = (markdown: string) => {
         font-size: 16px;
         line-height: 1.5;
         color: ${palette.darkGrey};
-        background-color: ${palette.offWhite};
+        background-color: ${palette.greenLight};
         padding: 0.75rem;
         margin: 0;
       }
@@ -100,47 +102,45 @@ export const Markdown: React.FunctionComponent<MarkdownProps> = ({
   markdown,
   ...props
 }) => {
+  const [height, setHeight] = useState(0)
+
   // Validate Markdown input
   if (markdown == undefined && markdown != '') {
     return null
   }
 
   return (
-    <Box {...props}>
-      <View
-        style={{
-          width: '100%',
-          height: '100%',
+    <Box height={height} {...props}>
+      <AutoHeightWebView
+        style={{ width: Dimensions.get('window').width - 48 }}
+        originWhitelist={['*']}
+        source={{ html: createHtml(markdown), baseUrl: '' }}
+        onShouldStartLoadWithRequest={(event) => {
+          if (event.url.startsWith('file://')) {
+            return true
+          }
+
+          if (event.url.startsWith('http')) {
+            // Open HTTP/S links in a browser modal
+            WebBrowser.openBrowserAsync(event.url, {
+              toolbarColor: palette.purple,
+              controlsColor: palette.darkGrey,
+            })
+          } else if (
+            event.url.startsWith('mailto') ||
+            event.url.startsWith('tel')
+          ) {
+            // Open mail and tel links using OS default apps
+            Linking.openURL(event.url)
+          }
+
+          // Unsupported link. Fail silently.
+          return false
         }}
-      >
-        <WebView
-          originWhitelist={['*']}
-          source={{ html: createHtml(markdown), baseUrl: '' }}
-          onShouldStartLoadWithRequest={(event) => {
-            console.log('Start', event.url)
-            if (event.url.startsWith('file://')) {
-              return true
-            }
-
-            if (event.url.startsWith('http')) {
-              // Open HTTP/S links in a browser modal
-              WebBrowser.openBrowserAsync(event.url, {
-                toolbarColor: palette.purple,
-                controlsColor: palette.darkGrey,
-              })
-            } else if (
-              event.url.startsWith('mailto') ||
-              event.url.startsWith('tel')
-            ) {
-              // Open mail and tel links using OS default apps
-              Linking.openURL(event.url)
-            }
-
-            // Unsupported link. Fail silently.
-            return false
-          }}
-        />
-      </View>
+        onSizeUpdated={(size) => {
+          setHeight(size.height)
+        }}
+      />
     </Box>
   )
 }
