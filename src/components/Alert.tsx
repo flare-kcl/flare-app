@@ -73,7 +73,11 @@ export const Alert: React.FC<AlertProps> = ({
             >
               {actions != undefined ? (
                 actions.map((props) => (
-                  <AlertButton alertRef={alertRef} {...props} />
+                  <AlertButton
+                    alertRef={alertRef}
+                    key={props.label}
+                    {...props}
+                  />
                 ))
               ) : (
                 <AlertButton
