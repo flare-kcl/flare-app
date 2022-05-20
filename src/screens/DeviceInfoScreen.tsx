@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import * as Device from 'expo-device'
+import { Platform } from 'react-native'
 import { isPast, isToday } from 'date-fns'
 import {
   Box,
@@ -12,6 +13,23 @@ import {
 } from '@components'
 
 import { BasicInfoContainerState } from '@containers/BasicInfoContainer'
+
+/**
+ * Returns the simple name of the operating system the app is running on
+ *
+ * We do not use Device.osName because it returns a long string of text on some
+ * Android devices. See issue: https://github.com/expo/expo/issues/6990
+ **/
+const getSimpleOSName = () => {
+  if (Platform.OS === 'ios') {
+    return 'iOS'
+  } else if (Platform.OS === 'android') {
+    return 'Android'
+  }
+
+  // Return unformatted platform name if it's neither iOS nor Android
+  return Platform.OS
+}
 
 export type DeviceInfoScreenProps = {
   shouldCollectDob: boolean
@@ -52,7 +70,7 @@ export const DeviceInfoScreen: React.FunctionComponent<DeviceInfoScreenProps> = 
       model: Device.modelName,
       manufacturer: Device.manufacturer,
       version: Device.osVersion,
-      operatingSystem: Device.osName,
+      operatingSystem: getSimpleOSName(),
       gender: shouldCollectGender ? genderValue : null,
       dob: shouldCollectDob ? dobValue : null,
     })
