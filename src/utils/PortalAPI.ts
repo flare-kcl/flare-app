@@ -2,6 +2,17 @@ import Config from 'react-native-config'
 import isEqual from 'lodash/isEqual'
 import * as Sentry from '@sentry/react-native'
 
+// Handled errors
+const EXPERIMENT_FINISHED = {
+  participant: 'This participant has already finished the experiment',
+}
+
+const TRIAL_ALREADY_SUBMITTED = {
+  non_field_errors: [
+    'The fields trial, module, participant must make a unique set.',
+  ],
+}
+
 export class PortalAPI {
   private static async executeAPIRequest(
     endpointExtension: string,
@@ -20,11 +31,21 @@ export class PortalAPI {
 
   static async reportValidationError(submissionData, rawResponse: Response) {
     // Decode response to JSON, and if not encodeable text
-    let response = null
+    let responseData = null
     try {
-      response = await rawResponse.json()
+      responseData = await rawResponse.json()
+
+      if (isEqual(responseData, EXPERIMENT_FINISHED)) {
+        console.warn('Participant already submitted')
+        return
+      }
+
+      if (isEqual(responseData, TRIAL_ALREADY_SUBMITTED)) {
+        console.warn('Trial already submitted')
+        return
+      }
     } catch {
-      response = await rawResponse.text()
+      responseData = await rawResponse.text()
     }
 
     // Report issue via Sentry
@@ -34,14 +55,14 @@ export class PortalAPI {
         request: {
           url: rawResponse.url,
         },
-        response,
+        response: responseData,
         submissionData,
       },
     })
 
     // Raise error to stop module sync flag being incorrect
-    console.error(JSON.stringify(response))
-    throw new Error(response)
+    console.error(JSON.stringify(responseData))
+    throw new Error(responseData)
   }
 
   static async submitProgress(trackingSubmission: PortalTrackingSubmission) {
@@ -65,18 +86,6 @@ export class PortalAPI {
 
     // If validation error
     if (response.status === 400) {
-      const duplicateResponse = {
-        non_field_errors: [
-          'The fields trial, module, participant must make a unique set.',
-        ],
-      }
-
-      // Ignore duplicate submission errors
-      if (isEqual(response, duplicateResponse)) {
-        console.warn('Trial rating already sent')
-        return
-      }
-
       PortalAPI.reportValidationError(jsonData, response)
     }
   }
@@ -189,15 +198,6 @@ export class PortalAPI {
 
     // If validation error
     if (response.status === 400) {
-      const alreadySubmitted = {
-        participant: ['This participant has already finished the experiment'],
-      }
-
-      // Ignore duplicate submission errors
-      if (isEqual(response, alreadySubmitted)) {
-        console.warn('Participant has already finished the experiment')
-        return
-      }
       PortalAPI.reportValidationError(jsonData, response)
     }
   }
