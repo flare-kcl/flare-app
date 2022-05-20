@@ -1,4 +1,5 @@
 import Config from 'react-native-config'
+import isEqual from 'lodash/isEqual'
 import * as Sentry from '@sentry/react-native'
 
 export class PortalAPI {
@@ -22,14 +23,6 @@ export class PortalAPI {
     let response = null
     try {
       response = await rawResponse.json()
-      // Check if there is a duplication object issue
-      if (
-        Object.keys(response).length === 1 &&
-        response['non_field_errors'] !== undefined
-      ) {
-        console.warn(response)
-        return
-      }
     } catch {
       response = await rawResponse.text()
     }
@@ -72,6 +65,18 @@ export class PortalAPI {
 
     // If validation error
     if (response.status === 400) {
+      const duplicateResponse = {
+        non_field_errors: [
+          'The fields trial, module, participant must make a unique set.',
+        ],
+      }
+
+      // Ignore duplicate submission errors
+      if (isEqual(response, duplicateResponse)) {
+        console.warn('Trial rating already sent')
+        return
+      }
+
       PortalAPI.reportValidationError(jsonData, response)
     }
   }
@@ -184,6 +189,15 @@ export class PortalAPI {
 
     // If validation error
     if (response.status === 400) {
+      const alreadySubmitted = {
+        participant: ['This participant has already finished the experiment'],
+      }
+
+      // Ignore duplicate submission errors
+      if (isEqual(response, alreadySubmitted)) {
+        console.warn('Participant has already finished the experiment')
+        return
+      }
       PortalAPI.reportValidationError(jsonData, response)
     }
   }
