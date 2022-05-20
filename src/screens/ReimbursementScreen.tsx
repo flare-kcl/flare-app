@@ -12,7 +12,7 @@ export const ReimbursementScreen = ({ body, code, onExit }) => {
   return (
     <ScrollView backgroundColor="greenLight">
       <Box flex={1} pt={10} px={6}>
-        <Markdown>{body}</Markdown>
+        <Markdown markdown={body} />
 
         <Box
           backgroundColor="greenLight"

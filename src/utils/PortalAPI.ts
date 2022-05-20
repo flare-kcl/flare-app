@@ -1,5 +1,17 @@
 import Config from 'react-native-config'
+import isEqual from 'lodash/isEqual'
 import * as Sentry from '@sentry/react-native'
+
+// Handled errors
+const EXPERIMENT_FINISHED = {
+  participant: 'This participant has already finished the experiment',
+}
+
+const TRIAL_ALREADY_SUBMITTED = {
+  non_field_errors: [
+    'The fields trial, module, participant must make a unique set.',
+  ],
+}
 
 export class PortalAPI {
   private static async executeAPIRequest(
@@ -19,19 +31,21 @@ export class PortalAPI {
 
   static async reportValidationError(submissionData, rawResponse: Response) {
     // Decode response to JSON, and if not encodeable text
-    let response = null
+    let responseData = null
     try {
-      response = await rawResponse.json()
-      // Check if there is a duplication object issue
-      if (
-        Object.keys(response).length == 1 &&
-        response['non_field_errors'] !== undefined
-      ) {
-        console.warn(response)
+      responseData = await rawResponse.json()
+
+      if (isEqual(responseData, EXPERIMENT_FINISHED)) {
+        console.warn('Participant already submitted')
+        return
+      }
+
+      if (isEqual(responseData, TRIAL_ALREADY_SUBMITTED)) {
+        console.warn('Trial already submitted')
         return
       }
     } catch {
-      response = await rawResponse.text()
+      responseData = await rawResponse.text()
     }
 
     // Report issue via Sentry
@@ -41,14 +55,14 @@ export class PortalAPI {
         request: {
           url: rawResponse.url,
         },
-        response,
+        response: responseData,
         submissionData,
       },
     })
 
     // Raise error to stop module sync flag being incorrect
-    console.error(JSON.stringify(response))
-    throw new Error(response)
+    console.error(JSON.stringify(responseData))
+    throw new Error(responseData)
   }
 
   static async submitProgress(trackingSubmission: PortalTrackingSubmission) {

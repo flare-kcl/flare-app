@@ -79,9 +79,7 @@ export const cancelAllNotifications = (type?: NotificationType) => {
 
     // Delete each matching notifications
     matchingNotifications.map((n) =>
-      PushNotification.cancelLocalNotifications({
-        id: n.id,
-      }),
+      PushNotification.cancelLocalNotification(n.id),
     )
   })
 }

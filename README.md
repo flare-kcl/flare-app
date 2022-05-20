@@ -22,7 +22,7 @@ FLARe is a native mobile app that allows researchers to deliver fear conditionin
 - The app can connect to any FLARe portal hosted on an accesible domain. This can be done by changing the `BASE_API_URL` and `BASE_MEDIA_URL` urls
   in the `.env` file of the project. Once you make these changes you must recompile the app using XCode or Android Studio.
 
-**_ Note: If you are hosting the portal on your local machine and testing the app on a physical device then you must make that connection accesible to the device by using a local IP address aswell as [reversing any ports](https://blog.grio.com/2015 07/android-tip-adb-reverse.html) on Android _**
+**_Note: If you are hosting the portal on your local machine and testing the app on a physical device then you must make that connection accesible to the device by using a local IP address aswell as [reversing any ports](https://blog.grio.com/2015 07/android-tip-adb-reverse.html) on Android_**
 
 ## 📱 Running app using simulator
 
@@ -44,6 +44,9 @@ To open app in Android Studio:
 - File > Open > `{NAVIGATE TO FLARE REPO}/android`
 
 When running the app on android you will need to reverse the port number 8081 so that the app can communicate with the debugger: `adb reverse tcp:8081 tcp:8081`
+
+For more detailed instructions, please check the [Testing on
+device](./docs/testing-on-device.md) guide.
 
 ## 🔑 Authentication
 

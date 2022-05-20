@@ -111,6 +111,7 @@ export const CAConfirmationQuestionScreen: React.FunctionComponent<CAConfirmatio
 
         {stimuli.map((stimulus) => (
           <TouchableOpacity
+            key={stimulus.label}
             delayPressIn={0}
             delayPressOut={0}
             activeOpacity={0.8}
