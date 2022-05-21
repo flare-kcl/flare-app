@@ -107,7 +107,7 @@ export const Markdown: React.FunctionComponent<MarkdownProps> = ({
   markdown,
   ...props
 }) => {
-  const [height, setHeight] = useState(0)
+  const [height, setHeight] = useState<number | undefined>()
 
   // Validate Markdown input
   if (markdown == undefined && markdown != '') {
@@ -144,7 +144,11 @@ export const Markdown: React.FunctionComponent<MarkdownProps> = ({
           return false
         }}
         onSizeUpdated={(size) => {
-          setHeight(size.height)
+          // On iOS the height of the Box needs to be set manually
+          // On Android, height must be left undefined
+          if (Platform.OS === 'ios') {
+            setHeight(size.height)
+          }
         }}
       />
     </Box>
