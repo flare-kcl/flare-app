@@ -90,6 +90,16 @@ const createHtml = (markdown: string) => {
         margin: 0 0 1.5rem;
       }
 
+      table {
+        margin: -0.25rem -0.5rem 1rem;
+      }
+
+      td, th {
+        padding: 0.25rem 0.5rem;
+        text-align: left;
+        vertical-align: top;
+      }
+
     </style>
   </head>
   <body>
