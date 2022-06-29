@@ -364,6 +364,8 @@ async function loginWithID(participantID: string, dispatch) {
       )
     })
 
+    console.log('Experiment volume:', experiment.usFileVolume)
+
     // Save experiment to redux
     dispatch(
       setExperiment({
@@ -373,7 +375,7 @@ async function loginWithID(participantID: string, dispatch) {
         isComplete: false,
         contactEmail: experiment.contactEmail,
         notificationsEnabled: false,
-        volume: 1,
+        volume: experiment.usFileVolume,
       }),
     )
   } catch (err) {
