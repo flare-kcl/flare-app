@@ -37,7 +37,6 @@ export const useUnconditionalStimulus = ():
       return new Promise(async (resolve, reject) => {
         try {
           // Load sound with stored volume
-          console.log('Setting initial volume to: ', volume)
           const { sound } = await Audio.Sound.createAsync(
             experiment.definition.unconditionalStimulus,
             {
@@ -94,7 +93,6 @@ export const useUnconditionalStimulus = ():
 
           const setVolume = async (volume: number) => {
             // Update ref and sound object
-            console.log('Setting volume to: ', volume)
             audioRef.current.volume = volume
             await audioRef.current.sound.setVolumeAsync(volume)
           }
@@ -140,7 +138,6 @@ export const useUnconditionalStimulus = ():
   // Ensure that volume is always updated
   useEffect(() => {
     if (loaded) {
-      console.log('Keeping volume up to date: ', volume)
       audioRef.current.setVolume(volume)
     }
   }, [volume])

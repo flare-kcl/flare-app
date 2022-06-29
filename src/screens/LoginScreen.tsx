@@ -364,8 +364,6 @@ async function loginWithID(participantID: string, dispatch) {
       )
     })
 
-    console.log('Experiment volume:', experiment.usFileVolume)
-
     // Save experiment to redux
     dispatch(
       setExperiment({
