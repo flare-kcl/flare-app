@@ -373,7 +373,7 @@ async function loginWithID(participantID: string, dispatch) {
         isComplete: false,
         contactEmail: experiment.contactEmail,
         notificationsEnabled: false,
-        volume: 1,
+        volume: experiment.usFileVolume,
       }),
     )
   } catch (err) {

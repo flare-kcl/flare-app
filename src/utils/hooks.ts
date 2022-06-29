@@ -65,7 +65,16 @@ export const useUnconditionalStimulus = ():
 
               const onSoundFinished = async () => {
                 // Stop any playback
-                await sound.stopAsync()
+                try {
+                  await sound.stopAsync()
+                } catch (e) {
+                  // Ignore 'Seeking interrupted.' error
+                  if (e.message !== 'Seeking interrupted.') {
+                    // If not, rethrow error
+                    throw e
+                  }
+                }
+
                 // Regain focus to audio sensor
                 AudioSensor.focus()
                 // Resolve function
@@ -134,6 +143,13 @@ export const useUnconditionalStimulus = ():
       })
     }
   }, [experiment?.definition])
+
+  // Ensure that volume is always updated
+  useEffect(() => {
+    if (loaded) {
+      audioRef.current.setVolume(volume)
+    }
+  }, [volume])
 
   return loaded ? audioRef.current : undefined
 }
