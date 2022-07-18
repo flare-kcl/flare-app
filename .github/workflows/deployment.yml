@@ -47,6 +47,8 @@ jobs:
 
       - name: Node
         uses: actions/setup-node@v1
+        with:
+          node-version: 14
 
       - name: Install Fastlane
         run: brew install fastlane
@@ -92,6 +94,8 @@ jobs:
 
       - name: Node
         uses: actions/setup-node@v1
+        with:
+          node-version: 14
 
       - uses: actions/setup-python@v2
         with:
