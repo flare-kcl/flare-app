@@ -91,13 +91,27 @@ const createHtml = (markdown: string) => {
       }
 
       table {
-        margin: -0.25rem -0.5rem 1rem;
+        border-collapse: collapse;
+      }
+
+      th {
+        background-color: ${palette.purple};
+        border: ${palette.purple};
+        color: ${palette.white};
       }
 
       td, th {
-        padding: 0.25rem 0.5rem;
+        padding: 0.5rem 0.25rem;
         text-align: left;
         vertical-align: top;
+      }
+
+      th {
+        padding: 0.5rem 0.5rem;
+      }
+
+      td {
+        border-bottom: 1px solid ${palette.darkGrey};
       }
 
     </style>
