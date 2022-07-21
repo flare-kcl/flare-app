@@ -1,12 +1,12 @@
-import { useState } from 'react'
-import { Box, Text, Button, Image, ScrollView } from '@components'
-import { useEffect } from 'react'
-import AudioSensor from '@utils/AudioSensor'
-import { AntDesign } from '@expo/vector-icons'
-import { useRef } from 'react'
-import { EmitterSubscription } from 'react-native'
-import { palette } from '@utils/theme'
+import { useEffect, useRef, useState } from 'react'
+import { AirplayButton, showRoutePicker } from 'react-airplay'
+import { EmitterSubscription, Platform } from 'react-native'
+
+import { Box, Button, Image, Pressable, Text } from '@components'
 import { HeadphoneType } from '@containers/BasicInfoContainer'
+import { AntDesign } from '@expo/vector-icons'
+import AudioSensor from '@utils/AudioSensor'
+import { palette } from '@utils/theme'
 
 type HeadphonesDetectionScreenProps = {
   headphoneType: HeadphoneType
@@ -95,6 +95,45 @@ export const HeadphonesDetectionScreen: React.FunctionComponent<HeadphonesDetect
             <Text variant="caption2" fontFamily="Inter" mt={8}>
               Connect your headphones to continue.
             </Text>
+            {Platform.OS === 'ios' && (
+              <>
+                <Text
+                  variant="caption2"
+                  fontFamily="Inter"
+                  mt={8}
+                  mb={4}
+                  textAlign="center"
+                >
+                  If you're using AirPods, please tap the button below and
+                  select your AirPods.
+                </Text>
+                <Pressable
+                  justifyContent="center"
+                  backgroundColor={'darkGrey'}
+                  height={48}
+                  mt={2}
+                  borderRadius={'m'}
+                  onPress={() =>
+                    showRoutePicker({ prioritizesVideoDevices: false })
+                  }
+                >
+                  <Box px={4} flexDirection="row" alignItems="center">
+                    <AirplayButton
+                      prioritizesVideoDevices={false}
+                      tintColor={palette.white}
+                      activeTintColor={'blue'}
+                      style={{
+                        width: 24,
+                        height: 24,
+                      }}
+                    />
+                    <Text variant="buttonLabel" ml={2}>
+                      Switch to AirPods
+                    </Text>
+                  </Box>
+                </Pressable>
+              </>
+            )}
           </>
         )}
       </Box>
