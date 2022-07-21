@@ -55,3 +55,8 @@ jest.mock('@react-native-community/push-notification-ios', () => {
     getInitialNotification: jest.fn(() => Promise.resolve()),
   }
 })
+
+jest.mock('react-airplay', () => ({
+  showRoutePicker: jest.fn(),
+  AirplayButton: jest.fn(),
+}))

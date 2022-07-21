@@ -1,6 +1,12 @@
 import { memo, useState, useEffect, useRef } from 'react'
-import { EmitterSubscription, ImageSourcePropType, Image } from 'react-native'
+import {
+  EmitterSubscription,
+  ImageSourcePropType,
+  Image,
+  Platform,
+} from 'react-native'
 import { useSelector } from 'react-redux'
+import { showRoutePicker } from 'react-airplay'
 
 import {
   Box,
@@ -115,13 +121,27 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
         pauseTrial()
 
         if (headphoneRef.current === undefined) {
-          headphoneRef.current = Alert.alert(
-            'Reconnect Headphones',
-            'Please reconnect your headphones to continue.',
-            [
-              /* LEAVE BLANK */
-            ],
-          )
+          if (Platform.OS === 'ios') {
+            headphoneRef.current = Alert.alert(
+              'Reconnect Headphones',
+              "Please reconnect your headphones to continue. If you're using AirPods, switch to them now.",
+              [
+                {
+                  label: 'Switch to AirPods',
+                  onPress: () =>
+                    showRoutePicker({ prioritizesVideoDevices: false }),
+                },
+              ],
+            )
+          } else {
+            headphoneRef.current = Alert.alert(
+              'Reconnect Headphones',
+              'Please reconnect your headphones to continue.',
+              [
+                /* Leave empty */
+              ],
+            )
+          }
         }
       } else if (connected) {
         // If we detect a reconnect then dismiss alert
