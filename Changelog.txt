@@ -1,1 +1,1 @@
-This version implements some fixes regarding trial generation and renabling the 'Contact Researcher' functionality.
+Bug fixes, minor improvements, and new features.
