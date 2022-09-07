@@ -1,12 +1,49 @@
 # Testing on device
 
-## iOS
-
 Testing on device gives the most accurate representation of how the app will
 function once its in user's hands. There are some things that just don't work on
 the simulator.
 
 A bit of setup work is required to get this going.
+
+**Connecting the app to your local FLARe Portal server**
+
+You need to point the app to your local dev server so that it connects to that
+instead of staging or production. To do this, edit the `.env` file and make sure
+to set both `BASE_API_URL` and `BASE_MEDIA_URL` to match your computer's local
+network IP address.
+
+If you are using our default Docker setup to run the FLARe Portal server, the
+server should already be accessible in your local network. To test, open up
+Safari on your device and go to `http://<your-computer-ip>:8000`. If you see the
+FLARe portal login screen, you know that your phone can successfully access
+FLARe portal.
+
+## Android
+
+**Android Studio and adb**
+
+Install Android Studio and make sure `adb` is in your `PATH`. Android Studio
+installs it here:
+
+```
+/Users/<username>/Library/Android/sdk/platform-tools/adb
+```
+
+Plug in your Android device. Make sure USB Debugging is enabled.
+
+To check that everything is hooked up correctly, run `adb devices`. You should
+see your device appear on the list.
+
+**Build and install the app**
+
+Next, run `npm run android`. This will build and install the app on your phone.
+
+You can only have one version of the app installed at a time. You cannot install
+the dev build while you have the production version installed, so make sure
+FLARe production is not installed on your device.
+
+## iOS
 
 **Ensure you're using the most up-to-date software**
 
@@ -62,17 +99,6 @@ Archive.
 
 **DO NOT commit the new scheme or changes to the `flare.xcodeproj` file.** This
 is for your machine only.
-
-**Connecting the app to your local FLARe Portal server**
-
-Edit the `.env` file and make sure to set both `BASE_API_URL` and
-`BASE_MEDIA_URL` to match your computer's local network IP address.
-
-If you are using our default Docker setup to run the FLARe Portal server, the
-server should already be accessible in your local network. To test, open up
-Safari on your iPhone and go to `http://<your-computer-ip>:8000`. If you see the
-FLARe portal login screen, you know that your phone can successfully access
-FLARe portal.
 
 **Build and install the app**
 
