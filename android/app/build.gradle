@@ -146,8 +146,8 @@ android {
         applicationId 'uk.ac.kcl.ioppn.flare'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 187
-        versionName "1.4.0"
+        versionCode 188
+        versionName "1.4.1"
     }
     splits {
         abi {
