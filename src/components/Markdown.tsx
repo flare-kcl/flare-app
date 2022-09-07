@@ -1,13 +1,12 @@
-import * as WebBrowser from 'expo-web-browser'
+import { Box } from '@components'
 import { BoxProps } from '@shopify/restyle'
-import { Dimensions, Linking, Platform, View } from 'react-native'
+import { palette, Theme } from '@utils/theme'
+import * as WebBrowser from 'expo-web-browser'
+import debounce from 'lodash/debounce'
 import { marked } from 'marked'
-
-import { Box, Text } from '@components'
-import theme, { Theme, palette } from '@utils/theme'
-import { WebView } from 'react-native-webview'
-import AutoHeightWebView from 'react-native-autoheight-webview'
 import { useState } from 'react'
+import { Dimensions, Linking, Platform } from 'react-native'
+import AutoHeightWebView from 'react-native-autoheight-webview'
 
 const createFontFace = (
   fontFamily: string,
@@ -133,6 +132,8 @@ export const Markdown: React.FunctionComponent<MarkdownProps> = ({
 }) => {
   const [height, setHeight] = useState<number | undefined>()
 
+  const debouncedSetHeight = debounce(setHeight, 500)
+
   // Validate Markdown input
   if (markdown == undefined && markdown != '') {
     return null
@@ -168,11 +169,24 @@ export const Markdown: React.FunctionComponent<MarkdownProps> = ({
           return false
         }}
         onSizeUpdated={(size) => {
-          // On iOS the height of the Box needs to be set manually
-          // On Android, height must be left undefined
-          if (Platform.OS === 'ios') {
-            setHeight(size.height)
-          }
+          // Set the height of the Box to the height needed by the WebView's content.
+          //
+          // For an unknown reason, onSizeUpdated is called multiple times with
+          // the same content. (It may be caused by DOM reflow as the WebView is
+          // rendering the content but unsure.)
+          //
+          // Moreover, onSizeUpdated is also retriggered when the size of the
+          // wrapper Box changes.
+          //
+          // These two issues combined means that on Android, the height of the
+          // WebView is constantly changing in an infinite loop.
+          //
+          // To prevent this from happening, we debounce the call to so that we
+          // only update the height of the Box once the content has settled.
+          //
+          // This issue doesn't happen on iOS, but it doesn't hurt to debounce
+          // for that platform too.
+          debouncedSetHeight(size.height)
         }}
       />
     </Box>
