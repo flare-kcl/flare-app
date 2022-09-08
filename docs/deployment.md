@@ -23,4 +23,13 @@ Deploying to production requires some extra steps:
 1. Tag the latest commit on `main` with a version number (e.g. `v1.4.0`)
 1. Push the `main` branch
 
-CI takes care of the rest.
+CI takes care of building and pushing it out to Google Play and App Store.
+
+## Next version
+
+Once a version has been released to production, you can no longer push test builds with the same version (e.g. 1.4.0). You must prepare a new version the next time you want to publish a new test release.
+
+1. Make sure `develop` is up to date with `main`. `git checkout develop && git merge main`
+1. Bump the iOS version using fastlane. `cd ios && fastlane ios bump version:1.5.0`
+1. Bump the Android version using fastlane. `cd android && fastlane android bump version:1.5.0`
+1. Commit your changes to develop or your feature branch.
