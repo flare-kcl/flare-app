@@ -1,2 +1,0 @@
-json_key_file("./fastlane/api.json")
-package_name("uk.ac.kcl.ioppn.flare")
