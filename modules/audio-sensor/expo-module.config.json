@@ -1,9 +1,0 @@
-{
-  "platforms": ["ios", "android"],
-  "ios": {
-    "modules": ["AudioSensorModule"]
-  },
-  "android": {
-    "modules": ["uk.ac.kcl.ioppn.flare.audiosensor.AudioSensorModule"]
-  }
-}
