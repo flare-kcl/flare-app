@@ -1,62 +1,32 @@
-import {
-  NativeEventEmitter,
-  NativeModules,
-  EmitterSubscription,
-} from 'react-native'
-
-// Connection to native code
-const AudioSensorModule = NativeModules.AudioSensor
-
-// Event source for any changes
-const AudioSensorEmitter = new NativeEventEmitter(AudioSensorModule)
-
 // Exposed class used by application code
 export default class AudioSensor {
   private static currentVolume: number
   private static headphoneConnected: boolean
 
   static async getCurrentVolume(): Promise<number> {
-    return await AudioSensorModule.getCurrentVolume()
+    return await new Promise((resolve, reject) => {
+      resolve(0.5)
+    })
   }
 
   static async isHeadphonesConnected(): Promise<boolean> {
-    return await AudioSensorModule.isHeadphonesConnected()
+    return new Promise((resolve, reject) => {
+      resolve(false)
+    })
+    // return await Sensor.isHeadphonesConnected()
   }
 
   static async focus(): Promise<boolean> {
-    const canFocus = await AudioSensorModule.focus()
-    if (canFocus) {
-      AudioSensorEmitter.emit('VolumeChange', await this.getCurrentVolume())
-      AudioSensorEmitter.emit(
-        'OutputChange',
-        await this.isHeadphonesConnected(),
-      )
-    }
-
-    return canFocus
-  }
-
-  static addVolumeListener(cb: (volume: number) => void): EmitterSubscription {
-    return AudioSensorEmitter.addListener('VolumeChange', (volume) => {
-      if (volume !== this.currentVolume) {
-        cb(volume)
-
-        // Update internal state
-        this.currentVolume = volume
-      }
+    return new Promise((resolve, reject) => {
+      resolve(true)
     })
   }
 
-  static addHeadphonesListener(
-    cb: (connected: boolean) => void,
-  ): EmitterSubscription {
-    return AudioSensorEmitter.addListener('OutputChange', (connected) => {
-      if (connected !== this.headphoneConnected) {
-        cb(connected)
+  static addVolumeListener(cb: (volume: number) => void) {
+    return false
+  }
 
-        // Update internal state
-        this.headphoneConnected = connected
-      }
-    })
+  static addHeadphonesListener(cb: (connected: boolean) => void) {
+    return false
   }
 }

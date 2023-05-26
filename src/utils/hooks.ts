@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react'
 import { useSelector } from 'react-redux'
-import { Audio } from 'expo-av'
+import { Audio, InterruptionModeIOS, InterruptionModeAndroid } from 'expo-av'
 import * as Sentry from '@sentry/react-native'
 import { experimentSelector } from '@redux/selectors'
 import AudioSensor from './AudioSensor'
@@ -9,10 +9,10 @@ import { Alert } from 'react-native'
 Audio.setAudioModeAsync({
   allowsRecordingIOS: false,
   staysActiveInBackground: true,
-  interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_MIX_WITH_OTHERS,
+  interruptionModeIOS: InterruptionModeIOS.DoNotMix,
   playsInSilentModeIOS: true,
   shouldDuckAndroid: true,
-  interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
+  interruptionModeAndroid: InterruptionModeAndroid.DoNotMix,
   playThroughEarpieceAndroid: false,
 })
 
