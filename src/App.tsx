@@ -58,10 +58,7 @@ export default function App() {
 
   return (
     loaded && (
-      <View
-        style={{ flex: 1, backgroundColor: palette.greenLight }}
-        onTouchStart={() => AudioSensor.focus()}
-      >
+      <View style={{ flex: 1, backgroundColor: palette.greenLight }}>
         <FlareThemeProvider>
           <SafeAreaProvider>
             <StatusBar barStyle="dark-content" />
