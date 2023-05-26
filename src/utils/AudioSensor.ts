@@ -1,19 +1,22 @@
+import { VolumeManager } from 'react-native-volume-manager'
+import DeviceInfo from 'react-native-device-info'
+import { NativeEventEmitter, NativeModules } from 'react-native'
+
+const deviceInfoEmitter = new NativeEventEmitter(NativeModules.RNDeviceInfo)
+
 // Exposed class used by application code
 export default class AudioSensor {
   private static currentVolume: number
   private static headphoneConnected: boolean
 
   static async getCurrentVolume(): Promise<number> {
-    return await new Promise((resolve, reject) => {
-      resolve(0.5)
+    return await VolumeManager.getVolume().then(({ volume }) => {
+      return volume
     })
   }
 
   static async isHeadphonesConnected(): Promise<boolean> {
-    return new Promise((resolve, reject) => {
-      resolve(false)
-    })
-    // return await Sensor.isHeadphonesConnected()
+    return DeviceInfo.isHeadphonesConnected()
   }
 
   static async focus(): Promise<boolean> {
@@ -23,10 +26,17 @@ export default class AudioSensor {
   }
 
   static addVolumeListener(cb: (volume: number) => void) {
-    return false
+    return VolumeManager.addVolumeListener((result) => {
+      cb(result.volume)
+    })
   }
 
   static addHeadphonesListener(cb: (connected: boolean) => void) {
-    return false
+    return deviceInfoEmitter.addListener(
+      'RNDeviceInfo_headphoneConnectionDidChange',
+      (result) => {
+        cb(result)
+      },
+    )
   }
 }

@@ -15,7 +15,6 @@ import { onStateHydrated } from '@redux/persist'
 import { ExperimentContainer } from 'containers/ExperimentContainer'
 import { AlertProvider } from '@utils/AlertProvider'
 import { registerNotifications } from '@utils/notifications'
-import AudioSensor from '@utils/AudioSensor'
 
 // Link with Sentry
 Sentry.init({
