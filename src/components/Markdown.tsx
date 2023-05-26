@@ -1,30 +1,30 @@
 import { Box } from '@components'
 import { BoxProps } from '@shopify/restyle'
 import { palette, Theme } from '@utils/theme'
+import { Asset } from 'expo-asset'
 import * as WebBrowser from 'expo-web-browser'
 import debounce from 'lodash/debounce'
 import { marked } from 'marked'
 import { useState } from 'react'
-import { Dimensions, Linking, Platform } from 'react-native'
+import { Dimensions, Linking } from 'react-native'
 import AutoHeightWebView from 'react-native-autoheight-webview'
+
+const InterRegular = require('../assets/fonts/Inter/Inter-Regular.ttf')
+const InterSemiBold = require('../assets/fonts/Inter/Inter-SemiBold.ttf')
 
 const createFontFace = (
   fontFamily: string,
   fontWeight: number,
-  fontFileName: string,
+  fontAssetModule: number,
   fontStyle: 'normal' | 'italic' = 'normal',
 ) => {
-  const fontUrl = Platform.select({
-    ios: fontFileName,
-    android: `file:///android_asset/fonts/${fontFileName}`,
-  })
-
+  const fontUrl = Asset.fromModule(fontAssetModule).uri
   return `
   @font-face {
     font-family: '${fontFamily}';
     font-weight: ${fontWeight};
     font-style: ${fontStyle};
-    src: local('${fontFileName.split('.')[0]}'), url('${fontUrl}');
+    src: url('${fontUrl}');
   }
   `
 }
@@ -36,8 +36,8 @@ const createHtml = (markdown: string) => {
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-      ${createFontFace('Inter', 400, 'Inter-Regular.ttf')}
-      ${createFontFace('Inter', 600, 'Inter-SemiBold.ttf')}
+      ${createFontFace('Inter', 400, InterRegular)}
+      ${createFontFace('Inter', 600, InterSemiBold)}
 
       body {
         font-family: 'Inter';
