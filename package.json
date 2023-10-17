@@ -55,7 +55,6 @@
     "react-native-screens": "~3.20.0",
     "react-native-spinkit": "^1.5.1",
     "react-native-textinput-effects": "^0.6.1",
-    "react-native-unimodules": "~0.15.0",
     "react-native-url-polyfill": "^1.2.0",
     "react-native-volume-manager": "^1.5.1",
     "react-native-web": "~0.18.10",
