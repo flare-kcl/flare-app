@@ -4,10 +4,15 @@
     "slug": "FLARe",
     "version": "0.1.0",
     "updates": {
-      "enabled": "false"
+      "enabled": false
     },
     "platforms": ["ios", "android"],
     "icon": "./assets/app-icon-1024.png",
+    "splash": {
+      "backgroundColor": "#ffffff",
+      "resizeMode": "contain",
+      "image": "./assets/splash.png"
+    },
     "android": {
       "package": "uk.ac.kcl.ioppn.flare"
     },
@@ -15,8 +20,5 @@
       "bundleIdentifier": "uk.ac.kcl.ioppn.flare"
     }
   },
-  "assets": ["./src/assets/fonts/Inter/"],
-  "splash": {
-    "image": "./assets/splash.png"
-  }
+  "assets": ["./src/assets/fonts/Inter/"]
 }
