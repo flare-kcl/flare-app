@@ -6,7 +6,8 @@
     "updates": {
       "enabled": "false"
     },
-    "platforms": ["ios", "android", "web"],
+    "platforms": ["ios", "android"],
+    "icon": "./assets/app-icon-1024.png",
     "android": {
       "package": "uk.ac.kcl.ioppn.flare"
     },
