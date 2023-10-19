@@ -68,3 +68,7 @@ dist/
 */fastlane/report.xml
 */fastlane/Preview.html
 */fastlane/screenshots
+
+# Ignore prebuild files
+/android
+/ios

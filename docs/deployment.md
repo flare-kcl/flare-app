@@ -33,3 +33,46 @@ Once a version has been released to production, you can no longer push test buil
 1. Bump the iOS version using fastlane. `cd ios && fastlane ios bump version:1.5.0`
 1. Bump the Android version using fastlane. `cd android && fastlane android bump version:1.5.0`
 1. Commit your changes to develop or your feature branch.
+
+# Deployment internals
+
+The following section describes what happens in CI during a deployment.
+
+## 1. Bump version
+
+The human-readable version and the version code (android)/build number (ios) is
+updated. The human-readable version can be the same for many distinct builds,
+but every build must have its own version code/build number.
+
+An example of a human-readable version is "1.5.0". An example of a version
+code/build number is "190".
+
+## 2. Update environment variables
+
+The contents of the `.env` file is updated. This file is used on build to set
+constants such as the URL of the backend server, API token, Sentry DTN, etc. in
+the native application.
+
+## 3. Install credentials
+
+Credentials required for signing and uploading to the respective app stores are
+installed.
+
+For iOS, this uses a combination of GitHub secrets and fastlane match.
+
+For Android, the credentials are stored in GitHub secrets.
+
+## 4. Build and sign
+
+The native apps are built and signed. The build process is managed through
+fastlane.
+
+## 5. Publishing
+
+The resulting builds are uploaded to their respective app stores. This is
+managed through fastlane as well.
+
+## 5. Git housekeeping
+
+- A new release is added on GitHub
+- Version numbers are committed to the repo

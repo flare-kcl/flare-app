@@ -1,0 +1,178 @@
+name: Deployment new
+
+on:
+  push:
+    branches: [develop]
+
+jobs:
+  android:
+    name: 'Build and deploy (Android)'
+    runs-on: macos-latest
+    timeout-minutes: 120
+
+    steps:
+      - name: Install jq
+        run: sudo apt-get install jq
+
+      - name: Increment build number
+        run: |
+          jq '.expo.android.versionCode += 1 | .expo.ios.buildNumber = (.expo.android.versionCode | tostring)' app.json > temp.json && mv temp.json app.json
+          jq . app.json > temp.json && mv temp.json app.json
+
+      - name: Generate Develop .env file
+        if: github.ref == 'refs/heads/develop'
+        run: |
+          pip install dump-env
+          dump-env --template=./.env.template > .env
+        env:
+          BASE_API_URL: ${{ secrets.DEV_API_URL }}
+          API_AUTH_TOKEN: ${{ secrets.DEV_AUTH_TOKEN }}
+          SENTRY_DTN: ${{ secrets.SENTRY_DTN }}
+
+      - name: Generate Production .env file
+        if: github.ref == 'refs/heads/main'
+        run: |
+          pip install dump-env
+          dump-env --template=./.env.template > .env
+        env:
+          BASE_API_URL: ${{ secrets.PROD_API_URL }}
+          API_AUTH_TOKEN: ${{ secrets.PROD_AUTH_TOKEN }}
+          SENTRY_DTN: ${{ secrets.SENTRY_DTN }}
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Prebuild
+        run: expo prebuild --clean
+
+      - name: Link Fastlane config
+        run: ln -s $(pwd)/fastlane/android android/fastlane
+
+      - name: Install JDK 8
+        uses: joschi/setup-jdk@v2
+        with:
+          java-version: 'openjdk8'
+          architecture: 'x64'
+
+      - name: Install Fastlane
+        run: brew install fastlane
+
+      - name: Install Android Credentials
+        run: |
+          cd android/app
+          echo "${{ secrets.KEY_STORE }}" | base64 --decode > release.keystore
+          echo "${{ secrets.KEY_STORE_CONFIG }}" > keystore.properties
+          echo "${{ secrets.GOOGLE_SERVICES_JSON }}" | base64 --decode > google-services.json
+          cd ../fastlane
+          echo "${{ secrets.ANDROID_API_KEY }}" | base64 --decode > api.json
+          cd ../../
+
+      - name: Build Release App
+        run: cd android && fastlane build --verbose && cd ..
+
+      - name: Deploy Android App to Internal Track
+        if: github.ref == 'refs/heads/develop'
+        run: cd android && fastlane alpha --verbose && cd ..
+
+      - name: Deploy Android App to Play Store
+        if: github.ref == 'refs/heads/main'
+        run: cd android && fastlane release --verbose && cd ..
+
+      - name: Get Release Version
+        id: version
+        run: |
+          APP_VERSION=$(jq -r '.version' package.json)
+          BUILD_NUMBER=$(jq -r '.expo.android.versionCode' app.json)
+          echo "::set-output name=version::${APP_VERSION}(${BUILD_NUMBER})"
+
+      - name: Get Latest Changelog
+        id: changelog
+        run: echo ::set-output name=changelog::$(cat ./Changelog.txt)
+
+      - name: Setup Git
+        run: |
+          git config --global user.name 'Github Actions'
+          git config --global user.email 'flare@torchbox.com'
+
+      - name: Commit Changes (Develop)
+        if: github.ref == 'refs/heads/develop'
+        run: |
+          git checkout develop
+          git add app.json
+          git commit -m "Version Bump [skip-ci]"
+          git push
+
+      - name: Commit Changes (Main)
+        if: github.ref == 'refs/heads/main'
+        run: |
+          git checkout main
+
+          git stash push -- ./app.json
+          git reset --hard
+
+          git stash apply
+          git add ./app.json
+          git commit -m "Version Bump [skip-ci]"
+          git push
+
+          git checkout develop
+          git stash apply
+          git add ./app.json
+          git commit -m "Version Bump [skip-ci]"
+          git push
+
+          git checkout main
+
+      - name: Get commit hash
+        id: commitPush
+        run: echo ::set-output name=commit::$(git rev-parse HEAD)
+
+      - name: Create Alpha Release
+        if: github.ref == 'refs/heads/develop'
+        id: create_alpha_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.version.outputs.version }}
+          release_name: Alpha ${{ steps.version.outputs.version }}
+          commitish: ${{ steps.commitPush.outputs.commit }}
+          body: ${{ steps.changelog.outputs.changelog }}
+          draft: true
+          prerelease: true
+
+      - name: Create Prod Release
+        if: github.ref == 'refs/heads/main'
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.version.outputs.version }}
+          release_name: Release ${{ steps.version.outputs.version }}
+          commitish: ${{ steps.commitPush.outputs.commit }}
+          body: ${{ steps.changelog.outputs.changelog }}
+          draft: false
+          prerelease: false
+
+      # - name: Attach iOS App (Github Release)
+      #   id: upload-ios-asset
+      #   uses: actions/upload-release-asset@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     upload_url: ${{ steps.create_release.outputs.upload_url || steps.create_alpha_release.outputs.upload_url }}
+      #     asset_path: ./ios/flare.ipa
+      #     asset_name: FLARe.ipa
+      #     asset_content_type: application/zip
+
+      - name: Attach Android App (Github Release)
+        id: upload-android-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url || steps.create_alpha_release.outputs.upload_url }}
+          asset_path: ./android/app/build/outputs/apk/release/app-release.apk
+          asset_name: FLARe.apk
+          asset_content_type: application/vnd.android.package-archive

@@ -1,62 +1,57 @@
-import {
-  NativeEventEmitter,
-  NativeModules,
-  EmitterSubscription,
-} from 'react-native'
+import { VolumeManager } from 'react-native-volume-manager'
+import DeviceInfo from 'react-native-device-info'
+import { NativeEventEmitter, NativeModules } from 'react-native'
 
-// Connection to native code
-const AudioSensorModule = NativeModules.AudioSensor
+const deviceInfoEmitter = new NativeEventEmitter(NativeModules.RNDeviceInfo)
 
-// Event source for any changes
-const AudioSensorEmitter = new NativeEventEmitter(AudioSensorModule)
-
-// Exposed class used by application code
+/**
+ * AudioSensor
+ *
+ * This class used to be a wrapper around our custom native AudioSensor module.
+ *
+ * The custom native module was removed in favor of using the react-native-volume-manager
+ * and react-native-device-info modules.
+ */
 export default class AudioSensor {
   private static currentVolume: number
   private static headphoneConnected: boolean
 
   static async getCurrentVolume(): Promise<number> {
-    return await AudioSensorModule.getCurrentVolume()
+    return await VolumeManager.getVolume().then(({ volume }) => {
+      return volume
+    })
   }
 
   static async isHeadphonesConnected(): Promise<boolean> {
-    return await AudioSensorModule.isHeadphonesConnected()
+    return DeviceInfo.isHeadphonesConnected()
   }
 
+  /**
+   * @deprecated
+   *
+   * This method used to ensure that AVAudioSession is active on iOS.
+   *
+   * It is unclear why this was needed, but now that the custom native module
+   * is removed, this method is no longer needed.
+   */
   static async focus(): Promise<boolean> {
-    const canFocus = await AudioSensorModule.focus()
-    if (canFocus) {
-      AudioSensorEmitter.emit('VolumeChange', await this.getCurrentVolume())
-      AudioSensorEmitter.emit(
-        'OutputChange',
-        await this.isHeadphonesConnected(),
-      )
-    }
-
-    return canFocus
-  }
-
-  static addVolumeListener(cb: (volume: number) => void): EmitterSubscription {
-    return AudioSensorEmitter.addListener('VolumeChange', (volume) => {
-      if (volume !== this.currentVolume) {
-        cb(volume)
-
-        // Update internal state
-        this.currentVolume = volume
-      }
+    return new Promise((resolve, reject) => {
+      resolve(true)
     })
   }
 
-  static addHeadphonesListener(
-    cb: (connected: boolean) => void,
-  ): EmitterSubscription {
-    return AudioSensorEmitter.addListener('OutputChange', (connected) => {
-      if (connected !== this.headphoneConnected) {
-        cb(connected)
-
-        // Update internal state
-        this.headphoneConnected = connected
-      }
+  static addVolumeListener(cb: (volume: number) => void) {
+    return VolumeManager.addVolumeListener((result) => {
+      cb(result.volume)
     })
+  }
+
+  static addHeadphonesListener(cb: (connected: boolean) => void) {
+    return deviceInfoEmitter.addListener(
+      'RNDeviceInfo_headphoneConnectionDidChange',
+      (result) => {
+        cb(result)
+      },
+    )
   }
 }
