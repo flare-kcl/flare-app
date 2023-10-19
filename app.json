@@ -2,7 +2,7 @@
   "expo": {
     "name": "FLARe",
     "slug": "FLARe",
-    "version": "0.1.0",
+    "version": "2.0.0",
     "updates": {
       "enabled": false
     },
@@ -15,6 +15,7 @@
     },
     "android": {
       "package": "uk.ac.kcl.ioppn.flare",
+      "versionCode": 194,
       "adaptiveIcon": {
         "foregroundImage": "./assets/android-adaptive-icon-foreground.png",
         "monochromeImage": "./assets/android-adaptive-icon-foreground.png",
@@ -22,7 +23,8 @@
       }
     },
     "ios": {
-      "bundleIdentifier": "uk.ac.kcl.ioppn.flare"
+      "bundleIdentifier": "uk.ac.kcl.ioppn.flare",
+      "buildNumber": "194"
     }
   },
   "assets": ["./src/assets/fonts/Inter/"]
