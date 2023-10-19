@@ -70,5 +70,5 @@ dist/
 */fastlane/screenshots
 
 # Ignore prebuild files
-android
-ios
+/android
+/ios

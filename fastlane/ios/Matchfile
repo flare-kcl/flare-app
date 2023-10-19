@@ -1,0 +1,4 @@
+storage_mode("git")
+type("appstore")
+app_identifier("uk.ac.kcl.ioppn.flare")
+username("flare@torchbox.com")
