@@ -58,7 +58,7 @@ jobs:
         run: npx expo prebuild --clean
 
       - name: Link Fastlane config
-        run: ln -s $(pwd)/fastlane/android android/fastlane
+        run: cp -R fastlane/android android/fastlane
 
       - name: Install JDK 8
         uses: joschi/setup-jdk@v2
