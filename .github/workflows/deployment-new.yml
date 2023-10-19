@@ -3,6 +3,8 @@ name: Deployment new
 on:
   push:
     branches: [develop]
+  workflow_dispatch:
+    inputs:
 
 jobs:
   android:
