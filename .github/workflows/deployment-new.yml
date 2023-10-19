@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: Install jq
-        run: sudo apt-get install jq
+        run: brew install jq
 
       - name: Increment build number
         run: |
