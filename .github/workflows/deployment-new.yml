@@ -27,8 +27,9 @@ jobs:
       - name: Generate Develop .env file
         if: github.ref == 'refs/heads/develop'
         run: |
-          pip install dump-env
-          dump-env --template=./.env.template > .env
+          env | while IFS= read -r line; do
+            echo "$line" >> .env
+          done
         env:
           BASE_API_URL: ${{ secrets.DEV_API_URL }}
           API_AUTH_TOKEN: ${{ secrets.DEV_AUTH_TOKEN }}
@@ -37,8 +38,9 @@ jobs:
       - name: Generate Production .env file
         if: github.ref == 'refs/heads/main'
         run: |
-          pip install dump-env
-          dump-env --template=./.env.template > .env
+          env | while IFS= read -r line; do
+            echo "$line" >> .env
+          done
         env:
           BASE_API_URL: ${{ secrets.PROD_API_URL }}
           API_AUTH_TOKEN: ${{ secrets.PROD_AUTH_TOKEN }}
