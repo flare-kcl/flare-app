@@ -32,13 +32,14 @@ platform :android do
   desc "Build release version of app"
   lane :build do
     keystore_props = load_keystore_properties
+    absolute_keystore_path = File.join(__dir__, "../app/release.keystore")
 
     # Compile release version of code
     gradle(
       task: "clean assembleRelease",
       flags: "-Dorg.gradle.internal.http.socketTimeout=120000 -Dorg.gradle.internal.http.connectionTimeout=120000",
       properties: {
-        "android.injected.signing.store.file" => "release.keystore",
+        "android.injected.signing.store.file" => absolute_keystore_path,
         "android.injected.signing.store.password" => keystore_props['storePassword'],
         "android.injected.signing.key.alias" => keystore_props['keyAlias'],
         "android.injected.signing.key.password" => keystore_props['keyPassword']
