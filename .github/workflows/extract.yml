@@ -28,7 +28,7 @@ jobs:
       - name: Generate Develop .env file
         run: |
           env | while IFS= read -r line; do
-            echo "$line" >> secrets/.env.develop
+            echo "$line" >> secrets/env.develop
           done
         env:
           BASE_API_URL: ${{ secrets.DEV_API_URL }}
@@ -38,7 +38,7 @@ jobs:
       - name: Generate Production .env file
         run: |
           env | while IFS= read -r line; do
-            echo "$line" >> secrets/.env.production
+            echo "$line" >> secrets/env.production
           done
         env:
           BASE_API_URL: ${{ secrets.PROD_API_URL }}
