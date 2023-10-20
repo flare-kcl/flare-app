@@ -32,7 +32,7 @@ platform :android do
   desc "Build release version of app"
   lane :build do
     keystore_props = load_keystore_properties
-    absolute_keystore_path = File.join(__dir__, "../app/release.keystore")
+    absolute_keystore_path = File.expand_path("../app/release.keystore", __dir__)
 
     # Compile release version of code
     gradle(
