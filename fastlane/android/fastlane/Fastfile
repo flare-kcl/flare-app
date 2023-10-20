@@ -5,6 +5,7 @@ def load_keystore_properties
     properties = {}
     File.open('../app/keystore.properties', 'r') do |file|
         file.each_line do |line|
+            next if line.strip.empty? || !line.include?('=')
             key, value = line.split('=')
             properties[key.strip] = value.strip
         end
