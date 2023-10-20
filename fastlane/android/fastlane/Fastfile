@@ -3,7 +3,7 @@ default_platform(:android)
 # Method to load properties from keystore.properties file
 def load_keystore_properties
     properties = {}
-    File.open('./app/keystore.properties', 'r') do |file|
+    File.open('../app/keystore.properties', 'r') do |file|
         file.each_line do |line|
             key, value = line.split('=')
             properties[key.strip] = value.strip
