@@ -1,5 +1,17 @@
 default_platform(:android)
 
+# Method to load properties from keystore.properties file
+def load_keystore_properties
+    properties = {}
+    File.open('./app/keystore.properties', 'r') do |file|
+        file.each_line do |line|
+            key, value = line.split('=')
+            properties[key.strip] = value.strip
+        end
+    end
+    properties
+end
+
 platform :android do
   desc "Increase version number"
   lane :bump do |options|
@@ -18,10 +30,18 @@ platform :android do
 
   desc "Build release version of app"
   lane :build do
+    keystore_props = load_keystore_properties
+
     # Compile release version of code
     gradle(
       task: "clean assembleRelease",
-      flags: "-Dorg.gradle.internal.http.socketTimeout=120000 -Dorg.gradle.internal.http.connectionTimeout=120000"
+      flags: "-Dorg.gradle.internal.http.socketTimeout=120000 -Dorg.gradle.internal.http.connectionTimeout=120000",
+      properties: {
+        "android.injected.signing.store.file" => keystore_props['storeFile'],
+        "android.injected.signing.store.password" => keystore_props['storePassword'],
+        "android.injected.signing.key.alias" => keystore_props['keyAlias'],
+        "android.injected.signing.key.password" => keystore_props['keyPassword']
+      }
     )
   end
 
