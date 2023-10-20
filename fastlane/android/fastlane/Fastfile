@@ -38,7 +38,7 @@ platform :android do
       task: "clean assembleRelease",
       flags: "-Dorg.gradle.internal.http.socketTimeout=120000 -Dorg.gradle.internal.http.connectionTimeout=120000",
       properties: {
-        "android.injected.signing.store.file" => "app/release.keystore",
+        "android.injected.signing.store.file" => "release.keystore",
         "android.injected.signing.store.password" => keystore_props['storePassword'],
         "android.injected.signing.key.alias" => keystore_props['keyAlias'],
         "android.injected.signing.key.password" => keystore_props['keyPassword']
