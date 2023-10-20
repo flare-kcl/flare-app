@@ -69,6 +69,7 @@ jobs:
       - name: Set up Ruby and install Fastlane
         uses: ruby/setup-ruby@v1
         with:
+          ruby-version: 2.7
           bundler-cache: true
           working-directory: android
 
