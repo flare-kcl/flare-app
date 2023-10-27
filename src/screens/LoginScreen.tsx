@@ -2,7 +2,6 @@ import { useRef, useState } from 'react'
 import { Dimensions, ImageSourcePropType, ScrollView } from 'react-native'
 import { useDispatch } from 'react-redux'
 import Spinner from 'react-native-spinkit'
-import Config from 'react-native-config'
 import camelcaseKeys from 'camelcase-keys'
 import Constants from 'expo-constants'
 import * as Sentry from '@sentry/react-native'
@@ -15,6 +14,7 @@ import { exampleExperimentData } from '@utils/exampleExperiment'
 import { setExperiment, updateModule, clearAllModules } from '@redux/reducers'
 import { useAlert } from '@utils/AlertProvider'
 import AssetCache from '@utils/AssetCache'
+import Config from '@utils/Config'
 
 const dimensions = Dimensions.get('screen')
 enum Stages {
