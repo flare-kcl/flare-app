@@ -1,0 +1,8 @@
+import { SENTRY_DTN, BASE_API_URL, BASE_MEDIA_URL, API_AUTH_TOKEN } from '@env'
+
+export default {
+  SENTRY_DTN,
+  BASE_API_URL,
+  BASE_MEDIA_URL,
+  API_AUTH_TOKEN,
+}

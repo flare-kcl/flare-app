@@ -1,6 +1,7 @@
-import Config from 'react-native-config'
 import isEqual from 'lodash/isEqual'
 import * as Sentry from '@sentry/react-native'
+
+import Config from '@utils/Config'
 
 // Handled errors
 const EXPERIMENT_FINISHED = {
