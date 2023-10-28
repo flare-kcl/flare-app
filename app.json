@@ -18,7 +18,7 @@
     },
     "android": {
       "package": "uk.ac.kcl.ioppn.flare",
-      "versionCode": 197,
+      "versionCode": 198,
       "adaptiveIcon": {
         "foregroundImage": "./assets/android-adaptive-icon-foreground.png",
         "monochromeImage": "./assets/android-adaptive-icon-foreground.png",
@@ -27,7 +27,7 @@
     },
     "ios": {
       "bundleIdentifier": "uk.ac.kcl.ioppn.flare",
-      "buildNumber": "197"
+      "buildNumber": "198"
     }
   },
   "assets": [
