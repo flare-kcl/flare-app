@@ -27,6 +27,7 @@ jobs:
       - name: Generate Develop .env file
         if: github.ref == 'refs/heads/develop'
         run: |
+          rm .env
           echo "BASE_API_URL=${{ secrets.DEV_API_URL }}" >> .env
           echo "API_AUTH_TOKEN=${{ secrets.DEV_AUTH_TOKEN }}" >> .env
           echo "SENTRY_DTN=${{ secrets.SENTRY_DTN }}" >> .env
@@ -38,6 +39,7 @@ jobs:
       - name: Generate Production .env file
         if: github.ref == 'refs/heads/main'
         run: |
+          rm .env
           echo "BASE_API_URL=${{ secrets.PROD_API_URL }}" >> .env
           echo "API_AUTH_TOKEN=${{ secrets.PROD_AUTH_TOKEN }}" >> .env
           echo "SENTRY_DTN=${{ secrets.SENTRY_DTN }}" >> .env
