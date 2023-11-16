@@ -13,11 +13,13 @@ const restyleFunctions = boxRestyleFunctions
 type Props = BoxProps<Theme> & {
   style?: StyleProp<any>
   scroll?: ScrollViewProps
+  children?: React.ReactNode
 }
 
 export const ScrollView: React.FC<Props> = ({
   style,
   scroll,
+  children,
   backgroundColor = 'greenLight',
   ...rest
 }) => {
@@ -44,7 +46,9 @@ export const ScrollView: React.FC<Props> = ({
         contentInsetAdjustmentBehavior="never"
         overScrollMode="never"
         {...props}
-      />
+      >
+        {children}
+    </NativeScrollView>
     </Box>
   )
 }
