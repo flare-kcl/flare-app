@@ -26,7 +26,7 @@ const getSimpleOSName = () => {
   }
 
   // Return unformatted platform name if it's neither iOS nor Android
-  return Platform.OS
+  return `${Platform.OS}`
 }
 
 export type DeviceInfoScreenProps = {

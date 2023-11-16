@@ -3,7 +3,7 @@ import { AirplayButton, showRoutePicker } from 'react-airplay'
 import { EmitterSubscription, Platform } from 'react-native'
 
 import { Box, Button, Image, Pressable, Text } from '@components'
-import { HeadphoneType } from '@containers/BasicInfoContainer'
+import { HeadphoneType } from '@screens/HeadphoneChoiceScreen'
 import { AntDesign } from '@expo/vector-icons'
 import AudioSensor from '@utils/AudioSensor'
 import { palette } from '@utils/theme'

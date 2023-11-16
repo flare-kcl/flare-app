@@ -7,7 +7,6 @@ import {
   Markdown,
   ScrollView,
   CriterionToggle,
-  SafeAreaView,
 } from '@components'
 import { useAlert } from '@utils/AlertProvider'
 
@@ -104,7 +103,6 @@ export const CriteriaScreen: React.FunctionComponent<CriteriaScreenParams> = ({
             {!!criterion.helpText && <Markdown markdown={criterion.helpText} />}
             <CriterionToggle
               id={criterion.id}
-              name={criterion.questionText}
               value={criterion.value}
               onChange={updateCriteria}
               mt={4}
