@@ -42,6 +42,7 @@ export const ScrollView: React.FC<Props> = ({
         contentInset={{ top: 0, bottom: 0 }}
         automaticallyAdjustContentInsets={false}
         contentInsetAdjustmentBehavior="never"
+        overScrollMode="never"
         {...props}
       />
     </Box>
