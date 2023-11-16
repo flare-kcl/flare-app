@@ -1,5 +1,6 @@
 import { Box, Button, Text, Pressable, Image, ScrollView } from '@components'
-import { HeadphoneType } from '@containers/BasicInfoContainer'
+
+export type HeadphoneType = 'in_ear' | 'on_ear' | 'over_ear'
 
 export type HeadphoneChoiceScreenProps = {
   headphoneType?: HeadphoneType

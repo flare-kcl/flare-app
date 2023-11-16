@@ -1,7 +1,9 @@
 import { Modal, TouchableOpacity } from 'react-native'
 
 import { ThemeColors } from '@utils/theme'
-import { Text, SafeAreaView, Box } from '.'
+import { Text } from './Text'
+import { SafeAreaView } from './SafeAreaView'
+import { Box } from './Box'
 
 type AlertProps = {
   id: any

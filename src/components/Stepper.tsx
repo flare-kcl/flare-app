@@ -1,4 +1,5 @@
-import { Box, Text } from '.'
+import { Box } from './Box'
+import { Text } from './Text'
 
 export const Stepper = ({
   stageLabel,

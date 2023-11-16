@@ -1,4 +1,4 @@
-import { Text } from '.'
+import { Text } from './Text'
 import { Box } from './Box'
 import { SafeAreaView } from './SafeAreaView'
 

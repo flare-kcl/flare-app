@@ -12,8 +12,6 @@ import {
   LabeledPickerField,
 } from '@components'
 
-import { BasicInfoContainerState } from '@containers/BasicInfoContainer'
-
 /**
  * Returns the simple name of the operating system the app is running on
  *
@@ -41,7 +39,7 @@ export type DeviceInfoScreenProps = {
   model: string
   manufacturer: string
   version: string
-  updateModule: (BasicInfoContainerState) => void
+  updateModule: (Object) => void
   onNext: () => void
 }
 
