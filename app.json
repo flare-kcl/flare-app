@@ -6,10 +6,7 @@
     "updates": {
       "enabled": false
     },
-    "platforms": [
-      "ios",
-      "android"
-    ],
+    "platforms": ["ios", "android"],
     "icon": "./assets/app-icon-1024.png",
     "splash": {
       "backgroundColor": "#ffffff",
@@ -30,7 +27,5 @@
       "buildNumber": "198"
     }
   },
-  "assets": [
-    "./src/assets/fonts/Inter/"
-  ]
+  "assets": ["./src/assets/fonts/Inter/"]
 }

@@ -1,5 +1,9 @@
 import { ExperimentModule } from './ExperimentContainer'
-import { DeviceInfoScreen, HeadphoneChoiceScreen, HeadphoneType } from '@screens'
+import {
+  DeviceInfoScreen,
+  HeadphoneChoiceScreen,
+  HeadphoneType,
+} from '@screens'
 
 export type PickerOptions = [{ label: string; value: string }]
 

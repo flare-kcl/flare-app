@@ -48,7 +48,7 @@ export const ScrollView: React.FC<Props> = ({
         {...props}
       >
         {children}
-    </NativeScrollView>
+      </NativeScrollView>
     </Box>
   )
 }

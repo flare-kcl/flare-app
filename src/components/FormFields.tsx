@@ -153,10 +153,7 @@ export const LabeledPickerField: React.FC<PickerFieldProps> = ({
         </Pressable>
       </Box>
 
-      <ActionSheet
-        ref={actionSheetRef}
-        defaultOverlayOpacity={0.8}
-      >
+      <ActionSheet ref={actionSheetRef} defaultOverlayOpacity={0.8}>
         <Box px={{ s: 4, m: 6 }}>
           <Box
             flexDirection="row"
