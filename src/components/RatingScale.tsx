@@ -1,7 +1,8 @@
 import { useState, useCallback } from 'react'
-import { Box, Text } from '@components'
+import { Box } from './Box'
+import { Text } from './Text'
+import { Pressable } from './Pressable'
 import { Dimensions } from 'react-native'
-import { Pressable } from '@components'
 import { debounce } from 'lodash'
 
 import {

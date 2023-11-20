@@ -1,6 +1,6 @@
 import { createAction, createReducer } from '@reduxjs/toolkit'
 import { Experiment } from '@containers/ExperimentContainer'
-import { HeadphoneType } from '@containers/BasicInfoContainer'
+import { HeadphoneType } from '@screens/HeadphoneChoiceScreen'
 
 export type RejectionReason =
   | 'TERMS_DECLINE'

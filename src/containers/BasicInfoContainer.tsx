@@ -1,8 +1,11 @@
 import { ExperimentModule } from './ExperimentContainer'
-import { DeviceInfoScreen, HeadphoneChoiceScreen } from '@screens'
+import {
+  DeviceInfoScreen,
+  HeadphoneChoiceScreen,
+  HeadphoneType,
+} from '@screens'
 
 export type PickerOptions = [{ label: string; value: string }]
-export type HeadphoneType = 'in_ear' | 'on_ear' | 'over_ear'
 
 export type BasicInfoModuleDefinition = {
   collectDateOfBirth: boolean

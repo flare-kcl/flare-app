@@ -1,4 +1,4 @@
-import { Box } from '@components'
+import { Box } from './Box'
 import { BoxProps } from '@shopify/restyle'
 import { palette, Theme } from '@utils/theme'
 import { Asset } from 'expo-asset'

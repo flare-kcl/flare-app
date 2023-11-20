@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import { Dimensions, TextInput, TextInputProps } from 'react-native'
 import { Picker } from '@react-native-picker/picker'
 import DatePicker from 'react-native-date-picker'
-import ActionSheet from 'react-native-actions-sheet'
+import ActionSheet, { ActionSheetRef } from 'react-native-actions-sheet'
 import { format } from 'date-fns'
 import {
   createRestyleComponent,
@@ -118,7 +118,7 @@ export const LabeledPickerField: React.FC<PickerFieldProps> = ({
   onChange,
   ...props
 }) => {
-  const actionSheetRef = useRef<ActionSheet>(null)
+  const actionSheetRef = useRef<ActionSheetRef>(null)
   const setModal = (open) => actionSheetRef.current?.setModalVisible(open)
   const selectedLabel = options.find((option) => option.value == value)?.label
   const maxHeight = Dimensions.get('screen').height * 0.7
@@ -153,11 +153,7 @@ export const LabeledPickerField: React.FC<PickerFieldProps> = ({
         </Pressable>
       </Box>
 
-      <ActionSheet
-        ref={actionSheetRef}
-        defaultOverlayOpacity={0.8}
-        delayActionSheetDraw={false}
-      >
+      <ActionSheet ref={actionSheetRef} defaultOverlayOpacity={0.8}>
         <Box px={{ s: 4, m: 6 }}>
           <Box
             flexDirection="row"

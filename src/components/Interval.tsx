@@ -1,5 +1,6 @@
 import { Dimensions } from 'react-native'
-import { Box, Text } from '@components'
+import { Box } from './Box'
+import { Text } from './Text'
 
 export const Interval = () => {
   const screenWidth = Dimensions.get('window').width

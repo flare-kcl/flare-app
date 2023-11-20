@@ -1,6 +1,6 @@
-import { useState } from 'react'
 import { BoxProps } from '@shopify/restyle'
-import { Box, Button } from '@components'
+import { Button } from './Button'
+import { Box } from './Box'
 import { Theme } from '@utils/theme'
 
 type ButtonProps = {

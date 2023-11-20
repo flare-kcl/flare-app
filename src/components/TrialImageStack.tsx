@@ -1,5 +1,6 @@
 import { Dimensions, ImageSourcePropType } from 'react-native'
-import { Image, Box } from '@components'
+import { Box } from './Box'
+import { Image } from './Image'
 
 type TrialImageStackProps = {
   contextImage?: ImageSourcePropType

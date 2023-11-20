@@ -11,8 +11,7 @@ import {
   LabeledTextField,
   LabeledPickerField,
 } from '@components'
-
-import { BasicInfoContainerState } from '@containers/BasicInfoContainer'
+import type { BasicInfoContainerState } from '@containers/BasicInfoContainer'
 
 /**
  * Returns the simple name of the operating system the app is running on
@@ -28,7 +27,7 @@ const getSimpleOSName = () => {
   }
 
   // Return unformatted platform name if it's neither iOS nor Android
-  return Platform.OS
+  return `${Platform.OS}`
 }
 
 export type DeviceInfoScreenProps = {
