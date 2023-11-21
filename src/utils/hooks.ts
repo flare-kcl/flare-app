@@ -153,3 +153,33 @@ export const useUnconditionalStimulus = ():
 
   return loaded ? audioRef.current : undefined
 }
+
+export const useHeadphonesConnection = (onConnectionChange) => {
+  const [connected, setConnected] = useState(false)
+
+  useEffect(() => {
+    // Initial check on mount
+    checkHeadphonesConnection()
+
+    // Check headphones are connected every second
+    const intervalId = setInterval(() => {
+      checkHeadphonesConnection()
+    }, 1000)
+
+    return () => {
+      clearInterval(intervalId)
+    }
+  }, [])
+
+  const checkHeadphonesConnection = async () => {
+    try {
+      const isConnected = await AudioSensor.isHeadphonesConnected()
+      setConnected(isConnected)
+      onConnectionChange && onConnectionChange(isConnected)
+    } catch (error) {
+      console.error('Error checking headphone connection:', error)
+    }
+  }
+
+  return connected
+}

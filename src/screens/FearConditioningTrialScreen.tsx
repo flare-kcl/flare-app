@@ -19,7 +19,7 @@ import {
 import AudioSensor from '@utils/AudioSensor'
 import { useAlert } from '@utils/AlertProvider'
 import AppStateMonitor from '@utils/AppStateMonitor'
-import { UnconditionalStimulusRef } from '@utils/hooks'
+import { UnconditionalStimulusRef, useHeadphonesConnection } from '@utils/hooks'
 import { PauseableTimer } from '@utils/timers'
 
 type FearConditioningTrialScreenProps = {
@@ -76,7 +76,6 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
     const scaleTimerRef = useRef<PauseableTimer>()
     const mountedTimerRef = useRef<PauseableTimer>()
     const ratingValueRef = useRef<any>()
-    const headphoneSensorListener = useRef<EmitterSubscription>()
     const headphoneRef = useRef<AlertRef>()
 
     const pauseTrial = () => {
@@ -174,12 +173,6 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
       // Fixes bug where ITI can get stuck by spam suspending app
       AppStateMonitor.manualUpdate()
 
-      // Setup Headphone Listening
-      AudioSensor.isHeadphonesConnected().then(showHeadphoneAlert)
-      headphoneSensorListener.current = AudioSensor.addHeadphonesListener(
-        showHeadphoneAlert,
-      )
-
       mountedTimerRef.current = new PauseableTimer(() => {
         // Set timer for sound, 500ms before end
         soundTimerRef.current = new PauseableTimer(async () => {
@@ -215,13 +208,12 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
         scaleTimerRef.current?.destroy()
         mountedTimerRef.current?.destroy()
 
-        // Disconnect volume listener
-        headphoneSensorListener.current?.remove()
-
         // Remove toast warning
         headphoneRef.current?.dismiss()
       }
     }, [])
+
+    useHeadphonesConnection(showHeadphoneAlert)
 
     return (
       <SafeAreaView flex={1} backgroundColor="white">

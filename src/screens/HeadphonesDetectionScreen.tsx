@@ -5,7 +5,7 @@ import { EmitterSubscription, Platform } from 'react-native'
 import { Box, Button, Image, Pressable, Text } from '@components'
 import { HeadphoneType } from '@screens/HeadphoneChoiceScreen'
 import { AntDesign } from '@expo/vector-icons'
-import AudioSensor from '@utils/AudioSensor'
+import { useHeadphonesConnection } from '@utils/hooks'
 import { palette } from '@utils/theme'
 
 type HeadphonesDetectionScreenProps = {
@@ -24,22 +24,8 @@ export const HeadphonesDetectionScreen: React.FunctionComponent<HeadphonesDetect
   onNext,
 }) => {
   const [connected, setConnected] = useState<boolean>()
-  const headphonesSensorRef = useRef<EmitterSubscription>()
 
-  useEffect(() => {
-    // Set initial value
-    AudioSensor.isHeadphonesConnected().then(setConnected)
-
-    // Listen to volume changes
-    headphonesSensorRef.current = AudioSensor.addHeadphonesListener(
-      setConnected,
-    )
-
-    // Detach listener on unmount
-    return () => {
-      headphonesSensorRef.current.remove()
-    }
-  }, [])
+  useHeadphonesConnection(setConnected)
 
   return (
     <Box flex={1} alignItems="center" pt={2} px={5}>
