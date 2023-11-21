@@ -54,9 +54,7 @@ export const ExternalLinkScreen: React.FunctionComponent<ExternalLinkScreenProps
         },
         {
           label: 'Continue',
-          onPressDismiss: () => {
-            onNext()
-          },
+          onPressDismiss: () => onNext(),
         },
       ],
     )

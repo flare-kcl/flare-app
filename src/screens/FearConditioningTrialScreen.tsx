@@ -147,8 +147,6 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
                   if (connected) {
                     headphoneIsConnectedRef.current = connected // true
                     resumeTrial()
-                    headphoneRef.current?.dismiss()
-                    headphoneRef.current = undefined
                   }
                 },
               },
@@ -224,6 +222,9 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
 
         // Disconnect volume listener
         headphoneSensorListener.current?.remove()
+
+        // Remove toast warning
+        headphoneRef.current?.dismiss()
       }
     }, [])
 
