@@ -82,11 +82,7 @@ export const Alert: React.FC<AlertProps> = ({
                   />
                 ))
               ) : (
-                <AlertButton
-                  alertRef={alertRef}
-                  label="Dismiss"
-                  onPress={(alertRef) => alertRef.dismiss()}
-                />
+                <AlertButton alertRef={alertRef} label="Dismiss" />
               )}
             </Box>
           </SafeAreaView>
@@ -119,6 +115,7 @@ export type AlertRef = {
 export type AlertAction = {
   label: string
   onPress?: (AlertRef) => void
+  onPressDismiss?: (AlertRef) => void
   style?: AlertButtonStyle
 }
 
@@ -129,6 +126,7 @@ export type AlertButtonProps = AlertAction & {
 const AlertButton: React.FC<AlertButtonProps> = ({
   label,
   onPress,
+  onPressDismiss,
   alertRef,
   style = 'default',
 }) => {
@@ -142,10 +140,17 @@ const AlertButton: React.FC<AlertButtonProps> = ({
       <TouchableOpacity
         onPress={() => {
           // Call handler if exists
-          onPress?.(alertRef)
+          if (onPress !== undefined) {
+            onPress?.(alertRef)
+          } else if (onPressDismiss !== undefined) {
+            onPressDismiss?.(alertRef)
 
-          // Dimiss alert
-          alertRef.dismiss()
+            // Dimiss alert after handler
+            alertRef.dismiss()
+          } else {
+            // Dimiss alert
+            alertRef.dismiss()
+          }
         }}
       >
         <Text fontSize={19} fontFamily="Inter-SemiBold" color={color}>

@@ -78,6 +78,7 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
     const ratingValueRef = useRef<any>()
     const headphoneSensorListener = useRef<EmitterSubscription>()
     const headphoneRef = useRef<AlertRef>()
+    const headphoneIsConnectedRef = useRef<boolean>()
 
     const pauseTrial = () => {
       soundTimerRef.current?.pause()
@@ -87,14 +88,16 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
     }
 
     const resumeTrial = () => {
-      AudioSensor.isHeadphonesConnected().then((showHeadphoneAlert) => {
-        if (showHeadphoneAlert && focusState.type === 'active') {
-          soundTimerRef.current?.resume()
-          scaleTimerRef.current?.resume()
-          mountedTimerRef.current?.resume()
-          endTimerRef.current?.resume()
-        }
-      })
+      if (headphoneIsConnectedRef?.current && focusState.type === 'active') {
+        soundTimerRef.current?.resume()
+        scaleTimerRef.current?.resume()
+        mountedTimerRef.current?.resume()
+        endTimerRef.current?.resume()
+
+        // Dismiss alert if not already dismissed
+        headphoneRef.current?.dismiss()
+        headphoneRef.current = undefined
+      }
     }
 
     const finishTrial = (delay: number) => {
@@ -119,36 +122,41 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
       if (connected === false) {
         // Stop the timers
         pauseTrial()
-
-        if (headphoneRef.current === undefined) {
-          if (Platform.OS === 'ios') {
-            headphoneRef.current = Alert.alert(
-              'Reconnect Headphones',
-              "Please reconnect your headphones to continue. If you're using AirPods, switch to them now.",
-              [
-                {
-                  label: 'Switch to AirPods',
-                  onPress: () =>
-                    showRoutePicker({ prioritizesVideoDevices: false }),
+        if (Platform.OS === 'ios') {
+          headphoneRef.current = Alert.alert(
+            'Reconnect Headphones',
+            "Please reconnect your headphones to continue. If you're using AirPods, switch to them now.",
+            [
+              {
+                label: 'Switch to AirPods',
+                onPressDismiss: () => {
+                  showRoutePicker({ prioritizesVideoDevices: false })
                 },
-              ],
-            )
-          } else {
-            headphoneRef.current = Alert.alert(
-              'Reconnect Headphones',
-              'Please reconnect your headphones to continue.',
-              [
-                /* Leave empty */
-              ],
-            )
-          }
+              },
+            ],
+          )
+        } else {
+          headphoneRef.current = Alert.alert(
+            'Reconnect Headphones',
+            'Please reconnect your headphones to continue.',
+            [
+              {
+                label: 'Re-check connection',
+                onPress: () => {
+                  const connected = AudioSensor.isHeadphonesConnectedSync()
+                  if (connected) {
+                    headphoneIsConnectedRef.current = connected // true
+                    resumeTrial()
+                    headphoneRef.current?.dismiss()
+                    headphoneRef.current = undefined
+                  }
+                },
+              },
+            ],
+          )
         }
       } else if (connected) {
-        // If we detect a reconnect then dismiss alert
-        headphoneRef.current?.dismiss()
-        headphoneRef.current = undefined
-
-        // Start timers again
+        // Start timers again and dismiss alerts
         resumeTrial()
       }
     }
@@ -174,11 +182,10 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
       // Fixes bug where ITI can get stuck by spam suspending app
       AppStateMonitor.manualUpdate()
 
-      // Setup Headphone Listening
-      AudioSensor.isHeadphonesConnected().then(showHeadphoneAlert)
-      headphoneSensorListener.current = AudioSensor.addHeadphonesListener(
-        showHeadphoneAlert,
-      )
+      AudioSensor.isHeadphonesConnected().then((connected) => {
+        headphoneIsConnectedRef.current = connected
+        showHeadphoneAlert(connected)
+      })
 
       mountedTimerRef.current = new PauseableTimer(() => {
         // Set timer for sound, 500ms before end
@@ -217,9 +224,6 @@ export const FearConditioningTrialScreen: React.FunctionComponent<FearConditioni
 
         // Disconnect volume listener
         headphoneSensorListener.current?.remove()
-
-        // Remove toast warning
-        headphoneRef.current?.dismiss()
       }
     }, [])
 

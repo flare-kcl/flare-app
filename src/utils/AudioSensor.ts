@@ -26,6 +26,10 @@ export default class AudioSensor {
     return DeviceInfo.isHeadphonesConnected()
   }
 
+  static isHeadphonesConnectedSync(): boolean {
+    return DeviceInfo.isHeadphonesConnectedSync()
+  }
+
   /**
    * @deprecated
    *
@@ -46,6 +50,8 @@ export default class AudioSensor {
     })
   }
 
+  // Avoiding in favour of isHeadphonesConnected as RNDeviceInfo_headphoneConnectionDidChange has issues detecting bluetooth changes
+  // https://github.com/react-native-device-info/react-native-device-info/issues/1415
   static addHeadphonesListener(cb: (connected: boolean) => void) {
     return deviceInfoEmitter.addListener(
       'RNDeviceInfo_headphoneConnectionDidChange',
