@@ -24,21 +24,13 @@ export const HeadphonesDetectionScreen: React.FunctionComponent<HeadphonesDetect
   onNext,
 }) => {
   const [connected, setConnected] = useState<boolean>()
-  const headphonesSensorRef = useRef<EmitterSubscription>()
+
+  const reCheckHeadphoneConnection = () => {
+    AudioSensor.isHeadphonesConnected().then(setConnected)
+  }
 
   useEffect(() => {
-    // Set initial value
     AudioSensor.isHeadphonesConnected().then(setConnected)
-
-    // Listen to volume changes
-    headphonesSensorRef.current = AudioSensor.addHeadphonesListener(
-      setConnected,
-    )
-
-    // Detach listener on unmount
-    return () => {
-      headphonesSensorRef.current.remove()
-    }
   }, [])
 
   return (
@@ -139,6 +131,13 @@ export const HeadphonesDetectionScreen: React.FunctionComponent<HeadphonesDetect
       </Box>
 
       <Box flex={1} alignSelf="flex-end" justifyContent="flex-end" pb={6}>
+        <Button
+          variant="primary"
+          label="Re-check connection"
+          onPress={reCheckHeadphoneConnection}
+          disabled={connected}
+          opacity={connected ? 0.4 : 1}
+        />
         <Button
           variant="primary"
           label="Next"

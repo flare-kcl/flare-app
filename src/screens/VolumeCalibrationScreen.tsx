@@ -82,7 +82,7 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
           [
             {
               label: 'Yes',
-              onPress: () => {
+              onPressDismiss: () => {
                 // Switch to volume rating
                 setStage(VolumeCalibrationStages.Rating)
               },
@@ -134,11 +134,11 @@ export const VolumeCalibrationScreen: React.FunctionComponent<VolumeCalibrationS
         [
           {
             label: 'Yes',
-            onPress: () => onFinishCalibration(volume, volumeRating),
+            onPressDismiss: () => onFinishCalibration(volume, volumeRating),
           },
           {
             label: 'No',
-            onPress: () => {
+            onPressDismiss: () => {
               decrementVolume()
               setStage(VolumeCalibrationStages.Error)
             },
