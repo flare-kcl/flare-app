@@ -6,7 +6,10 @@
     "updates": {
       "enabled": false
     },
-    "platforms": ["ios", "android"],
+    "platforms": [
+      "ios",
+      "android"
+    ],
     "icon": "./assets/app-icon-1024.png",
     "splash": {
       "backgroundColor": "#ffffff",
@@ -15,7 +18,7 @@
     },
     "android": {
       "package": "uk.ac.kcl.ioppn.flare",
-      "versionCode": 199,
+      "versionCode": 200,
       "adaptiveIcon": {
         "foregroundImage": "./assets/android-adaptive-icon-foreground.png",
         "monochromeImage": "./assets/android-adaptive-icon-foreground.png",
@@ -24,8 +27,10 @@
     },
     "ios": {
       "bundleIdentifier": "uk.ac.kcl.ioppn.flare",
-      "buildNumber": "199"
+      "buildNumber": "200"
     }
   },
-  "assets": ["./src/assets/fonts/Inter/"]
+  "assets": [
+    "./src/assets/fonts/Inter/"
+  ]
 }
